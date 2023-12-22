@@ -1,0 +1,31 @@
+{
+  "name": "cp",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
+    "format:check": "prettier --plugin-search-dir . --check ."
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "prettier": "^3.1.0",
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@10.2.4",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-svelte3": "^4.0.0"
+  }
+}
