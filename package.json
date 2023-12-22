@@ -1,31 +1,18 @@
 {
-  "name": "cp",
-  "private": true,
+  "name": "frequency-control-panel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
+    "build": "pnpm run --stream -r build",
+    "dev": "pnpm run --stream -r dev",
+    "lint": "pnpm run --stream -r lint",
+    "format:all": "pnpm run --stream -r format",
     "format": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
-    "format:check": "prettier --plugin-search-dir . --check ."
+    "format:check": "prettier --plugin-search-dir . --check .",
+    "test": "pnpm run --stream -r test"
   },
-  "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
-    "prettier": "^3.1.0",
-    "turbo": "latest"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "packageManager": "npm@10.2.4",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.15.0",
-    "@typescript-eslint/parser": "^6.15.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-svelte3": "^4.0.0"
-  }
+  "keywords": [],
+  "author": "Amplica Labs",
+  "license": "Apache-2.0"
 }
