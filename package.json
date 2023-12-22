@@ -1,0 +1,18 @@
+{
+  "name": "frequency-control-panel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm run --stream -r build",
+    "dev": "pnpm run --stream -r dev",
+    "lint": "pnpm run --stream -r lint",
+    "format:all": "pnpm run --stream -r format",
+    "format": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
+    "format:check": "prettier --plugin-search-dir . --check .",
+    "test": "pnpm run --stream -r test"
+  },
+  "keywords": [],
+  "author": "Amplica Labs",
+  "license": "Apache-2.0"
+}
