@@ -2,12 +2,25 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      ":utils": ["../utils"],
-      ":utils/*": ["../utils/*"]
+      ":common": [
+        "../common"
+      ],
+      ":common/*": [
+        "../common/*"
+      ],
+      ":utils": [
+        "../utils"
+      ],
+      ":utils/*": [
+        "../utils/*"
+      ]
     }
   },
   "include": [],
   "references": [
+    {
+      "path": "../common"
+    },
     {
       "path": "../utils"
     }
