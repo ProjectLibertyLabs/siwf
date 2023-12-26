@@ -1,19 +1,15 @@
 {
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "paths": {
-            ":utils": [
-                "../utils"
-            ],
-            ":utils/*": [
-                "../utils/*"
-            ]
-        }
-    },
-    "include": [],
-    "references": [
-        {
-            "path": "../utils"
-        }
-    ]
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      ":utils": ["../utils"],
+      ":utils/*": ["../utils/*"]
+    }
+  },
+  "include": [],
+  "references": [
+    {
+      "path": "../utils"
+    }
+  ]
 }
