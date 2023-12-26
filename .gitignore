@@ -36,3 +36,11 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# The `outDir` for declarations
+lib/
+# Build cache manifests
+*.tsbuildinfo
+
+# VSCode files
+.vscode/
