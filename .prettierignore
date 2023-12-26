@@ -11,3 +11,5 @@ node_modules
 # Ignore files for PNPM, NPM and YARN
 package-lock.json
 pnpm-lock.yaml
+
+README.md

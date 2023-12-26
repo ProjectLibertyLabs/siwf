@@ -3,12 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "airbnb-base",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:svelte/recommended",
-    "prettier"
-  ],
+  "extends": ["airbnb-base", "plugin:@typescript-eslint/recommended", "plugin:svelte/recommended", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json",
@@ -26,23 +21,14 @@
       }
     ],
     "import/parsers": {
-      "@typescript-eslint/parser": [
-        ".ts",
-        ".tsx"
-      ]
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
       "typescript": {
         "directory": "./tsconfig.json"
       },
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".d.ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".d.ts", ".tsx"]
       }
     },
     "react": {
@@ -79,23 +65,14 @@
     "import/order": [
       1,
       {
-        "groups": [
-          "external",
-          "builtin",
-          "internal",
-          "sibling",
-          "parent",
-          "index"
-        ],
+        "groups": ["external", "builtin", "internal", "sibling", "parent", "index"],
         "pathGroups": [
           {
             "pattern": "@community-rewards*",
             "group": "internal"
           }
         ],
-        "pathGroupsExcludedImportTypes": [
-          "internal"
-        ],
+        "pathGroupsExcludedImportTypes": ["internal"],
         "alphabetize": {
           "order": "asc",
           "caseInsensitive": true
@@ -117,8 +94,5 @@
     ],
     "prettier/prettier": 2
   },
-  "plugins": [
-    "import",
-    "prettier"
-  ]
+  "plugins": ["import", "prettier"]
 }
