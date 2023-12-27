@@ -1,7 +1,3 @@
-import TalismanIcon from './icons/TalismanRedIcon.svelte';
-import PolkadotIcon from './icons/Polkadot.svelte';
-import SubWallet from './icons/SubWallet.svelte';
-
 export type Extension = {
   displayName: string;
   injectedName: string;
@@ -9,7 +5,7 @@ export type Extension = {
     browser?: Record<string, string> | undefined;
     app?: Record<string, string>;
   };
-  logo: Record<string, any>;
+  logo?: Record<string, any>;
 };
 
 export const extensionsConfig: Extension[] = [
@@ -22,7 +18,7 @@ export const extensionsConfig: Extension[] = [
         firefox: 'https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/',
       },
     },
-    logo: { component: PolkadotIcon, size: '5em' },
+    // logo: { component: PolkadotIcon, size: '5em' },
   },
   {
     displayName: 'Talisman',
@@ -32,7 +28,7 @@ export const extensionsConfig: Extension[] = [
         chrome: 'https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd',
       },
     },
-    logo: { component: TalismanIcon, size: '5em' },
+    // logo: { component: TalismanIcon, size: '5em' },
   },
   {
     displayName: 'SubWallet',
@@ -46,7 +42,7 @@ export const extensionsConfig: Extension[] = [
         android: 'https://play.google.com/store/apps/details?id=app.subwallet.mobile',
       },
     },
-    logo: { component: SubWallet, size: '6em' },
+    // logo: { component: SubWallet, size: '6em' },
   },
   {
     displayName: 'MetaMask',
@@ -60,6 +56,6 @@ export const extensionsConfig: Extension[] = [
         android: 'https://play.google.com/store/apps/details?id=io.metamask',
       },
     },
-    logo: { component: SubWallet, size: '6em' },
+    // logo: { component: SubWallet, size: '6em' },
   },
 ];

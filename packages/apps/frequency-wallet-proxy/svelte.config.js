@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -14,8 +14,10 @@ const config = {
     adapter: adapter(),
 
     alias: {
-      '@frequency-control-panel/components': '../../components',
-      '@frequency-control-panel/components/*': '../../components/*'
+      '@frequency-control-panel/components': '../../components/dist',
+      '@frequency-control-panel/components/*': '../../components/dist/*',
+      '@frequency-control-panel/common': '../../common',
+      '@frequency-control-panel/common/*': '../../common/*'
     },
   },
 };

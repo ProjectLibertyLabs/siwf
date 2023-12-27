@@ -1,11 +1,11 @@
 {
 	"compilerOptions": {
 		"paths": {
-			"@frequency-control-panel/common": [
-				"../../common"
+			"$lib": [
+				"../src/lib"
 			],
-			"@frequency-control-panel/common/*": [
-				"../../common/*"
+			"$lib/*": [
+				"../src/lib/*"
 			]
 		},
 		"rootDirs": [
