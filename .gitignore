@@ -44,3 +44,6 @@ lib/
 
 # VSCode files
 .vscode/
+
+# Svelte artifacts
+**/.svelte-kit/
