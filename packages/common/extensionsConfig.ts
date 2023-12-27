@@ -18,7 +18,6 @@ export const extensionsConfig: Extension[] = [
         firefox: 'https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/',
       },
     },
-    // logo: { component: PolkadotIcon, size: '5em' },
   },
   {
     displayName: 'Talisman',
@@ -42,7 +41,6 @@ export const extensionsConfig: Extension[] = [
         android: 'https://play.google.com/store/apps/details?id=app.subwallet.mobile',
       },
     },
-    // logo: { component: SubWallet, size: '6em' },
   },
   {
     displayName: 'MetaMask',
@@ -56,6 +54,5 @@ export const extensionsConfig: Extension[] = [
         android: 'https://play.google.com/store/apps/details?id=io.metamask',
       },
     },
-    // logo: { component: SubWallet, size: '6em' },
   },
 ];
