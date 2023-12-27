@@ -1,6 +1,8 @@
 import TalismanIcon from './icons/TalismanRedIcon.svelte';
 import PolkadotIcon from './icons/Polkadot.svelte';
-import SubWallet from './icons/SubWallet.svelte';
+import SubWalletIcon from './icons/SubWallet.svelte';
+// import PolkadotIcon from '@frequency-control-panel/components/Polkadot.svelte';
+// import SubWallet from '@frequency-control-panel/components/SubWallet.svelte';
 
 export type Extension = {
   displayName: string;
@@ -46,20 +48,6 @@ export const extensionsConfig: Extension[] = [
         android: 'https://play.google.com/store/apps/details?id=app.subwallet.mobile',
       },
     },
-    logo: { component: SubWallet, size: '6em' },
-  },
-  {
-    displayName: 'MetaMask',
-    injectedName: 'metamask',
-    downloadUrl: {
-      browser: {
-        chrome: 'https://chrome.google.com/webstore/detail/subwallet-polkadot-wallet/onhogfjeacnfoofkfgppdlbmlmnplgbn',
-      },
-      app: {
-        apple: 'https://apps.apple.com/us/app/metamask-blockchain-wallet/id1438144202',
-        android: 'https://play.google.com/store/apps/details?id=io.metamask',
-      },
-    },
-    logo: { component: SubWallet, size: '6em' },
+    logo: { component: SubWalletIcon, size: '6em' },
   },
 ];

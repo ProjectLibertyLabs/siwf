@@ -69,13 +69,8 @@ importers:
         specifier: ^1.0.0
         version: 1.1.0
 
-  packages/common: {}
-
   packages/components:
     dependencies:
-      '@frequency-control-panel/common':
-        specifier: workspace:^
-        version: link:../common
       '@iconify/icons-eos-icons':
         specifier: ^1.2.6
         version: 1.2.6

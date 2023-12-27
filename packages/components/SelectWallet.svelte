@@ -1,8 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { extensionsConfig } from '@frequency-control-panel/common';
+  import { extensionsConfig } from './extensionsConfig';
   import type { Extension } from '@frequency-control-panel/common';
-  import AmplicaAccess from './icons/AmplicaAccess.svelte';
 
   export let extensions: Array<Extension> = [];
 
@@ -35,10 +34,9 @@
     </button>
   {/each}
   <div class="mx-auto mt-8 text-4xl">OR</div>
-  <button type="button" class="btn-banner font-bold" on:click={() => handleAmplicaAccess()}>
+  <button type="button" class="btn-banner font-bold">
     <div class="flex justify-evenly">
-      <AmplicaAccess />
-      <div class="my-auto text-2xl">Sign in with Amplica Access</div>
+    Amplica Access
     </div>
   </button>
 </div>
