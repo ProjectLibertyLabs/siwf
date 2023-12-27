@@ -1,5 +1,5 @@
 {
-  "name": "common",
+  "name": "@frequency-control-panel/common",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
