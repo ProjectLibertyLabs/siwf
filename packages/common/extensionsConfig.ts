@@ -12,7 +12,7 @@ export type Extension = {
   logo: Record<string, any>;
 };
 
-export const extensionsConfig: Array<Extension> = [
+export const extensionsConfig: Extension[] = [
   {
     displayName: 'Polkadot',
     injectedName: 'polkadot-js',

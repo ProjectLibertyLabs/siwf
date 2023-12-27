@@ -35,6 +35,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@frequency-control-panel/components": "workspace:^",
     "tailwind-merge": "^2.2.0"
   }
 }
