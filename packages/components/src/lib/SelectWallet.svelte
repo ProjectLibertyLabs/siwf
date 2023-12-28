@@ -2,7 +2,6 @@
   import { onMount } from 'svelte';
   import { extensionsConfig } from './extensionsConfig.js';
   import type { Extension } from './extensionsConfig.js';
-  import AmplicaAccess from './icons/AmplicaAccess.svelte';
 
   export let extensions: Array<Extension> = [];
 
@@ -34,11 +33,4 @@
       </div>
     </button>
   {/each}
-  <div class="mx-auto mt-8 text-4xl">OR</div>
-  <button type="button" class="btn-banner font-bold" on:click={() => handleAmplicaAccess()}>
-    <div class="flex justify-evenly">
-      <AmplicaAccess />
-      <div class="my-auto text-2xl">Sign in with Amplica Access</div>
-    </div>
-  </button>
 </div>

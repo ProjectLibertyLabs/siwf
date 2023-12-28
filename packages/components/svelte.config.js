@@ -13,11 +13,6 @@ const config = {
     // See https://kit.svelte.dev/docs/adapters for more information about adapters.
     adapter: adapter(),
   },
-
-  alias: {
-    '@frequency-control-panel/common': '../../common',
-    '@frequency-control-panel/common/*': '../../common/*',
-  },
 };
 
 export default config;

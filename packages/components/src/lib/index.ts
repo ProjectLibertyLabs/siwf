@@ -1,2 +1,2 @@
 // Reexport your entry components here
-export * from './SelectWallet.svelte';
+export { default as SelectWallet } from './SelectWallet.svelte';

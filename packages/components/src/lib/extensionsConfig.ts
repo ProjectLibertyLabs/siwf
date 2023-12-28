@@ -1,7 +1,6 @@
 import TalismanIcon from './icons/TalismanRedIcon.svelte';
 import PolkadotIcon from './icons/Polkadot.svelte';
 import SubWallet from './icons/SubWallet.svelte';
-import MetaMask from './icons/MetaMask.svelte';
 
 export type Extension = {
   displayName: string;
@@ -48,19 +47,5 @@ export const extensionsConfig: Extension[] = [
       },
     },
     logo: { component: SubWallet, size: '6em' },
-  },
-  {
-    displayName: 'MetaMask',
-    injectedName: 'metamask',
-    downloadUrl: {
-      browser: {
-        chrome: 'https://chrome.google.com/webstore/detail/subwallet-polkadot-wallet/onhogfjeacnfoofkfgppdlbmlmnplgbn',
-      },
-      app: {
-        apple: 'https://apps.apple.com/us/app/metamask-blockchain-wallet/id1438144202',
-        android: 'https://play.google.com/store/apps/details?id=io.metamask',
-      },
-    },
-    logo: { component: MetaMask, size: '6em' },
   },
 ];
