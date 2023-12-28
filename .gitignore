@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+.DS_Store
+
+
 # Dependencies
 node_modules
 .pnp
@@ -37,10 +40,14 @@ yarn-error.log*
 .DS_Store
 *.pem
 
-# The `outDir` for declarations
-lib/
 # Build cache manifests
 *.tsbuildinfo
 
 # VSCode files
 .vscode/
+
+# Svelte artifacts
+**/.svelte-kit/
+package/
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*

@@ -1,15 +1,15 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
-    "paths": {
-      ":utils": ["../utils"],
-      ":utils/*": ["../utils/*"]
-    }
-  },
-  "include": [],
-  "references": [
-    {
-      "path": "../utils"
-    }
-  ]
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
+  }
 }

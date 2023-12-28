@@ -1,5 +1,5 @@
 {
-  "name": "signup-login",
+  "name": "@frequency-control-panel/frequency-wallet-proxy",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -19,7 +19,6 @@
     "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
-    "eslint-config-custom": "^0.0.0",
     "prettier": "^3.1.1",
     "prettier-plugin-svelte": "^3.1.2",
     "prettier-plugin-tailwindcss": "^0.5.9",
@@ -36,6 +35,6 @@
   },
   "type": "module",
   "dependencies": {
-    "tailwind-merge": "^2.2.0"
+    "@frequency-control-panel/components": "workspace:^"
   }
 }
