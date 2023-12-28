@@ -77,9 +77,6 @@ importers:
 
   packages/components:
     dependencies:
-      '@frequency-control-panel/common':
-        specifier: workspace:^
-        version: link:../common
       unplugin-icons:
         specifier: ^0.18.1
         version: 0.18.1

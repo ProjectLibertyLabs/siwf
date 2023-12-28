@@ -53,7 +53,6 @@
   "types": "./dist/index.d.ts",
   "type": "module",
   "dependencies": {
-    "@frequency-control-panel/common": "workspace:^",
     "unplugin-icons": "^0.18.1"
   }
 }
