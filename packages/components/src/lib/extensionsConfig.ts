@@ -46,6 +46,6 @@ export const extensionsConfig: Extension[] = [
         android: 'https://play.google.com/store/apps/details?id=app.subwallet.mobile',
       },
     },
-    logo: { component: SubWallet, size: '6em' },
+    logo: { component: SubWallet, size: '5em' },
   },
 ];
