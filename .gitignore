@@ -40,8 +40,6 @@ yarn-error.log*
 .DS_Store
 *.pem
 
-# The `outDir` for declarations
-lib/
 # Build cache manifests
 *.tsbuildinfo
 
