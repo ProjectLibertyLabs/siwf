@@ -31,5 +31,5 @@ module.exports = {
       files: ['*.js?(x)', '*.ts?(x)'],
     },
   ],
-  project: ['./tsconfig.eslint.json', 'packages/*/tsconfig.json']
+  project: ['./tsconfig.eslint.json', 'packages/*/tsconfig.json'],
 };
