@@ -2,7 +2,6 @@
   "name": "frequency-control-panel",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "build": "pnpm run --stream -r build",
     "dev": "pnpm run --stream -r dev",
@@ -10,7 +9,16 @@
     "format:all": "pnpm run --stream -r format",
     "format": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
     "format:check": "prettier --plugin-search-dir . --check .",
-    "test": "pnpm run --stream -r test"
+    "test": "pnpm run --stream -r test",
+    "test:unit": "pnpm run --stream -r test:unit",
+    "proxy-wallet": "pnpm --filter @frequency-control-panel/frequency-wallet-proxy",
+    "utils": "pnpm --filter @frequency-control-panel/utils"
+  },
+  "devDependencies": {
+    "eslint": "^8.54.0",
+    "@frequency-control-panel/eslint-config": "workspace:*",
+    "prettier": "^3.1.0",
+    "prettier-plugin-svelte": "^3.1.2"
   },
   "keywords": [],
   "author": "Amplica Labs",

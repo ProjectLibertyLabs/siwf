@@ -1,6 +1,12 @@
+import type { ComponentType, SvelteComponent } from 'svelte';
 import TalismanIcon from './icons/TalismanRedIcon.svelte';
 import PolkadotIcon from './icons/Polkadot.svelte';
 import SubWallet from './icons/SubWallet.svelte';
+
+type Logo = {
+  component: ComponentType<SvelteComponent>;
+  size: string;
+};
 
 export type Extension = {
   displayName: string;
@@ -9,7 +15,7 @@ export type Extension = {
     browser?: Record<string, string> | undefined;
     app?: Record<string, string>;
   };
-  logo: Record<string, any>;
+  logo: Logo;
 };
 
 export const extensionsConfig: Extension[] = [

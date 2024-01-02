@@ -1,0 +1,13 @@
+{
+  "name": "@frequency-control-panel/eslint-config",
+  "version": "0.0.0",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-svelte": "^2.35.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
