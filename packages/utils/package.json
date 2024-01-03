@@ -1,18 +1,36 @@
 {
   "name": "@frequency-control-panel/utils",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "type": "module",
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*"
+  ],
+  "main": "./dist/fcp-utils.umd.cjs",
+  "module": "./dist/fcp-utils.js",
+  "exports": {
+    ".": {
+      "import": "./dist/fcp-utils.js",
+      "require": "./dist/fcp-utils.cjs"
+    }
   },
-  "keywords": [],
-  "author": "",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "@frequency-chain/api-augment": "^1.9.0",
-    "@polkadot/api": "^10.11.2",
-    "@polkadot/extension-inject": "^0.46.6",
-    "rxjs": "^7.8.1"
+  "types": "./dist/fcp-utils.d.ts",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test": "vitest run",
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write .",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "pathe": "^1.1.1",
+    "prettier": "^3.1.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vite-plugin-dts": "^3.7.0",
+    "vitest": "^1.0.0"
   }
 }
