@@ -26,6 +26,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@frequency-control-panel/eslint-config": "workspace:*",
     "pathe": "^1.1.1",
     "prettier": "^3.1.1",
     "typescript": "^5.2.2",

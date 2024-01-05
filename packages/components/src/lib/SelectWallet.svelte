@@ -13,10 +13,6 @@
   async function handleSelectedWallet(injectedName: string) {
     alert(`Selected wallet: ${injectedName}`);
   }
-
-  function handleAmplicaAccess() {
-    alert('Signing in with Amplica Access...');
-  }
 </script>
 
 <div class="xs:mx-12 sm:w-500 md:w-800 mx-auto flex flex-col gap-2">
