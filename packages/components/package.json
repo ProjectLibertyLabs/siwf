@@ -30,11 +30,11 @@
     "svelte": "^4.0.0"
   },
   "devDependencies": {
+    "@frequency-control-panel/eslint-config": "workspace:*",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/package": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
-    "@frequency-control-panel/eslint-config": "workspace:*",
     "prettier-plugin-svelte": "^3.1.2",
     "publint": "^0.1.9",
     "svelte": "^4.2.7",
@@ -48,6 +48,9 @@
   "types": "./dist/index.d.ts",
   "type": "module",
   "dependencies": {
+    "@frequency-control-panel/utils": "workspace:^",
+    "@iconify/icons-ic": "^1.2.13",
+    "@iconify/svelte": "^3.1.6",
     "unplugin-icons": "^0.18.1"
   }
 }

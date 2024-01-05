@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SelectWallet } from '@frequency-control-panel/components';
+  import { WalletSelector, WalletButton } from '@frequency-control-panel/components';
 </script>
 
-<SelectWallet />
+<WalletSelector />
