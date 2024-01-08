@@ -1,4 +1,4 @@
-export function isWalletInstalled(injectedName: string): boolean {
+export function isExtensionInstalled(injectedName: string): boolean {
   return !!(
     'injectedWeb3' in window &&
     typeof window.injectedWeb3 === 'object' &&

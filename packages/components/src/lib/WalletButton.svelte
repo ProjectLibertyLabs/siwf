@@ -2,7 +2,7 @@
   import { createEventDispatcher, onMount } from 'svelte';
   import Icon from '@iconify/svelte';
   import type { Extension } from './extensionsConfig.js';
-  import { isWalletInstalled } from '@frequency-control-panel/utils';
+  import { isExtensionInstalled } from '@frequency-control-panel/utils';
   import baselineDownload from '@iconify/icons-ic/baseline-download';
 
   const dispatch = createEventDispatcher();
@@ -16,8 +16,8 @@
     console.log('Window ready');
   }
 
-  function walletDetected(): boolean {
-    installed = isWalletInstalled(extension.injectedName);
+  function extensionDetected(): boolean {
+    installed = isExtensionInstalled(extension.injectedName);
     return installed;
   }
 
@@ -49,7 +49,7 @@
              Without this, we get a false negative for the polkadot-js extension about 10% of the time.
           -->
       {#await new Promise((resolve) => setTimeout(resolve, 50)) then}
-        {#if !walletDetected()}
+        {#if !extensionDetected()}
           <Icon icon={baselineDownload} width="30" height="30" />
         {/if}
       {/await}
