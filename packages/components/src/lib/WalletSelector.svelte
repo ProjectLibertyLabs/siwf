@@ -3,7 +3,7 @@
   import { extensionsConfig, Extension } from './extensionsConfig.js';
   import WalletButton from './WalletButton.svelte';
 
-  export let extensions: Array<Extension> = [];
+  export let extensions: Extension[] = [];
 
   onMount(async () => {
     extensions = extensionsConfig;
