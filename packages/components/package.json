@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@frequency-control-panel/eslint-config": "workspace:*",
+    "@iconify/types": "^2.0.0",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/package": "^2.0.0",

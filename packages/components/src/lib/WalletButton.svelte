@@ -3,7 +3,7 @@
   import Icon from '@iconify/svelte';
   import type { Extension } from './extensionsConfig.js';
   import { isExtensionInstalled, delayMs } from '@frequency-control-panel/utils';
-  import baselineDownload from '@iconify/icons-ic/baseline-download';
+  import baselineDownload from '@iconify/icons-ic/baseline-download.js';
 
   const dispatch = createEventDispatcher();
 
