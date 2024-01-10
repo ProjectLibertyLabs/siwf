@@ -16,20 +16,17 @@
     //  Without this, we get a false negative for the polkadot-js extension about 10% of the time.
     if (extension.injectedName === 'polkadot-js') {
       await delayMs(50);
+      console.log();
     }
     installed = isExtensionInstalled(extension.injectedName);
   });
 
   function selectWallet() {
-    if (installed) {
-      dispatch('wallet_selected', extension);
-    } else {
-      dispatch('install_wallet', extension);
-    }
+    dispatch('walletSelected', { ...extension, installed });
   }
 </script>
 
-<button type="button" class="btn-banner font-bold" on:click={() => selectWallet()}>
+<div type="button" class="btn-banner font-bold" on:click={() => selectWallet()}>
   <div class="flex items-center justify-center gap-3">
     <div class="basis-3/12">
       <svelte:component this={extension.logo.component} size={extension.logo.size} />
@@ -44,4 +41,4 @@
       {/if}
     </div>
   </div>
-</button>
+</div>
