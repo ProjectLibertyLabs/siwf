@@ -6,5 +6,8 @@ export default defineConfig({
   plugins: [sveltekit(), tsconfigPaths()],
   test: {
     include: ['src/**/*.{test,spec}.{js,ts}'],
+    globals: true,
+    environment: 'jsdom',
+    mockReset: true,
   },
 });
