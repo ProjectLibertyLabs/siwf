@@ -48,7 +48,7 @@
   "types": "./dist/index.d.ts",
   "type": "module",
   "dependencies": {
-    "@frequency-control-panel/utils": "workspace:^",
+    "@frequency-control-panel/utils": "workspace:*",
     "@iconify/icons-ic": "^1.2.13",
     "@iconify/svelte": "^3.1.6",
     "unplugin-icons": "^0.18.1"

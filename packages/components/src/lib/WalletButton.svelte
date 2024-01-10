@@ -2,7 +2,7 @@
   import { createEventDispatcher, onMount } from 'svelte';
   import Icon from '@iconify/svelte';
   import type { Extension } from './extensionsConfig.js';
-  import { isExtensionInstalled } from '@frequency-control-panel/utils';
+  import { isExtensionInstalled, delayMs } from '@frequency-control-panel/utils';
   import baselineDownload from '@iconify/icons-ic/baseline-download';
 
   const dispatch = createEventDispatcher();
@@ -11,18 +11,13 @@
   let installed = false;
   $: buttonText = installed ? 'Sign in with' : 'Install';
 
-  async function onReady(): Promise<void> {
-    await new Promise((resolve) => window.addEventListener('load', resolve));
-    console.log('Window ready');
-  }
-
-  function extensionDetected(): boolean {
-    installed = isExtensionInstalled(extension.injectedName);
-    return installed;
-  }
-
   onMount(async (): Promise<void> => {
-    await onReady();
+    //  Tiny delay here to work around an injection timing bug with the polkadot-js wallet extension.
+    //  Without this, we get a false negative for the polkadot-js extension about 10% of the time.
+    if (extension.injectedName === 'polkadot-js') {
+      await delayMs(50);
+    }
+    installed = isExtensionInstalled(extension.injectedName);
   });
 
   function selectWallet() {
@@ -44,15 +39,9 @@
       <span class="text-sm italic antialiased">{buttonText} {extension.displayName}</span>
     </div>
     <div class="w-4 basis-1/12">
-      <!--
-             Tiny delay here to work around an injection timing bug with the polkadot-js wallet extension.
-             Without this, we get a false negative for the polkadot-js extension about 10% of the time.
-          -->
-      {#await new Promise((resolve) => setTimeout(resolve, 50)) then}
-        {#if !extensionDetected()}
-          <Icon icon={baselineDownload} width="30" height="30" />
-        {/if}
-      {/await}
+      {#if !installed}
+        <Icon icon={baselineDownload} width="30" height="30" />
+      {/if}
     </div>
   </div>
 </button>

@@ -5,7 +5,7 @@
 
   export let extensions: Extension[] = [];
 
-  onMount(async () => {
+  onMount(() => {
     extensions = extensionsConfig;
   });
 

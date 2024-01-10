@@ -85,7 +85,7 @@ importers:
   packages/components:
     dependencies:
       '@frequency-control-panel/utils':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../utils
       '@iconify/icons-ic':
         specifier: ^1.2.13
