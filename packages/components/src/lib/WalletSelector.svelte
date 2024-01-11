@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { Extension } from './extensionsConfig.ts';
-  import { onMount } from 'svelte';
   import { extensionsConfig } from './extensionsConfig.js';
   import WalletButton from './WalletButton.svelte';
 
