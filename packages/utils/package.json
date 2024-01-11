@@ -22,6 +22,7 @@
     "build": "tsc && vite build",
     "test": "vitest run",
     "lint": "prettier --check . && eslint .",
+    "lint:fix": "prettier --write . && eslint --fix .",
     "format": "prettier --write .",
     "preview": "vite preview"
   },

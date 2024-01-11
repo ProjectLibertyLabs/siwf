@@ -24,9 +24,25 @@
   function selectWallet() {
     dispatch('walletSelected', { ...extension, installed });
   }
+
+  function handleKeyPress(event: KeyboardEvent) {
+    switch (event.key) {
+      case ' ': {
+        event.stopPropagation;
+        selectWallet();
+        break;
+      }
+    } //end switch
+  }
 </script>
 
-<div type="button" class="btn-banner font-bold" on:click={() => selectWallet()}>
+<div
+  role="button"
+  tabindex="0"
+  class="btn-banner font-bold"
+  on:keydown={handleKeyPress}
+  on:click={() => selectWallet()}
+>
   <div class="flex items-center justify-center gap-3">
     <div class="basis-3/12">
       <svelte:component this={extension.logo.component} size={extension.logo.size} />
