@@ -16,6 +16,7 @@ export type Extension = {
     app?: Record<string, string>;
   };
   logo: Logo;
+  installed?: boolean;
 };
 
 export const extensionsConfig: Extension[] = [

@@ -1,6 +1,9 @@
 import { expect, test } from 'vitest';
-import { sum } from './index';
+import { delayMs } from './index';
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+test('delayMs waits for at least n millseconds', async () => {
+  const t1 = Date.now();
+  await delayMs(3000);
+  const t2 = Date.now();
+  expect(t2 - t1).toBeGreaterThanOrEqual(3000);
 });

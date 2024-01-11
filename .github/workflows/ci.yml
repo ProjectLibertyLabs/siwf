@@ -9,6 +9,7 @@ on:
 
 jobs:
   build:
+    name: 'Build'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -46,7 +47,8 @@ jobs:
       - name: build dependencies
         run: pnpm run build
 
-  test:
+  unit-test:
+      name: Unit Test
       runs-on: ubuntu-latest
       strategy:
         matrix:
@@ -81,10 +83,14 @@ jobs:
         - name: Install dependencies
           run: pnpm install
 
-        - name: build dependencies
+        - name: Run build
           run: pnpm run build
 
+        - name: Run unit tests
+          run: pnpm run test:unit
+
   lint:
+      name: 'Lint'
       runs-on: ubuntu-latest
       strategy:
         matrix:
