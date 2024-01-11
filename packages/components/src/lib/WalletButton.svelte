@@ -16,7 +16,6 @@
     //  Without this, we get a false negative for the polkadot-js extension about 10% of the time.
     if (extension.injectedName === 'polkadot-js') {
       await delayMs(50);
-      console.log();
     }
     installed = isExtensionInstalled(extension.injectedName);
   });
