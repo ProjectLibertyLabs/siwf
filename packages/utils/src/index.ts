@@ -1,4 +1,5 @@
 export * from './wallet';
+export * from './extension';
 
 /**
  * Convenience method for an async delay; to avoid having
