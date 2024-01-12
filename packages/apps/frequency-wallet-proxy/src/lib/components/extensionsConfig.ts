@@ -1,7 +1,7 @@
 import type { ComponentType, SvelteComponent } from 'svelte';
-import TalismanIcon from './icons/TalismanRedIcon.svelte';
-import PolkadotIcon from './icons/Polkadot.svelte';
-import SubWallet from './icons/SubWallet.svelte';
+import TalismanIcon from '../icons/TalismanRedIcon.svelte';
+import PolkadotIcon from '../icons/Polkadot.svelte';
+import SubWallet from '../icons/SubWallet.svelte';
 
 type Logo = {
   component: ComponentType<SvelteComponent>;
