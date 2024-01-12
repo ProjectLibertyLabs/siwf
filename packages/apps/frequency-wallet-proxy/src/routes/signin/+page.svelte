@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Extension } from '@frequency-control-panel/components';
-  import { WalletSelector } from '@frequency-control-panel/components';
+  import type { Extension } from '$lib/components';
+  import { WalletSelector } from '$lib/components';
   import { WalletConnector } from '$lib';
 
   const handleSelectedWallet = async (event: CustomEvent) => {
