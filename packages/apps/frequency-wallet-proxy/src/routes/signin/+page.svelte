@@ -8,9 +8,9 @@
     const extension: Extension = event.detail;
     const { injectedName } = extension;
     if (extension.installed) {
-      const extensionConnector = new ExtensionConnector(window.injectedWeb3 as InjectedWeb3);
-      await extensionConnector.connectExtension(injectedName, 'acme app');
-      await extensionConnector.requestAccountsFor(injectedName);
+      const extensionConnector = new ExtensionConnector(window.injectedWeb3 as InjectedWeb3, 'acme app');
+      await extensionConnector.connect(injectedName);
+      await extensionConnector.getAccounts();
     }
   };
 </script>
