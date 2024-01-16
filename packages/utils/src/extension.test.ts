@@ -6,7 +6,7 @@ import { ExtensionConnector } from './extension';
 describe('WalletConnector', () => {
   const window: Record<string, InjectedWeb3> = {};
 
-  describe('connectExtension', () => {
+  describe('connect', () => {
     it('returns extension when wallet extension found and enable function exists', async () => {
       window.injectedWeb3 = {
         injectedName: {
@@ -29,7 +29,7 @@ describe('WalletConnector', () => {
 
       const walletConnector = new ExtensionConnector(window.injectedWeb3);
 
-      const result = await walletConnector.connectExtension('injectedName', 'originName');
+      const result = await walletConnector.connect('injectedName');
       ['name', 'version', 'accounts', 'metadata', 'signer'].forEach((value) => {
         expect(result).toHaveProperty(value);
       });
@@ -38,7 +38,7 @@ describe('WalletConnector', () => {
     it('throws error when wallet extension not found', async () => {
       window.injectedWeb3 = {} as Record<string, InjectedWindowProvider>;
       const walletConnector = new ExtensionConnector(window.injectedWeb3);
-      await expect(walletConnector.connectExtension('injectedName', 'originName')).rejects.toThrowError(
+      await expect(walletConnector.connect('injectedName')).rejects.toThrowError(
         'Wallet extension injectedName not found'
       );
     });
@@ -50,13 +50,13 @@ describe('WalletConnector', () => {
 
       const walletConnector = new ExtensionConnector(window.injectedWeb3);
 
-      await expect(walletConnector.connectExtension('injectedName', 'originName')).rejects.toThrowError(
+      await expect(walletConnector.connect('injectedName')).rejects.toThrowError(
         'No connect(..) or enable(...) hook found'
       );
     });
   });
 
-  describe('requestAccountsFor', () => {
+  describe('getAccounts', () => {
     it('returns accounts when wallet extension found and accounts.get function exists', async () => {
       window.injectedWeb3 = {
         injectedName: {
@@ -76,20 +76,42 @@ describe('WalletConnector', () => {
       };
 
       const walletConnector = new ExtensionConnector(window.injectedWeb3);
-      const result = await walletConnector.requestAccountsFor('injectedName');
+      await walletConnector.connect('injectedName');
+      const result = await walletConnector.getAccounts();
       expect(result).toEqual([
         { address: '0x123', balance: '100' },
         { address: '0x456', balance: '200' },
       ]);
     });
 
-    it('throws empty array when wallet extension not found', async () => {
+    it('throws an error when wallet extension not found', async () => {
       window.injectedWeb3 = {} as InjectedWeb3;
 
       const walletConnector = new ExtensionConnector(window.injectedWeb3);
-      await expect(() => walletConnector.requestAccountsFor('injectedName')).rejects.toThrowError(
-        'Failed to request accounts'
-      );
+      await expect(() => walletConnector.getAccounts()).rejects.toThrowError('Wallet extension connection not found');
+    });
+
+    it('throws empty array when faiing to get accounts', async () => {
+      window.injectedWeb3 = {
+        injectedName: {
+          enable: async (): Promise<Injected> => {
+            return {
+              accounts: {
+                get: async () => {
+                  throw new Error('Failed to get accounts');
+                },
+                subscribe: vi.fn(),
+              },
+              signer: {},
+            };
+          },
+        },
+      };
+
+      const walletConnector = new ExtensionConnector(window.injectedWeb3);
+      await walletConnector.connect('injectedName');
+
+      await expect(() => walletConnector.getAccounts()).rejects.toThrowError('Failed to request accounts');
     });
 
     it('throws an error and logs the error when an error occurs', async () => {
@@ -113,9 +135,10 @@ describe('WalletConnector', () => {
       };
 
       const walletConnector = new ExtensionConnector(window.injectedWeb3);
-      await expect(() => walletConnector.requestAccountsFor('injectedName')).rejects.toThrowError(
-        'Failed to request accounts'
-      );
+
+      await walletConnector.connect('injectedName');
+
+      await expect(() => walletConnector.getAccounts()).rejects.toThrowError('Failed to request accounts');
       expect(spy).toHaveBeenCalledWith(new Error('Failed to get accounts'));
     });
   });
