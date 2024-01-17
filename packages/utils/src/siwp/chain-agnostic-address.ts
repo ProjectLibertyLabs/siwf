@@ -1,6 +1,6 @@
 /// Implementation of CAIP-10 Account ID Specification
 
-import { ChainAgnosticId, ChainNamepace } from './chain-agnostic-id.js';
+import { ChainAgnosticId, ChainNamepace, POLKADOT_CHAIN_NAMESPACE } from './chain-agnostic-id.js';
 import { BlockHash } from '@polkadot/types/interfaces';
 
 export class ChainAgnosticAddress extends ChainAgnosticId {
@@ -32,11 +32,11 @@ export class ChainAgnosticAddress extends ChainAgnosticId {
 export class PolkadotAddress extends ChainAgnosticAddress {
   constructor(genesis: string | BlockHash | ChainAgnosticId, address: string) {
     if (typeof genesis === 'string') {
-      super('polkadot', genesis, address);
+      super(POLKADOT_CHAIN_NAMESPACE, genesis, address);
     } else if (genesis instanceof ChainAgnosticId) {
       super(genesis, address);
     } else {
-      super('polkadot', genesis.toString(), address);
+      super(POLKADOT_CHAIN_NAMESPACE, genesis.toString(), address);
     }
   }
 }

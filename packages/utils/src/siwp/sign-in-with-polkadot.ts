@@ -1,42 +1,59 @@
 /// Types and classes to correspond to CAIP-122 "Sign in with X"
 /// https://github.com/ChainAgnostic/CAIPs/blob/main/CAIPs/caip-122.md
 
-import { SIWxPayload, SIWxPayloadDataOnly, SIWxSignature } from './sign-in-with-x.types';
-import { ChainAgnosticAddress } from './chain-agnostic-address';
+import { SIWxPayload, SIWxPayloadApi, SIWxSignature } from './sign-in-with-x.types';
 
-export class SIWPPayload implements SIWxPayload {
-  domain: string;
-  iss: ChainAgnosticAddress;
-  uri: URL;
-  version: string;
-  statement?: string;
-  nonce?: string;
-  issuedAt?: Date;
-  expirationTime?: Date;
-  notBefore?: Date;
-  requestId?: string;
-  resources?: string[];
+export class SignInWithPolkadot implements SIWxPayloadApi {
+  payload: SIWxPayload;
 
-  constructor(obj?: SIWxPayloadDataOnly) {
-    Object.assign(this, obj);
+  constructor(payload: SIWxPayload) {
+    this.payload = payload;
   }
 
   public readonly toMessage = (): string => {
-    return `${this.domain} wants you to sign in with your Polkadot account:
-${this.iss.address}
+    return `${this.payload.domain} wants you to sign in with your Polkadot account:
+${this.payload.iss.address}${
+      this.payload.statement
+        ? `
 
-${this.statement}
+${this.payload.statement}`
+        : ''
+    }
 
-URI: ${this.uri.toString()}
-Version: ${this.version}
-Nonce: ${this.nonce}
-Issued At: ${this.issuedAt?.toISOString()}
-Expiration Time: ${this.expirationTime?.toISOString()}
-Not Before: ${this.notBefore?.toISOString()}
-Request ID: ${this.requestId}
-Chain ID: ${this.iss.reference}
+URI: ${this.payload.uri.toString()}
+Version: ${this.payload.version}${
+      this.payload.nonce
+        ? `
+Nonce: ${this.payload.nonce}`
+        : ''
+    }${
+      this.payload.issuedAt
+        ? `
+Issued At: ${this.payload.issuedAt.toISOString()}`
+        : ''
+    }${
+      this.payload.expirationTime
+        ? `
+Expiration Time: ${this.payload.expirationTime.toISOString()}`
+        : ''
+    }${
+      this.payload.notBefore
+        ? `
+Not Before: ${this.payload.notBefore.toISOString()}`
+        : ''
+    }${
+      this.payload.requestId
+        ? `
+Request ID: ${this.payload.requestId}`
+        : ''
+    }
+Chain ID: ${this.payload.iss.reference}${
+      this.payload.resources && this.payload.resources.length > 0
+        ? `
 Resources:
-${this.resources?.map((resource) => `- ${resource}`).join('\n')}
+${this.payload.resources.map((resource) => `- ${resource}`).join('\n')}`
+        : ''
+    }
 `;
   };
 

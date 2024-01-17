@@ -1,4 +1,4 @@
-import { POLKADOT_CHAIN_ID, PolkadotChainId } from './chain-agnostic-id.js';
+import { POLKADOT_CHAIN_NAMESPACE, PolkadotChainId } from './chain-agnostic-id.js';
 import { BlockHash } from '@polkadot/types/interfaces';
 import { describe, test, expect } from 'vitest';
 import { ChainAgnosticAddress, PolkadotAddress } from './chain-agnostic-address.js';
@@ -14,9 +14,9 @@ describe('chain-agnostic-address', () => {
 
     test('construction by namespace, reference and address', () => {
       expect(() => {
-        nsAndRefConstructed = new ChainAgnosticAddress('eip-155', genesisHash, address);
+        nsAndRefConstructed = new ChainAgnosticAddress('eip155', genesisHash, address);
       }).not.toThrow();
-      expect(nsAndRefConstructed.namespace).toStrictEqual('eip-155');
+      expect(nsAndRefConstructed.namespace).toStrictEqual('eip155');
       expect(nsAndRefConstructed.reference).toStrictEqual(genesisHash);
       expect(nsAndRefConstructed.address).toStrictEqual(address);
     });
@@ -32,7 +32,7 @@ describe('chain-agnostic-address', () => {
 
     test('missing address should throw', () => {
       // @ts-expect-error: Ignore linting error below
-      expect(() => new ChainAgnosticAddress(POLKADOT_CHAIN_ID, genesisHash)).toThrowError('No address supplied');
+      expect(() => new ChainAgnosticAddress(POLKADOT_CHAIN_NAMESPACE, genesisHash)).toThrowError('No address supplied');
     });
 
     test('toString formats string correctly', () => {
@@ -45,7 +45,7 @@ describe('chain-agnostic-address', () => {
 
     test('construct with string', () => {
       p = new PolkadotAddress(genesisHash, address);
-      expect(p.namespace).toStrictEqual(POLKADOT_CHAIN_ID);
+      expect(p.namespace).toStrictEqual(POLKADOT_CHAIN_NAMESPACE);
       expect(p.reference).toStrictEqual(genesisHash);
       expect(p.address).toStrictEqual(address);
     });
@@ -57,7 +57,7 @@ describe('chain-agnostic-address', () => {
       } as BlockHash;
 
       const p2 = new PolkadotAddress(blockHashObj, address);
-      expect(p2.namespace).toStrictEqual(POLKADOT_CHAIN_ID);
+      expect(p2.namespace).toStrictEqual(POLKADOT_CHAIN_NAMESPACE);
       expect(p2.reference).toStrictEqual(genesisHash);
       expect(p2.address).toStrictEqual(address);
     });

@@ -6,7 +6,7 @@ import { BlockHash } from '@polkadot/types/interfaces';
 // but there does not seem to be a canonical list of valid chain namespaces (or at least,
 // for anything but Ethereum-based chains). CAIP-13 defines the namespace for Polkadot, which
 // is all we care about here.
-export type ChainNamepace = 'polkadot' | 'eip-155'; // extend with other namespaces as necessary/desired
+export type ChainNamepace = 'polkadot' | 'eip155'; // extend with other namespaces as necessary/desired
 
 export class ChainAgnosticId {
   public readonly namespace: ChainNamepace;
@@ -22,11 +22,11 @@ export class ChainAgnosticId {
   }
 }
 
-export const POLKADOT_CHAIN_ID: ChainNamepace = 'polkadot';
+export const POLKADOT_CHAIN_NAMESPACE: ChainNamepace = 'polkadot';
 
 export class PolkadotChainId extends ChainAgnosticId {
   constructor(genesis: string | BlockHash) {
     const ref = typeof genesis === 'string' ? genesis : genesis.toString();
-    super(POLKADOT_CHAIN_ID, ref);
+    super(POLKADOT_CHAIN_NAMESPACE, ref);
   }
 }

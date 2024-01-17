@@ -1,4 +1,4 @@
-import { ChainAgnosticId, POLKADOT_CHAIN_ID, PolkadotChainId } from './chain-agnostic-id.js';
+import { ChainAgnosticId, POLKADOT_CHAIN_NAMESPACE, PolkadotChainId } from './chain-agnostic-id.js';
 import { BlockHash } from '@polkadot/types/interfaces';
 import { describe, test, expect } from 'vitest';
 
@@ -7,13 +7,13 @@ describe('chain-agnostic-id', () => {
     let id: ChainAgnosticId;
 
     test('constructor', () => {
-      id = new ChainAgnosticId('eip-155', 'some-reference');
-      expect(id.namespace).toStrictEqual('eip-155');
+      id = new ChainAgnosticId('eip155', 'some-reference');
+      expect(id.namespace).toStrictEqual('eip155');
       expect(id.reference).toStrictEqual('some-reference');
     });
 
     test('toString formats string correctly', () => {
-      expect(id.toString()).toStrictEqual('eip-155:some-reference');
+      expect(id.toString()).toStrictEqual('eip155:some-reference');
     });
   });
 
@@ -22,7 +22,7 @@ describe('chain-agnostic-id', () => {
 
     test('construct with string', () => {
       const p = new PolkadotChainId(blockHash);
-      expect(p.namespace).toStrictEqual(POLKADOT_CHAIN_ID);
+      expect(p.namespace).toStrictEqual(POLKADOT_CHAIN_NAMESPACE);
       expect(p.reference).toStrictEqual(blockHash);
     });
 
@@ -33,7 +33,7 @@ describe('chain-agnostic-id', () => {
       } as BlockHash;
 
       const p = new PolkadotChainId(blockHashObj);
-      expect(p.namespace).toStrictEqual(POLKADOT_CHAIN_ID);
+      expect(p.namespace).toStrictEqual(POLKADOT_CHAIN_NAMESPACE);
       expect(p.reference).toStrictEqual(blockHash);
     });
   });

@@ -3,10 +3,6 @@
 
 import { ChainAgnosticAddress } from './chain-agnostic-address';
 
-export type SIWxHeader = {
-  type: string;
-};
-
 export type SIWxPayload = {
   /// RFC 4501 dnsauthority that is requesting the signing.
   domain: string;
@@ -46,7 +42,9 @@ export type SIWxPayload = {
   /// List of information or references to information the user wishes to have resolved
   /// as part of the authentication by the relying party; express as RFC 3986 URIs and separated by \n.
   resources?: string[];
+};
 
+export type SIWxPayloadApi = {
   /// Method for converting payload to a string representation for signing as in CAIP-122
   // toMessage(): string;
   toMessage: () => string;
@@ -55,18 +53,10 @@ export type SIWxPayload = {
   toBytes: () => Uint8Array;
 };
 
-export type SIWxPayloadDataOnly = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [K in keyof SIWxPayload as SIWxPayload[K] extends (...args: any) => any ? never : K]: SIWxPayload[K];
-};
-
 export type SIWxSignatureMeta = Record<string, never>;
 
 export type SIWxSignature = {
-  /// Type of the signature to be generated, as defined in the Polkadot namespace
-  /// NOTE: This is not currently defined by any CAIP; for now we'll support:
-  ///   - sr25519
-  ///   - ed25519
+  /// Signature algorithm used to sign the payload
   signatureType: string;
 
   meta?: SIWxSignatureMeta;
@@ -75,13 +65,13 @@ export type SIWxSignature = {
   signature: Uint8Array;
 };
 
+// Type alias here for future expandability; CAIP-74 envisions
+// a header component in addition to the payload, though we don't
+// have any use for it right now.
 export type SIWxRequest = {
-  header: SIWxHeader;
   payload: SIWxPayload;
 };
 
-export type SIWxResponse = {
-  header: SIWxHeader;
-  payload: SIWxPayload;
+export type SIWxResponse = SIWxRequest & {
   signature: SIWxSignature;
 };
