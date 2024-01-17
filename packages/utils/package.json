@@ -28,11 +28,15 @@
   },
   "devDependencies": {
     "@frequency-control-panel/eslint-config": "workspace:*",
+    "@vitest/coverage-v8": "^1.2.0",
     "pathe": "^1.1.1",
     "prettier": "^3.1.1",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vite-plugin-dts": "^3.7.0",
     "vitest": "^1.0.0"
+  },
+  "dependencies": {
+    "@polkadot/types": "^10.11.2"
   }
 }
