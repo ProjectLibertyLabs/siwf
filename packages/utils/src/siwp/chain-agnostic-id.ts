@@ -27,6 +27,6 @@ export const POLKADOT_CHAIN_NAMESPACE: ChainNamepace = 'polkadot';
 export class PolkadotChainId extends ChainAgnosticId {
   constructor(genesis: string | BlockHash) {
     const ref = typeof genesis === 'string' ? genesis : genesis.toString();
-    super(POLKADOT_CHAIN_NAMESPACE, ref);
+    super(POLKADOT_CHAIN_NAMESPACE, ref.replace(/^0x/, '').slice(0, 32));
   }
 }

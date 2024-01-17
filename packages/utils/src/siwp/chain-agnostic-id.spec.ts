@@ -19,11 +19,12 @@ describe('chain-agnostic-id', () => {
 
   describe('class PolkadotChainId', () => {
     const blockHash: string = '0x060ca79d9743b0ca58cabe294b9545a492e69de00c65154dba1f236b4a3ae5c0';
+    const canonicalBlockHash: string = '060ca79d9743b0ca58cabe294b9545a4';
 
     test('construct with string', () => {
       const p = new PolkadotChainId(blockHash);
       expect(p.namespace).toStrictEqual(POLKADOT_CHAIN_NAMESPACE);
-      expect(p.reference).toStrictEqual(blockHash);
+      expect(p.reference).toStrictEqual(canonicalBlockHash);
     });
 
     test('construct with BlockHash', () => {
@@ -34,7 +35,7 @@ describe('chain-agnostic-id', () => {
 
       const p = new PolkadotChainId(blockHashObj);
       expect(p.namespace).toStrictEqual(POLKADOT_CHAIN_NAMESPACE);
-      expect(p.reference).toStrictEqual(blockHash);
+      expect(p.reference).toStrictEqual(canonicalBlockHash);
     });
   });
 });
