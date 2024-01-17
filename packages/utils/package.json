@@ -20,7 +20,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "test": "vitest run --silent",
+    "test:loud": "vitest run --silent",
+    "test": "vitest run",
     "lint": "prettier --check . && eslint .",
     "lint:fix": "prettier --write . && eslint --fix .",
     "format": "prettier --write .",
@@ -36,6 +37,8 @@
     "vitest": "^1.0.0"
   },
   "dependencies": {
+    "@frequency-chain/api-augment": "^1.10.0",
+    "@polkadot/api": "^10.11.2",
     "@polkadot/extension-inject": "^0.46.6"
   }
 }

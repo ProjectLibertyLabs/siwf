@@ -41,6 +41,7 @@
     "@frequency-control-panel/utils": "workspace:^",
     "@iconify/icons-ic": "^1.2.13",
     "@iconify/svelte": "^3.1.6",
+    "types": "link:@polkadot/extension-inject/types",
     "unplugin-icons": "^0.18.2"
   }
 }

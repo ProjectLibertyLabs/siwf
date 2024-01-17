@@ -1,17 +1,50 @@
 <script lang="ts">
-  import type { Extension } from '$lib/components';
   import { WalletSelector } from '$lib/components';
+  import { SelectedExtensionAccountsStore, filterMsaAccountsStore } from '$lib/store';
   import { ExtensionConnector } from '@frequency-control-panel/utils';
+  import { getMsaInfo } from '@frequency-control-panel/utils';
+  import { goto } from '$app/navigation';
+  import type { AccountWithMsaInfo } from '$lib/store';
+  import type { Extension } from '$lib/components';
+  import type { InjectedAccount } from '@polkadot/extension-inject/types';
   import type { InjectedWeb3 } from '@frequency-control-panel/utils';
 
   const handleSelectedWallet = async (event: CustomEvent) => {
     const extension: Extension = event.detail;
     const { injectedName } = extension;
+
     if (extension.installed) {
-      const extensionConnector = new ExtensionConnector(window.injectedWeb3 as InjectedWeb3, 'acme app');
-      await extensionConnector.connect(injectedName);
-      await extensionConnector.getAccounts();
+      const selectedExtensionAccounts = await getSelectedExtensionAccounts(injectedName);
+      const augmentedWithMsaInfo = await getAugmentedWithMsaInfo(selectedExtensionAccounts);
+
+      SelectedExtensionAccountsStore.set(augmentedWithMsaInfo);
+
+      if ($filterMsaAccountsStore.length > 0) {
+        console.log('has accounts with msa info');
+        goto(`/accounts`);
+      } else {
+        console.log('no accounts with msa info - navigate to sign-up');
+      }
     }
+  };
+
+  const getSelectedExtensionAccounts = async (injectedName: string): Promise<InjectedAccount[]> => {
+    const extensionConnector = new ExtensionConnector(window.injectedWeb3 as InjectedWeb3, 'acme app');
+    await extensionConnector.connect(injectedName);
+    return await extensionConnector.getAccounts();
+  };
+
+  const getAugmentedWithMsaInfo = async (
+    selectedExtensionAccounts: InjectedAccount[]
+  ): Promise<AccountWithMsaInfo[]> => {
+    const augmentedWithMsaInfo: AccountWithMsaInfo[] = await Promise.all(
+      selectedExtensionAccounts.map(async (account: InjectedAccount) => {
+        const msaInfo = await getMsaInfo(account.address);
+        return { ...account, msaInfo };
+      })
+    );
+
+    return augmentedWithMsaInfo;
   };
 </script>
 
