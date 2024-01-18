@@ -32,9 +32,6 @@ importers:
       '@iconify/svelte':
         specifier: ^3.1.6
         version: 3.1.6(svelte@4.2.8)
-      '@polkadot/extension-inject':
-        specifier: ^0.46.6
-        version: 0.46.6(@polkadot/api@10.11.2)(@polkadot/util@12.6.2)
       unplugin-icons:
         specifier: ^0.18.2
         version: 0.18.2
@@ -117,6 +114,9 @@ importers:
 
   packages/utils:
     dependencies:
+      '@polkadot/extension-inject':
+        specifier: ^0.46.6
+        version: 0.46.6(@polkadot/api@10.11.2)(@polkadot/util@12.6.2)
       '@polkadot/types':
         specifier: ^10.11.2
         version: 10.11.2

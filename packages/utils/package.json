@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "test": "vitest run",
+    "test": "vitest run --silent",
     "lint": "prettier --check . && eslint .",
     "lint:fix": "prettier --write . && eslint --fix .",
     "format": "prettier --write .",
@@ -37,6 +37,7 @@
     "vitest": "^1.0.0"
   },
   "dependencies": {
-    "@polkadot/types": "^10.11.2"
+    "@polkadot/types": "^10.11.2",
+    "@polkadot/extension-inject": "^0.46.6"
   }
 }
