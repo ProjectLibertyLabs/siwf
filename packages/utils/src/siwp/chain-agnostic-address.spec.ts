@@ -1,4 +1,4 @@
-import { POLKADOT_CHAIN_NAMESPACE, PolkadotChainId } from './chain-agnostic-id.js';
+import { ChainAgnosticId, POLKADOT_CHAIN_NAMESPACE, PolkadotChainId } from './chain-agnostic-id.js';
 import { BlockHash } from '@polkadot/types/interfaces';
 import { describe, test, expect } from 'vitest';
 import { ChainAgnosticAddress, PolkadotAddress } from './chain-agnostic-address.js';
@@ -10,6 +10,7 @@ const polkadotId = new PolkadotChainId(genesisHash);
 
 describe('chain-agnostic-address', () => {
   describe('class ChainAgnosticAddress', () => {
+    const chainId = new ChainAgnosticId('eip155', genesisHash);
     let nsAndRefConstructed: ChainAgnosticAddress;
     let idConstructed: ChainAgnosticAddress;
 
@@ -17,8 +18,7 @@ describe('chain-agnostic-address', () => {
       expect(() => {
         nsAndRefConstructed = new ChainAgnosticAddress('eip155', genesisHash, address);
       }).not.toThrow();
-      expect(nsAndRefConstructed.namespace).toStrictEqual('eip155');
-      expect(nsAndRefConstructed.reference).toStrictEqual(genesisHash);
+      expect(nsAndRefConstructed.chainId).toStrictEqual(chainId);
       expect(nsAndRefConstructed.address).toStrictEqual(address);
     });
 
@@ -26,8 +26,7 @@ describe('chain-agnostic-address', () => {
       expect(() => {
         idConstructed = new ChainAgnosticAddress(polkadotId, address);
       }).not.toThrow();
-      expect(idConstructed.namespace).toStrictEqual(polkadotId.namespace);
-      expect(idConstructed.reference).toStrictEqual(polkadotId.reference);
+      expect(idConstructed.chainId).toStrictEqual(polkadotId);
       expect(idConstructed.address).toStrictEqual(address);
     });
 
@@ -37,7 +36,7 @@ describe('chain-agnostic-address', () => {
     });
 
     test('toString formats string correctly', () => {
-      expect(nsAndRefConstructed.toString()).toStrictEqual(`${nsAndRefConstructed.toChainId()}:${address}`);
+      expect(nsAndRefConstructed.toString()).toStrictEqual(`${chainId.toString()}:${address}`);
     });
   });
 
@@ -46,8 +45,7 @@ describe('chain-agnostic-address', () => {
 
     test('construct with string', () => {
       p = new PolkadotAddress(genesisHash, address);
-      expect(p.namespace).toStrictEqual(POLKADOT_CHAIN_NAMESPACE);
-      expect(p.reference).toStrictEqual(canonicalHash);
+      expect(p.chainId).toStrictEqual(polkadotId);
       expect(p.address).toStrictEqual(address);
     });
 
@@ -58,8 +56,7 @@ describe('chain-agnostic-address', () => {
       } as BlockHash;
 
       const p2 = new PolkadotAddress(blockHashObj, address);
-      expect(p2.namespace).toStrictEqual(POLKADOT_CHAIN_NAMESPACE);
-      expect(p2.reference).toStrictEqual(canonicalHash);
+      expect(p2.chainId).toStrictEqual(polkadotId);
       expect(p2.address).toStrictEqual(address);
     });
 
