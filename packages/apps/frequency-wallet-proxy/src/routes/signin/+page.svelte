@@ -1,6 +1,6 @@
 <script lang="ts">
   import { WalletSelector } from '$lib/components';
-  import { SelectedExtensionAccountsStore, filterMsaAccountsStore } from '$lib/store';
+  import { SelectedExtensionAccountsStore, filteredMsaAccountsStore } from '$lib/store';
   import { ExtensionConnector } from '@frequency-control-panel/utils';
   import { getMsaInfo } from '@frequency-control-panel/utils';
   import { goto } from '$app/navigation';
@@ -19,8 +19,7 @@
 
       SelectedExtensionAccountsStore.set(augmentedWithMsaInfo);
 
-      if ($filterMsaAccountsStore.length > 0) {
-        console.log('has accounts with msa info');
+      if ($filteredMsaAccountsStore.length > 0) {
         goto(`/accounts`);
       } else {
         console.log('no accounts with msa info - navigate to sign-up');

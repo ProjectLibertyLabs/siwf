@@ -10,12 +10,12 @@ const SelectedExtensionAccounts: AccountWithMsaInfo[] = [];
 
 export const SelectedExtensionAccountsStore = writable(SelectedExtensionAccounts);
 
-export const filterMsaAccountsStore = derived([SelectedExtensionAccountsStore], ([$SelectedExtensionAccountsStore]) => {
+export const filteredMsaAccountsStore = derived([SelectedExtensionAccountsStore], ([$SelectedExtensionAccountsStore]) => {
   return $SelectedExtensionAccountsStore.filter((account) => account.msaInfo.msaId !== 0);
 });
 
-export const groupByMsaIdStore = derived([filterMsaAccountsStore], ([$filterMsaAccountsStore]) => {
-  return $filterMsaAccountsStore.reduce(
+export const groupByMsaIdStore = derived([filteredMsaAccountsStore], ([$filteredMsaAccountsStore]) => {
+  return $filteredMsaAccountsStore.reduce(
     (acc, account) => {
       if (!acc[account.msaInfo.msaId]) {
         acc[account.msaInfo.msaId] = [];
