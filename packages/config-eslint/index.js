@@ -1,6 +1,20 @@
 module.exports = {
   root: true,
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:svelte/recommended', 'prettier'],
+  ignorePatterns: [
+    '.DS_Store',
+    'node_modules',
+    'dist',
+    '/build',
+    '/.svelte-kit',
+    '/package',
+    '.env',
+    '.env.*',
+    '!.env.example',
+    'pnpm-lock.yaml',
+    'package-lock.json',
+    'yarn.lock',
+  ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   parserOptions: {
