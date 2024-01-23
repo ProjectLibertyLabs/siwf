@@ -1,29 +1,59 @@
 import { writable, derived } from 'svelte/store';
-import type { InjectedAccount } from '@polkadot/extension-inject/types';
-import type { MsaInfo } from '@frequency-control-panel/utils';
+import { extensionsConfig } from './components';
+import type { AccountWithMsaInfo, Extension } from './components';
 
-export interface AccountWithMsaInfo extends InjectedAccount {
-  msaInfo: MsaInfo;
+export const ExtensionsStore = createExtensionStore();
+
+function createExtensionStore() {
+  const { subscribe, set, update } = writable<Extension[]>(extensionsConfig);
+
+  return {
+    subscribe,
+    set,
+    update,
+    updateExtension: (extension: Extension) => {
+      update((extensions) => {
+        return extensions.map((e) => {
+          if (e.injectedName === extension.injectedName) {
+            return extension;
+          }
+          return e;
+        });
+      });
+    },
+  };
 }
 
-const SelectedExtensionAccounts: AccountWithMsaInfo[] = [];
+export const CurrentSelectedExtensionIdStore = writable<string>('');
 
-export const SelectedExtensionAccountsStore = writable(SelectedExtensionAccounts);
+export const CurrentSelectedExtensionStore = derived(
+  [CurrentSelectedExtensionIdStore, ExtensionsStore],
+  ([$CurrentSelectedExtensionStore, $ExtensionsStore]) => {
+    return $ExtensionsStore.find((extension) => extension.injectedName === $CurrentSelectedExtensionStore);
+  }
+);
 
-export const filteredMsaAccountsStore = derived([SelectedExtensionAccountsStore], ([$SelectedExtensionAccountsStore]) => {
-  return $SelectedExtensionAccountsStore.filter((account) => account.msaInfo.msaId !== 0);
-});
+export const CurrentSelectedFilteredMsaAccountsStore = derived(
+  [CurrentSelectedExtensionStore],
+  ([$CurrentSelectedExtensionStore]) => {
+    if ($CurrentSelectedExtensionStore === undefined) return;
+    return ($CurrentSelectedExtensionStore?.accounts || []).filter((account) => account.msaInfo.msaId !== 0);
+  }
+);
 
-export const groupByMsaIdStore = derived([filteredMsaAccountsStore], ([$filteredMsaAccountsStore]) => {
-  return $filteredMsaAccountsStore.reduce(
-    (acc, account) => {
-      if (!acc[account.msaInfo.msaId]) {
-        acc[account.msaInfo.msaId] = [];
-      }
+export const groupByMsaIdStore = derived(
+  [CurrentSelectedFilteredMsaAccountsStore],
+  ([$CurrentSelectedFilteredMsaAccountsStore]) => {
+    return ($CurrentSelectedFilteredMsaAccountsStore || []).reduce(
+      (acc, account) => {
+        if (!acc[account.msaInfo.msaId]) {
+          acc[account.msaInfo.msaId] = [];
+        }
 
-      acc[account.msaInfo.msaId].push(account);
-      return acc;
-    },
-    {} as Record<number, AccountWithMsaInfo[]>
-  );
-});
+        acc[account.msaInfo.msaId].push(account);
+        return acc;
+      },
+      {} as Record<number, AccountWithMsaInfo[]>
+    );
+  }
+);
