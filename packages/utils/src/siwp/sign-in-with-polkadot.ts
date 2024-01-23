@@ -47,7 +47,7 @@ Not Before: ${this.payload.notBefore.toISOString()}`
 Request ID: ${this.payload.requestId}`
         : ''
     }
-Chain ID: ${this.payload.iss.reference}${
+Chain ID: ${this.payload.iss.chainId.reference}${
       this.payload.resources && this.payload.resources.length > 0
         ? `
 Resources:
