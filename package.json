@@ -15,9 +15,9 @@
     "utils": "pnpm --filter @frequency-control-panel/utils"
   },
   "devDependencies": {
-    "eslint": "^8.54.0",
     "@frequency-control-panel/eslint-config": "workspace:*",
-    "prettier": "^3.1.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4",
     "prettier-plugin-svelte": "^3.1.2"
   },
   "keywords": [],
