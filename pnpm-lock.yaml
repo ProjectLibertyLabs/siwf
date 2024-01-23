@@ -32,6 +32,9 @@ importers:
       '@iconify/svelte':
         specifier: ^3.1.6
         version: 3.1.6(svelte@4.2.8)
+      types:
+        specifier: link:@polkadot/extension-inject/types
+        version: link:@polkadot/extension-inject/types
       unplugin-icons:
         specifier: ^0.18.2
         version: 0.18.2
@@ -114,6 +117,12 @@ importers:
 
   packages/utils:
     dependencies:
+      '@frequency-chain/api-augment':
+        specifier: ^1.10.0
+        version: 1.10.0
+      '@polkadot/api':
+        specifier: ^10.11.2
+        version: 10.11.2
       '@polkadot/extension-inject':
         specifier: ^0.46.6
         version: 0.46.6(@polkadot/api@10.11.2)(@polkadot/util@12.6.2)
@@ -444,6 +453,18 @@ packages:
   /@eslint/js@8.56.0:
     resolution: {integrity: sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  /@frequency-chain/api-augment@1.10.0:
+    resolution: {integrity: sha512-AnjE4N78YQo1VRHoR0uqwfS0/RS1HBm6HSsoEUt40bZcie1BRP44EQ5/bm/xSg4+F7EQZyn8RRH1yM4SNfdQ3g==}
+    dependencies:
+      '@polkadot/api': 10.11.2
+      '@polkadot/rpc-provider': 10.11.2
+      '@polkadot/types': 10.11.2
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
 
   /@humanwhocodes/config-array@0.11.13:
     resolution: {integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==}
