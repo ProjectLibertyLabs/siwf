@@ -1,0 +1,21 @@
+{
+  "name": "setup",
+  "private": true,
+  "version": "0.0.0",
+  "main": "src/main.ts",
+  "scripts": {
+    "start": "tsx src/main.ts"
+  },
+  "dependencies": {
+    "@frequency-chain/api-augment": "^1.10.0",
+    "@polkadot/api": "^10.11.2",
+    "@polkadot/keyring": "^12.6.2",
+    "@polkadot/types": "^10.11.2",
+    "@polkadot/util-crypto": "^12.6.2",
+    "frequency-scenario-template": "github:AmplicaLabs/frequency-scenario-template",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0"
+  }
+}

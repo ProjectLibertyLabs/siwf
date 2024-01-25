@@ -38,9 +38,9 @@
     "vitest": "^1.0.0"
   },
   "dependencies": {
-    "@polkadot/types": "^10.11.2",
     "@frequency-chain/api-augment": "^1.10.0",
     "@polkadot/api": "^10.11.2",
-    "@polkadot/extension-inject": "^0.46.6"
+    "@polkadot/extension-inject": "^0.46.6",
+    "@polkadot/types": "^10.11.2"
   }
 }
