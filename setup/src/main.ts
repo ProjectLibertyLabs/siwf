@@ -22,25 +22,26 @@ const MSA_COUNT = 4;
 
 interface ChainAccount {
   seedPhrase: string;
-  keypair?: KeyringPair;
+  keypairs: KeyringPair[];
   msaId?: bigint;
 }
 
 const PROVIDER_MNEMONIC = 'lounge monster rotate olympic grass correct potato pumpkin inside scissors lucky vote';
+const KEYS_PER_ACCOUNT = 3;
 
 const accounts: ChainAccount[] = [
-  { seedPhrase: 'dynamic split hedgehog grain bench toy rotate baby salon creek earn virus' },
-  { seedPhrase: 'delay man segment gallery project plug thrive wool alcohol secret damage gold' },
-  { seedPhrase: 'lab palm dawn net junior rubber mule fault post immune panic ethics' },
-  { seedPhrase: 'coral tuna volcano lawsuit crime half area seed rapid mystery under reopen' },
-  { seedPhrase: 'heavy shock slow acoustic horse flat unable student habit material canyon quote' },
-  { seedPhrase: 'ask nature cook mobile analyst clerk finger depend crush inquiry survey worry' },
-  { seedPhrase: 'hello area art local blind detect avocado run slide fiction aspect popular' },
-  { seedPhrase: 'wing royal salute vacuum valve mean draft cause right logic canoe begin' },
-  { seedPhrase: 'giraffe seven camera hobby front pact anxiety rural endless width crush muscle' },
-  { seedPhrase: 'summer joke fire ivory practice simple flush invite column bind cream weekend' },
-  { seedPhrase: 'camp afraid torch can useless drastic key flee camp artist oak guitar' },
-  { seedPhrase: 'pig exclude wheat giant lake olympic mother goddess index help near copper' },
+  { seedPhrase: 'dynamic split hedgehog grain bench toy rotate baby salon creek earn virus', keypairs: [] },
+  { seedPhrase: 'delay man segment gallery project plug thrive wool alcohol secret damage gold', keypairs: [] },
+  { seedPhrase: 'lab palm dawn net junior rubber mule fault post immune panic ethics', keypairs: [] },
+  { seedPhrase: 'coral tuna volcano lawsuit crime half area seed rapid mystery under reopen', keypairs: [] },
+  // { seedPhrase: 'heavy shock slow acoustic horse flat unable student habit material canyon quote' },
+  // { seedPhrase: 'ask nature cook mobile analyst clerk finger depend crush inquiry survey worry' },
+  // { seedPhrase: 'hello area art local blind detect avocado run slide fiction aspect popular' },
+  // { seedPhrase: 'wing royal salute vacuum valve mean draft cause right logic canoe begin' },
+  // { seedPhrase: 'giraffe seven camera hobby front pact anxiety rural endless width crush muscle' },
+  // { seedPhrase: 'summer joke fire ivory practice simple flush invite column bind cream weekend' },
+  // { seedPhrase: 'camp afraid torch can useless drastic key flee camp artist oak guitar' },
+  // { seedPhrase: 'pig exclude wheat giant lake olympic mother goddess index help near copper' },
 ];
 
 export async function main() {
@@ -51,69 +52,65 @@ export async function main() {
 
   // Create keys
   for (const account of accounts) {
-    account.keypair = await createAndFundKeypair({ uri: account.seedPhrase });
+    for (const index in Array(KEYS_PER_ACCOUNT).fill(0)) {
+      account.keypairs.push(await createAndFundKeypair({ uri: account.seedPhrase + `//${index}` }));
+    }
   }
 
   const msaMap = new Map<bigint, ChainAccount[]>();
 
   // Check if any keys have existing MSA
   for (const account of accounts) {
-    const msa: Option<u64> = await ExtrinsicHelper.apiPromise.query.msa.publicKeyToMsaId(account.keypair?.publicKey);
-    if (msa.isSome) {
-      account.msaId = msa.unwrap().toBigInt();
-      const msaAccounts = msaMap.get(account.msaId) ?? [];
-      msaAccounts.push(account);
-      msaMap.set(account.msaId, msaAccounts);
-      console.info(`Found existing MSA ${account.msaId} for key ${account.keypair?.address}`);
+    for (const keypair of account.keypairs) {
+      const msa: Option<u64> = await ExtrinsicHelper.apiPromise.query.msa.publicKeyToMsaId(keypair?.publicKey);
+      if (msa.isSome) {
+        const msaId = msa.unwrap().toBigInt();
+        if (!!account.msaId && account.msaId !== msaId) {
+          throw new Error(
+            `Key mismatch: attempting to add key ${keypair.address} to MSA ${account.msaId}, but it already belongs to MSA ${msaId}`
+          );
+        }
+        account.msaId = msaId;
+        console.info(`Found existing MSA ${account.msaId} for key ${keypair.address}`);
+      }
     }
   }
 
   // Create more MSAs to a total of 4
   const nonMsaAccounts = accounts.filter((account) => !account.msaId);
-  while (msaMap.size < MSA_COUNT && nonMsaAccounts.length > 0) {
-    const account = nonMsaAccounts.pop()!;
-    const op = ExtrinsicHelper.createMsa(account.keypair!);
+  for (const account of nonMsaAccounts) {
     try {
+      const op = ExtrinsicHelper.createMsa(account.keypairs[0]!);
       const [createMsaEvent] = await op.fundAndSend();
       if (createMsaEvent && ExtrinsicHelper.apiPromise.events.msa.MsaCreated.is(createMsaEvent)) {
         account.msaId = createMsaEvent.data.msaId.toBigInt();
         msaMap.set(account.msaId, [account]);
         console.log(`Created MSA ${account.msaId.toString()} with key ${account.seedPhrase}`);
       }
+
+      for (const key of account.keypairs.slice(1)) {
+        const msa = await ExtrinsicHelper.apiPromise.query.msa.publicKeyToMsaId(key.publicKey);
+        if (!msa.isNone) {
+          console.log(`Key ${key.address} already present for MSA ${account.msaId}`);
+          continue;
+        }
+        const payload = await generateAddKeyPayload({ msaId: account.msaId!, newPublicKey: key.publicKey });
+        const payloadData = ExtrinsicHelper.api.registry.createType('PalletMsaAddKeyData', payload);
+        const keyOp = ExtrinsicHelper.addPublicKeyToMsa(
+          account.keypairs[0]!,
+          signPayloadSr25519(account.keypairs[0]!, payloadData),
+          signPayloadSr25519(key, payloadData),
+          payload
+        );
+        const [result] = await keyOp.fundAndSend();
+        if (!result || !ExtrinsicHelper.apiPromise.events.msa.PublicKeyAdded.is(result)) {
+          throw new Error(`Unable to add key ${key.address} to MSA ${account.msaId}`);
+        }
+      }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      console.error('Unable to create MSA for account: ', JSON.stringify(account), err, err.stack);
+      console.error({ msg: 'Unable to create MSA for account: ', account, err }, { depth: null });
       return;
-    }
-  }
-
-  // Add remaining keys to existing MSA to a max count of 3 keys for each MSA
-  for (const account of nonMsaAccounts) {
-    // Find an MSA with <= 3 keys to add key to
-    const msaAccounts = [...msaMap.values()].find((msaAccounts) => msaAccounts.length < 3);
-
-    // If MSA found to add to, add the key using one of the existing keys
-    if (msaAccounts) {
-      const msaAccount = msaAccounts[0]!;
-      const controlKey = msaAccount.keypair!;
-      const keyToAdd = account.keypair;
-      const msaId = new u64(ExtrinsicHelper.apiPromise.registry, msaAccount.msaId);
-      const payload = await generateAddKeyPayload({
-        msaId,
-        newPublicKey: keyToAdd?.publicKey,
-      });
-      const payloadData = ExtrinsicHelper.api.registry.createType('PalletMsaAddKeyData', payload);
-
-      const ownerSignature = signPayloadSr25519(controlKey, payloadData);
-      const newSignature = signPayloadSr25519(keyToAdd!, payloadData);
-      const op = ExtrinsicHelper.addPublicKeyToMsa(msaAccount.keypair!, ownerSignature, newSignature, payload);
-      const [result] = await op.fundAndSend();
-      if (!result || !ExtrinsicHelper.apiPromise.events.msa.PublicKeyAdded.is(result)) {
-        throw new Error('Unable to add key to MSA');
-      }
-      account.msaId = msaAccount.msaId;
-      msaAccounts.push(account);
-      console.log('Added key to MSA');
     }
   }
 
@@ -124,17 +121,13 @@ export async function main() {
         address: provider.allKeys[0]?.address,
         seedPhrase: PROVIDER_MNEMONIC,
       },
-      ...[...msaMap.entries()].map(([msaId, msaAccounts]) => {
-        const accountJson = msaAccounts.map(({ keypair, seedPhrase }) => ({
-          seedPhrase,
-          publicKey: keypair?.address,
-        }));
-
-        return {
-          msaId,
-          accounts: accountJson,
-        };
-      }),
+      ...accounts.map((account) => ({
+        msaId: account.msaId,
+        keys: account.keypairs.map((key, index) => ({
+          seed: `${account.seedPhrase}//${index}`,
+          address: key.address,
+        })),
+      })),
     ],
     { depth: null }
   );
