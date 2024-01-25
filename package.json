@@ -12,7 +12,8 @@
     "test": "pnpm run --stream -r test",
     "test:unit": "pnpm run --stream -r test:unit",
     "proxy-wallet": "pnpm --filter @frequency-control-panel/frequency-wallet-proxy",
-    "utils": "pnpm --filter @frequency-control-panel/utils"
+    "utils": "pnpm --filter @frequency-control-panel/utils",
+    "chain-setup": "pnpm --filter setup run start"
   },
   "devDependencies": {
     "@frequency-control-panel/eslint-config": "workspace:*",
