@@ -29,17 +29,17 @@ Nonce: ${this.payload.nonce}`
     }${
       this.payload.issuedAt
         ? `
-Issued At: ${this.payload.issuedAt.toISOString()}`
+Issued At: ${this.payload.issuedAt.toLocalISOString()}`
         : ''
     }${
       this.payload.expirationTime
         ? `
-Expiration Time: ${this.payload.expirationTime.toISOString()}`
+Expiration Time: ${this.payload.expirationTime.toLocalISOString()}`
         : ''
     }${
       this.payload.notBefore
         ? `
-Not Before: ${this.payload.notBefore.toISOString()}`
+Not Before: ${this.payload.notBefore.toLocalISOString()}`
         : ''
     }${
       this.payload.requestId
