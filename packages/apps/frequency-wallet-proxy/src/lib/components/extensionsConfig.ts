@@ -2,11 +2,23 @@ import type { ComponentType, SvelteComponent } from 'svelte';
 import TalismanIcon from '../icons/TalismanRedIcon.svelte';
 import PolkadotIcon from '../icons/Polkadot.svelte';
 import SubWallet from '../icons/SubWallet.svelte';
+import type { MsaInfo } from '@frequency-control-panel/utils';
+import type { InjectedAccount } from '@polkadot/extension-inject/types';
 
 type Logo = {
   component: ComponentType<SvelteComponent>;
   size: string;
 };
+
+export interface AccountWithMsaInfo extends InjectedAccount {
+  msaInfo: MsaInfo;
+}
+
+export enum ExtensionAuthorization {
+  None,
+  Authorized,
+  Rejected,
+}
 
 export type Extension = {
   displayName: string;
@@ -17,6 +29,8 @@ export type Extension = {
   };
   logo: Logo;
   installed?: boolean;
+  authorized: ExtensionAuthorization;
+  accounts?: AccountWithMsaInfo[];
 };
 
 export const extensionsConfig: Extension[] = [
@@ -30,6 +44,7 @@ export const extensionsConfig: Extension[] = [
       },
     },
     logo: { component: PolkadotIcon, size: '5em' },
+    authorized: ExtensionAuthorization.None,
   },
   {
     displayName: 'Talisman',
@@ -40,6 +55,7 @@ export const extensionsConfig: Extension[] = [
       },
     },
     logo: { component: TalismanIcon, size: '5em' },
+    authorized: ExtensionAuthorization.None,
   },
   {
     displayName: 'SubWallet',
@@ -54,5 +70,6 @@ export const extensionsConfig: Extension[] = [
       },
     },
     logo: { component: SubWallet, size: '5em' },
+    authorized: ExtensionAuthorization.None,
   },
 ];

@@ -1,15 +1,14 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from 'svelte';
   import Icon from '@iconify/svelte';
-  import type { Extension } from './extensionsConfig.js';
+  import { type Extension, ExtensionAuthorization } from './extensionsConfig.js';
   import { isExtensionInstalled, delayMs } from '@frequency-control-panel/utils';
   import baselineDownload from '@iconify/icons-ic/baseline-download.js';
 
   const dispatch = createEventDispatcher();
 
   export let extension: Extension;
-  let installed = false;
-  $: buttonText = installed ? 'Sign in with' : 'Install';
+  $: buttonText = extension.installed ? 'Sign in with' : 'Install';
 
   onMount(async (): Promise<void> => {
     //  Tiny delay here to work around an injection timing bug with the polkadot-js wallet extension.
@@ -17,11 +16,11 @@
     if (extension.injectedName === 'polkadot-js') {
       await delayMs(50);
     }
-    installed = isExtensionInstalled(extension.injectedName);
+    extension.installed = isExtensionInstalled(extension.injectedName);
   });
 
   function selectWallet() {
-    dispatch('walletSelected', { ...extension, installed });
+    dispatch('walletSelected', { extension });
   }
 
   function handleKeyPress(event: KeyboardEvent) {
@@ -51,8 +50,11 @@
       <span class="text-sm italic antialiased">{buttonText} {extension.displayName}</span>
     </div>
     <div class="w-4 basis-1/12">
-      {#if !installed}
+      {#if !extension.installed}
         <Icon icon={baselineDownload} width="30" height="30" />
+      {/if}
+      {#if extension.authorized === ExtensionAuthorization.Rejected}
+        <span class="text-sm italic antialiased">Not Authorized</span>
       {/if}
     </div>
   </div>

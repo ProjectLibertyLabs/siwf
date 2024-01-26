@@ -1,25 +1,39 @@
 <script lang="ts">
   import { WalletSelector } from '$lib/components';
-  import { SelectedExtensionAccountsStore, filteredMsaAccountsStore } from '$lib/store';
   import { ExtensionConnector } from '@frequency-control-panel/utils';
   import { getMsaInfo } from '@frequency-control-panel/utils';
   import { goto } from '$app/navigation';
-  import type { AccountWithMsaInfo } from '$lib/store';
-  import type { Extension } from '$lib/components';
+  import { ExtensionAuthorization, type AccountWithMsaInfo } from '$lib/components';
   import type { InjectedAccount } from '@polkadot/extension-inject/types';
   import type { InjectedWeb3 } from '@frequency-control-panel/utils';
+  import {
+    ExtensionsStore,
+    CurrentSelectedExtensionIdStore,
+    CurrentSelectedFilteredMsaAccountsStore,
+  } from '$lib/store';
 
   const handleSelectedWallet = async (event: CustomEvent) => {
-    const extension: Extension = event.detail;
-    const { injectedName } = extension;
+    const { extension } = event.detail;
+    $CurrentSelectedExtensionIdStore = extension.injectedName;
 
     if (extension.installed) {
-      const selectedExtensionAccounts = await getSelectedExtensionAccounts(injectedName);
-      const augmentedWithMsaInfo = await getAugmentedWithMsaInfo(selectedExtensionAccounts);
+      try {
+        const selectedExtensionAccounts = await getSelectedExtensionAccounts($CurrentSelectedExtensionIdStore);
+        const augmentedWithMsaInfo = await getAugmentedWithMsaInfo(selectedExtensionAccounts);
 
-      SelectedExtensionAccountsStore.set(augmentedWithMsaInfo);
+        extension.accounts = augmentedWithMsaInfo;
+        extension.authorized = ExtensionAuthorization.Authorized;
+        ExtensionsStore.updateExtension(extension);
+      } catch (error: unknown) {
+        const message = getErrorMessage(error);
 
-      if ($filteredMsaAccountsStore.length > 0) {
+        if (/not_authorized/.test(message) || /pending_authorization/.test(message)) {
+          extension.authorized = ExtensionAuthorization.Rejected;
+          ExtensionsStore.updateExtension(extension);
+        }
+      }
+
+      if (($CurrentSelectedFilteredMsaAccountsStore || []).length > 0) {
         goto(`/accounts`);
       } else {
         console.log('no accounts with msa info - navigate to sign-up');
@@ -27,10 +41,30 @@
     }
   };
 
+  const getErrorMessage = (error: unknown) => {
+    if (error instanceof Error) return error.message;
+    return String(error);
+  };
+
   const getSelectedExtensionAccounts = async (injectedName: string): Promise<InjectedAccount[]> => {
     const extensionConnector = new ExtensionConnector(window.injectedWeb3 as InjectedWeb3, 'acme app');
-    await extensionConnector.connect(injectedName);
-    return await extensionConnector.getAccounts();
+    try {
+      await extensionConnector.connect(injectedName);
+      return await extensionConnector.getAccounts();
+    } catch (error: unknown) {
+      const message = getErrorMessage(error);
+      if (
+        /not allowed to interact with this extension/.test(message) ||
+        /Failed to request accounts/.test(message) ||
+        /Rejected/.test(message)
+      ) {
+        throw new Error('not_authorized');
+      } else if (/has a pending authorization request/.test(message)) {
+        throw new Error('pending_authorization');
+      }
+
+      throw error;
+    }
   };
 
   const getAugmentedWithMsaInfo = async (
@@ -47,4 +81,4 @@
   };
 </script>
 
-<WalletSelector onSelectedWallet={handleSelectedWallet} />
+<WalletSelector onSelectedWallet={handleSelectedWallet} extensions={$ExtensionsStore} />
