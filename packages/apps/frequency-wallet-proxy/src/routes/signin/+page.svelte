@@ -24,6 +24,11 @@
         extension.accounts = augmentedWithMsaInfo;
         extension.authorized = ExtensionAuthorization.Authorized;
         ExtensionsStore.updateExtension(extension);
+        if (($CurrentSelectedFilteredMsaAccountsStore || []).length > 0) {
+          goto(`/accounts`);
+        } else {
+          goto(`/signup`);
+        }
       } catch (error: unknown) {
         const message = getErrorMessage(error);
 
@@ -31,12 +36,6 @@
           extension.authorized = ExtensionAuthorization.Rejected;
           ExtensionsStore.updateExtension(extension);
         }
-      }
-
-      if (($CurrentSelectedFilteredMsaAccountsStore || []).length > 0) {
-        goto(`/accounts`);
-      } else {
-        console.log('no accounts with msa info - navigate to sign-up');
       }
     }
   };
