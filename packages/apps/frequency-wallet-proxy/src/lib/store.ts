@@ -24,6 +24,13 @@ function createExtensionStore() {
   };
 }
 
+interface SignupStore {
+  address?: string;
+  name?: string;
+}
+
+export const SignupStore = writable<SignupStore>({} as SignupStore);
+
 export const CurrentSelectedExtensionIdStore = writable<string>('');
 
 export const CurrentSelectedExtensionStore = derived(
