@@ -54,7 +54,7 @@ const accounts: ChainAccount[] = [
   },
 ];
 
-async function addControlKeyToMsa(msaId: bigint, controlKey: KeyringPair, newKey: KeyringPair) {
+async function addPublicKeyToMsa(msaId: bigint, controlKey: KeyringPair, newKey: KeyringPair) {
   const payload = await generateAddKeyPayload({ msaId, newPublicKey: newKey.publicKey });
   const payloadData = ExtrinsicHelper.api.registry.createType('PalletMsaAddKeyData', payload);
   const op = ExtrinsicHelper.addPublicKeyToMsa(
@@ -108,7 +108,7 @@ export async function main() {
       for (const keypair of account.keypairs) {
         const msa = await ExtrinsicHelper.apiPromise.query.msa.publicKeyToMsaId(keypair.publicKey);
         if (msa.isNone) {
-          await addControlKeyToMsa(account.msaId!, controlKey, keypair);
+          await addPublicKeyToMsa(account.msaId!, controlKey, keypair);
         }
       }
     }
@@ -154,7 +154,7 @@ export async function main() {
           console.log(`Key ${key.address} already present for MSA ${account.msaId}`);
           continue;
         }
-        await addControlKeyToMsa(account.msaId!, controlKey, key);
+        await addPublicKeyToMsa(account.msaId!, controlKey, key);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
