@@ -109,7 +109,6 @@ describe('sign-in-with-polkadot', () => {
 
     test.each(testData)('message raw bytes should be correct', ({ payload: data, bytes }) => {
       const payload = new SignInWithPolkadot(data);
-      console.log(`${payload.toBytes()}`);
       expect(payload.toBytes()).toStrictEqual(bytes);
     });
   });

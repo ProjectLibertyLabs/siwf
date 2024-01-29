@@ -1,10 +1,7 @@
 <script lang="ts">
-  import { SignInWithPolkadot, type SIWxPayload, PolkadotAddress, signMessage } from '@frequency-control-panel/utils';
+  import { SignInWithPolkadot, type SIWxPayload, PolkadotAddress } from '@frequency-control-panel/utils';
   import { CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/store';
   import { Modal, Content, Trigger } from 'sv-popup';
-
-  console.dir($CurrentSelectedAccountWithMsaStore);
-  console.dir(window.location);
 
   const now = new Date();
   const payload: SIWxPayload = {
@@ -26,8 +23,12 @@
 
   async function signPayload() {
     const extension = $CurrentSelectedExtensionStore;
-    const signer = extension?.connector?.injectedExtension?.signer;
-    const signature = await signMessage(payloadApi.toMessage(), payloadApi.payload.iss.address, signer);
+    if (!extension?.connector) {
+      throw new Error(`Did not get loaded/connected extension for ${extension?.displayName}`);
+    }
+
+    const message = payloadApi.toMessage();
+    const signature = await extension.connector.signMessage(message, payloadApi.payload.iss.address);
     console.log(`Signature: ${signature}`);
   }
 </script>

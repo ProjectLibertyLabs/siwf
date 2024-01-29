@@ -43,7 +43,7 @@
     "@iconify/icons-ic": "^1.2.13",
     "@iconify/svelte": "^3.1.6",
     "@polkadot/extension-inject": "^0.46.6",
-    "types": "link:@polkadot/extension-inject/types",
+    "types": "link:@polkadot/util/types",
     "unplugin-icons": "^0.18.2"
   }
 }

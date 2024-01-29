@@ -36,8 +36,8 @@ importers:
         specifier: ^0.46.6
         version: 0.46.6(@polkadot/api@10.11.2)(@polkadot/util@12.6.2)
       types:
-        specifier: link:@polkadot/extension-inject/types
-        version: link:@polkadot/extension-inject/types
+        specifier: link:@polkadot/util/types
+        version: link:@polkadot/util/types
       unplugin-icons:
         specifier: ^0.18.2
         version: 0.18.2
