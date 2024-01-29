@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { SignInWithPolkadot, type SIWxPayload, PolkadotAddress } from '@frequency-control-panel/utils';
-  import { CurrentSelectedAccountWithMsaStore } from '$lib/store';
+  import { SignInWithPolkadot, type SIWxPayload, PolkadotAddress, signMessage } from '@frequency-control-panel/utils';
+  import { CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/store';
   import { Modal, Content, Trigger } from 'sv-popup';
 
   console.dir($CurrentSelectedAccountWithMsaStore);
@@ -24,7 +24,12 @@
   const payloadApi = new SignInWithPolkadot(payload);
   console.log(payloadApi.toMessage());
 
-  function signPayload() {}
+  async function signPayload() {
+    const extension = $CurrentSelectedExtensionStore;
+    const signer = extension?.connector?.injectedExtension?.signer;
+    const signature = await signMessage(payloadApi.toMessage(), payloadApi.payload.iss.address, signer);
+    console.log(`Signature: ${signature}`);
+  }
 </script>
 
 <!-- svelte-ignore a11y-missing-attribute -->
@@ -124,7 +129,7 @@
   </Modal>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div on:click={() => signPayload()} style="width: 235px; height: 40px; left: 72px; top: 523px; position: absolute">
+  <div on:click={signPayload} style="width: 235px; height: 40px; left: 72px; top: 523px; position: absolute">
     <div
       style="width: 235px; height: 40px; left: 0px; top: 0px; position: absolute; background: #1B9EA3; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50px"
     ></div>

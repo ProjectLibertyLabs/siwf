@@ -2,7 +2,8 @@
 /// https://github.com/ChainAgnostic/CAIPs/blob/main/CAIPs/caip-122.md
 
 import { ChainAgnosticAddress } from './chain-agnostic-address';
-
+import type { HexString } from '@polkadot/util/types';
+import { Signer } from '@polkadot/api';
 export type SIWxPayload = {
   /// RFC 4501 dnsauthority that is requesting the signing.
   domain: string;
@@ -75,3 +76,22 @@ export type SIWxRequest = {
 export type SIWxResponse = SIWxRequest & {
   signature: SIWxSignature;
 };
+
+export async function signMessage(payload: string, address: string, signer: Signer): Promise<HexString> {
+  const signRaw = signer?.signRaw;
+
+  // eslint-disable-next-line no-extra-boolean-cast
+  if (!!signRaw) {
+    // after making sure that signRaw is defined
+    // we can use it to sign our message
+    const { signature } = await signRaw({
+      address,
+      data: payload,
+      type: 'bytes',
+    });
+
+    return signature;
+  }
+
+  throw new Error(`Unable to access signer interface of extension`);
+}

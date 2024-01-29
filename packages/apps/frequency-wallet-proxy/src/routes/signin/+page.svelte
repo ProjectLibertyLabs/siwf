@@ -18,9 +18,12 @@
 
     if (extension.installed) {
       try {
-        const selectedExtensionAccounts = await getSelectedExtensionAccounts($CurrentSelectedExtensionIdStore);
+        const [extensionConnector, selectedExtensionAccounts] = await getSelectedExtensionAccounts(
+          $CurrentSelectedExtensionIdStore
+        );
         const augmentedWithMsaInfo = await getAugmentedWithMsaInfo(selectedExtensionAccounts);
 
+        extension.connector = extensionConnector;
         extension.accounts = augmentedWithMsaInfo;
         extension.authorized = ExtensionAuthorization.Authorized;
         ExtensionsStore.updateExtension(extension);
@@ -45,11 +48,14 @@
     return String(error);
   };
 
-  const getSelectedExtensionAccounts = async (injectedName: string): Promise<InjectedAccount[]> => {
+  const getSelectedExtensionAccounts = async (
+    injectedName: string
+  ): Promise<[ExtensionConnector, InjectedAccount[]]> => {
     const extensionConnector = new ExtensionConnector(window.injectedWeb3 as InjectedWeb3, 'acme app');
     try {
       await extensionConnector.connect(injectedName);
-      return await extensionConnector.getAccounts();
+      const accounts = await extensionConnector.getAccounts();
+      return [extensionConnector, accounts];
     } catch (error: unknown) {
       const message = getErrorMessage(error);
       if (

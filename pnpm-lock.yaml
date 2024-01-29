@@ -129,12 +129,18 @@ importers:
       '@polkadot/api':
         specifier: ^10.11.2
         version: 10.11.2
+      '@polkadot/extension-dapp':
+        specifier: ^0.46.6
+        version: 0.46.6(@polkadot/api@10.11.2)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
       '@polkadot/extension-inject':
         specifier: ^0.46.6
         version: 0.46.6(@polkadot/api@10.11.2)(@polkadot/util@12.6.2)
       '@polkadot/types':
         specifier: ^10.11.2
         version: 10.11.2
+      '@polkadot/util':
+        specifier: ^12.6.2
+        version: 12.6.2
     devDependencies:
       '@frequency-control-panel/eslint-config':
         specifier: workspace:*
@@ -751,6 +757,25 @@ packages:
       '@polkadot/util-crypto': 12.6.2(@polkadot/util@12.6.2)
       eventemitter3: 5.0.1
       rxjs: 7.8.1
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@polkadot/extension-dapp@0.46.6(@polkadot/api@10.11.2)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2):
+    resolution: {integrity: sha512-J8uhlAhCJkrVimS/ItCdXwgce9mbGZBwAAZLk9vxz7MGb9KkBV9wjy7xas7EPkA1fkSZ4hq+G9l8ybd+uwgp6Q==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@polkadot/api': '*'
+      '@polkadot/util': '*'
+      '@polkadot/util-crypto': '*'
+    dependencies:
+      '@polkadot/api': 10.11.2
+      '@polkadot/extension-inject': 0.46.6(@polkadot/api@10.11.2)(@polkadot/util@12.6.2)
+      '@polkadot/util': 12.6.2
+      '@polkadot/util-crypto': 12.6.2(@polkadot/util@12.6.2)
       tslib: 2.6.2
     transitivePeerDependencies:
       - bufferutil

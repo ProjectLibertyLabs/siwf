@@ -14,6 +14,10 @@ export class ExtensionConnector {
     this.appName = '';
   }
 
+  public get injectedExtension() {
+    return this.extension;
+  }
+
   public async connect(injectedName: string): Promise<InjectedExtension> {
     const wallet = this.injectedWeb3[injectedName];
 
