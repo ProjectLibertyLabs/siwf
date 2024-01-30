@@ -6,11 +6,10 @@ import {
   generateAddKeyPayload,
   createAndFundKeypair,
   UserBuilder,
+  generateDelegationPayload,
+  generateClaimHandlePayload,
 } from 'frequency-scenario-template';
 import type { KeyringPair } from '@polkadot/keyring/types';
-import { u64, Option } from '@polkadot/types';
-import Keyring from '@polkadot/keyring';
-import { mnemonicGenerate } from '@polkadot/util-crypto';
 
 // Monkey-patch BigInt so that JSON.stringify will work
 // eslint-disable-next-line
@@ -18,31 +17,58 @@ import { mnemonicGenerate } from '@polkadot/util-crypto';
   return this.toString();
 };
 
-const MSA_COUNT = 4;
-
 interface ChainAccount {
   seedPhrase: string;
   keypairs: KeyringPair[];
-  msaId?: bigint;
+  msaId: bigint;
+  handle: string;
 }
 
 const PROVIDER_MNEMONIC = 'lounge monster rotate olympic grass correct potato pumpkin inside scissors lucky vote';
 const KEYS_PER_ACCOUNT = 3;
 
 const accounts: ChainAccount[] = [
-  { seedPhrase: 'dynamic split hedgehog grain bench toy rotate baby salon creek earn virus', keypairs: [] },
-  { seedPhrase: 'delay man segment gallery project plug thrive wool alcohol secret damage gold', keypairs: [] },
-  { seedPhrase: 'lab palm dawn net junior rubber mule fault post immune panic ethics', keypairs: [] },
-  { seedPhrase: 'coral tuna volcano lawsuit crime half area seed rapid mystery under reopen', keypairs: [] },
-  // { seedPhrase: 'heavy shock slow acoustic horse flat unable student habit material canyon quote' },
-  // { seedPhrase: 'ask nature cook mobile analyst clerk finger depend crush inquiry survey worry' },
-  // { seedPhrase: 'hello area art local blind detect avocado run slide fiction aspect popular' },
-  // { seedPhrase: 'wing royal salute vacuum valve mean draft cause right logic canoe begin' },
-  // { seedPhrase: 'giraffe seven camera hobby front pact anxiety rural endless width crush muscle' },
-  // { seedPhrase: 'summer joke fire ivory practice simple flush invite column bind cream weekend' },
-  // { seedPhrase: 'camp afraid torch can useless drastic key flee camp artist oak guitar' },
-  // { seedPhrase: 'pig exclude wheat giant lake olympic mother goddess index help near copper' },
+  {
+    seedPhrase: 'dynamic split hedgehog grain bench toy rotate baby salon creek earn virus',
+    keypairs: [],
+    msaId: 0n,
+    handle: 'cp_user_1',
+  },
+  {
+    seedPhrase: 'delay man segment gallery project plug thrive wool alcohol secret damage gold',
+    keypairs: [],
+    msaId: 0n,
+    handle: 'cp_user_2',
+  },
+  {
+    seedPhrase: 'lab palm dawn net junior rubber mule fault post immune panic ethics',
+    keypairs: [],
+    msaId: 0n,
+    handle: 'cp_user_3',
+  },
+  {
+    seedPhrase: 'coral tuna volcano lawsuit crime half area seed rapid mystery under reopen',
+    keypairs: [],
+    msaId: 0n,
+    handle: 'cp_user_4',
+  },
 ];
+
+async function addPublicKeyToMsa(msaId: bigint, controlKey: KeyringPair, newKey: KeyringPair) {
+  const payload = await generateAddKeyPayload({ msaId, newPublicKey: newKey.publicKey });
+  const payloadData = ExtrinsicHelper.api.registry.createType('PalletMsaAddKeyData', payload);
+  const op = ExtrinsicHelper.addPublicKeyToMsa(
+    controlKey,
+    signPayloadSr25519(controlKey, payloadData),
+    signPayloadSr25519(newKey, payloadData),
+    payload
+  );
+  const [result] = await op.fundAndSend();
+  if (!result || !ExtrinsicHelper.api.events.msa.PublicKeyAdded.is(result)) {
+    throw new Error(`Unable to add key ${newKey.address} to MSA ${msaId}`);
+  }
+  console.info(`Added key ${newKey.address} to MSA ${msaId}`);
+}
 
 export async function main() {
   await initialize('ws://localhost:9944');
@@ -57,12 +83,11 @@ export async function main() {
     }
   }
 
-  const msaMap = new Map<bigint, ChainAccount[]>();
-
   // Check if any keys have existing MSA
   for (const account of accounts) {
+    let controlKey: KeyringPair | undefined;
     for (const keypair of account.keypairs) {
-      const msa: Option<u64> = await ExtrinsicHelper.apiPromise.query.msa.publicKeyToMsaId(keypair?.publicKey);
+      const msa = await ExtrinsicHelper.apiPromise.query.msa.publicKeyToMsaId(keypair.publicKey);
       if (msa.isSome) {
         const msaId = msa.unwrap().toBigInt();
         if (!!account.msaId && account.msaId !== msaId) {
@@ -70,8 +95,21 @@ export async function main() {
             `Key mismatch: attempting to add key ${keypair.address} to MSA ${account.msaId}, but it already belongs to MSA ${msaId}`
           );
         }
+        if (controlKey === undefined) {
+          controlKey = keypair;
+        }
         account.msaId = msaId;
         console.info(`Found existing MSA ${account.msaId} for key ${keypair.address}`);
+      }
+    }
+
+    // Make sure all keys are added to MSA
+    if (!!account.msaId && !!controlKey) {
+      for (const keypair of account.keypairs) {
+        const msa = await ExtrinsicHelper.apiPromise.query.msa.publicKeyToMsaId(keypair.publicKey);
+        if (msa.isNone) {
+          await addPublicKeyToMsa(account.msaId!, controlKey, keypair);
+        }
       }
     }
   }
@@ -79,13 +117,35 @@ export async function main() {
   // Create more MSAs to a total of 4
   const nonMsaAccounts = accounts.filter((account) => !account.msaId);
   for (const account of nonMsaAccounts) {
+    const controlKey = account.keypairs[0]!;
     try {
-      const op = ExtrinsicHelper.createMsa(account.keypairs[0]!);
+      const payload = await generateDelegationPayload({
+        authorizedMsaId: provider.msaId,
+        schemaIds: [],
+      });
+      let signature = signPayloadSr25519(controlKey, ExtrinsicHelper.api.createType('PalletMsaAddProvider', payload));
+      let op = ExtrinsicHelper.createSponsoredAccountWithDelegation(
+        controlKey,
+        provider.allKeys[0]!,
+        signature,
+        payload
+      );
       const [createMsaEvent] = await op.fundAndSend();
       if (createMsaEvent && ExtrinsicHelper.apiPromise.events.msa.MsaCreated.is(createMsaEvent)) {
         account.msaId = createMsaEvent.data.msaId.toBigInt();
-        msaMap.set(account.msaId, [account]);
         console.log(`Created MSA ${account.msaId.toString()} with key ${account.seedPhrase}`);
+      }
+
+      const handlePayload = await generateClaimHandlePayload(account.handle);
+      const handlePayloadData = ExtrinsicHelper.api.registry.createType(
+        'CommonPrimitivesHandlesClaimHandlePayload',
+        handlePayload
+      );
+      signature = signPayloadSr25519(controlKey, handlePayloadData);
+      op = ExtrinsicHelper.claimHandleWithProvider(controlKey, provider.allKeys[0]!, signature, handlePayload);
+      const [handleResult] = await op.fundAndSend();
+      if (handleResult && ExtrinsicHelper.api.events.handles.HandleClaimed.is(handleResult)) {
+        console.info(`Claimed handle '${handleResult.data.handle} for MSA ${account.msaId}`);
       }
 
       for (const key of account.keypairs.slice(1)) {
@@ -94,18 +154,7 @@ export async function main() {
           console.log(`Key ${key.address} already present for MSA ${account.msaId}`);
           continue;
         }
-        const payload = await generateAddKeyPayload({ msaId: account.msaId!, newPublicKey: key.publicKey });
-        const payloadData = ExtrinsicHelper.api.registry.createType('PalletMsaAddKeyData', payload);
-        const keyOp = ExtrinsicHelper.addPublicKeyToMsa(
-          account.keypairs[0]!,
-          signPayloadSr25519(account.keypairs[0]!, payloadData),
-          signPayloadSr25519(key, payloadData),
-          payload
-        );
-        const [result] = await keyOp.fundAndSend();
-        if (!result || !ExtrinsicHelper.apiPromise.events.msa.PublicKeyAdded.is(result)) {
-          throw new Error(`Unable to add key ${key.address} to MSA ${account.msaId}`);
-        }
+        await addPublicKeyToMsa(account.msaId!, controlKey, key);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {

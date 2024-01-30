@@ -29,17 +29,26 @@ Nonce: ${this.payload.nonce}`
     }${
       this.payload.issuedAt
         ? `
-Issued At: ${this.payload.issuedAt.toISOString()}`
+Issued At: ${
+            // @ts-expect-error Ignore error on monkey-patched '.toLocalISOString'
+            this.payload.issuedAt.toLocalISOString()
+          }`
         : ''
     }${
       this.payload.expirationTime
         ? `
-Expiration Time: ${this.payload.expirationTime.toISOString()}`
+Expiration Time: ${
+            // @ts-expect-error Ignore error on monkey-patched '.toLocalISOString'
+            this.payload.expirationTime.toLocalISOString()
+          }`
         : ''
     }${
       this.payload.notBefore
         ? `
-Not Before: ${this.payload.notBefore.toISOString()}`
+Not Before: ${
+            // @ts-expect-error Ignore error on monkey-patched '.toLocalISOString'
+            this.payload.notBefore.toLocalISOString()
+          }`
         : ''
     }${
       this.payload.requestId

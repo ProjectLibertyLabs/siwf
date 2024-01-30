@@ -2,7 +2,6 @@
 /// https://github.com/ChainAgnostic/CAIPs/blob/main/CAIPs/caip-122.md
 
 import { ChainAgnosticAddress } from './chain-agnostic-address';
-
 export type SIWxPayload = {
   /// RFC 4501 dnsauthority that is requesting the signing.
   domain: string;

@@ -2,7 +2,7 @@ import type { ComponentType, SvelteComponent } from 'svelte';
 import TalismanIcon from '../icons/TalismanRedIcon.svelte';
 import PolkadotIcon from '../icons/Polkadot.svelte';
 import SubWallet from '../icons/SubWallet.svelte';
-import type { MsaInfo } from '@frequency-control-panel/utils';
+import type { ExtensionConnector, MsaInfo } from '@frequency-control-panel/utils';
 import type { InjectedAccount } from '@polkadot/extension-inject/types';
 
 type Logo = {
@@ -31,6 +31,7 @@ export type Extension = {
   installed?: boolean;
   authorized: ExtensionAuthorization;
   accounts?: AccountWithMsaInfo[];
+  connector?: ExtensionConnector;
 };
 
 export const extensionsConfig: Extension[] = [

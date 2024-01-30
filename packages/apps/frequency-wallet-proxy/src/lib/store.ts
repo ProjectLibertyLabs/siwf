@@ -44,7 +44,7 @@ export const CurrentSelectedFilteredMsaAccountsStore = derived(
   [CurrentSelectedExtensionStore],
   ([$CurrentSelectedExtensionStore]) => {
     if ($CurrentSelectedExtensionStore === undefined) return;
-    return ($CurrentSelectedExtensionStore?.accounts || []).filter((account) => account.msaInfo.msaId !== 0);
+    return ($CurrentSelectedExtensionStore?.accounts || []).filter((account) => !!account.msaInfo.msaId);
   }
 );
 
@@ -64,3 +64,5 @@ export const groupByMsaIdStore = derived(
     );
   }
 );
+
+export const CurrentSelectedAccountWithMsaStore = writable<AccountWithMsaInfo>();

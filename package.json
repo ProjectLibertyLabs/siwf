@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "pnpm run --stream -r build",
-    "dev": "pnpm run --stream -r dev",
+    "dev": "pnpm --filter @frequency-control-panel/frequency-wallet-proxy run dev",
     "lint": "pnpm run --stream -r lint",
     "format:all": "pnpm run --stream -r format",
     "format": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
