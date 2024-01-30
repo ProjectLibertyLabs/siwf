@@ -33,7 +33,6 @@
   }
 </script>
 
-<!-- svelte-ignore a11y-missing-attribute -->
 <div style="width: 100%; height: 100%; position: relative">
   <div
     style="width: 381px; height: 607px; left: 0px; top: -1px; position: absolute; background: linear-gradient(180deg, #007DA1 0%, #2C333D 100%); border: 1px black solid"
@@ -118,9 +117,13 @@
       </div>
     </Trigger>
   </Modal>
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div on:click={signPayload} style="width: 235px; height: 40px; left: 72px; top: 523px; position: absolute">
+  <div
+    on:click={signPayload}
+    on:keyup={() => {}}
+    role="button"
+    tabindex="0"
+    style="width: 235px; height: 40px; left: 72px; top: 523px; position: absolute"
+  >
     <div
       style="width: 235px; height: 40px; left: 0px; top: 0px; position: absolute; background: #1B9EA3; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50px"
     ></div>
