@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,500&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*  */
+@layer components {
+  .btn-primary {
+    @apply bg-blue disabled:bg-disabled h-10 w-[225px] rounded-full text-base font-bold text-white;
+  }
+
+  .btn-no-fill {
+    @apply text-sm text-white underline;
+  }
+
+  .action-card {
+    @apply mt-8 shrink-0 rounded-lg p-8 text-white shadow-md;
+  }
+
+  .action-card {
+    @apply rounded text-white;
+  }
+
+  .action-card-title {
+    @apply text-2xl font-semibold;
+  }
+
+  /* layout */
+  .content-block {
+    @apply bg-bg-black rounded-md p-7;
+  }
+
+  /* typography */
+  /* headers */
+  .section-title {
+    @apply text-xl font-bold;
+  }
+
+  .section-title-underlined {
+    @apply section-title border-divider border-b pb-3;
+  }
+
+  .label {
+    @apply text-base font-bold tracking-wide;
+  }
+
+  /* data */
+  .data-value-sm {
+    @apply font-data text-green text-sm;
+  }
+
+  .data-value-base {
+    @apply font-data text-green text-base;
+  }
+
+  .data-value-lg {
+    @apply font-data text-green text-lg;
+  }
+
+  .data-value-2xl {
+    @apply font-data text-green text-2xl;
+  }
+
+  /* layout */
+  .content-block {
+    @apply bg-bg-black rounded-md p-7;
+  }
+}
+
+@layer base {
+  body {
+    color: white;
+    min-height: 100vh;
+    background: linear-gradient(to top, #2c333d, #007da1);
+  }
+
+  button {
+    @apply select-none;
+  }
+
+  input,
+  [type='text'],
+  select {
+    @apply disabled:text-disabled disabled:opacity-85 h-[30px] w-[320px] overflow-ellipsis rounded-md border-none py-0 pl-2 pr-7 text-sm text-black outline-none;
+  }
+
+  select {
+    @apply cursor-pointer;
+  }
+
+  ::placeholder {
+    @apply text-disabled !important;
+  }
+}

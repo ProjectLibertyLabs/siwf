@@ -34,25 +34,13 @@
 </script>
 
 <!-- svelte-ignore a11y-missing-attribute -->
-<div style="width: 100%; height: 100%; position: relative; background: white">
+<div style="width: 100%; height: 100%; position: relative">
   <div
     style="width: 381px; height: 607px; left: 0px; top: -1px; position: absolute; background: linear-gradient(180deg, #007DA1 0%, #2C333D 100%); border: 1px black solid"
   ></div>
   <div
     style="width: 380px; height: 607px; left: 0px; top: -1px; position: absolute; background: linear-gradient(180deg, #007DA1 0%, #2C333D 100%); border: 1px black solid"
   ></div>
-  <div style="width: 532px; height: 355px; left: -93px; top: -162px; position: absolute; opacity: 0.50">
-    <!-- svelte-ignore a11y-missing-attribute -->
-    <img
-      style="width: 532px; height: 355px; left: 0px; top: 0px; position: absolute"
-      src="https://via.placeholder.com/532x355"
-    />
-    <div style="width: 380px; height: 399px; left: 94px; top: -79px; position: absolute; background: #D9D9D9"></div>
-  </div>
-  <img
-    style="width: 226px; height: 44px; left: 75px; top: 63px; position: absolute"
-    src="https://via.placeholder.com/226x44"
-  />
   <div
     style="width: 380px; left: 0px; top: 161px; position: absolute; text-align: center; color: white; font-size: 16px; font-family: Poppins; font-weight: 700; line-height: 22px; word-wrap: break-word"
   >
@@ -119,7 +107,9 @@
     style="width: 250px; height: 0px; left: 61px; top: 458px; position: absolute; border: 1px rgba(255, 255, 255, 0.25) solid"
   ></div>
   <Modal basic big={true}>
-    <Content><pre>{payloadApi.toMessage()}</pre></Content>
+    <Content style="background: linear-gradient(180deg, #007DA1 0%, #2C333D 100%);"
+      ><pre>{payloadApi.toMessage()}</pre></Content
+    >
     <Trigger>
       <div
         style="width: 128px; left: 206px; top: 469px; position: absolute; color: white; font-size: 12px; font-family: Poppins; font-weight: 500; text-decoration: underline; line-height: 20px; word-wrap: break-word"
