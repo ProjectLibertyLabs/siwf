@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SignInWithPolkadot, type SIWxPayload, PolkadotAddress } from '@frequency-control-panel/utils';
+  import { SignInWithPolkadot, type SIWxPayload, PolkadotAddress, generateNonce } from '@frequency-control-panel/utils';
   import { CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/store';
   import { Modal, Content, Trigger } from 'sv-popup';
 
@@ -10,7 +10,7 @@
     uri: new URL(window.location.href),
     version: '1.0',
     statement: "The app 'Narwhal' wants you to sign in with your Frequency account",
-    nonce: '',
+    nonce: generateNonce(),
     issuedAt: now,
     expirationTime: new Date(now.valueOf() + 300000), // valid for 5 minutes
     notBefore: now,
@@ -19,7 +19,7 @@
   };
 
   const payloadApi = new SignInWithPolkadot(payload);
-  console.log(payloadApi.toMessage());
+  console.debug(payloadApi.toMessage());
 
   async function signPayload() {
     const extension = $CurrentSelectedExtensionStore;
@@ -29,7 +29,7 @@
 
     const message = payloadApi.toMessage();
     const signature = await extension.connector.signMessage(message, payloadApi.payload.iss.address);
-    console.log(`Signature: ${signature}`);
+    console.info(`Signature: ${signature}`);
   }
 </script>
 

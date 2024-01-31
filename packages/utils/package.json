@@ -41,6 +41,7 @@
     "@polkadot/extension-dapp": "^0.46.6",
     "@polkadot/extension-inject": "^0.46.6",
     "@polkadot/types": "^10.11.2",
-    "@polkadot/util": "^12.6.2"
+    "@polkadot/util": "^12.6.2",
+    "@stablelib/random": "^1.0.2"
   }
 }

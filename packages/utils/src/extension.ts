@@ -6,13 +6,13 @@ export interface InjectedWeb3 {
 }
 
 export class ExtensionConnector {
-  private injectedWeb3: InjectedWeb3;
-  private appName: string;
+  private readonly injectedWeb3: InjectedWeb3;
+  private readonly appName: string;
   private extension?: InjectedExtension;
 
-  constructor(injectedWeb3: InjectedWeb3) {
+  constructor(injectedWeb3: InjectedWeb3, appName: string) {
     this.injectedWeb3 = injectedWeb3;
-    this.appName = '';
+    this.appName = appName;
   }
 
   public get injectedExtension() {
@@ -33,12 +33,14 @@ export class ExtensionConnector {
         name: injectedName,
         version: wallet.version || '',
       };
+      console.debug(`Enabled extension ${injectedName}`);
 
       return this.extension;
     }
 
     if (wallet.connect) {
       this.extension = await wallet.connect(this.appName);
+      console.debug(`Connected extension ${injectedName}`);
       return this.extension;
     }
 
