@@ -46,10 +46,10 @@ export type SIWxPayload = {
 export type SIWxPayloadApi = {
   /// Method for converting payload to a string representation for signing as in CAIP-122
   // toMessage(): string;
-  toMessage: () => string;
+  toMessage: () => string | Promise<string>;
 
   /// Method for converting payload to raw bytes for signing as in CAIP-122
-  toBytes: () => Uint8Array;
+  toBytes: () => Uint8Array | Promise<Uint8Array>;
 };
 
 export type SIWxSignatureMeta = Record<string, never>;
