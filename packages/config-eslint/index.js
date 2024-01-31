@@ -27,6 +27,15 @@ module.exports = {
     es2017: true,
     node: true,
   },
+  rules: {
+    '@typescript-eslint/no-unused-vars': [
+      // prevent variables with a _ prefix from being marked as unused
+      'warn',
+      {
+        argsIgnorePattern: '^_',
+      },
+    ],
+  },
   overrides: [
     {
       files: ['*.svelte'],

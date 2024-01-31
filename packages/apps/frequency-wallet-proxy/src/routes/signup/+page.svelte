@@ -21,5 +21,6 @@
 
   <div>
     <button on:click={() => goto('/signin')}>back</button>
+    <button on:click={() => goto('/handle')}>next</button>
   </div>
 </div>

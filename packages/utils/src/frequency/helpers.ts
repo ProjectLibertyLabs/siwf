@@ -23,3 +23,8 @@ async function getHandle(api: ApiPromise, msaId: number): Promise<string> {
   const handle = handleResult[0].toUtf8();
   return handle;
 }
+
+export async function validateHandle(handle: string): Promise<boolean> {
+  const api = await getApi();
+  return (await api.rpc.handles.validateHandle(handle)).toHuman();
+}

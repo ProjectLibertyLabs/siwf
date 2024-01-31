@@ -25,11 +25,12 @@ function createExtensionStore() {
 }
 
 interface SignupStore {
-  address?: string;
-  name?: string;
+  address: string;
+  name: string;
+  handle: string;
 }
 
-export const SignupStore = writable<SignupStore>({} as SignupStore);
+export const SignupStore = writable<SignupStore>({ address: '', name: '', handle: '' } as SignupStore);
 
 export const CurrentSelectedExtensionIdStore = writable<string>('');
 
