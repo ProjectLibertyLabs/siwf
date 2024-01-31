@@ -1,11 +1,15 @@
 <script lang="ts">
   import { SignupStore } from '$lib/store';
-  import { validateHandle } from '@frequency-control-panel/utils';
+  import { validateHandle, getHandleNextSuffixes  } from '@frequency-control-panel/utils';
 
   let timeoutId: number | undefined;
   let isValidHandle = false;
+  let isHandleAvailable: boolean | undefined = undefined;
 
   async function hasValidHandle() {
+    const minAvailableHandles = 5;
+    let res = await getHandleNextSuffixes($SignupStore.handle, minAvailableHandles);
+    isHandleAvailable = res.suffixes.length >= minAvailableHandles;
     isValidHandle = await validateHandle($SignupStore.handle);
   }
 
@@ -26,4 +30,5 @@
   <input type="text" bind:value={$SignupStore.handle} on:keyup={handleKeyup} on:input={handleInput} maxlength="20" />
 </div>
 isValid: {isValidHandle}
+isHandleAvailable: {isHandleAvailable}
 SignupStore: {JSON.stringify($SignupStore)}

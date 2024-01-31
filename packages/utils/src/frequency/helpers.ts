@@ -1,3 +1,4 @@
+import { PresumptiveSuffixesResponse } from '@frequency-chain/api-augment/interfaces';
 import { getApi } from './connect';
 import { ApiPromise } from '@polkadot/api';
 
@@ -27,4 +28,9 @@ async function getHandle(api: ApiPromise, msaId: number): Promise<string> {
 export async function validateHandle(handle: string): Promise<boolean> {
   const api = await getApi();
   return (await api.rpc.handles.validateHandle(handle)).toHuman();
+}
+
+export async function getHandleNextSuffixes(handle: string, count: number): Promise<PresumptiveSuffixesResponse> {
+  const api = await getApi();
+  return await api.rpc.handles.getNextSuffixes(handle, count);
 }
