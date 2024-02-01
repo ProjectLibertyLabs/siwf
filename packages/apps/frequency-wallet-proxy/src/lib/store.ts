@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import { extensionsConfig } from './components';
+import { ExtensionAuthorization, extensionsConfig } from './components';
 import type { AccountWithMsaInfo, Extension } from './components';
 import { writable_storage } from './storable';
 import { ExtensionConnector } from '@frequency-control-panel/utils';
@@ -15,9 +15,13 @@ function createExtensionStore() {
 
   // Rebuild injected web3 extensions if read from session storage JSON
   update((extensions) => {
-    console.dir({ msg: 'Extensions:', extensions });
     extensions.forEach((extension) => {
-      if (extension.connector) {
+      const originalExtension = extensionsConfig.find((e) => e.injectedName === extension.injectedName);
+      if (originalExtension) {
+        extension.logo = originalExtension.logo;
+      }
+      if (extension.authorized === ExtensionAuthorization.Authorized) {
+        console.log(`Reconnecting authorized extension ${extension.injectedName}`);
         extension.connector = new ExtensionConnector(window.injectedWeb3!, 'acme app');
         extension.connector.connect(extension.injectedName);
       }
