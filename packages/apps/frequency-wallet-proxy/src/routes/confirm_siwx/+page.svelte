@@ -1,5 +1,10 @@
 <script lang="ts">
-  import { SignInWithPolkadot, type SIWxPayload, PolkadotAddress, generateNonce } from '@frequency-control-panel/utils';
+  import {
+    SignInWithPolkadot,
+    type SIWxPayload,
+    PolkadotAddress,
+    generateSIWxNonce,
+  } from '@frequency-control-panel/utils';
   import { CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/stores';
   import { Modal, Content, Trigger } from 'sv-popup';
 
@@ -10,7 +15,7 @@
     uri: new URL(window.location.href),
     version: '1.0',
     statement: "The app 'Narwhal' wants you to sign in with your Frequency account",
-    nonce: generateNonce(),
+    nonce: generateSIWxNonce(),
     issuedAt: now,
     expirationTime: new Date(now.valueOf() + 300000), // valid for 5 minutes
     notBefore: now,
