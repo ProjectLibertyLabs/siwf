@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import type { AccountWithMsaInfo } from '$lib/components';
-  import { groupByMsaIdStore, CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/store';
+  import { groupByMsaIdStore, CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/stores';
   import { onMount } from 'svelte';
 
   let msaAccounts = Object.entries($groupByMsaIdStore);

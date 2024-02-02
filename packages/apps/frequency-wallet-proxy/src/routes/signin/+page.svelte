@@ -10,7 +10,7 @@
     ExtensionsStore,
     CurrentSelectedExtensionIdStore,
     CurrentSelectedFilteredMsaAccountsStore,
-  } from '$lib/store';
+  } from '$lib/stores';
 
   const handleSelectedWallet = async (event: CustomEvent) => {
     const { extension } = event.detail;

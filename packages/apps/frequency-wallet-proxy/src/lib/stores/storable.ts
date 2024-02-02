@@ -1,13 +1,13 @@
 import { writable } from 'svelte/store';
+import { browser } from '$app/environment';
 
-export function writable_storage<T>(storage: Storage, key: string, data?: T, start = () => {}) {
-  const store = writable(data, start);
+export function storable<T>(key: string, data?: T) {
+  const store = writable(data);
   const { subscribe, set, update } = store;
-  const isBrowser = typeof window !== 'undefined';
+  const storage = browser ? window.localStorage : null;
 
-  if (isBrowser && storage) {
+  if (storage) {
     const storageValue = storage.getItem(key);
-    // eslint-disable-next-line no-extra-boolean-cast
     if (!!storageValue) {
       set(storageValue ? JSON.parse(storageValue) : data);
     }
@@ -16,13 +16,13 @@ export function writable_storage<T>(storage: Storage, key: string, data?: T, sta
   return {
     subscribe,
     set: (n: T) => {
-      isBrowser && storage.setItem(key, JSON.stringify(n));
+      storage && storage.setItem(key, JSON.stringify(n));
       set(n);
     },
     update: (cb: (value: T) => T) => {
       const new_cb = (old_value: T) => {
         const new_value = cb(old_value);
-        isBrowser && storage.setItem(key, JSON.stringify(new_value));
+        storage && storage.setItem(key, JSON.stringify(new_value));
         return new_value;
       };
       update(new_cb);

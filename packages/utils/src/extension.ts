@@ -63,7 +63,6 @@ export class ExtensionConnector {
   public async signMessage(message: string, address: string): Promise<HexString> {
     const signRaw = this.extension?.signer?.signRaw;
 
-    // eslint-disable-next-line no-extra-boolean-cast
     if (!!signRaw) {
       // after making sure that signRaw is defined
       // we can use it to sign our message

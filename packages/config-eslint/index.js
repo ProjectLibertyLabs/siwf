@@ -35,6 +35,7 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
+    'no-extra-boolean-cast': 'off',
   },
   overrides: [
     {

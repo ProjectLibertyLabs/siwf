@@ -1,6 +1,6 @@
 <script lang="ts">
   import { SignInWithPolkadot, type SIWxPayload, PolkadotAddress, generateNonce } from '@frequency-control-panel/utils';
-  import { CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/store';
+  import { CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/stores';
   import { Modal, Content, Trigger } from 'sv-popup';
 
   const now = new Date();
