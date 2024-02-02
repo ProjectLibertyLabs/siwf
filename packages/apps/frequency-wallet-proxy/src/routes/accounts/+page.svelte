@@ -1,12 +1,19 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import type { AccountWithMsaInfo } from '$lib/components';
-  import { groupByMsaIdStore, CurrentSelectedAccountWithMsaStore } from '$lib/store';
+  import { groupByMsaIdStore, CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/stores';
+  import { onMount } from 'svelte';
 
   let msaAccounts = Object.entries($groupByMsaIdStore);
   let userSelected: AccountWithMsaInfo = msaAccounts[0][1][0];
 
   $: $CurrentSelectedAccountWithMsaStore = userSelected;
+
+  onMount(() => {
+    if (!$CurrentSelectedExtensionStore?.connector?.injectedExtension) {
+      goto('/signin');
+    }
+  });
 </script>
 
 <div>
