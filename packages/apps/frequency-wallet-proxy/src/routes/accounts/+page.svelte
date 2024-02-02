@@ -22,7 +22,7 @@
   }
 
   function createSelectedMsaAccount(msaInfoWithAccounts: MsaInfoWithAccounts, account: InjectedAccountWithExtensions) {
-    const { accounts: _msaAccounts, ...msaInfo } = msaInfoWithAccounts;
+    const { ...msaInfo } = msaInfoWithAccounts;
     return { ...msaInfo, account };
   }
 </script>

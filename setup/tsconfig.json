@@ -1,9 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "moduleDetection": "auto"
+    "moduleDetection": "auto",
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"],
 }
