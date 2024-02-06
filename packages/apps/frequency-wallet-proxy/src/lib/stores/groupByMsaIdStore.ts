@@ -1,12 +1,12 @@
 import { derived } from 'svelte/store';
-import type { AccountWithMsaInfo } from '../components';
 import { CurrentSelectedFilteredMsaAccountsStore } from './CurrentSelectedFilteredMsaAccountsStore';
+import type { AccountWithMsaInfo } from '../components';
 
 export const groupByMsaIdStore = derived(
   [CurrentSelectedFilteredMsaAccountsStore],
   ([$CurrentSelectedFilteredMsaAccountsStore]) => {
     return ($CurrentSelectedFilteredMsaAccountsStore || []).reduce(
-      (acc, account) => {
+      (acc: Record<number, AccountWithMsaInfo[]>, account) => {
         if (!acc[account.msaInfo.msaId]) {
           acc[account.msaInfo.msaId] = [];
         }

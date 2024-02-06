@@ -1,3 +1,5 @@
+export * from './AccountsStore';
+export * from './CachedExtensionsStore';
 export * from './CurrentSelectedAccountWithMsaStore';
 export * from './CurrentSelectedExtensionIdStore';
 export * from './CurrentSelectedExtensionStore';

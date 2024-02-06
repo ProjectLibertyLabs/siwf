@@ -1,4 +1,4 @@
-import type { InjectedWindowProvider, InjectedExtension, InjectedAccount } from '@polkadot/extension-inject/types';
+import type { InjectedAccount, InjectedExtension, InjectedWindowProvider } from '@polkadot/extension-inject/types';
 import { HexString } from '@polkadot/util/types';
 
 export interface InjectedWeb3 {
@@ -26,8 +26,19 @@ export class ExtensionConnector {
       throw new Error(`Wallet extension ${injectedName} not found`);
     }
 
+    if (wallet.connect) {
+      this.extension = await wallet.connect(this.appName);
+      console.debug(`Connected extension ${injectedName}`);
+      return this.extension;
+    }
+
     if (wallet.enable) {
       const res = await wallet.enable(this.appName);
+      // Special case for Talisman, which returns a connected object even when you explicitly reject.
+      // But if we try to get accounts on such an object, it will throw an error
+      if (injectedName === 'talisman') {
+        await res.accounts.get();
+      }
       this.extension = {
         ...res,
         name: injectedName,
@@ -35,12 +46,6 @@ export class ExtensionConnector {
       };
       console.debug(`Enabled extension ${injectedName}`);
 
-      return this.extension;
-    }
-
-    if (wallet.connect) {
-      this.extension = await wallet.connect(this.appName);
-      console.debug(`Connected extension ${injectedName}`);
       return this.extension;
     }
 

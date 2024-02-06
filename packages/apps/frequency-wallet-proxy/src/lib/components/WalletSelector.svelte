@@ -3,7 +3,7 @@
   import { extensionsConfig } from './extensionsConfig.js';
   import WalletButton from './WalletButton.svelte';
 
-  export let extensions: Extension[] = extensionsConfig;
+  export let extensions: Extension[] = Object.values(extensionsConfig);
   export let onSelectedWallet: (event: CustomEvent) => Promise<void>;
 </script>
 

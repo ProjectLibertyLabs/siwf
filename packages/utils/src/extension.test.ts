@@ -1,5 +1,5 @@
-import { expect, describe, it, vi } from 'vitest';
-import type { InjectedWindowProvider, Injected } from '@polkadot/extension-inject/types';
+import { describe, expect, it, vi } from 'vitest';
+import type { Injected, InjectedWindowProvider } from '@polkadot/extension-inject/types';
 import type { InjectedWeb3 } from './extension';
 import { ExtensionConnector } from './extension';
 

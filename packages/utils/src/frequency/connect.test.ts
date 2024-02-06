@@ -1,5 +1,5 @@
 import { ApiPromise, HttpProvider } from '@polkadot/api';
-import { expect, vi, describe, it, beforeAll } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { getApi } from './connect';
 
 vi.mock('@polkadot/api');

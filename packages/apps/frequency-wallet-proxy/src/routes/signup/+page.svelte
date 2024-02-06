@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import { CurrentSelectedExtensionStore, SignupStore } from '$lib/stores';
+  import { goto } from '$app/navigation';
 
   let accounts = $CurrentSelectedExtensionStore?.accounts || [];
   $SignupStore.address = accounts[0]?.address;

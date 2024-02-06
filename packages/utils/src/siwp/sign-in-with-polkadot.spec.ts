@@ -2,7 +2,7 @@ import '../index';
 import { SIWxPayload } from './sign-in-with-x.types';
 import { SignInWithPolkadot } from './sign-in-with-polkadot';
 import { PolkadotAddress } from './chain-agnostic-address';
-import { describe, test, expect, vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 
 vi.mock('@polkadot/extension-dapp', () => ({}));
 

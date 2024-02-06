@@ -1,12 +1,13 @@
 <script lang="ts">
   import {
+    generateSIWxNonce,
+    PolkadotAddress,
     SignInWithPolkadot,
     type SIWxPayload,
-    PolkadotAddress,
-    generateSIWxNonce,
   } from '@frequency-control-panel/utils';
+  import { Content, Modal, Trigger } from 'sv-popup';
   import { CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/stores';
-  import { Modal, Content, Trigger } from 'sv-popup';
+  import { extensionsConfig } from '$lib/components';
 
   const now = new Date();
   const payload: SIWxPayload = {
@@ -27,7 +28,8 @@
   console.debug(payloadApi.toMessage());
 
   async function signPayload() {
-    const extension = $CurrentSelectedExtensionStore;
+    const extension = extensionsConfig['subwallet-js'];
+    console.dir(extension);
     if (!extension?.connector) {
       throw new Error(`Did not get loaded/connected extension for ${extension?.displayName}`);
     }
