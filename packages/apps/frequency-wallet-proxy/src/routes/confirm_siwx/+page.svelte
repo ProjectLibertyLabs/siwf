@@ -6,12 +6,12 @@
     type SIWxPayload,
   } from '@frequency-control-panel/utils';
   import { Content, Modal, Trigger } from 'sv-popup';
-  import { CurrentSelectedAccountWithMsCurrentSelectedAccountStoreConfig } from '$lib/components';
+  import { CurrentSelectedMsaAccountStore, ConnectedExtensionsStore } from '$lib/stores';
 
   const now = new Date();
   const payload: SIWxPayload = {
     domain: window.location.hostname,
-    iss: new PolkadotAddress('genesis', $CurrentSelectedAccountWithMsaStore.address),
+    iss: new PolkadotAddress('genesis', $CurrentSelectedMsaAccountStore.account.address),
     uri: new URL(window.location.href),
     version: '1.0',
     statement: "The app 'Narwhal' wants you to sign in with your Frequency account",
@@ -20,15 +20,16 @@
     expirationTime: new Date(now.valueOf() + 300000), // valid for 5 minutes
     notBefore: now,
     // requestId: ? TBD pass-through from app
-    resources: [`dsnp://${$CurrentSelectedAccountWithMsaStore.msaInfo.msaId}`],
+    resources: [`dsnp://${$CurrentSelectedMsaAccountStore.msaId}`],
   };
 
   const payloadApi = new SignInWithPolkadot(payload);
   console.debug(payloadApi.toMessage());
 
   async function signPayload() {
-    const extension = extensionsConfig['subwallet-js'];
-    console.dir(extension);
+    const extension = (await $ConnectedExtensionsStore).get(
+      $CurrentSelectedMsaAccountStore.account.wallets.values().next().value
+    );
     if (!extension?.connector) {
       throw new Error(`Did not get loaded/connected extension for ${extension?.displayName}`);
     }

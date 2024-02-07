@@ -25,7 +25,6 @@ export const MsaAccountsStore = derived([AccountsStore], ([$AccountsStore]) =>
       entry.accounts.set(address, account);
       msaMap.set(info.msaId, entry);
     }
-
     return msaMap;
   })()
 );

@@ -1,20 +1,39 @@
 <script lang="ts">
-  import { CurrentSelectedExtensionStore, SignupStore } from '$lib/stores';
+  import {
+    AccountMap,
+    AccountsStore,
+    CachedExtensionsStore,
+    ExtensionAuthorizationEnum,
+    SignupStore,
+  } from '$lib/stores';
   import { goto } from '$app/navigation';
 
-  let accounts = $CurrentSelectedExtensionStore?.accounts || [];
-  $SignupStore.address = accounts[0]?.address;
+  let accountMap: AccountMap = new AccountMap();
+
+  $: $AccountsStore.then((value) => {
+    accountMap = value;
+  });
+
+  $: if (
+    [...$CachedExtensionsStore.values()].every(
+      (ext) => !ext.installed || ext.authorized !== ExtensionAuthorizationEnum.Authorized
+    )
+  ) {
+    goto('/manage_wallets');
+  }
+
+  $: $SignupStore.address = [...accountMap.keys()]?.[0] ?? '';
 </script>
 
 <div>Sign up</div>
-<div>Choose an account you want to create an account with</div>
+<div>Choose an address you want to create an account with</div>
 
 <div>
   <div>
-    {#each accounts as account}
+    {#each accountMap as [address, account]}
       <div>
-        <input type="radio" bind:group={$SignupStore.address} value={account.address} id={account.address} />
-        <label for={account.address}> {account.address} ({account.name})</label>
+        <input type="radio" bind:group={$SignupStore.address} value={address} id={address} />
+        <label for={address}> {address} ({account.name})</label>
       </div>
     {/each}
   </div>

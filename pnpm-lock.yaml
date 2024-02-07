@@ -29,6 +29,9 @@ importers:
       '@iconify/icons-ic':
         specifier: ^1.2.13
         version: 1.2.13
+      '@iconify/icons-mdi':
+        specifier: ^1.2.48
+        version: 1.2.48
       '@iconify/svelte':
         specifier: ^3.1.6
         version: 3.1.6(svelte@4.2.8)
@@ -569,6 +572,12 @@ packages:
 
   /@iconify/icons-ic@1.2.13:
     resolution: {integrity: sha512-TphrhwOvgd7CTmUhz6jgXF+SPnMtvTm03bZsAYbny2kwq4zlkhr9e16YEyPGMvKhjtTqNooA3iZ9Wa+pZ8moXQ==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
+
+  /@iconify/icons-mdi@1.2.48:
+    resolution: {integrity: sha512-1Tiq+iX1d2MzrdDiw45Tc9HuhNgg8H4vvaKNV+kF+jmr/kPG+YyeLMyXUKp4bwv+gheIAgNpZPjuqAPRkmMieA==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: false

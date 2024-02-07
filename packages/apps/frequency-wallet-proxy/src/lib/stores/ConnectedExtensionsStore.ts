@@ -96,7 +96,6 @@ export const AccountsStore = derived([ConnectedExtensionsStore], ([$ConnectedExt
         accountMap.updateAccount(account, extension.injectedName);
       }
     }
-
     return accountMap;
   })()
 );

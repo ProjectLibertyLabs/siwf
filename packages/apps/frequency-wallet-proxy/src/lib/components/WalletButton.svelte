@@ -1,28 +1,23 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import Icon from '@iconify/svelte';
   import baselineDownload from '@iconify/icons-ic/baseline-download.js';
-  import { ExtensionAuthorizationEnum, CachedExtensionsStore, type CachedExtension } from '$lib/stores';
+  import baselineBlock from '@iconify/icons-ic/baseline-block.js';
+  import baselineCheck from '@iconify/icons-ic/baseline-check.js';
+  import mdiConnection from '@iconify/icons-mdi/connection.js';
+  import { ExtensionAuthorizationEnum, CachedExtensionsStore } from '$lib/stores';
   import type { ConfiguredExtension } from '.';
 
   const dispatch = createEventDispatcher();
   export let extension: ConfiguredExtension;
 
-  let cachedExtension: CachedExtension = {
+  $: cachedExtension = $CachedExtensionsStore.get(extension.injectedName) ?? {
     injectedName: extension.injectedName,
     installed: false,
     authorized: ExtensionAuthorizationEnum.None,
   };
 
   $: buttonText = cachedExtension.installed ? 'Sign in with' : 'Install';
-
-  onMount(() => {
-    const cachedExt = $CachedExtensionsStore.get(extension.injectedName);
-    cachedExtension = {
-      ...cachedExtension,
-      ...cachedExt,
-    };
-  });
 
   function selectWallet() {
     dispatch('walletSelected', { extension, extensionAuth: cachedExtension });
@@ -55,12 +50,14 @@
       <span class="text-sm italic antialiased">{buttonText} {extension.displayName}</span>
     </div>
     <div class="w-4 basis-1/12">
-      {#if cachedExtension.installed}
+      {#if !cachedExtension.installed}
         <Icon icon={baselineDownload} width="30" height="30" />
       {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.None}
-        <span class="text-sm italic antialiased">Connect</span>
+        <Icon icon={mdiConnection} width="30" height="30" />
       {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.Rejected}
-        <span class="text-sm italic antialiased">Not Authorized</span>
+        <Icon icon={baselineBlock} width="30" height="30" />
+      {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.Authorized}
+        <Icon icon={baselineCheck} width="30" height="30" />
       {/if}
     </div>
   </div>

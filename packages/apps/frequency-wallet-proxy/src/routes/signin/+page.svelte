@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { InjectedAccountWithExtensions } from '$lib/stores/ConnectedExtensionsStore';
+  import { type InjectedAccountWithExtensions } from '$lib/stores/ConnectedExtensionsStore';
   import type { MsaInfoWithAccounts } from '$lib/stores/MsaAccountsStore';
   import { goto } from '$app/navigation';
   import {
@@ -7,7 +7,11 @@
     MsaAccountsStore,
     type CurrentSelectedMsaAccount,
     MsaMap,
+    CachedExtensionsStore,
+    ExtensionAuthorizationEnum,
   } from '$lib/stores';
+  import sharpSettings from '@iconify/icons-ic/sharp-settings';
+  import Icon from '@iconify/svelte';
 
   let userSelected: CurrentSelectedMsaAccount;
   let msaMap: MsaMap = new MsaMap();
@@ -16,7 +20,17 @@
     msaMap = value;
   });
 
-  $: $CurrentSelectedMsaAccountStore = userSelected;
+  $: if (
+    [...$CachedExtensionsStore.values()].every(
+      (ext) => !ext.installed || ext.authorized !== ExtensionAuthorizationEnum.Authorized
+    )
+  ) {
+    goto('/manage_wallets');
+  }
+
+  $: {
+    $CurrentSelectedMsaAccountStore = userSelected;
+  }
 
   function createSelectedMsaAccount(msaInfoWithAccounts: MsaInfoWithAccounts, account: InjectedAccountWithExtensions) {
     const { accounts: msaAccounts, ...msaInfo } = msaInfoWithAccounts;
@@ -25,6 +39,11 @@
 </script>
 
 <div>
+  <div>
+    <button on:click={() => goto('/manage_wallets')}>
+      <Icon icon={sharpSettings} width="30" height="30" />
+    </button>
+  </div>
   <div>
     {#each msaMap as [msaId, msaInfo]}
       <div>
@@ -50,6 +69,9 @@
     {/each}
   </div>
 
-  <button on:click={() => goto('/signin')}>back</button>
-  <button on:click={() => goto('/confirm_siwx')}>next</button>
+  <span>
+    <button on:click={() => goto('/signin')}>back</button>
+    <button on:click={() => goto('/signup')}>Create new account</button>
+    <button on:click={() => goto('/confirm_siwx')}>next</button>
+  </span>
 </div>

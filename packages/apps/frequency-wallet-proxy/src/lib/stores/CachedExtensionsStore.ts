@@ -1,4 +1,5 @@
 import { storable_map } from './storable';
+import { extensionsConfig } from '$lib/components';
 
 export const EXTENSION_AUTH_KEY = 'ConfiguredExtensions';
 
@@ -21,6 +22,21 @@ function createCachedExtensionStore() {
     'ConfiguredExtensions',
     new Map<string, CachedExtension>()
   );
+
+  // Merge with configured extensions
+  update((cachedMap) => {
+    for (const configuredExt of Object.values(extensionsConfig)) {
+      if (!cachedMap.has(configuredExt.injectedName)) {
+        cachedMap.set(configuredExt.injectedName, {
+          injectedName: configuredExt.injectedName,
+          installed: false,
+          authorized: ExtensionAuthorizationEnum.None,
+        });
+      }
+    }
+
+    return cachedMap;
+  });
 
   const store = {
     subscribe,
