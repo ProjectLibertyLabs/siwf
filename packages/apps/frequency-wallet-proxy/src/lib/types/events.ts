@@ -1,7 +1,7 @@
-import type { Extension } from '$lib/components/extensionsConfig';
-import type { ExtensionAuthorization } from '$lib/stores';
+import type { ConfiguredExtension } from '$lib/components/extensionsConfig';
+import type { CachedExtension } from '$lib/stores';
 
 export type WalletSelectedEvent = CustomEvent<{
-  extension: Extension;
-  extensionAuth: ExtensionAuthorization;
+  extension: ConfiguredExtension;
+  extensionAuth: CachedExtension;
 }>;

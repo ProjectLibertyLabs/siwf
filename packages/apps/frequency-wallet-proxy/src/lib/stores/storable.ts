@@ -9,15 +9,16 @@ function mapAwareReplacer(_: string, value: unknown): unknown {
   return value;
 }
 
-export function storable<T>(key: string, data?: T) {
+function internal_storable<T>(is_map: boolean, key: string, data?: T) {
   const store = writable(data);
   const { subscribe, set, update } = store;
   const storage = browser ? window.localStorage : null;
 
   if (storage) {
     const storageValue = storage.getItem(key);
-    if (!!storageValue) {
-      set(storageValue ? JSON.parse(storageValue) : data);
+    if (!!storageValue && storageValue !== 'undefined') {
+      const valueToSet = storageValue ? (is_map ? new Map(JSON.parse(storageValue)) : JSON.parse(storageValue)) : data;
+      set(valueToSet);
     }
   }
 
@@ -38,3 +39,6 @@ export function storable<T>(key: string, data?: T) {
     },
   };
 }
+
+export const storable = <T>(key: string, data?: T) => internal_storable(false, key, data);
+export const storable_map = <T>(key: string, data?: T) => internal_storable(true, key, data);

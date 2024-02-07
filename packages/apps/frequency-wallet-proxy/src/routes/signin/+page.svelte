@@ -1,34 +1,47 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import type { AccountWithMsaInfo } from '$lib/components';
-  import { CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore, groupByMsaIdStore } from '$lib/stores';
+  import type { InjectedAccountWithExtensions } from '$lib/stores/ConnectedExtensionsStore';
+  import type { MsaInfoWithAccounts } from '$lib/stores/MsaAccountsStore';
   import { goto } from '$app/navigation';
+  import {
+    CurrentSelectedMsaAccountStore,
+    MsaAccountsStore,
+    type CurrentSelectedMsaAccount,
+    MsaMap,
+  } from '$lib/stores';
 
-  let msaAccounts = Object.entries($groupByMsaIdStore);
-  let userSelected: AccountWithMsaInfo = msaAccounts[0][1][0];
+  let userSelected: CurrentSelectedMsaAccount;
+  let msaMap: MsaMap = new MsaMap();
 
-  $: $CurrentSelectedAccountWithMsaStore = userSelected;
-
-  onMount(() => {
-    if (!$CurrentSelectedExtensionStore?.connector?.injectedExtension) {
-      goto('/signin');
-    }
+  $: $MsaAccountsStore.then((value) => {
+    msaMap = value;
   });
+
+  $: $CurrentSelectedMsaAccountStore = userSelected;
+
+  function createSelectedMsaAccount(msaInfoWithAccounts: MsaInfoWithAccounts, account: InjectedAccountWithExtensions) {
+    const { accounts: msaAccounts, ...msaInfo } = msaInfoWithAccounts;
+    return { ...msaInfo, account };
+  }
 </script>
 
 <div>
   <div>
-    {#each msaAccounts as [msaId, accounts]}
+    {#each msaMap as [msaId, msaInfo]}
       <div>
         <div>
-          {accounts[0].msaInfo.handle} msaId: {msaId}
+          {msaInfo.handle} msaId: {msaId}
         </div>
         <div>
-          {#each accounts as account}
+          {#each msaInfo.accounts as [address, account]}
             <ul>
               <li>
-                <input type="radio" bind:group={userSelected} value={account} id={account.address} />
-                <label for={account.address}> {account.address} ({account.name})</label>
+                <input
+                  type="radio"
+                  bind:group={userSelected}
+                  value={createSelectedMsaAccount(msaInfo, account)}
+                  id={address}
+                />
+                <label for={address}> {address} ({account.name})</label>
               </li>
             </ul>
           {/each}

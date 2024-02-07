@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { Extension } from './extensionsConfig.ts';
+  import type { ConfiguredExtension } from './extensionsConfig.ts';
   import { extensionsConfig } from './extensionsConfig.js';
   import WalletButton from './WalletButton.svelte';
 
-  export let extensions: Extension[] = Object.values(extensionsConfig);
+  export let extensions: ConfiguredExtension[] = Object.values(extensionsConfig);
   export let onSelectedWallet: (event: CustomEvent) => Promise<void>;
 </script>
 

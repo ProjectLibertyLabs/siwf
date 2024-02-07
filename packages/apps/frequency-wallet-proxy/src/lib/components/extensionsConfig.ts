@@ -1,5 +1,5 @@
 import type { ComponentType, SvelteComponent } from 'svelte';
-import type { ExtensionConnector, MsaInfo } from '@frequency-control-panel/utils';
+import type { MsaInfo } from '@frequency-control-panel/utils';
 import type { InjectedAccount } from '@polkadot/extension-inject/types';
 import TalismanIcon from '../icons/TalismanRedIcon.svelte';
 import PolkadotIcon from '../icons/Polkadot.svelte';
@@ -10,7 +10,7 @@ type Logo = {
   size: string;
 };
 
-export type Extension = {
+export interface ConfiguredExtension {
   injectedName: string;
   displayName: string;
   downloadUrl: {
@@ -18,16 +18,21 @@ export type Extension = {
     app?: Record<string, string>;
   };
   logo: Logo;
-  accounts?: AccountWithMsaInfo[];
-  connector?: ExtensionConnector;
-};
+}
+
+export interface AccountWithWallet {
+  address: string;
+  wallets: Set<string>;
+}
 
 export interface AccountWithMsaInfo extends InjectedAccount {
-  connector: ExtensionConnector;
+  walletNames: Set<string>;
   msaInfo: MsaInfo;
 }
 
-export const extensionsConfig: Record<string, Extension> = {
+export type ExtensionsConfig = Record<string, ConfiguredExtension>;
+
+export const extensionsConfig: ExtensionsConfig = {
   'polkadot-js': {
     displayName: 'Polkadot',
     injectedName: 'polkadot-js',

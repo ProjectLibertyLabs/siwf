@@ -1,4 +1,4 @@
-import { storable } from './storable';
+import { storable_map } from './storable';
 
 export const EXTENSION_AUTH_KEY = 'ConfiguredExtensions';
 
@@ -8,18 +8,18 @@ export enum ExtensionAuthorizationEnum {
   Rejected,
 }
 
-export type ExtensionAuthorization = {
+export type CachedExtension = {
   injectedName: string;
   installed: boolean;
   authorized: ExtensionAuthorizationEnum;
 };
 
-export type ExtensionAuthorizationMap = Map<string, ExtensionAuthorization>;
+export type CachedExtensionMap = Map<string, CachedExtension>;
 
-function createConfiguredExtensionStore() {
-  const { subscribe, set, update } = storable<ExtensionAuthorizationMap>(
+function createCachedExtensionStore() {
+  const { subscribe, set, update } = storable_map<CachedExtensionMap>(
     'ConfiguredExtensions',
-    new Map<string, ExtensionAuthorization>()
+    new Map<string, CachedExtension>()
   );
 
   const store = {
@@ -27,7 +27,7 @@ function createConfiguredExtensionStore() {
     set,
     update,
     addExtension: (injectedName: string) => {
-      update((extensions: ExtensionAuthorizationMap) => {
+      update((extensions: CachedExtensionMap) => {
         if (!extensions.has(injectedName)) {
           extensions.set(injectedName, { injectedName, authorized: ExtensionAuthorizationEnum.None, installed: false });
         }
@@ -35,8 +35,8 @@ function createConfiguredExtensionStore() {
         return extensions;
       });
     },
-    updateExtension: (extension: ExtensionAuthorization) => {
-      update((extensions: ExtensionAuthorizationMap) => {
+    updateExtension: (extension: CachedExtension) => {
+      update((extensions: CachedExtensionMap) => {
         extensions.set(extension.injectedName, extension);
         return extensions;
       });
@@ -46,4 +46,4 @@ function createConfiguredExtensionStore() {
   return store;
 }
 
-export const CachedExtensionsStore = createConfiguredExtensionStore();
+export const CachedExtensionsStore = createCachedExtensionStore();

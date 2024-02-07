@@ -2,31 +2,30 @@
   import { createEventDispatcher, onMount } from 'svelte';
   import Icon from '@iconify/svelte';
   import baselineDownload from '@iconify/icons-ic/baseline-download.js';
-  import { type Extension } from './extensionsConfig.js';
-  import { ExtensionAuthorizationEnum, CachedExtensionsStore, type ExtensionAuthorization } from '$lib/stores';
+  import { ExtensionAuthorizationEnum, CachedExtensionsStore, type CachedExtension } from '$lib/stores';
+  import type { ConfiguredExtension } from '.';
 
   const dispatch = createEventDispatcher();
+  export let extension: ConfiguredExtension;
 
-  export let extension: Extension;
-
-  let extensionAuth: ExtensionAuthorization = {
+  let cachedExtension: CachedExtension = {
     injectedName: extension.injectedName,
     installed: false,
     authorized: ExtensionAuthorizationEnum.None,
   };
 
-  $: buttonText = extensionAuth.installed ? 'Sign in with' : 'Install';
+  $: buttonText = cachedExtension.installed ? 'Sign in with' : 'Install';
 
   onMount(() => {
     const cachedExt = $CachedExtensionsStore.get(extension.injectedName);
-    extensionAuth = {
-      ...extensionAuth,
+    cachedExtension = {
+      ...cachedExtension,
       ...cachedExt,
     };
   });
 
   function selectWallet() {
-    dispatch('walletSelected', { extension, extensionAuth });
+    dispatch('walletSelected', { extension, extensionAuth: cachedExtension });
   }
 
   function handleKeyPress(event: KeyboardEvent) {
@@ -56,11 +55,11 @@
       <span class="text-sm italic antialiased">{buttonText} {extension.displayName}</span>
     </div>
     <div class="w-4 basis-1/12">
-      {#if !extensionAuth.installed}
+      {#if cachedExtension.installed}
         <Icon icon={baselineDownload} width="30" height="30" />
-      {:else if extensionAuth?.authorized === ExtensionAuthorizationEnum.None}
+      {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.None}
         <span class="text-sm italic antialiased">Connect</span>
-      {:else if extensionAuth?.authorized === ExtensionAuthorizationEnum.Rejected}
+      {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.Rejected}
         <span class="text-sm italic antialiased">Not Authorized</span>
       {/if}
     </div>

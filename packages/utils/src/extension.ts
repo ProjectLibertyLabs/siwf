@@ -1,6 +1,5 @@
 import type { InjectedAccount, InjectedExtension, InjectedWindowProvider } from '@polkadot/extension-inject/types';
 import { HexString } from '@polkadot/util/types';
-
 export interface InjectedWeb3 {
   [key: string]: InjectedWindowProvider;
 }

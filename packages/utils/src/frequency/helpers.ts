@@ -1,28 +1,46 @@
 import { PresumptiveSuffixesResponse } from '@frequency-chain/api-augment/interfaces';
 import { getApi } from './connect';
 import { ApiPromise } from '@polkadot/api';
+import { AnyNumber } from '@polkadot/types/types';
 
 export interface MsaInfo {
-  msaId: number;
+  msaId: string;
   handle: string;
 }
 
-export async function getMsaInfo(address: string): Promise<MsaInfo> {
+export async function getMsaInfo(address: string | string[]): Promise<MsaInfo | MsaInfo[]> {
   const api = await getApi();
-  const msaId = await getMsaId(api, address);
-  const handle = await getHandle(api, msaId);
-  return { msaId, handle };
+  const msaIds = await getMsaIds(api, address);
+  const handles = await getHandles(api, msaIds);
+  if (Array.isArray(msaIds)) {
+    return msaIds.map((msaId, i) => ({
+      msaId: msaId.toString(),
+      handle: handles[i],
+    }));
+  } else {
+    return { msaId: msaIds.toString(), handle: handles as string };
+  }
 }
 
-async function getMsaId(api: ApiPromise, address: string): Promise<number> {
-  const msaId = (await api.query.msa.publicKeyToMsaId(address)).unwrapOrDefault().toNumber();
-  return msaId === 0 ? 0 : msaId;
+async function getMsaIds(api: ApiPromise, address: string | string[]): Promise<string | string[]> {
+  let msaIds: string | string[];
+
+  if (Array.isArray(address)) {
+    msaIds = (await api.query.msa.publicKeyToMsaId.multi(address)).map((result) => result.unwrapOrDefault().toString());
+  } else {
+    msaIds = (await api.query.msa.publicKeyToMsaId(address as string)).unwrapOrDefault().toString();
+  }
+  return msaIds;
 }
 
-async function getHandle(api: ApiPromise, msaId: number): Promise<string> {
-  const handleResult = (await api.query.handles.msaIdToDisplayName(msaId)).unwrapOrDefault();
-  const handle = handleResult[0].toUtf8();
-  return handle;
+async function getHandles(api: ApiPromise, msaIds: AnyNumber | AnyNumber[]): Promise<string | string[]> {
+  let handles: string | string[];
+  if (Array.isArray(msaIds)) {
+    handles = (await api.query.handles.msaIdToDisplayName.multi(msaIds)).map((r) => r.unwrapOrDefault()[0].toUtf8());
+  } else {
+    handles = (await api.query.handles.msaIdToDisplayName(msaIds)).unwrapOrDefault()[0].toUtf8();
+  }
+  return handles;
 }
 
 export async function validateHandle(handle: string): Promise<boolean> {
