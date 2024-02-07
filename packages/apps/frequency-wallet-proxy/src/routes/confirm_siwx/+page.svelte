@@ -6,7 +6,7 @@
     type SIWxPayload,
   } from '@frequency-control-panel/utils';
   import { Content, Modal, Trigger } from 'sv-popup';
-  import { CurrentSelectedMsaAccountStore, ConnectedExtensionsStore } from '$lib/stores';
+  import { ConnectedExtensionsStore, CurrentSelectedMsaAccountStore } from '$lib/stores';
 
   const now = new Date();
   const payload: SIWxPayload = {

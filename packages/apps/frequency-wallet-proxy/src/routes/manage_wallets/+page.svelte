@@ -1,14 +1,8 @@
 <script lang="ts">
   import { ExtensionConnector, isExtensionInstalled } from '@frequency-control-panel/utils';
-  import type { InjectedWeb3 } from '@frequency-control-panel/utils';
   import { WalletSelector } from '$lib/components';
-  import {
-    CachedExtensionsStore,
-    ExtensionAuthorizationEnum,
-    ConfiguredExtensionsStore,
-    ConnectedExtensionsStore,
-  } from '$lib/stores';
-  import { goto, afterNavigate } from '$app/navigation';
+  import { CachedExtensionsStore, ConfiguredExtensionsStore, ExtensionAuthorizationEnum } from '$lib/stores';
+  import { afterNavigate, goto } from '$app/navigation';
   import type { WalletSelectedEvent } from '$lib/types/events';
   import { base } from '$app/paths';
   import { APP_NAME } from '$lib/globals';

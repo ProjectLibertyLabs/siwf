@@ -5,7 +5,7 @@
   import baselineBlock from '@iconify/icons-ic/baseline-block.js';
   import baselineCheck from '@iconify/icons-ic/baseline-check.js';
   import mdiConnection from '@iconify/icons-mdi/connection.js';
-  import { ExtensionAuthorizationEnum, CachedExtensionsStore } from '$lib/stores';
+  import { CachedExtensionsStore, ExtensionAuthorizationEnum } from '$lib/stores';
   import type { ConfiguredExtension } from '.';
 
   const dispatch = createEventDispatcher();

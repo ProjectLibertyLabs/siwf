@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { type InjectedAccountWithExtensions } from '$lib/stores/ConnectedExtensionsStore';
+  import { type InjectedAccountWithExtensions } from '$lib/stores';
   import type { MsaInfoWithAccounts } from '$lib/stores/MsaAccountsStore';
   import { goto } from '$app/navigation';
   import {
-    CurrentSelectedMsaAccountStore,
-    MsaAccountsStore,
-    type CurrentSelectedMsaAccount,
-    MsaMap,
     CachedExtensionsStore,
+    type CurrentSelectedMsaAccount,
+    CurrentSelectedMsaAccountStore,
     ExtensionAuthorizationEnum,
+    MsaAccountsStore,
+    MsaMap,
   } from '$lib/stores';
   import sharpSettings from '@iconify/icons-ic/sharp-settings';
   import Icon from '@iconify/svelte';
@@ -33,7 +33,7 @@
   }
 
   function createSelectedMsaAccount(msaInfoWithAccounts: MsaInfoWithAccounts, account: InjectedAccountWithExtensions) {
-    const { accounts: msaAccounts, ...msaInfo } = msaInfoWithAccounts;
+    const { accounts: _msaAccounts, ...msaInfo } = msaInfoWithAccounts;
     return { ...msaInfo, account };
   }
 </script>
