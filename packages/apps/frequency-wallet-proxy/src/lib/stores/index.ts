@@ -1,3 +1,4 @@
+export * from './AccountsStore';
 export * from './CachedExtensionsStore';
 export * from './ConfiguredExtensionsStore';
 export * from './ConnectedExtensionsStore';
