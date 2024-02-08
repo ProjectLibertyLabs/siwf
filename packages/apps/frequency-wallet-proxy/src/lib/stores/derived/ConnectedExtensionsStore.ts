@@ -1,11 +1,20 @@
 import type { ConfiguredExtension } from '$lib/components';
-import { ConnectionError, ExtensionConnector, ExtensionErrorEnum } from '@frequency-control-panel/utils';
+import {
+  ConnectionError,
+  ExtensionConnector,
+  ExtensionErrorEnum,
+  type InjectedWeb3,
+} from '@frequency-control-panel/utils';
 import { derived } from 'svelte/store';
 import { APP_NAME } from '$lib/globals';
 import type { InjectedAccount } from '@polkadot/extension-inject/types';
-import { awaitWeb3Ready } from '../Web3Store';
 import { type CachedExtension, CachedExtensionsStore, ExtensionAuthorizationEnum } from '../CachedExtensionsStore';
 import { ConfiguredExtensionsStore } from '../ConfiguredExtensionsStore';
+
+export let resolveInjectedWeb3: (arg: InjectedWeb3) => void;
+const awaitWeb3Ready = new Promise<InjectedWeb3>((res: (arg: InjectedWeb3) => void) => {
+  resolveInjectedWeb3 = res;
+});
 
 export interface ConnectedExtension extends CachedExtension, ConfiguredExtension {
   connector: ExtensionConnector;
@@ -19,9 +28,7 @@ export const ConnectedExtensionsStore = derived(
   ([$ConfiguredExtensionsStore, $CachedExtensionsStore]) =>
     (async () => {
       const map = new Map<string, ConnectedExtension>();
-      console.log('Connected store awaiting web3');
       const injectedWeb3 = await awaitWeb3Ready;
-      console.log('Connected store got web3');
       for (const cached of [...$CachedExtensionsStore.values()]) {
         if (cached.installed && cached.authorized === ExtensionAuthorizationEnum.Authorized) {
           const connector = new ExtensionConnector(injectedWeb3, APP_NAME);
