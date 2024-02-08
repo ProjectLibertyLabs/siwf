@@ -1,22 +1,15 @@
 <script lang="ts">
-  import { ExtensionConnector, isExtensionInstalled } from '@frequency-control-panel/utils';
+  import {
+    ConnectionError,
+    ExtensionConnector,
+    ExtensionErrorEnum,
+    isExtensionInstalled,
+  } from '@frequency-control-panel/utils';
   import { WalletSelector } from '$lib/components';
-  import { afterNavigate, goto } from '$app/navigation';
   import type { WalletSelectedEvent } from '$lib/types/events';
-  import { base } from '$app/paths';
   import { APP_NAME } from '$lib/globals';
   import { ExtensionAuthorizationEnum, CachedExtensionsStore } from '$lib/stores/CachedExtensionsStore';
   import { ConfiguredExtensionsStore } from '$lib/stores/ConfiguredExtensionsStore';
-
-  let previousPage: string = base;
-
-  afterNavigate(({ from }) => {
-    previousPage = from?.url?.pathname || previousPage;
-  });
-
-  function goBack() {
-    goto(previousPage);
-  }
 
   const getErrorMessage = (error: unknown) => {
     if (error instanceof Error) return error.message;
@@ -33,21 +26,33 @@
         extensionAuth.authorized = ExtensionAuthorizationEnum.Authorized;
         CachedExtensionsStore.updateExtension(extensionAuth);
       } catch (error: unknown) {
+        extensionAuth.authorized = ExtensionAuthorizationEnum.None;
+        if (error instanceof ConnectionError) {
+          switch (error.reason) {
+            case ExtensionErrorEnum.NO_EXTENSION:
+              extensionAuth.installed = false;
+              break;
+            case ExtensionErrorEnum.UNKNOWN:
+            case ExtensionErrorEnum.PENDING_AUTH:
+              extensionAuth.authorized = ExtensionAuthorizationEnum.None;
+              break;
+            case ExtensionErrorEnum.UNAUTHORIZED:
+            case ExtensionErrorEnum.NO_ACCOUNTS_AUTHORIZED:
+              extensionAuth.authorized = ExtensionAuthorizationEnum.Rejected;
+              break;
+          }
+        }
         const message = getErrorMessage(error);
         console.error(message);
-        extensionAuth.authorized = ExtensionAuthorizationEnum.Rejected;
         CachedExtensionsStore.updateExtension(extensionAuth);
       }
     } else {
       if (isExtensionInstalled(extension.injectedName)) {
         extensionAuth.installed = true;
         CachedExtensionsStore.updateExtension(extensionAuth);
-      } else {
-        window.open(extension.downloadUrl, '_blank');
       }
     }
   };
 </script>
 
 <WalletSelector onSelectedWallet={handleSelectedWallet} extensions={Object.values($ConfiguredExtensionsStore)} />
-<button on:click={goBack}>Back</button>
