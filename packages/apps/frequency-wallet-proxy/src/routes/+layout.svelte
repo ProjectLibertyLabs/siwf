@@ -14,9 +14,7 @@
   }
 
   onMount(async () => {
-    if (window?.injectedWeb3) {
-      resolveInjectedWeb3(window.injectedWeb3);
-    }
+    resolveInjectedWeb3(window.injectedWeb3);
   });
 </script>
 

@@ -4,6 +4,7 @@ import {
   ExtensionConnector,
   ExtensionErrorEnum,
   type InjectedWeb3,
+  isExtensionInstalled,
 } from '@frequency-control-panel/utils';
 import { derived } from 'svelte/store';
 import { APP_NAME } from '$lib/globals';
@@ -11,8 +12,8 @@ import type { InjectedAccount } from '@polkadot/extension-inject/types';
 import { type CachedExtension, CachedExtensionsStore, ExtensionAuthorizationEnum } from '../CachedExtensionsStore';
 import { ConfiguredExtensionsStore } from '../ConfiguredExtensionsStore';
 
-export let resolveInjectedWeb3: (arg: InjectedWeb3) => void;
-const awaitWeb3Ready = new Promise<InjectedWeb3>((res: (arg: InjectedWeb3) => void) => {
+export let resolveInjectedWeb3: (arg: InjectedWeb3 | undefined) => void;
+const awaitWeb3Ready = new Promise<InjectedWeb3 | undefined>((res: (arg: InjectedWeb3 | undefined) => void) => {
   resolveInjectedWeb3 = res;
 });
 
@@ -30,7 +31,9 @@ export const ConnectedExtensionsStore = derived(
       const map = new Map<string, ConnectedExtension>();
       const injectedWeb3 = await awaitWeb3Ready;
       for (const cached of [...$CachedExtensionsStore.values()]) {
-        if (cached.installed && cached.authorized === ExtensionAuthorizationEnum.Authorized) {
+        const orig = { ...cached };
+        cached.installed = isExtensionInstalled(cached.injectedName);
+        if (injectedWeb3 && cached.installed && cached.authorized === ExtensionAuthorizationEnum.Authorized) {
           const connector = new ExtensionConnector(injectedWeb3, APP_NAME);
           try {
             await connector.connect(cached.injectedName);
@@ -45,6 +48,7 @@ export const ConnectedExtensionsStore = derived(
             };
 
             map.set(connected.injectedName, connected);
+            cached.authorized = ExtensionAuthorizationEnum.Authorized;
           } catch (err) {
             if (err instanceof ConnectionError) {
               switch (err.reason) {
@@ -62,14 +66,15 @@ export const ConnectedExtensionsStore = derived(
                   cached.installed = false;
                   break;
               }
-
-              CachedExtensionsStore.updateExtension(cached);
             }
             console.error(err);
           }
         }
+
+        if (orig.authorized !== cached.authorized || orig.installed !== cached.installed) {
+          CachedExtensionsStore.updateExtension(cached);
+        }
       }
-      console.log('Connected store size ', map.size);
       return map;
     })()
 );
