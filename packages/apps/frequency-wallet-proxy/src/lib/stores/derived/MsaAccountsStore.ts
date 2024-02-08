@@ -1,5 +1,5 @@
 import { derived } from 'svelte/store';
-import { AccountMap, AccountsStore, type InjectedAccountWithExtensions } from '.';
+import { AccountMap, AccountsStore, type InjectedAccountWithExtensions } from './AccountsStore';
 import { getMsaInfo, type MsaInfo } from '@frequency-control-panel/utils';
 
 export interface MsaInfoWithAccounts extends MsaInfo {

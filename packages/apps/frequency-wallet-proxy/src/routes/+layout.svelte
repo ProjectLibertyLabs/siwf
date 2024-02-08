@@ -1,7 +1,11 @@
 <script lang="ts">
-  import { CachedExtensionsStore, Web3Store } from '$lib/stores';
+  import { CachedExtensionsStore } from '$lib/stores/CachedExtensionsStore';
+  import { Web3Store } from '$lib/stores/Web3Store';
+  import { type ConnectedExtensionMap, ConnectedExtensionsStore } from '$lib/stores/derived/ConnectedExtensionsStore';
   import { isExtensionInstalled } from '@frequency-control-panel/utils';
   import { onMount } from 'svelte';
+
+  let connectedExtensionsMap: ConnectedExtensionMap = new Map();
 
   $: {
     if ($Web3Store) {
@@ -13,10 +17,18 @@
         }
       }
     }
+
+    if ($ConnectedExtensionsStore) {
+      $ConnectedExtensionsStore.then((value) => {
+        connectedExtensionsMap = value;
+      });
+    }
   }
 
   onMount(async () => {
-    Web3Store.set(window.injectedWeb3);
+    if (window?.injectedWeb3) {
+      Web3Store.set(window.injectedWeb3);
+    }
   });
 </script>
 

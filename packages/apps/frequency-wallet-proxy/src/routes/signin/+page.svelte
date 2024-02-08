@@ -1,17 +1,15 @@
 <script lang="ts">
-  import { type InjectedAccountWithExtensions } from '$lib/stores';
-  import type { MsaInfoWithAccounts } from '$lib/stores/MsaAccountsStore';
+  import { type InjectedAccountWithExtensions } from '$lib/stores/derived/AccountsStore';
+  import { MsaMap, MsaAccountsStore } from '$lib/stores/derived/MsaAccountsStore';
+  import type { MsaInfoWithAccounts } from '$lib/stores/derived/MsaAccountsStore';
   import { goto } from '$app/navigation';
-  import {
-    CachedExtensionsStore,
-    type CurrentSelectedMsaAccount,
-    CurrentSelectedMsaAccountStore,
-    ExtensionAuthorizationEnum,
-    MsaAccountsStore,
-    MsaMap,
-  } from '$lib/stores';
   import sharpSettings from '@iconify/icons-ic/sharp-settings';
   import Icon from '@iconify/svelte';
+  import {
+    type CurrentSelectedMsaAccount,
+    CurrentSelectedMsaAccountStore,
+  } from '$lib/stores/CurrentSelectedMsaAccountStore';
+  import { ConnectedExtensionsStore } from '$lib/stores/derived/ConnectedExtensionsStore';
 
   let userSelected: CurrentSelectedMsaAccount;
   let msaMap: MsaMap = new MsaMap();
@@ -20,12 +18,13 @@
     msaMap = value;
   });
 
-  $: if (
-    [...$CachedExtensionsStore.values()].every(
-      (ext) => !ext.installed || ext.authorized !== ExtensionAuthorizationEnum.Authorized
-    )
-  ) {
-    goto('/manage_wallets');
+  $: {
+    $ConnectedExtensionsStore &&
+      $ConnectedExtensionsStore.then((map) => {
+        if (map.size === 0) {
+          goto('/manage_wallets');
+        }
+      });
   }
 
   $: {
@@ -45,28 +44,31 @@
     </button>
   </div>
   <div>
-    {#each msaMap as [msaId, msaInfo]}
-      <div>
+    <ul>
+      {#each msaMap as [msaId, msaInfo]}
         <div>
-          {msaInfo.handle} msaId: {msaId}
+          <div>
+            {msaInfo.handle} msaId: {msaId}
+          </div>
+          <div>
+            {#each msaInfo.accounts as [address, account]}
+              <ul>
+                <li>
+                  <input
+                    type="radio"
+                    bind:group={userSelected}
+                    value={createSelectedMsaAccount(msaInfo, account)}
+                    id={address}
+                  />
+                  <label for={address}> {address} ({account.name})</label>
+                </li>
+              </ul>
+            {/each}
+          </div>
+          <div style="height:20px" />
         </div>
-        <div>
-          {#each msaInfo.accounts as [address, account]}
-            <ul>
-              <li>
-                <input
-                  type="radio"
-                  bind:group={userSelected}
-                  value={createSelectedMsaAccount(msaInfo, account)}
-                  id={address}
-                />
-                <label for={address}> {address} ({account.name})</label>
-              </li>
-            </ul>
-          {/each}
-        </div>
-      </div>
-    {/each}
+      {/each}
+    </ul>
   </div>
 
   <span>

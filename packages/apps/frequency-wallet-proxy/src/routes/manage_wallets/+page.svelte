@@ -1,11 +1,12 @@
 <script lang="ts">
   import { ExtensionConnector, isExtensionInstalled } from '@frequency-control-panel/utils';
   import { WalletSelector } from '$lib/components';
-  import { CachedExtensionsStore, ConfiguredExtensionsStore, ExtensionAuthorizationEnum } from '$lib/stores';
   import { afterNavigate, goto } from '$app/navigation';
   import type { WalletSelectedEvent } from '$lib/types/events';
   import { base } from '$app/paths';
   import { APP_NAME } from '$lib/globals';
+  import { ExtensionAuthorizationEnum, CachedExtensionsStore } from '$lib/stores/CachedExtensionsStore';
+  import { ConfiguredExtensionsStore } from '$lib/stores/ConfiguredExtensionsStore';
 
   let previousPage: string = base;
 
@@ -27,23 +28,15 @@
 
     if (extensionAuth.installed) {
       const connector = new ExtensionConnector(window.injectedWeb3!, APP_NAME);
-      switch (extensionAuth.authorized) {
-        case ExtensionAuthorizationEnum.None:
-        case ExtensionAuthorizationEnum.Rejected:
-          try {
-            await connector.connect(extension.injectedName);
-            extensionAuth.authorized = ExtensionAuthorizationEnum.Authorized;
-            CachedExtensionsStore.updateExtension(extensionAuth);
-          } catch (error: unknown) {
-            const message = getErrorMessage(error);
-            console.error(message);
-            extensionAuth.authorized = ExtensionAuthorizationEnum.Rejected;
-            CachedExtensionsStore.updateExtension(extensionAuth);
-          }
-          break;
-
-        case ExtensionAuthorizationEnum.Authorized:
-          break;
+      try {
+        await connector.connect(extension.injectedName);
+        extensionAuth.authorized = ExtensionAuthorizationEnum.Authorized;
+        CachedExtensionsStore.updateExtension(extensionAuth);
+      } catch (error: unknown) {
+        const message = getErrorMessage(error);
+        console.error(message);
+        extensionAuth.authorized = ExtensionAuthorizationEnum.Rejected;
+        CachedExtensionsStore.updateExtension(extensionAuth);
       }
     } else {
       if (isExtensionInstalled(extension.injectedName)) {

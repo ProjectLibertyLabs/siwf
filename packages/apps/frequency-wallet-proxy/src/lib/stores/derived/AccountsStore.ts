@@ -1,5 +1,5 @@
 import { derived } from 'svelte/store';
-import { type ConnectedExtensionMap, ConnectedExtensionsStore } from '.';
+import { type ConnectedExtensionMap, ConnectedExtensionsStore } from './ConnectedExtensionsStore';
 import type { InjectedAccount } from '@polkadot/extension-inject/types';
 
 /// Store that maps public key address to the names of wallet extensions that provide it
@@ -23,10 +23,12 @@ export class AccountMap extends Map<string, InjectedAccountWithExtensions> {
 export const AccountsStore = derived([ConnectedExtensionsStore], ([$ConnectedExtensionsStore]) =>
   (async () => {
     const accountMap: AccountMap = new AccountMap();
-    const extensionMap: ConnectedExtensionMap = await $ConnectedExtensionsStore;
-    for (const extension of [...extensionMap.values()]) {
-      for (const account of extension.accounts) {
-        accountMap.updateAccount(account, extension.injectedName);
+    if (!!$ConnectedExtensionsStore) {
+      const extensionMap: ConnectedExtensionMap = await $ConnectedExtensionsStore;
+      for (const extension of [...extensionMap.values()]) {
+        for (const account of extension.accounts) {
+          accountMap.updateAccount(account, extension.injectedName);
+        }
       }
     }
     return accountMap;

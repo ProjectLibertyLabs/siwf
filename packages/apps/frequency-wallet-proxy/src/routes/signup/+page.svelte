@@ -1,12 +1,8 @@
 <script lang="ts">
-  import {
-    AccountMap,
-    AccountsStore,
-    CachedExtensionsStore,
-    ExtensionAuthorizationEnum,
-    SignupStore,
-  } from '$lib/stores';
   import { goto } from '$app/navigation';
+  import { ExtensionAuthorizationEnum, CachedExtensionsStore } from '$lib/stores/CachedExtensionsStore';
+  import { SignupStore } from '$lib/stores/SignupStore';
+  import { AccountMap, AccountsStore } from '$lib/stores/derived/AccountsStore';
 
   let accountMap: AccountMap = new AccountMap();
 

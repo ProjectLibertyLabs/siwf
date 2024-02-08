@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { SignupStore } from '$lib/stores/SignupStore';
   import { getHandleNextSuffixes, validateHandle } from '@frequency-control-panel/utils';
-  import { SignupStore } from '$lib/stores';
 
   let timeoutId: number | undefined;
   let isValidHandle = false;
