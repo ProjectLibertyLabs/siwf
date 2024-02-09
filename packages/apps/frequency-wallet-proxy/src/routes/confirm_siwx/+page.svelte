@@ -1,23 +1,21 @@
 <script lang="ts">
   import { SiwsMessage } from '@talismn/siws';
   import { generateSIWxNonce } from '@frequency-control-panel/utils';
-  import { CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/stores';
-  import { Modal, Content, Trigger } from 'sv-popup';
-
-  let extension = $CurrentSelectedExtensionStore;
+  import { Content, Modal, Trigger } from 'sv-popup';
+  import { APP_NAME } from '$lib/globals';
+  import { CurrentSelectedMsaAccountStore } from '$lib/stores/CurrentSelectedMsaAccountStore';
+  import { ConnectedExtensionsDerivedStore } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
 
   const now = new Date();
   const payload: SiwsMessage = new SiwsMessage({
     domain: window.location.hostname,
     // TODO: Should use CAIP-10 conformant address here, work with Talisman to update their code
-    // address: new PolkadotAddress('genesis', $CurrentSelectedAccountWithMsaStore.address).toString(),
-    address: $CurrentSelectedAccountWithMsaStore.address,
+    // address: new PolkadotAddress('genesis', $CurrentSelectedMsaAccountStore.account.address).toString(),
+    address: $CurrentSelectedMsaAccountStore.account.address,
     uri: window.location.href,
     // version: '1.0',
     chainName: 'Frequency',
-    statement: `The app '${
-      extension?.connector?.appName ?? '<unknown>'
-    }' wants you to sign in with your Frequency account`,
+    statement: `The app '${APP_NAME}' wants you to sign in with your Frequency account`,
     nonce: generateSIWxNonce(),
     issuedAt: now.valueOf(),
     expirationTime: new Date(now.valueOf() + 300000).valueOf(), // valid for 5 minutes
@@ -30,10 +28,13 @@
   // Add optional fields not yet supported by siws
   (payload as unknown as any)['version'] = '1.0';
   (payload as unknown as any)['notBefore'] = now.valueOf();
-  (payload as unknown as any)['resources'] = [`dsnp://${$CurrentSelectedAccountWithMsaStore.msaInfo.msaId}`];
+  (payload as unknown as any)['resources'] = [`dsnp://${$CurrentSelectedMsaAccountStore.msaId}`];
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
   async function signPayload() {
+    const extension = (await $ConnectedExtensionsDerivedStore)?.[
+      $CurrentSelectedMsaAccountStore.account.wallets.values().next().value
+    ];
     if (!extension?.connector) {
       throw new Error(`Did not get loaded/connected extension for ${extension?.displayName}`);
     }

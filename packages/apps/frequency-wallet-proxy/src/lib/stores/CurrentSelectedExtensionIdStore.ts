@@ -1,3 +1,5 @@
 import { storable } from './storable';
 
-export const CurrentSelectedExtensionIdStore = storable<string>('CurrentSelectedExtensionId', '');
+const STORAGE_KEY = 'SelectedExtension';
+
+export const CurrentSelectedExtensionIdStore = storable<string>(STORAGE_KEY);

@@ -1,41 +1,39 @@
 import type { ComponentType, SvelteComponent } from 'svelte';
+import type { MsaInfo } from '@frequency-control-panel/utils';
+import type { InjectedAccount } from '@polkadot/extension-inject/types';
 import TalismanIcon from '../icons/TalismanRedIcon.svelte';
 import PolkadotIcon from '../icons/Polkadot.svelte';
 import SubWallet from '../icons/SubWallet.svelte';
-import type { ExtensionConnector, MsaInfo } from '@frequency-control-panel/utils';
-import type { InjectedAccount } from '@polkadot/extension-inject/types';
 
 type Logo = {
   component: ComponentType<SvelteComponent>;
   size: string;
 };
 
-export interface AccountWithMsaInfo extends InjectedAccount {
-  msaInfo: MsaInfo;
-}
-
-export enum ExtensionAuthorization {
-  None,
-  Authorized,
-  Rejected,
-}
-
-export type Extension = {
-  displayName: string;
+export interface ConfiguredExtension {
   injectedName: string;
+  displayName: string;
   downloadUrl: {
-    browser?: Record<string, string> | undefined;
+    browser?: Record<string, string>;
     app?: Record<string, string>;
   };
   logo: Logo;
-  installed?: boolean;
-  authorized: ExtensionAuthorization;
-  accounts?: AccountWithMsaInfo[];
-  connector?: ExtensionConnector;
-};
+}
 
-export const extensionsConfig: Extension[] = [
-  {
+export interface AccountWithWallet {
+  address: string;
+  wallets: Set<string>;
+}
+
+export interface AccountWithMsaInfo extends InjectedAccount {
+  walletNames: Set<string>;
+  msaInfo: MsaInfo;
+}
+
+export type ExtensionsConfig = Record<string, ConfiguredExtension>;
+
+export const extensionsConfig: ExtensionsConfig = {
+  'polkadot-js': {
     displayName: 'Polkadot',
     injectedName: 'polkadot-js',
     downloadUrl: {
@@ -45,9 +43,9 @@ export const extensionsConfig: Extension[] = [
       },
     },
     logo: { component: PolkadotIcon, size: '5em' },
-    authorized: ExtensionAuthorization.None,
   },
-  {
+
+  talisman: {
     displayName: 'Talisman',
     injectedName: 'talisman',
     downloadUrl: {
@@ -56,9 +54,9 @@ export const extensionsConfig: Extension[] = [
       },
     },
     logo: { component: TalismanIcon, size: '5em' },
-    authorized: ExtensionAuthorization.None,
   },
-  {
+
+  'subwallet-js': {
     displayName: 'SubWallet',
     injectedName: 'subwallet-js',
     downloadUrl: {
@@ -71,6 +69,5 @@ export const extensionsConfig: Extension[] = [
       },
     },
     logo: { component: SubWallet, size: '5em' },
-    authorized: ExtensionAuthorization.None,
   },
-];
+};

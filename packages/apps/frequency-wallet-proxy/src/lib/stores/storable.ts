@@ -8,8 +8,9 @@ export function storable<T>(key: string, data?: T) {
 
   if (storage) {
     const storageValue = storage.getItem(key);
-    if (!!storageValue) {
-      set(storageValue ? JSON.parse(storageValue) : data);
+    if (!!storageValue && storageValue !== 'undefined') {
+      const valueToSet = storageValue ? JSON.parse(storageValue) : data;
+      set(valueToSet);
     }
   }
 
@@ -22,6 +23,7 @@ export function storable<T>(key: string, data?: T) {
     update: (cb: (value: T) => T) => {
       const new_cb = (old_value: T) => {
         const new_value = cb(old_value);
+
         storage && storage.setItem(key, JSON.stringify(new_value));
         return new_value;
       };

@@ -1,14 +1,15 @@
 <script lang="ts">
-  import type { Extension } from './extensionsConfig.ts';
+  import type { ConfiguredExtension } from './extensionsConfig.ts';
   import { extensionsConfig } from './extensionsConfig.js';
   import WalletButton from './WalletButton.svelte';
+  import type { WalletSelectedEvent } from '$lib/types/events.js';
 
-  export let extensions: Extension[] = extensionsConfig;
-  export let onSelectedWallet: (event: CustomEvent) => Promise<void>;
+  export let extensions: ConfiguredExtension[] = Object.values(extensionsConfig);
+  export let onSelectedWallet: (event: WalletSelectedEvent) => Promise<void>;
 </script>
 
 <div class="xs:mx-12 sm:w-500 md:w-800 mx-auto flex flex-col gap-2">
   {#each extensions as extension}
-    <WalletButton {extension} on:walletSelected={onSelectedWallet} />
+    <WalletButton extensionMetadata={extension} on:walletSelected={onSelectedWallet} />
   {/each}
 </div>

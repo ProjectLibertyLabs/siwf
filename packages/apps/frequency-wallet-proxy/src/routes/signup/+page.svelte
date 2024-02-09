@@ -1,20 +1,27 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { CurrentSelectedExtensionStore, SignupStore } from '$lib/stores';
+  import { SignupStore } from '$lib/stores/SignupStore';
+  import { type AccountMap } from '$lib/stores/derived/AllAccountsDerivedStore';
+  import { FilteredAccountsDerivedStore } from '$lib/stores/derived/FilteredAccountsDerivedStore';
 
-  let accounts = $CurrentSelectedExtensionStore?.accounts || [];
-  $SignupStore.address = accounts[0]?.address;
+  let accountMap: AccountMap = {};
+
+  $: $FilteredAccountsDerivedStore.then((value) => {
+    accountMap = value;
+  });
+
+  $: $SignupStore.address = Object.keys(accountMap)?.[0] ?? '';
 </script>
 
 <div>Sign up</div>
-<div>Choose an account you want to create an account with</div>
+<div>Choose an address you want to create an account with</div>
 
 <div>
   <div>
-    {#each accounts as account}
+    {#each Object.entries(accountMap) as [address, account]}
       <div>
-        <input type="radio" bind:group={$SignupStore.address} value={account.address} id={account.address} />
-        <label for={account.address}> {account.address} ({account.name})</label>
+        <input type="radio" bind:group={$SignupStore.address} value={address} id={address} />
+        <label for={address}> {address} ({account.name})</label>
       </div>
     {/each}
   </div>

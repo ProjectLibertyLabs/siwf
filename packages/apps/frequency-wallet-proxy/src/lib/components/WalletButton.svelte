@@ -1,26 +1,26 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import Icon from '@iconify/svelte';
-  import { type Extension, ExtensionAuthorization } from './extensionsConfig.js';
-  import { isExtensionInstalled, delayMs } from '@frequency-control-panel/utils';
   import baselineDownload from '@iconify/icons-ic/baseline-download.js';
+  import baselineBlock from '@iconify/icons-ic/baseline-block.js';
+  import baselineCheck from '@iconify/icons-ic/baseline-check.js';
+  import mdiConnection from '@iconify/icons-mdi/connection.js';
+  import type { ConfiguredExtension } from '.';
+  import { CachedExtensionsStore, ExtensionAuthorizationEnum } from '$lib/stores/CachedExtensionsStore';
 
   const dispatch = createEventDispatcher();
+  export let extensionMetadata: ConfiguredExtension;
 
-  export let extension: Extension;
-  $: buttonText = extension.installed ? 'Sign in with' : 'Install';
+  $: cachedExtension = $CachedExtensionsStore?.[extensionMetadata.injectedName] ?? {
+    injectedName: extensionMetadata.injectedName,
+    installed: false,
+    authorized: ExtensionAuthorizationEnum.None,
+  };
 
-  onMount(async (): Promise<void> => {
-    //  Tiny delay here to work around an injection timing bug with the polkadot-js wallet extension.
-    //  Without this, we get a false negative for the polkadot-js extension about 10% of the time.
-    if (extension.injectedName === 'polkadot-js') {
-      await delayMs(50);
-    }
-    extension.installed = isExtensionInstalled(extension.injectedName);
-  });
+  $: buttonText = cachedExtension.installed ? 'Sign in with' : 'Install';
 
   function selectWallet() {
-    dispatch('walletSelected', { extension });
+    dispatch('walletSelected', { injectedName: extensionMetadata.injectedName });
   }
 
   function handleKeyPress(event: KeyboardEvent) {
@@ -43,18 +43,21 @@
 >
   <div class="flex items-center justify-center gap-3">
     <div class="basis-3/12">
-      <svelte:component this={extension.logo.component} size={extension.logo.size} />
+      <svelte:component this={extensionMetadata.logo.component} size={extensionMetadata.logo.size} />
     </div>
     <div class="basis-5/8 ml-8 text-left">
-      <div class="text-3xl">{extension.displayName}</div>
-      <span class="text-sm italic antialiased">{buttonText} {extension.displayName}</span>
+      <div class="text-3xl">{extensionMetadata.displayName}</div>
+      <span class="text-sm italic antialiased">{buttonText} {extensionMetadata.displayName}</span>
     </div>
     <div class="w-4 basis-1/12">
-      {#if !extension.installed}
+      {#if !cachedExtension.installed}
         <Icon icon={baselineDownload} width="30" height="30" />
-      {/if}
-      {#if extension.authorized === ExtensionAuthorization.Rejected}
-        <span class="text-sm italic antialiased">Not Authorized</span>
+      {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.None}
+        <Icon icon={mdiConnection} width="30" height="30" />
+      {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.Rejected}
+        <Icon icon={baselineBlock} width="30" height="30" />
+      {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.Authorized}
+        <Icon icon={baselineCheck} width="30" height="30" />
       {/if}
     </div>
   </div>

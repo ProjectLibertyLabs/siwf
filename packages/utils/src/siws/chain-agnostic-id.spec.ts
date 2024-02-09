@@ -1,6 +1,6 @@
 import { ChainAgnosticId, POLKADOT_CHAIN_NAMESPACE, PolkadotChainId } from './chain-agnostic-id.js';
 import { BlockHash } from '@polkadot/types/interfaces';
-import { describe, test, expect } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
 describe('chain-agnostic-id', () => {
   describe('class ChainAgnosticId', () => {

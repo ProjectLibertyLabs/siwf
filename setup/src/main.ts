@@ -20,7 +20,7 @@ import type { KeyringPair } from '@polkadot/keyring/types';
 interface ChainAccount {
   seedPhrase: string;
   keypairs: KeyringPair[];
-  msaId: bigint;
+  msaId: string;
   handle: string;
 }
 

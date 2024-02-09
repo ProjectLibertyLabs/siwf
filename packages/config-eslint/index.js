@@ -36,6 +36,13 @@ module.exports = {
       },
     ],
     'no-extra-boolean-cast': 'off',
+    'sort-imports': [
+      'error',
+      {
+        ignoreCase: true,
+        ignoreDeclarationSort: true,
+      },
+    ],
   },
   overrides: [
     {
@@ -46,4 +53,10 @@ module.exports = {
       },
     },
   ],
+  settings: {
+    'import/resolver': {
+      typescript: true,
+      node: true,
+    },
+  },
 };

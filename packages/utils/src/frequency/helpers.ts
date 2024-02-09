@@ -1,28 +1,29 @@
 import { PresumptiveSuffixesResponse } from '@frequency-chain/api-augment/interfaces';
 import { getApi } from './connect';
 import { ApiPromise } from '@polkadot/api';
+import { AnyNumber } from '@polkadot/types/types';
 
 export interface MsaInfo {
-  msaId: number;
+  msaId: string;
   handle: string;
 }
 
-export async function getMsaInfo(address: string): Promise<MsaInfo> {
+export async function getMsaInfo(address: string[]): Promise<MsaInfo | MsaInfo[]> {
   const api = await getApi();
-  const msaId = await getMsaId(api, address);
-  const handle = await getHandle(api, msaId);
-  return { msaId, handle };
+  const msaIds = await getMsaIds(api, address);
+  const handles = await getHandles(api, msaIds);
+  return msaIds.map((msaId, i) => ({
+    msaId: msaId.toString(),
+    handle: handles[i],
+  }));
 }
 
-async function getMsaId(api: ApiPromise, address: string): Promise<number> {
-  const msaId = (await api.query.msa.publicKeyToMsaId(address)).unwrapOrDefault().toNumber();
-  return msaId === 0 ? 0 : msaId;
+async function getMsaIds(api: ApiPromise, address: string[]): Promise<string[]> {
+  return (await api.query.msa.publicKeyToMsaId.multi(address)).map((result) => result.unwrapOrDefault().toString());
 }
 
-async function getHandle(api: ApiPromise, msaId: number): Promise<string> {
-  const handleResult = (await api.query.handles.msaIdToDisplayName(msaId)).unwrapOrDefault();
-  const handle = handleResult[0].toUtf8();
-  return handle;
+async function getHandles(api: ApiPromise, msaIds: AnyNumber[]): Promise<string[]> {
+  return (await api.query.handles.msaIdToDisplayName.multi(msaIds)).map((r) => r.unwrapOrDefault()[0].toUtf8());
 }
 
 export async function validateHandle(handle: string): Promise<boolean> {
