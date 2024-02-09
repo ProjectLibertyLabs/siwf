@@ -28,9 +28,9 @@
   console.debug(payloadApi.toMessage());
 
   async function signPayload() {
-    const extension = (await $ConnectedExtensionsDerivedStore).get(
+    const extension = (await $ConnectedExtensionsDerivedStore)?.[
       $CurrentSelectedMsaAccountStore.account.wallets.values().next().value
-    );
+    ];
     if (!extension?.connector) {
       throw new Error(`Did not get loaded/connected extension for ${extension?.displayName}`);
     }
