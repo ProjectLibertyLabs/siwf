@@ -1,7 +1,7 @@
 <script lang="ts">
   import { SiwsMessage } from '@talismn/siws';
   import { generateSIWxNonce } from '@frequency-control-panel/utils';
-  import { Modal, Content, Trigger } from 'sv-popup';
+  import { Content, Modal, Trigger } from 'sv-popup';
   import { APP_NAME } from '$lib/globals';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores/CurrentSelectedMsaAccountStore';
   import { ConnectedExtensionsDerivedStore } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
