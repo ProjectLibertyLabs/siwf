@@ -8,23 +8,19 @@ export interface InjectedAccountWithExtensions extends InjectedAccount {
   wallets: Set<string>;
 }
 
-export type AccountMap = Map<string, InjectedAccountWithExtensions>;
-
-export function createAccountMap() {
-  return new Map<string, InjectedAccountWithExtensions>();
-}
+export type AccountMap = Record<string, InjectedAccountWithExtensions>;
 
 function updateAccount(map: AccountMap, account: InjectedAccount, wallet: string) {
-  const value = map.get(account.address) ?? { ...account, wallets: new Set<string>() };
+  const value = map?.[account.address] ?? { ...account, wallets: new Set<string>() };
   value.wallets.add(wallet);
-  map.set(account.address, value);
+  map[account.address] = value;
 }
 export const AccountsStore = derived([ConnectedExtensionsStore], ([$ConnectedExtensionsStore]) =>
   (async () => {
-    const accountMap: AccountMap = createAccountMap();
+    const accountMap: AccountMap = {};
     if (!!$ConnectedExtensionsStore) {
       const extensionMap: ConnectedExtensionMap = await $ConnectedExtensionsStore;
-      for (const extension of [...extensionMap.values()]) {
+      for (const extension of Object.values(extensionMap)) {
         for (const account of extension.accounts) {
           updateAccount(accountMap, account, extension.injectedName);
         }

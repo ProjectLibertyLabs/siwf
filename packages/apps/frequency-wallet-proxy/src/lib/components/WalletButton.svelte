@@ -11,7 +11,7 @@
   const dispatch = createEventDispatcher();
   export let extension: ConfiguredExtension;
 
-  $: cachedExtension = $CachedExtensionsStore.get(extension.injectedName) ?? {
+  $: cachedExtension = $CachedExtensionsStore?.[extension.injectedName] ?? {
     injectedName: extension.injectedName,
     installed: false,
     authorized: ExtensionAuthorizationEnum.None,

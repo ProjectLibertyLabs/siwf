@@ -22,13 +22,13 @@ export interface ConnectedExtension extends CachedExtension, ConfiguredExtension
   accounts: InjectedAccount[];
 }
 
-export type ConnectedExtensionMap = Map<string, ConnectedExtension>;
+export type ConnectedExtensionMap = Record<string, ConnectedExtension>;
 
 export const ConnectedExtensionsStore = derived([CachedExtensionsStore], ([$CachedExtensionsStore]) =>
   (async () => {
-    const map = new Map<string, ConnectedExtension>();
+    const map: ConnectedExtensionMap = {};
     const injectedWeb3 = await awaitWeb3Ready;
-    for (const cached of [...$CachedExtensionsStore.values()]) {
+    for (const cached of Object.values($CachedExtensionsStore)) {
       const orig = { ...cached };
       cached.installed = isExtensionInstalled(cached.injectedName);
       if (injectedWeb3 && cached.installed && cached.authorized === ExtensionAuthorizationEnum.Authorized) {
@@ -45,7 +45,7 @@ export const ConnectedExtensionsStore = derived([CachedExtensionsStore], ([$Cach
             accounts,
           };
 
-          map.set(connected.injectedName, connected);
+          map[connected.injectedName] = connected;
           cached.authorized = ExtensionAuthorizationEnum.Authorized;
         } catch (err) {
           if (err instanceof ConnectionError) {

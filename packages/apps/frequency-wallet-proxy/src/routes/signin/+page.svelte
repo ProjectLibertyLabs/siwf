@@ -1,6 +1,6 @@
 <script lang="ts">
   import { type InjectedAccountWithExtensions } from '$lib/stores/derived/AccountsStore';
-  import { type MsaMap, MsaAccountsStore, createMsaMap } from '$lib/stores/derived/MsaAccountsStore';
+  import { type MsaMap, MsaAccountsStore } from '$lib/stores/derived/MsaAccountsStore';
   import type { MsaInfoWithAccounts } from '$lib/stores/derived/MsaAccountsStore';
   import { goto } from '$app/navigation';
   import sharpSettings from '@iconify/icons-ic/sharp-settings';
@@ -12,7 +12,7 @@
   import { ConnectedExtensionsStore } from '$lib/stores/derived/ConnectedExtensionsStore';
 
   let userSelected: CurrentSelectedMsaAccount;
-  let msaMap: MsaMap = createMsaMap();
+  let msaMap: MsaMap = {};
 
   $: $MsaAccountsStore.then((value) => {
     msaMap = value;
@@ -21,7 +21,7 @@
   $: {
     $ConnectedExtensionsStore &&
       $ConnectedExtensionsStore.then((map) => {
-        if (map.size === 0) {
+        if (Object.keys(map).length === 0) {
           goto('/manage_wallets');
         }
       });
@@ -45,13 +45,13 @@
   </div>
   <div>
     <ul>
-      {#each msaMap as [msaId, msaInfo]}
+      {#each Object.entries(msaMap) as [msaId, msaInfo]}
         <div>
           <div>
             {msaInfo.handle} msaId: {msaId}
           </div>
           <div>
-            {#each msaInfo.accounts as [address, account]}
+            {#each Object.entries(msaInfo.accounts) as [address, account]}
               <ul>
                 <li>
                   <input
