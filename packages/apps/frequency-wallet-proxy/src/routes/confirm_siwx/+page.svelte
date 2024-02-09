@@ -1,30 +1,32 @@
 <script lang="ts">
-  import {
-    SignInWithPolkadot,
-    type SIWxPayload,
-    PolkadotAddress,
-    generateSIWxNonce,
-  } from '@frequency-control-panel/utils';
+  import { SiwsMessage } from '@talismn/siws';
+  import { generateSIWxNonce } from '@frequency-control-panel/utils';
   import { CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/stores';
   import { Modal, Content, Trigger } from 'sv-popup';
 
   const now = new Date();
-  const payload: SIWxPayload = {
+  const payload: SiwsMessage = new SiwsMessage({
     domain: window.location.hostname,
-    iss: new PolkadotAddress('genesis', $CurrentSelectedAccountWithMsaStore.address),
-    uri: new URL(window.location.href),
-    version: '1.0',
+    // TODO: Should use CAIP-10 conformant address here, work with Talisman to update their code
+    // address: new PolkadotAddress('genesis', $CurrentSelectedAccountWithMsaStore.address).toString(),
+    address: $CurrentSelectedAccountWithMsaStore.address,
+    uri: window.location.href,
+    // version: '1.0',
     statement: "The app 'Narwhal' wants you to sign in with your Frequency account",
     nonce: generateSIWxNonce(),
-    issuedAt: now,
-    expirationTime: new Date(now.valueOf() + 300000), // valid for 5 minutes
-    notBefore: now,
+    issuedAt: now.valueOf(),
+    expirationTime: new Date(now.valueOf() + 300000).valueOf(), // valid for 5 minutes
+    // notBefore: now,
     // requestId: ? TBD pass-through from app
-    resources: [`dsnp://${$CurrentSelectedAccountWithMsaStore.msaInfo.msaId}`],
-  };
+    // resources: [`dsnp://${$CurrentSelectedAccountWithMsaStore.msaInfo.msaId}`],
+  });
 
-  const payloadApi = new SignInWithPolkadot(payload);
-  console.debug(payloadApi.toMessage());
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  // Add optional fields not yet supported by siws
+  (payload as unknown as any)['version'] = '1.0';
+  (payload as unknown as any)['notBefore'] = now.valueOf();
+  (payload as unknown as any)['resources'] = [`dsnp://${$CurrentSelectedAccountWithMsaStore.msaInfo.msaId}`];
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 
   async function signPayload() {
     const extension = $CurrentSelectedExtensionStore;
@@ -32,9 +34,9 @@
       throw new Error(`Did not get loaded/connected extension for ${extension?.displayName}`);
     }
 
-    const message = payloadApi.toMessage();
-    const signature = await extension.connector.signMessage(message, payloadApi.payload.iss.address);
-    console.info(`Signature: ${signature}`);
+    console.debug(payload.prepareMessage());
+    const signed = await payload.sign(extension.connector.injectedExtension!);
+    console.info(`Signature: ${signed.signature}`);
   }
 </script>
 
@@ -86,7 +88,7 @@
   <div
     style="left: 70px; top: 373px; position: absolute; color: white; font-size: 12px; font-family: Poppins; font-weight: 400; line-height: 22px; word-wrap: break-word"
   >
-    {payload.iss.toString()}
+    {payload.address.toString()}
   </div>
   <div
     style="left: 70px; top: 408px; position: absolute; color: white; font-size: 12px; font-family: Poppins; font-weight: 700; line-height: 22px; word-wrap: break-word"
@@ -112,7 +114,7 @@
   ></div>
   <Modal basic big={true}>
     <Content style="background: linear-gradient(180deg, #007DA1 0%, #2C333D 100%);"
-      ><pre>{payloadApi.toMessage()}</pre></Content
+      ><pre>{payload.prepareMessage()}</pre></Content
     >
     <Trigger>
       <div
