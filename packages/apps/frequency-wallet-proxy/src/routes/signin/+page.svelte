@@ -1,6 +1,6 @@
 <script lang="ts">
   import { type InjectedAccountWithExtensions } from '$lib/stores/derived/AccountsStore';
-  import { MsaMap, MsaAccountsStore } from '$lib/stores/derived/MsaAccountsStore';
+  import { type MsaMap, MsaAccountsStore, createMsaMap } from '$lib/stores/derived/MsaAccountsStore';
   import type { MsaInfoWithAccounts } from '$lib/stores/derived/MsaAccountsStore';
   import { goto } from '$app/navigation';
   import sharpSettings from '@iconify/icons-ic/sharp-settings';
@@ -12,7 +12,7 @@
   import { ConnectedExtensionsStore } from '$lib/stores/derived/ConnectedExtensionsStore';
 
   let userSelected: CurrentSelectedMsaAccount;
-  let msaMap: MsaMap = new MsaMap();
+  let msaMap: MsaMap = createMsaMap();
 
   $: $MsaAccountsStore.then((value) => {
     msaMap = value;
