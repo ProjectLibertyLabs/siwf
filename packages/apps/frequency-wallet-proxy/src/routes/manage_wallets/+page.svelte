@@ -9,7 +9,7 @@
   import type { WalletSelectedEvent } from '$lib/types/events';
   import { APP_NAME } from '$lib/globals';
   import { ExtensionAuthorizationEnum, CachedExtensionsStore } from '$lib/stores/CachedExtensionsStore';
-  import { ConfiguredExtensionsStore } from '$lib/stores/ConfiguredExtensionsStore';
+  import { extensionsConfig } from '$lib/components';
 
   const getErrorMessage = (error: unknown) => {
     if (error instanceof Error) return error.message;
@@ -55,4 +55,4 @@
   };
 </script>
 
-<WalletSelector onSelectedWallet={handleSelectedWallet} extensions={Object.values($ConfiguredExtensionsStore)} />
+<WalletSelector onSelectedWallet={handleSelectedWallet} extensions={Object.values(extensionsConfig)} />
