@@ -1,5 +1,5 @@
 import { derived } from 'svelte/store';
-import { type AccountMap, AccountsStore, type InjectedAccountWithExtensions } from './AccountsStore';
+import { type AccountMap, AccountsDerivedStore, type InjectedAccountWithExtensions } from './AccountsStore';
 import { getMsaInfo, type MsaInfo } from '@frequency-control-panel/utils';
 
 export interface MsaInfoWithAccounts extends MsaInfo {
@@ -8,7 +8,7 @@ export interface MsaInfoWithAccounts extends MsaInfo {
 
 export type MsaMap = Record<string, MsaInfoWithAccounts>;
 
-export const MsaAccountsStore = derived([AccountsStore], ([$AccountsStore]) =>
+export const MsaAccountsDerivedStore = derived([AccountsDerivedStore], ([$AccountsStore]) =>
   (async () => {
     const accounts: [address: string, account: InjectedAccountWithExtensions][] = Object.entries(await $AccountsStore);
     const msaInfo = await getMsaInfo(accounts.map(([address]) => address));

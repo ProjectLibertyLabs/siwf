@@ -24,7 +24,7 @@ export interface ConnectedExtension extends CachedExtension, ConfiguredExtension
 
 export type ConnectedExtensionMap = Record<string, ConnectedExtension>;
 
-export const ConnectedExtensionsStore = derived([CachedExtensionsStore], ([$CachedExtensionsStore]) =>
+export const ConnectedExtensionsDerivedStore = derived([CachedExtensionsStore], ([$CachedExtensionsStore]) =>
   (async () => {
     const map: ConnectedExtensionMap = {};
     const injectedWeb3 = await awaitWeb3Ready;

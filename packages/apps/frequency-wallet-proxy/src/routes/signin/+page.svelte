@@ -1,6 +1,6 @@
 <script lang="ts">
   import { type InjectedAccountWithExtensions } from '$lib/stores/derived/AccountsStore';
-  import { type MsaMap, MsaAccountsStore } from '$lib/stores/derived/MsaAccountsStore';
+  import { type MsaMap, MsaAccountsDerivedStore } from '$lib/stores/derived/MsaAccountsStore';
   import type { MsaInfoWithAccounts } from '$lib/stores/derived/MsaAccountsStore';
   import { goto } from '$app/navigation';
   import sharpSettings from '@iconify/icons-ic/sharp-settings';
@@ -9,18 +9,18 @@
     type CurrentSelectedMsaAccount,
     CurrentSelectedMsaAccountStore,
   } from '$lib/stores/CurrentSelectedMsaAccountStore';
-  import { ConnectedExtensionsStore } from '$lib/stores/derived/ConnectedExtensionsStore';
+  import { ConnectedExtensionsDerivedStore } from '$lib/stores/derived/ConnectedExtensionsStore';
 
   let userSelected: CurrentSelectedMsaAccount;
   let msaMap: MsaMap = {};
 
-  $: $MsaAccountsStore.then((value) => {
+  $: $MsaAccountsDerivedStore.then((value) => {
     msaMap = value;
   });
 
   $: {
-    $ConnectedExtensionsStore &&
-      $ConnectedExtensionsStore.then((map) => {
+    $ConnectedExtensionsDerivedStore &&
+      $ConnectedExtensionsDerivedStore.then((map) => {
         if (Object.keys(map).length === 0) {
           goto('/manage_wallets');
         }

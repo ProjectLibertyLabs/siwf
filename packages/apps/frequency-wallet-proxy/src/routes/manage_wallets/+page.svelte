@@ -17,39 +17,41 @@
   };
 
   const handleSelectedWallet = async (event: WalletSelectedEvent) => {
-    const { extension, extensionAuth } = event.detail;
+    const { injectedName } = event.detail;
 
-    if (extensionAuth.installed) {
+    const cachedExt = $CachedExtensionsStore[injectedName];
+
+    if (cachedExt.installed) {
       const connector = new ExtensionConnector(window.injectedWeb3!, APP_NAME);
       try {
-        await connector.connect(extension.injectedName);
-        extensionAuth.authorized = ExtensionAuthorizationEnum.Authorized;
-        CachedExtensionsStore.updateExtension(extensionAuth);
+        await connector.connect(injectedName);
+        cachedExt.authorized = ExtensionAuthorizationEnum.Authorized;
+        CachedExtensionsStore.updateExtension(cachedExt);
       } catch (error: unknown) {
-        extensionAuth.authorized = ExtensionAuthorizationEnum.None;
+        cachedExt.authorized = ExtensionAuthorizationEnum.None;
         if (error instanceof ConnectionError) {
           switch (error.reason) {
             case ExtensionErrorEnum.NO_EXTENSION:
-              extensionAuth.installed = false;
+              cachedExt.installed = false;
               break;
             case ExtensionErrorEnum.UNKNOWN:
             case ExtensionErrorEnum.PENDING_AUTH:
-              extensionAuth.authorized = ExtensionAuthorizationEnum.None;
+              cachedExt.authorized = ExtensionAuthorizationEnum.None;
               break;
             case ExtensionErrorEnum.UNAUTHORIZED:
             case ExtensionErrorEnum.NO_ACCOUNTS_AUTHORIZED:
-              extensionAuth.authorized = ExtensionAuthorizationEnum.Rejected;
+              cachedExt.authorized = ExtensionAuthorizationEnum.Rejected;
               break;
           }
         }
         const message = getErrorMessage(error);
         console.error(message);
-        CachedExtensionsStore.updateExtension(extensionAuth);
+        CachedExtensionsStore.updateExtension(cachedExt);
       }
     } else {
-      if (isExtensionInstalled(extension.injectedName)) {
-        extensionAuth.installed = true;
-        CachedExtensionsStore.updateExtension(extensionAuth);
+      if (isExtensionInstalled(injectedName)) {
+        cachedExt.installed = true;
+        CachedExtensionsStore.updateExtension(cachedExt);
       }
     }
   };

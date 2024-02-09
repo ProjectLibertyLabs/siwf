@@ -1,5 +1,5 @@
 import { derived } from 'svelte/store';
-import { type ConnectedExtensionMap, ConnectedExtensionsStore } from './ConnectedExtensionsStore';
+import { type ConnectedExtensionMap, ConnectedExtensionsDerivedStore } from './ConnectedExtensionsStore';
 import type { InjectedAccount } from '@polkadot/extension-inject/types';
 
 /// Store that maps public key address to the names of wallet extensions that provide it
@@ -15,7 +15,8 @@ function updateAccount(map: AccountMap, account: InjectedAccount, wallet: string
   value.wallets.add(wallet);
   map[account.address] = value;
 }
-export const AccountsStore = derived([ConnectedExtensionsStore], ([$ConnectedExtensionsStore]) =>
+
+export const AccountsDerivedStore = derived([ConnectedExtensionsDerivedStore], ([$ConnectedExtensionsStore]) =>
   (async () => {
     const accountMap: AccountMap = {};
     if (!!$ConnectedExtensionsStore) {

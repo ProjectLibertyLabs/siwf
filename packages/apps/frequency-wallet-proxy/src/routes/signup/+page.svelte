@@ -1,11 +1,11 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { SignupStore } from '$lib/stores/SignupStore';
-  import { AccountMap, AccountsStore } from '$lib/stores/derived/AccountsStore';
+  import { AccountMap, AccountsDerivedStore } from '$lib/stores/derived/AccountsStore';
 
   let accountMap: AccountMap = new AccountMap();
 
-  $: $AccountsStore.then((value) => {
+  $: $AccountsDerivedStore.then((value) => {
     accountMap = value;
   });
 

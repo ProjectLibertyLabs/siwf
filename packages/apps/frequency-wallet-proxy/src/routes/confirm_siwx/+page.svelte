@@ -6,7 +6,7 @@
     type SIWxPayload,
   } from '@frequency-control-panel/utils';
   import { Content, Modal, Trigger } from 'sv-popup';
-  import { ConnectedExtensionsStore } from '$lib/stores/derived/ConnectedExtensionsStore';
+  import { ConnectedExtensionsDerivedStore } from '$lib/stores/derived/ConnectedExtensionsStore';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores/CurrentSelectedMsaAccountStore';
 
   const now = new Date();
@@ -28,7 +28,7 @@
   console.debug(payloadApi.toMessage());
 
   async function signPayload() {
-    const extension = (await $ConnectedExtensionsStore).get(
+    const extension = (await $ConnectedExtensionsDerivedStore).get(
       $CurrentSelectedMsaAccountStore.account.wallets.values().next().value
     );
     if (!extension?.connector) {

@@ -9,10 +9,10 @@
   import { CachedExtensionsStore, ExtensionAuthorizationEnum } from '$lib/stores/CachedExtensionsStore';
 
   const dispatch = createEventDispatcher();
-  export let extension: ConfiguredExtension;
+  export let extensionMetadata: ConfiguredExtension;
 
-  $: cachedExtension = $CachedExtensionsStore?.[extension.injectedName] ?? {
-    injectedName: extension.injectedName,
+  $: cachedExtension = $CachedExtensionsStore?.[extensionMetadata.injectedName] ?? {
+    injectedName: extensionMetadata.injectedName,
     installed: false,
     authorized: ExtensionAuthorizationEnum.None,
   };
@@ -20,7 +20,7 @@
   $: buttonText = cachedExtension.installed ? 'Sign in with' : 'Install';
 
   function selectWallet() {
-    dispatch('walletSelected', { extension, extensionAuth: cachedExtension });
+    dispatch('walletSelected', { injectedName: extensionMetadata.injectedName });
   }
 
   function handleKeyPress(event: KeyboardEvent) {
@@ -43,11 +43,11 @@
 >
   <div class="flex items-center justify-center gap-3">
     <div class="basis-3/12">
-      <svelte:component this={extension.logo.component} size={extension.logo.size} />
+      <svelte:component this={extensionMetadata.logo.component} size={extensionMetadata.logo.size} />
     </div>
     <div class="basis-5/8 ml-8 text-left">
-      <div class="text-3xl">{extension.displayName}</div>
-      <span class="text-sm italic antialiased">{buttonText} {extension.displayName}</span>
+      <div class="text-3xl">{extensionMetadata.displayName}</div>
+      <span class="text-sm italic antialiased">{buttonText} {extensionMetadata.displayName}</span>
     </div>
     <div class="w-4 basis-1/12">
       {#if !cachedExtension.installed}
