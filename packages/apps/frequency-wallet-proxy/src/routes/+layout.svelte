@@ -6,7 +6,7 @@
   import { onMount } from 'svelte';
   import { resolveInjectedWeb3 } from '$lib/stores/derived/ConnectedExtensionsStore';
 
-  let connectedExtensionsMap: ConnectedExtensionMap = new Map();
+  let connectedExtensionsMap: ConnectedExtensionMap = {};
 
   $: {
     if ($ConnectedExtensionsDerivedStore) {

@@ -8,7 +8,7 @@
   import { WalletSelector } from '$lib/components';
   import type { WalletSelectedEvent } from '$lib/types/events';
   import { APP_NAME } from '$lib/globals';
-  import { ExtensionAuthorizationEnum, CachedExtensionsStore } from '$lib/stores/CachedExtensionsStore';
+  import { CachedExtensionsStore, ExtensionAuthorizationEnum } from '$lib/stores/CachedExtensionsStore';
   import { extensionsConfig } from '$lib/components';
 
   const getErrorMessage = (error: unknown) => {

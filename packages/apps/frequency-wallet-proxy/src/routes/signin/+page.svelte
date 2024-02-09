@@ -1,6 +1,6 @@
 <script lang="ts">
   import { type InjectedAccountWithExtensions } from '$lib/stores/derived/AccountsStore';
-  import { type MsaMap, MsaAccountsDerivedStore } from '$lib/stores/derived/MsaAccountsStore';
+  import { MsaAccountsDerivedStore, type MsaMap } from '$lib/stores/derived/MsaAccountsStore';
   import type { MsaInfoWithAccounts } from '$lib/stores/derived/MsaAccountsStore';
   import { goto } from '$app/navigation';
   import sharpSettings from '@iconify/icons-ic/sharp-settings';
