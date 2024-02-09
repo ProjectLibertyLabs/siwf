@@ -29,7 +29,7 @@
 
 <div>
   <div>
-    <button on:click={() => goto('/manage_wallets')}>
+    <button on:click={() => goto('/signin')}>
       <Icon icon={sharpSettings} width="30" height="30" />
     </button>
   </div>
