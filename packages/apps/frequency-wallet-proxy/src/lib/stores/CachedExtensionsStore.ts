@@ -1,7 +1,7 @@
 import { storable } from './storable';
 import { extensionsConfig } from '$lib/components';
 
-const EXTENSION_AUTH_KEY = 'ConfiguredExtensions';
+const STORAGE_KEY = 'ConfiguredExtensions';
 
 export enum ExtensionAuthorizationEnum {
   None,
@@ -18,7 +18,7 @@ export type CachedExtension = {
 export type CachedExtensionMap = Record<string, CachedExtension>;
 
 function createCachedExtensionStore() {
-  const { subscribe, update } = storable<CachedExtensionMap>(EXTENSION_AUTH_KEY, {});
+  const { subscribe, update } = storable<CachedExtensionMap>(STORAGE_KEY, {});
 
   // Merge data read from local storage with current extension metadata
   update((cachedMap) => {

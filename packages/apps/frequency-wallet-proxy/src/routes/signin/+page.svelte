@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { type InjectedAccountWithExtensions } from '$lib/stores/derived/AccountsStore';
-  import { MsaAccountsDerivedStore, type MsaMap } from '$lib/stores/derived/MsaAccountsStore';
-  import type { MsaInfoWithAccounts } from '$lib/stores/derived/MsaAccountsStore';
+  import { type InjectedAccountWithExtensions } from '$lib/stores/derived/AllAccountsDerivedStore';
+  import { FilteredMsaAccountsDerivedStore, type MsaMap } from '$lib/stores/derived/MsaAccountsDerivedStore';
+  import type { MsaInfoWithAccounts } from '$lib/stores/derived/MsaAccountsDerivedStore';
   import { goto } from '$app/navigation';
   import sharpSettings from '@iconify/icons-ic/sharp-settings';
   import Icon from '@iconify/svelte';
@@ -9,23 +9,13 @@
     type CurrentSelectedMsaAccount,
     CurrentSelectedMsaAccountStore,
   } from '$lib/stores/CurrentSelectedMsaAccountStore';
-  import { ConnectedExtensionsDerivedStore } from '$lib/stores/derived/ConnectedExtensionsStore';
 
   let userSelected: CurrentSelectedMsaAccount;
   let msaMap: MsaMap = {};
 
-  $: $MsaAccountsDerivedStore.then((value) => {
+  $: $FilteredMsaAccountsDerivedStore.then((value) => {
     msaMap = value;
   });
-
-  $: {
-    $ConnectedExtensionsDerivedStore &&
-      $ConnectedExtensionsDerivedStore.then((map) => {
-        if (Object.keys(map).length === 0) {
-          goto('/manage_wallets');
-        }
-      });
-  }
 
   $: {
     $CurrentSelectedMsaAccountStore = userSelected;

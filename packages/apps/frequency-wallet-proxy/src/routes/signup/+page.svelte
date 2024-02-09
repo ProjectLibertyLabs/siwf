@@ -1,15 +1,16 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { SignupStore } from '$lib/stores/SignupStore';
-  import { AccountMap, AccountsDerivedStore } from '$lib/stores/derived/AccountsStore';
+  import { type AccountMap } from '$lib/stores/derived/AllAccountsDerivedStore';
+  import { FilteredAccountsDerivedStore } from '$lib/stores/derived/FilteredAccountsDerivedStore';
 
-  let accountMap: AccountMap = new AccountMap();
+  let accountMap: AccountMap = {};
 
-  $: $AccountsDerivedStore.then((value) => {
+  $: $FilteredAccountsDerivedStore.then((value) => {
     accountMap = value;
   });
 
-  $: $SignupStore.address = [...accountMap.keys()]?.[0] ?? '';
+  $: $SignupStore.address = Object.keys(accountMap)?.[0] ?? '';
 </script>
 
 <div>Sign up</div>
@@ -17,7 +18,7 @@
 
 <div>
   <div>
-    {#each accountMap as [address, account]}
+    {#each Object.entries(accountMap) as [address, account]}
       <div>
         <input type="radio" bind:group={$SignupStore.address} value={address} id={address} />
         <label for={address}> {address} ({account.name})</label>

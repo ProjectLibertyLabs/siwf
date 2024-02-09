@@ -10,6 +10,8 @@
   import { APP_NAME } from '$lib/globals';
   import { CachedExtensionsStore, ExtensionAuthorizationEnum } from '$lib/stores/CachedExtensionsStore';
   import { extensionsConfig } from '$lib/components';
+  import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
+  import { goto } from '$app/navigation';
 
   const getErrorMessage = (error: unknown) => {
     if (error instanceof Error) return error.message;
@@ -53,6 +55,11 @@
         cachedExt.installed = true;
         CachedExtensionsStore.updateExtension(cachedExt);
       }
+    }
+
+    if (cachedExt.installed && cachedExt.authorized === ExtensionAuthorizationEnum.Authorized) {
+      CurrentSelectedExtensionIdStore.set(cachedExt.injectedName);
+      goto('/signin');
     }
   };
 </script>

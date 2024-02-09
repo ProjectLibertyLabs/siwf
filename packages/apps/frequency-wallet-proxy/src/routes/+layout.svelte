@@ -2,9 +2,9 @@
   import {
     type ConnectedExtensionMap,
     ConnectedExtensionsDerivedStore,
-  } from '$lib/stores/derived/ConnectedExtensionsStore';
+  } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
   import { onMount } from 'svelte';
-  import { resolveInjectedWeb3 } from '$lib/stores/derived/ConnectedExtensionsStore';
+  import { resolveInjectedWeb3 } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
 
   let connectedExtensionsMap: ConnectedExtensionMap = {};
 
