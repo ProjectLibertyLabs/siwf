@@ -1,69 +1,67 @@
 <script lang="ts">
-  import { type InjectedAccountWithExtensions } from '$lib/stores/derived/AllAccountsDerivedStore';
-  import { FilteredMsaAccountsDerivedStore, type MsaMap } from '$lib/stores/derived/MsaAccountsDerivedStore';
-  import type { MsaInfoWithAccounts } from '$lib/stores/derived/MsaAccountsDerivedStore';
-  import { goto } from '$app/navigation';
-  import sharpSettings from '@iconify/icons-ic/sharp-settings';
-  import Icon from '@iconify/svelte';
   import {
-    type CurrentSelectedMsaAccount,
-    CurrentSelectedMsaAccountStore,
-  } from '$lib/stores/CurrentSelectedMsaAccountStore';
+    ConnectionError,
+    ExtensionConnector,
+    ExtensionErrorEnum,
+    isExtensionInstalled,
+  } from '@frequency-control-panel/utils';
+  import { WalletSelector } from '$lib/components';
+  import type { WalletSelectedEvent } from '$lib/types/events';
+  import { APP_NAME } from '$lib/globals';
+  import { CachedExtensionsStore, ExtensionAuthorizationEnum } from '$lib/stores/CachedExtensionsStore';
+  import { extensionsConfig } from '$lib/components';
+  import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
+  import { goto } from '$app/navigation';
 
-  let userSelected: CurrentSelectedMsaAccount;
-  let msaMap: MsaMap = {};
+  const getErrorMessage = (error: unknown) => {
+    if (error instanceof Error) return error.message;
+    return String(error);
+  };
 
-  $: $FilteredMsaAccountsDerivedStore.then((value) => {
-    msaMap = value;
-  });
+  const handleSelectedWallet = async (event: WalletSelectedEvent) => {
+    const { injectedName } = event.detail;
 
-  $: {
-    $CurrentSelectedMsaAccountStore = userSelected;
-  }
+    const cachedExt = $CachedExtensionsStore[injectedName];
 
-  function createSelectedMsaAccount(msaInfoWithAccounts: MsaInfoWithAccounts, account: InjectedAccountWithExtensions) {
-    const { accounts: _msaAccounts, ...msaInfo } = msaInfoWithAccounts;
-    return { ...msaInfo, account };
-  }
+    if (cachedExt.installed) {
+      const connector = new ExtensionConnector(window.injectedWeb3!, APP_NAME);
+      try {
+        await connector.connect(injectedName);
+        cachedExt.authorized = ExtensionAuthorizationEnum.Authorized;
+        CachedExtensionsStore.updateExtension(cachedExt);
+      } catch (error: unknown) {
+        cachedExt.authorized = ExtensionAuthorizationEnum.None;
+        if (error instanceof ConnectionError) {
+          switch (error.reason) {
+            case ExtensionErrorEnum.NO_EXTENSION:
+              cachedExt.installed = false;
+              break;
+            case ExtensionErrorEnum.UNKNOWN:
+            case ExtensionErrorEnum.PENDING_AUTH:
+              cachedExt.authorized = ExtensionAuthorizationEnum.None;
+              break;
+            case ExtensionErrorEnum.UNAUTHORIZED:
+            case ExtensionErrorEnum.NO_ACCOUNTS_AUTHORIZED:
+              cachedExt.authorized = ExtensionAuthorizationEnum.Rejected;
+              break;
+          }
+        }
+        const message = getErrorMessage(error);
+        console.error(message);
+        CachedExtensionsStore.updateExtension(cachedExt);
+      }
+    } else {
+      if (isExtensionInstalled(injectedName)) {
+        cachedExt.installed = true;
+        CachedExtensionsStore.updateExtension(cachedExt);
+      }
+    }
+
+    if (cachedExt.installed && cachedExt.authorized === ExtensionAuthorizationEnum.Authorized) {
+      CurrentSelectedExtensionIdStore.set(cachedExt.injectedName);
+      goto('/accounts');
+    }
+  };
 </script>
 
-<div>
-  <div>
-    <button on:click={() => goto('/manage_wallets')}>
-      <Icon icon={sharpSettings} width="30" height="30" />
-    </button>
-  </div>
-  <div>
-    <ul>
-      {#each Object.entries(msaMap) as [msaId, msaInfo]}
-        <div>
-          <div>
-            {msaInfo.handle} msaId: {msaId}
-          </div>
-          <div>
-            {#each Object.entries(msaInfo.accounts) as [address, account]}
-              <ul>
-                <li>
-                  <input
-                    type="radio"
-                    bind:group={userSelected}
-                    value={createSelectedMsaAccount(msaInfo, account)}
-                    id={address}
-                  />
-                  <label for={address}> {address} ({account.name})</label>
-                </li>
-              </ul>
-            {/each}
-          </div>
-          <div style="height:20px" />
-        </div>
-      {/each}
-    </ul>
-  </div>
-
-  <span>
-    <button on:click={() => goto('/signin')}>back</button>
-    <button on:click={() => goto('/signup')}>Create new account</button>
-    <button on:click={() => goto('/confirm_siwx')}>next</button>
-  </span>
-</div>
+<WalletSelector onSelectedWallet={handleSelectedWallet} extensions={Object.values(extensionsConfig)} />

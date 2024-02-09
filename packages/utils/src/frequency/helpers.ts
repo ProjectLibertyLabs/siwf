@@ -8,39 +8,22 @@ export interface MsaInfo {
   handle: string;
 }
 
-export async function getMsaInfo(address: string | string[]): Promise<MsaInfo | MsaInfo[]> {
+export async function getMsaInfo(address: string[]): Promise<MsaInfo | MsaInfo[]> {
   const api = await getApi();
   const msaIds = await getMsaIds(api, address);
   const handles = await getHandles(api, msaIds);
-  if (Array.isArray(msaIds)) {
-    return msaIds.map((msaId, i) => ({
-      msaId: msaId.toString(),
-      handle: handles[i],
-    }));
-  } else {
-    return { msaId: msaIds.toString(), handle: handles as string };
-  }
+  return msaIds.map((msaId, i) => ({
+    msaId: msaId.toString(),
+    handle: handles[i],
+  }));
 }
 
-async function getMsaIds(api: ApiPromise, address: string | string[]): Promise<string | string[]> {
-  let msaIds: string | string[];
-
-  if (Array.isArray(address)) {
-    msaIds = (await api.query.msa.publicKeyToMsaId.multi(address)).map((result) => result.unwrapOrDefault().toString());
-  } else {
-    msaIds = (await api.query.msa.publicKeyToMsaId(address as string)).unwrapOrDefault().toString();
-  }
-  return msaIds;
+async function getMsaIds(api: ApiPromise, address: string[]): Promise<string[]> {
+  return (await api.query.msa.publicKeyToMsaId.multi(address)).map((result) => result.unwrapOrDefault().toString());
 }
 
-async function getHandles(api: ApiPromise, msaIds: AnyNumber | AnyNumber[]): Promise<string | string[]> {
-  let handles: string | string[];
-  if (Array.isArray(msaIds)) {
-    handles = (await api.query.handles.msaIdToDisplayName.multi(msaIds)).map((r) => r.unwrapOrDefault()[0].toUtf8());
-  } else {
-    handles = (await api.query.handles.msaIdToDisplayName(msaIds)).unwrapOrDefault()[0].toUtf8();
-  }
-  return handles;
+async function getHandles(api: ApiPromise, msaIds: AnyNumber[]): Promise<string[]> {
+  return (await api.query.handles.msaIdToDisplayName.multi(msaIds)).map((r) => r.unwrapOrDefault()[0].toUtf8());
 }
 
 export async function validateHandle(handle: string): Promise<boolean> {
