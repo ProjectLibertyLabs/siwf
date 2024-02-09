@@ -4,6 +4,8 @@
   import { CurrentSelectedAccountWithMsaStore, CurrentSelectedExtensionStore } from '$lib/stores';
   import { Modal, Content, Trigger } from 'sv-popup';
 
+  let extension = $CurrentSelectedExtensionStore;
+
   const now = new Date();
   const payload: SiwsMessage = new SiwsMessage({
     domain: window.location.hostname,
@@ -12,7 +14,10 @@
     address: $CurrentSelectedAccountWithMsaStore.address,
     uri: window.location.href,
     // version: '1.0',
-    statement: "The app 'Narwhal' wants you to sign in with your Frequency account",
+    chainName: 'Frequency',
+    statement: `The app '${
+      extension?.connector?.appName ?? '<unknown>'
+    }' wants you to sign in with your Frequency account`,
     nonce: generateSIWxNonce(),
     issuedAt: now.valueOf(),
     expirationTime: new Date(now.valueOf() + 300000).valueOf(), // valid for 5 minutes
@@ -29,14 +34,16 @@
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
   async function signPayload() {
-    const extension = $CurrentSelectedExtensionStore;
     if (!extension?.connector) {
       throw new Error(`Did not get loaded/connected extension for ${extension?.displayName}`);
     }
 
-    console.debug(payload.prepareMessage());
-    const signed = await payload.sign(extension.connector.injectedExtension!);
-    console.info(`Signature: ${signed.signature}`);
+    const { signature, message } = await payload.sign(extension.connector.injectedExtension!);
+    console.info(`Message:
+    ${message}
+
+    Signature:
+    ${signature}`);
   }
 </script>
 
