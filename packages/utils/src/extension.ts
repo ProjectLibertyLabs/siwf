@@ -22,7 +22,7 @@ export class ConnectionError extends Error {
 
 export class ExtensionConnector {
   private readonly injectedWeb3: InjectedWeb3;
-  private readonly appName: string;
+  public readonly appName: string;
   private extension?: InjectedExtension;
 
   constructor(injectedWeb3: InjectedWeb3, appName: string) {
