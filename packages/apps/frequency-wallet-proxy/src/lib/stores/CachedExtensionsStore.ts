@@ -38,9 +38,9 @@ function createCachedExtensionStore() {
   const store = {
     subscribe,
     updateExtension: (extension: CachedExtension) => {
-      update((extensions: CachedExtensionMap) => {
-        extensions[extension.injectedName] = extension;
-        return extensions;
+      update((extensionMap: CachedExtensionMap) => {
+        extensionMap[extension.injectedName] = extension;
+        return extensionMap;
       });
     },
   };
