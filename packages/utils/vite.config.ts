@@ -19,5 +19,8 @@ export default defineConfig({
     coverage: {
       exclude: ['src/**/*.types.ts'],
     },
+    globals: true,
+    environment: 'jsdom',
+    mockReset: true,
   },
 });

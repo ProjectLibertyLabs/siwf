@@ -2,9 +2,11 @@
   import { onMount } from 'svelte';
   import { resolveInjectedWeb3 } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
   import FrequencyLogo from '$lib/icons/FrequencyLogo.svelte';
+  import { WindowEndpoint } from '@frequency-control-panel/utils';
 
   onMount(async () => {
     resolveInjectedWeb3(window.injectedWeb3);
+    await WindowEndpoint.create();
   });
 </script>
 
