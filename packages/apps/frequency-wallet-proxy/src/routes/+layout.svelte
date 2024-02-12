@@ -21,4 +21,6 @@
   });
 </script>
 
-<slot />
+<div class="h-[600px] w-[380px]">
+  <slot />
+</div>

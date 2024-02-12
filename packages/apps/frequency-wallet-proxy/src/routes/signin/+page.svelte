@@ -12,6 +12,7 @@
   import { extensionsConfig } from '$lib/components';
   import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
   import { goto } from '$app/navigation';
+  import FrequencyLogo from '$lib/icons/FrequencyLogo.svelte';
 
   const getErrorMessage = (error: unknown) => {
     if (error instanceof Error) return error.message;
@@ -64,4 +65,11 @@
   };
 </script>
 
-<WalletSelector onSelectedWallet={handleSelectedWallet} extensions={Object.values(extensionsConfig)} />
+<div class="container mx-auto">
+  <div class="flex items-center justify-center pb-[62px]">
+    <svelte:component this={FrequencyLogo} />
+  </div>
+  <div class=" pb-[84px] text-center text-[16px] font-bold">Connect your wallet</div>
+  <div class="pb-[17px] text-center text-sm font-bold">Select a wallet from this list</div>
+  <WalletSelector onSelectedWallet={handleSelectedWallet} extensions={Object.values(extensionsConfig)} />
+</div>

@@ -14,18 +14,6 @@
     @apply text-sm text-white underline;
   }
 
-  .action-card {
-    @apply mt-8 shrink-0 rounded-lg p-8 text-white shadow-md;
-  }
-
-  .action-card {
-    @apply rounded text-white;
-  }
-
-  .action-card-title {
-    @apply text-2xl font-semibold;
-  }
-
   /* layout */
   .content-block {
     @apply bg-bg-black rounded-md p-7;
@@ -81,12 +69,13 @@
 
   input,
   [type='text'],
+  [type='number'],
   select {
-    @apply disabled:text-disabled disabled:opacity-85 h-[30px] w-[320px] overflow-ellipsis rounded-md border-none py-0 pl-2 pr-7 text-sm text-black outline-none;
+    @apply disabled:text-disabled disabled:opacity-85 h-[30px] w-[320px] overflow-ellipsis rounded-md border-none py-0 pl-2 text-sm text-black outline-none;
   }
 
   select {
-    @apply cursor-pointer;
+    @apply cursor-pointer pr-7;
   }
 
   ::placeholder {

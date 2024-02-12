@@ -33,6 +33,7 @@ export default {
       borderRadius: {
         'rounded-3xl': '20px',
         'rounded-md': '5px',
+        'rounded-lg': '10px',
       },
       boxShadow: {
         md: '0px 4px 7px rgba(0,0,0,.25)',

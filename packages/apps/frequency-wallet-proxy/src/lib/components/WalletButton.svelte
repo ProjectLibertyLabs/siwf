@@ -17,8 +17,6 @@
     authorized: ExtensionAuthorizationEnum.None,
   };
 
-  $: buttonText = cachedExtension.installed ? 'Sign in with' : 'Install';
-
   function selectWallet() {
     dispatch('walletSelected', { injectedName: extensionMetadata.injectedName });
   }
@@ -37,28 +35,25 @@
 <div
   role="button"
   tabindex="0"
-  class="btn-banner font-bold"
+  class="flex w-[170px] items-start justify-between rounded-lg bg-white bg-opacity-20 p-3 font-bold"
   on:keydown={handleKeyPress}
   on:click={() => selectWallet()}
 >
-  <div class="flex items-center justify-center gap-3">
-    <div class="basis-3/12">
-      <svelte:component this={extensionMetadata.logo.component} size={extensionMetadata.logo.size} />
+  <div class="flex flex-col gap-2">
+    <div>
+      <svelte:component this={extensionMetadata.logo.component} size="30" />
     </div>
-    <div class="basis-5/8 ml-8 text-left">
-      <div class="text-3xl">{extensionMetadata.displayName}</div>
-      <span class="text-sm italic antialiased">{buttonText} {extensionMetadata.displayName}</span>
-    </div>
-    <div class="w-4 basis-1/12">
-      {#if !cachedExtension.installed}
-        <Icon icon={baselineDownload} width="30" height="30" />
-      {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.None}
-        <Icon icon={mdiConnection} width="30" height="30" />
-      {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.Rejected}
-        <Icon icon={baselineBlock} width="30" height="30" />
-      {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.Authorized}
-        <Icon icon={baselineCheck} width="30" height="30" />
-      {/if}
-    </div>
+    <div class="text-left text-xs font-bold">{extensionMetadata.displayName}</div>
+  </div>
+  <div>
+    {#if !cachedExtension.installed}
+      <Icon icon={baselineDownload} class="h-[25px] w-[25px]" />
+    {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.None}
+      <Icon icon={mdiConnection} class="h-[25px] w-[25px]" />
+    {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.Rejected}
+      <Icon icon={baselineBlock} class="h-[25px] w-[25px]" />
+    {:else if cachedExtension?.authorized === ExtensionAuthorizationEnum.Authorized}
+      <Icon icon={baselineCheck} class="h-[25px] w-[25px]" />
+    {/if}
   </div>
 </div>
