@@ -14,7 +14,7 @@ export interface ConfiguredExtension {
   injectedName: string;
   displayName: string;
   downloadUrl: {
-    browser?: Record<string, string>;
+    browser?: URL;
     app?: Record<string, string>;
   };
   logo: Logo;
@@ -37,10 +37,7 @@ export const extensionsConfig: ExtensionsConfig = {
     displayName: 'Polkadot',
     injectedName: 'polkadot-js',
     downloadUrl: {
-      browser: {
-        chrome: 'https://chrome.google.com/webstore/detail/talisman-polkadot-and-eth/fijngjgcjhjmmpcmkeiomlglpeiijkld',
-        firefox: 'https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/',
-      },
+      browser: new URL('https://polkadot.js.org/extension/'),
     },
     logo: { component: PolkadotIcon, size: '5em' },
   },
@@ -49,9 +46,7 @@ export const extensionsConfig: ExtensionsConfig = {
     displayName: 'Talisman',
     injectedName: 'talisman',
     downloadUrl: {
-      browser: {
-        chrome: 'https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd',
-      },
+      browser: new URL('https://www.talisman.xyz/download'),
     },
     logo: { component: TalismanIcon, size: '5em' },
   },
@@ -60,9 +55,7 @@ export const extensionsConfig: ExtensionsConfig = {
     displayName: 'SubWallet',
     injectedName: 'subwallet-js',
     downloadUrl: {
-      browser: {
-        chrome: 'https://chrome.google.com/webstore/detail/subwallet-polkadot-wallet/onhogfjeacnfoofkfgppdlbmlmnplgbn',
-      },
+      browser: new URL('https://www.subwallet.app/download.html'),
       app: {
         apple: 'https://apps.apple.com/us/app/subwallet-polkadot-wallet/id1633050285',
         android: 'https://play.google.com/store/apps/details?id=app.subwallet.mobile',
