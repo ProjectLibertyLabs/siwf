@@ -55,6 +55,8 @@
       if (isExtensionInstalled(injectedName)) {
         cachedExt.installed = true;
         CachedExtensionsStore.updateExtension(cachedExt);
+      } else if (extensionsConfig?.[injectedName]?.downloadUrl?.browser) {
+        window.open(extensionsConfig[injectedName].downloadUrl.browser, '_blank');
       }
     }
 
