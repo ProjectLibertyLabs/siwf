@@ -35,7 +35,7 @@
 <div
   role="button"
   tabindex="0"
-  class="flex w-[170px] items-start justify-between rounded-lg bg-white bg-opacity-20 p-3 font-bold"
+  class="flex w-[100%] items-start justify-between rounded-lg bg-white bg-opacity-20 p-3 font-bold"
   on:keydown={handleKeyPress}
   on:click={() => selectWallet()}
 >

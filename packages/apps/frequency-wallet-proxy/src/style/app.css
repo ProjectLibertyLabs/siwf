@@ -63,6 +63,15 @@
     background: linear-gradient(to top, #2c333d, #007da1);
   }
 
+  #bgmask {
+    mask-image: url('$lib/icons/mask.svg');
+    mask-position: top left;
+    mask-size: 100% 100%;
+    mask-origin: margin-box;
+    mask-repeat: no-repeat;
+    z-index: -1;
+  }
+
   button {
     @apply select-none;
   }

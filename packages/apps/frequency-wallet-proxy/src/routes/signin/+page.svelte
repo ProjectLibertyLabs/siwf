@@ -65,8 +65,8 @@
   };
 </script>
 
-<div class="container mx-auto">
-  <div class="flex items-center justify-center pb-[62px]">
+<div class="items-center justify-center">
+  <div class="flex items-center justify-center pb-[60px] pt-[60px]">
     <svelte:component this={FrequencyLogo} />
   </div>
   <div class=" pb-[84px] text-center text-[16px] font-bold">Connect your wallet</div>

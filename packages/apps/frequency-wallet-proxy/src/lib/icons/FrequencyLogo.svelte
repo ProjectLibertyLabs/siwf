@@ -1,4 +1,3 @@
-<!-- svelte-ignore illegal-attribute-character -->
 <svg
   width="226"
   height="44"

@@ -1,26 +1,13 @@
 <script lang="ts">
-  import {
-    type ConnectedExtensionMap,
-    ConnectedExtensionsDerivedStore,
-  } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
   import { onMount } from 'svelte';
   import { resolveInjectedWeb3 } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
-
-  let connectedExtensionsMap: ConnectedExtensionMap = {};
-
-  $: {
-    if ($ConnectedExtensionsDerivedStore) {
-      $ConnectedExtensionsDerivedStore.then((value) => {
-        connectedExtensionsMap = value;
-      });
-    }
-  }
 
   onMount(async () => {
     resolveInjectedWeb3(window.injectedWeb3);
   });
 </script>
 
-<div class="h-[600px] w-[380px]">
+<div class="absolute left-0 top-0 h-[355px] w-[100%] bg-white bg-opacity-50" id="bgmask" />
+<div class="container mx-auto h-[600px] w-[380px]">
   <slot />
 </div>

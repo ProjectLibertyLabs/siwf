@@ -39,9 +39,6 @@ export default {
         md: '0px 4px 7px rgba(0,0,0,.25)',
         'blue-border': '8px 0 0 #69B9CD',
       },
-      backgroundImage: {
-        topRight: 'url(/assets/top-right-bars.png)',
-      },
       fontSize: {
         xs: '10px',
         sm: '12px',
