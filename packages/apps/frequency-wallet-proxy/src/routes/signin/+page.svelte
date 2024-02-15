@@ -12,7 +12,7 @@
   import { extensionsConfig } from '$lib/components';
   import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
   import { goto } from '$app/navigation';
-  import FrequencyLogo from '$lib/icons/FrequencyLogo.svelte';
+  import { FilteredMsaAccountsDerivedStore } from '$lib/stores/derived/MsaAccountsDerivedStore';
 
   const getErrorMessage = (error: unknown) => {
     if (error instanceof Error) return error.message;
@@ -55,12 +55,18 @@
       if (isExtensionInstalled(injectedName)) {
         cachedExt.installed = true;
         CachedExtensionsStore.updateExtension(cachedExt);
+      } else if (extensionsConfig?.[injectedName]?.downloadUrl?.browser) {
+        window.open(extensionsConfig[injectedName].downloadUrl.browser, '_blank');
       }
     }
 
     if (cachedExt.installed && cachedExt.authorized === ExtensionAuthorizationEnum.Authorized) {
       CurrentSelectedExtensionIdStore.set(cachedExt.injectedName);
-      goto('/accounts');
+      if (Object.keys(await $FilteredMsaAccountsDerivedStore).length === 0) {
+        goto('/signup');
+      } else {
+        goto('/accounts');
+      }
     }
   };
 </script>

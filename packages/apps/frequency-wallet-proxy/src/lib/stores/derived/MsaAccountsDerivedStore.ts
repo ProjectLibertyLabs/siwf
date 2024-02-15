@@ -18,8 +18,7 @@ function createMsaStore(source: Readable<Promise<AccountMap>>) {
     (async () => {
       const accounts: [address: string, account: InjectedAccountWithExtensions][] = Object.entries(await $source);
       const msaInfo = await getMsaInfo(accounts.map(([address]) => address));
-      const allMsaInfo = msaInfo;
-      const filteredMsaInfo = allMsaInfo.filter((msaInfo) => msaInfo.msaId !== '0');
+      const filteredMsaInfo = msaInfo.filter((info) => info.msaId !== '0');
 
       const msaMap: MsaMap = {};
       for (const [index, info] of filteredMsaInfo.entries()) {
