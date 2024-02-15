@@ -8,7 +8,7 @@ export interface MsaInfo {
   handle: string;
 }
 
-export async function getMsaInfo(address: string[]): Promise<MsaInfo | MsaInfo[]> {
+export async function getMsaInfo(address: string[]): Promise<MsaInfo[]> {
   const api = await getApi();
   const msaIds = await getMsaIds(api, address);
   const handles = await getHandles(api, msaIds);

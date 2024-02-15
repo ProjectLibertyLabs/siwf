@@ -33,13 +33,11 @@ export default {
       borderRadius: {
         'rounded-3xl': '20px',
         'rounded-md': '5px',
+        'rounded-lg': '10px',
       },
       boxShadow: {
         md: '0px 4px 7px rgba(0,0,0,.25)',
         'blue-border': '8px 0 0 #69B9CD',
-      },
-      backgroundImage: {
-        topRight: 'url(/assets/top-right-bars.png)',
       },
       fontSize: {
         xs: '10px',

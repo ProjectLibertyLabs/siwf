@@ -71,4 +71,6 @@
   };
 </script>
 
+<div class=" pb-[84px] text-center text-[16px] font-bold">Connect your wallet</div>
+<div class="pb-[17px] text-center text-sm font-bold">Select a wallet from this list</div>
 <WalletSelector onSelectedWallet={handleSelectedWallet} extensions={Object.values(extensionsConfig)} />

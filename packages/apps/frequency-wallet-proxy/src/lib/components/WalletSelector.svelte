@@ -8,7 +8,7 @@
   export let onSelectedWallet: (event: WalletSelectedEvent) => Promise<void>;
 </script>
 
-<div class="xs:mx-12 sm:w-500 md:w-800 mx-auto flex flex-col gap-2">
+<div class=" container grid w-full grid-flow-row-dense grid-cols-2 gap-2">
   {#each extensions as extension}
     <WalletButton extensionMetadata={extension} on:walletSelected={onSelectedWallet} />
   {/each}
