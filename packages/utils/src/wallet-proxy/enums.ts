@@ -18,5 +18,5 @@ export enum Schema {
 }
 
 export enum ProxyUrl {
-  DEV = 'http://localhost:5175',
+  DEV = 'http://localhost:5174',
 }
