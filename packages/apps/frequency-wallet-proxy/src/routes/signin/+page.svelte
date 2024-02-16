@@ -63,7 +63,7 @@
     if (cachedExt.installed && cachedExt.authorized === ExtensionAuthorizationEnum.Authorized) {
       CurrentSelectedExtensionIdStore.set(cachedExt.injectedName);
       if (Object.keys(await $FilteredMsaAccountsDerivedStore).length === 0) {
-        goto('/signup');
+        goto('/signup/handle');
       } else {
         goto('/accounts');
       }

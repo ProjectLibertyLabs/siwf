@@ -6,4 +6,15 @@ interface SignupStore {
   handle: string;
 }
 
-export const SignupStore = writable<SignupStore>({ address: '', name: '', handle: '' } as SignupStore);
+function createSignupStore() {
+  const { subscribe, update, set } = writable<SignupStore>({ address: '', name: '', handle: '' });
+
+  return {
+    set,
+    subscribe,
+    updateAddress: (newAddress: string) => update(store => ({ ...store, address: newAddress })),
+    updateHandle: (newHandle: string) => update((store) => ({ ...store, handle: newHandle })),
+  };
+}
+
+export const SignupStore = createSignupStore();

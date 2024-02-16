@@ -1,11 +1,37 @@
 import { PresumptiveSuffixesResponse } from '@frequency-chain/api-augment/interfaces';
 import { getApi } from './connect';
 import { ApiPromise } from '@polkadot/api';
-import { AnyNumber } from '@polkadot/types/types';
+import type { AnyNumber, Codec } from '@polkadot/types/types';
+import { Bytes, TypeRegistry } from '@polkadot/types';
 
+export { Codec };
 export interface MsaInfo {
   msaId: string;
   handle: string;
+}
+
+const Registry = new TypeRegistry();
+Registry.register({
+  ClaimHandle: {
+    baseHandle: 'Bytes',
+    expiration: 'u32',
+  },
+});
+
+export async function createClaimHandlePayload(expiration: number, handle: string): Promise<Uint8Array> {
+  const api = await getApi();
+  const handleBytes = new Bytes(Registry, handle);
+  return api.registry
+    .createType('CommonPrimitivesHandlesClaimHandlePayload', {
+      baseHandle: handleBytes,
+      expiration,
+    })
+    .toU8a();
+}
+
+export async function getBlockNumber(): Promise<number> {
+  const api = await getApi();
+  return (await api.rpc.chain.getBlock()).block.header.number.toNumber();
 }
 
 export async function getMsaInfo(address: string[]): Promise<MsaInfo[]> {
@@ -34,4 +60,9 @@ export async function validateHandle(handle: string): Promise<boolean> {
 export async function getHandleNextSuffixes(handle: string, count: number): Promise<PresumptiveSuffixesResponse> {
   const api = await getApi();
   return await api.rpc.handles.getNextSuffixes(handle, count);
+}
+
+export async function buildHandleTx(msaOwnerKey: string, proof: string, payload: Uint8Array): Promise<Codec> {
+  const api = await getApi();
+  return api.tx.handles.claimHandle(msaOwnerKey, proof, payload);
 }
