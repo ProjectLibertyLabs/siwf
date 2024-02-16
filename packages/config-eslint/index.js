@@ -32,7 +32,9 @@ module.exports = {
       // prevent variables with a _ prefix from being marked as unused
       'warn',
       {
+        varsIgnorePattern: '^_',
         argsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
       },
     ],
     'no-extra-boolean-cast': 'off',

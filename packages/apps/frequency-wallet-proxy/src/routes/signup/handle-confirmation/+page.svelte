@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
   import { SignupStore } from '$lib/stores/SignupStore';
   import { getHandlePayloadSignature } from '$lib/utils';
@@ -8,10 +9,10 @@
   async function handleHandle() {
     const {
       signature,
-      payload: { raw, bytes },
+      payload: { raw: _raw, bytes },
     } = await getHandlePayloadSignature($CurrentSelectedExtensionIdStore, $SignupStore.address, $SignupStore.handle);
 
-    const encodeClaimHandleTx = (
+    const _encodeClaimHandleTx = (
       await buildHandleTx(
         $SignupStore.address,
         {
@@ -45,6 +46,6 @@
 {$CurrentSelectedExtensionIdStore}
 
 <div>
-  <button on:click={() => goto('/signup/handle')}>back</button>
-  <button on:click={() => goto('/signup/delegation')}>sign > next</button>
+  <button on:click={() => goto(`/signup/handle?${$page.url.searchParams}`)}>back</button>
+  <button on:click={() => goto(`/signup/delegation?${$page.url.searchParams}`)}>sign > next</button>
 </div>
