@@ -1,4 +1,5 @@
 import type { InjectedAccount, InjectedExtension, InjectedWindowProvider } from '@polkadot/extension-inject/types';
+import { isFunction, u8aToHex, u8aWrapBytes } from '@polkadot/util';
 import { HexString } from '@polkadot/util/types';
 export interface InjectedWeb3 {
   [key: string]: InjectedWindowProvider;
@@ -93,6 +94,26 @@ export class ExtensionConnector {
       console.error(error);
       throw new Error('Failed to request accounts', { cause: error });
     }
+  }
+
+  public async signMessageWithWrappedBytes(payload: Uint8Array, address: string): Promise<HexString> {
+    const signRaw = this.extension?.signer?.signRaw;
+
+    if (signRaw && isFunction(signRaw)) {
+      try {
+        const { signature } = await signRaw({
+          address,
+          data: u8aToHex(u8aWrapBytes(payload)),
+          type: 'bytes',
+        });
+
+        return signature;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    throw new Error(`Unable to access signer interface of extension`);
   }
 
   public async signMessage(message: string, address: string): Promise<HexString> {
