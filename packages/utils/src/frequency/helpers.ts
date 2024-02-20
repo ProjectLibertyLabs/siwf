@@ -29,6 +29,22 @@ export async function createClaimHandlePayload(expiration: number, handle: strin
     .toU8a();
 }
 
+export async function createAddProviderPayload(
+  expiration: number,
+  providerId: string,
+  schemaIds: number[]
+): Promise<Uint8Array> {
+  const api = await getApi();
+  schemaIds.sort();
+  return api.registry
+    .createType('PalletMsaAddProvider', {
+      authorizedMsaId: providerId,
+      expiration,
+      schemaIds,
+    })
+    .toU8a();
+}
+
 export async function getBlockNumber(): Promise<number> {
   const api = await getApi();
   return (await api.rpc.chain.getBlock()).block.header.number.toNumber();
@@ -65,4 +81,14 @@ export async function getHandleNextSuffixes(handle: string, count: number): Prom
 export async function buildHandleTx(msaOwnerKey: string, proof: string, payload: Uint8Array): Promise<Codec> {
   const api = await getApi();
   return api.tx.handles.claimHandle(msaOwnerKey, proof, payload);
+}
+
+export async function buildCreateSponsoredAccountTx(
+  controlKey: string,
+  providerKey: string,
+  signature: string,
+  payload: Uint8Array
+): Promise<Uint8Array> {
+  const api = await getApi();
+  return api.tx.msa.createSponsoredAccount(controlKey, providerKey, signature, payload).toU8a();
 }

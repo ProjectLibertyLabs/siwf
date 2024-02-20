@@ -4,6 +4,7 @@
   import { goto } from '$app/navigation';
   import HandleInput from '$lib/components/HandleInput.svelte';
   import AddressDropdown from '$lib/components/AddressDropdown.svelte';
+  import { page } from '$app/stores';
 
   let isNextDisabled: boolean = true;
 
@@ -27,7 +28,9 @@
 
     <div>
       <button on:click={() => goto('/signin')}>back</button>
-      <button on:click={() => goto('/signup/handle-confirmation')} disabled={isNextDisabled}>next</button>
+      <button on:click={() => goto(`/signup/handle-confirmation?${$page.url.searchParams}`)} disabled={isNextDisabled}
+        >next</button
+      >
     </div>
   </div>
 </div>

@@ -12,7 +12,7 @@ function createSignupStore() {
   return {
     set,
     subscribe,
-    updateAddress: (newAddress: string) => update(store => ({ ...store, address: newAddress })),
+    updateAddress: (newAddress: string) => update((store) => ({ ...store, address: newAddress })),
     updateHandle: (newHandle: string) => update((store) => ({ ...store, handle: newHandle })),
   };
 }
