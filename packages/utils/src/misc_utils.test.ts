@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { delayMs } from './misc_utils';
+import { delayMs, formatWalletAddress, parseHandle } from './misc_utils';
 
 test('delayMs waits for at least n millseconds', async () => {
   const t1 = Date.now();
@@ -13,4 +13,31 @@ test('Date.toLocalISOString formats date correctly', () => {
   // @ts-expect-error Ignore error on monkey-patched '.toLocalISOString'
   expect(d.toLocalISOString()).toBe('2024-01-01T05:00:00.000-05:00');
   expect(d.toISOString()).toBe('2024-01-01T10:00:00.000Z');
+});
+
+test('formatWalletAddress works correctly', () => {
+  const result = formatWalletAddress('5CfLVBEtQ1TG4SvvFNiY9JBrqbcfKHipm6hVZqbjzsw7SGEa');
+  expect(result).toBe('5CfL...SGEa');
+});
+
+test('parseHandle works on basic handle', () => {
+  const { base, suffix } = parseHandle('foo.37');
+  expect(base).toBe('foo');
+  expect(suffix).toBe(37);
+});
+
+test('parseHandle works on handle with extra dot', () => {
+  const { base, suffix } = parseHandle('foo.bar.37');
+  expect(base).toBe('foo.bar');
+  expect(suffix).toBe(37);
+});
+
+test('parseHandle works on corrupt handle', () => {
+  let { base, suffix } = parseHandle('foo.bar');
+  expect(base).toBe('');
+  expect(suffix).toBe(0);
+
+  ({ base, suffix } = parseHandle('foobar'));
+  expect(base).toBe('');
+  expect(suffix).toBe(0);
 });

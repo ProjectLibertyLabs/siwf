@@ -1,69 +1,54 @@
 <script lang="ts">
-  import { type InjectedAccountWithExtensions } from '$lib/stores/derived/AllAccountsDerivedStore';
   import { FilteredMsaAccountsDerivedStore, type MsaMap } from '$lib/stores/derived/MsaAccountsDerivedStore';
-  import type { MsaInfoWithAccounts } from '$lib/stores/derived/MsaAccountsDerivedStore';
   import { goto } from '$app/navigation';
-  import sharpSettings from '@iconify/icons-ic/sharp-settings';
-  import Icon from '@iconify/svelte';
   import {
     type CurrentSelectedMsaAccount,
     CurrentSelectedMsaAccountStore,
   } from '$lib/stores/CurrentSelectedMsaAccountStore';
+  import MsaAndAccountSelector from '$lib/components/MsaAndAccountSelector.svelte';
 
-  let userSelected: CurrentSelectedMsaAccount;
+  let selectedMsaWithAccount: CurrentSelectedMsaAccount;
   let msaMap: MsaMap = {};
+
+  $: nextEnabled = !!selectedMsaWithAccount;
 
   $: $FilteredMsaAccountsDerivedStore.then((value) => {
     msaMap = value;
   });
 
   $: {
-    $CurrentSelectedMsaAccountStore = userSelected;
+    $CurrentSelectedMsaAccountStore = selectedMsaWithAccount;
   }
 
-  function createSelectedMsaAccount(msaInfoWithAccounts: MsaInfoWithAccounts, account: InjectedAccountWithExtensions) {
-    const { ...msaInfo } = msaInfoWithAccounts;
-    return { ...msaInfo, account };
+  function handleNext() {
+    if (nextEnabled) {
+      goto('/confirm_siwx');
+    } else {
+      console.error('Button not enabled');
+    }
   }
+
+  function handleKeyPress() {}
 </script>
 
-<div>
-  <div>
-    <button on:click={() => goto('/signin')}>
-      <Icon icon={sharpSettings} width="30" height="30" />
-    </button>
+<div class="pb-[64px]">
+  <MsaAndAccountSelector
+    msaEntries={Object.values(msaMap)}
+    bind:selectedMsaWithAccount
+    initialSelection={{ msaId: '3', address: '5C4naHLqrqJbKQL7BFnFNHzwj3PMtffFWXYNoMgVYUq2Faj8' }}
+  />
+</div>
+<div class="flex h-full items-center justify-center">
+  <div
+    class="flex h-[40px] w-[235px] items-center justify-center rounded-[50px] bg-[#1B9EA3] pl-2 pr-2"
+    on:click={handleNext}
+    role="button"
+    tabindex="0"
+    on:keypress={handleKeyPress}
+  >
+    <span class="text-center text-base font-bold">Next > Sign In</span>
   </div>
-  <div>
-    <ul>
-      {#each Object.entries(msaMap) as [msaId, msaInfo]}
-        <div>
-          <div>
-            {msaInfo.handle} msaId: {msaId}
-          </div>
-          <div>
-            {#each Object.entries(msaInfo.accounts) as [address, account]}
-              <ul>
-                <li>
-                  <input
-                    type="radio"
-                    bind:group={userSelected}
-                    value={createSelectedMsaAccount(msaInfo, account)}
-                    id={address}
-                  />
-                  <label for={address}> {address} ({account.name})</label>
-                </li>
-              </ul>
-            {/each}
-          </div>
-          <div style="height:20px" />
-        </div>
-      {/each}
-    </ul>
-  </div>
-
-  <span>
-    <button on:click={() => goto('/signin')}>back</button>
-    <button on:click={() => goto('/signup')}>Create new account</button>
-    <button on:click={() => goto('/confirm_siwx')}>next</button>
-  </span>
+</div>
+<div class="flex items-center justify-center pt-8">
+  <a href="/signup/handle" class="text-center text-sm font-semibold">Create an account</a>
 </div>

@@ -1,13 +1,13 @@
 import '@frequency-chain/api-augment';
 import {
-  ExtrinsicHelper,
-  signPayloadSr25519,
-  initialize,
-  generateAddKeyPayload,
   createAndFundKeypair,
-  UserBuilder,
-  generateDelegationPayload,
+  ExtrinsicHelper,
+  generateAddKeyPayload,
   generateClaimHandlePayload,
+  generateDelegationPayload,
+  initialize,
+  signPayloadSr25519,
+  UserBuilder,
 } from 'frequency-scenario-template';
 import type { KeyringPair } from '@polkadot/keyring/types';
 
@@ -31,25 +31,25 @@ const accounts: ChainAccount[] = [
   {
     seedPhrase: 'dynamic split hedgehog grain bench toy rotate baby salon creek earn virus',
     keypairs: [],
-    msaId: 0n,
+    msaId: '0',
     handle: 'cp_user_1',
   },
   {
     seedPhrase: 'delay man segment gallery project plug thrive wool alcohol secret damage gold',
     keypairs: [],
-    msaId: 0n,
+    msaId: '0',
     handle: 'cp_user_2',
   },
   {
     seedPhrase: 'lab palm dawn net junior rubber mule fault post immune panic ethics',
     keypairs: [],
-    msaId: 0n,
+    msaId: '0',
     handle: 'cp_user_3',
   },
   {
     seedPhrase: 'coral tuna volcano lawsuit crime half area seed rapid mystery under reopen',
     keypairs: [],
-    msaId: 0n,
+    msaId: '0',
     handle: 'cp_user_4',
   },
 ];
@@ -72,6 +72,9 @@ async function addPublicKeyToMsa(msaId: bigint, controlKey: KeyringPair, newKey:
 
 export async function main() {
   await initialize('ws://localhost:9944');
+  const t = ExtrinsicHelper.apiPromise.registry.get('CommonPrimitivesHandlesClaimHandlePayload');
+  console.dir(t());
+  return;
 
   // Create and register a Provider
   const provider = await new UserBuilder().withKeyUri(PROVIDER_MNEMONIC).asProvider('Narwhal').build();
