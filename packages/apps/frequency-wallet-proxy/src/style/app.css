@@ -6,54 +6,13 @@
 
 /*  */
 @layer components {
-  .btn-primary {
-    @apply bg-blue disabled:bg-disabled h-10 w-[225px] rounded-full text-base font-bold text-white;
-  }
-
-  .btn-no-fill {
-    @apply text-sm text-white underline;
-  }
-
   /* layout */
-  .content-block {
-    @apply bg-bg-black rounded-md p-7;
-  }
 
   /* typography */
   /* headers */
-  .section-title {
-    @apply text-xl font-bold;
-  }
-
-  .section-title-underlined {
-    @apply section-title border-divider border-b pb-3;
-  }
-
-  .label {
-    @apply text-base font-bold tracking-wide;
-  }
-
   /* data */
-  .data-value-sm {
-    @apply font-data text-green text-sm;
-  }
-
-  .data-value-base {
-    @apply font-data text-green text-base;
-  }
-
-  .data-value-lg {
-    @apply font-data text-green text-lg;
-  }
-
-  .data-value-2xl {
-    @apply font-data text-green text-2xl;
-  }
 
   /* layout */
-  .content-block {
-    @apply bg-bg-black rounded-md p-7;
-  }
 }
 
 @layer base {
@@ -61,6 +20,10 @@
     color: white;
     min-height: 100vh;
     background: linear-gradient(to top, #2c333d, #007da1);
+  }
+
+  .transparent-text {
+    background: rgb(255, 255, 255, 0);
   }
 
   #bgmask {
@@ -80,7 +43,12 @@
   [type='text'],
   [type='number'],
   select {
-    @apply disabled:text-disabled disabled:opacity-85 h-[30px] w-[320px] overflow-ellipsis rounded-md border-none py-0 pl-2 text-sm text-black outline-none;
+    @apply disabled:text-disabled disabled:opacity-85 h-[30px] w-full overflow-ellipsis rounded-md border-none py-0 pl-2 text-sm text-white outline-none focus:ring-0;
+  }
+
+  input:focus,
+  [type='text']:focus {
+    @apply outline-none;
   }
 
   select {

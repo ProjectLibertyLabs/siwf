@@ -50,21 +50,23 @@ export async function getBlockNumber(): Promise<number> {
   return (await api.rpc.chain.getBlock()).block.header.number.toNumber();
 }
 
-export async function getMsaInfo(address: string[]): Promise<MsaInfo[]> {
-  const api = await getApi();
-  const msaIds = await getMsaIds(api, address);
-  const handles = await getHandles(api, msaIds);
+export async function getMsaInfo(address: string[], apiPromise?: ApiPromise): Promise<MsaInfo[]> {
+  const api = apiPromise || (await getApi());
+  const msaIds = await getMsaIds(address, api);
+  const handles = await getHandles(msaIds, api);
   return msaIds.map((msaId, i) => ({
     msaId: msaId.toString(),
     handle: handles[i],
   }));
 }
 
-async function getMsaIds(api: ApiPromise, address: string[]): Promise<string[]> {
-  return (await api.query.msa.publicKeyToMsaId.multi(address)).map((result) => result.unwrapOrDefault().toString());
+export async function getMsaIds(addresses: string[], apiPromise?: ApiPromise): Promise<string[]> {
+  const api = apiPromise || (await getApi());
+  return (await api.query.msa.publicKeyToMsaId.multi(addresses)).map((result) => result.unwrapOrDefault().toString());
 }
 
-async function getHandles(api: ApiPromise, msaIds: AnyNumber[]): Promise<string[]> {
+export async function getHandles(msaIds: AnyNumber[], apiPromise?: ApiPromise): Promise<string[]> {
+  const api = apiPromise || (await getApi());
   return (await api.query.handles.msaIdToDisplayName.multi(msaIds)).map((r) => r.unwrapOrDefault()[0].toUtf8());
 }
 
