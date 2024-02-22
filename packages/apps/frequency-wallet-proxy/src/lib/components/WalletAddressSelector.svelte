@@ -1,11 +1,10 @@
 <script lang="ts">
   import type { InjectedAccountWithExtensions } from '$lib/stores/derived/AllAccountsDerivedStore';
   import { formatWalletAddress } from '@frequency-control-panel/utils';
-  import { onMount } from 'svelte';
 
   export let selectShown: boolean = true;
   export let accounts: InjectedAccountWithExtensions[] = [];
-  export let initialSelectedAddress: string | undefined = undefined;
+  export let initialSelectedAddress: string = '';
 
   // Pattern for read-only properties: hide the internal, writable
   // property behind a private shadow property.
@@ -37,14 +36,13 @@
     }
   }
 
-  onMount(() => {
-    const selection = accounts.find((account) => account.address === initialSelectedAddress) || accounts[0];
-    _selectedAddress = selection.address;
-  });
+  $: if (!_selectedAddress) {
+    _selectedAddress = initialSelectedAddress || accounts?.[0]?.address;
+  }
 </script>
 
 {#if selectShown}
-  <div class="bg-button max-w-fit rounded-md border border-white bg-opacity-25">
+  <div class="bg-button w-full rounded-md border border-white bg-opacity-25">
     <select class="bg-button bg-opacity-25 text-sm font-semibold text-white" bind:value={_selectedAddress}>
       {#each accounts as account}
         <option

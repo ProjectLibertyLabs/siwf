@@ -4,7 +4,7 @@ import {
   AllAccountsDerivedStore,
   type InjectedAccountWithExtensions,
 } from './AllAccountsDerivedStore';
-import { getMsaInfo, type MsaInfo } from '@frequency-control-panel/utils';
+import { getMsaIds, getMsaInfo, type MsaInfo } from '@frequency-control-panel/utils';
 import { FilteredAccountsDerivedStore } from './FilteredAccountsDerivedStore';
 
 export interface MsaInfoWithAccounts extends MsaInfo {
@@ -18,10 +18,12 @@ function createMsaStore(source: Readable<Promise<AccountMap>>) {
     (async () => {
       const accounts: [address: string, account: InjectedAccountWithExtensions][] = Object.entries(await $source);
       const msaInfo = await getMsaInfo(accounts.map(([address]) => address));
-      const filteredMsaInfo = msaInfo.filter((info) => info.msaId !== '0');
 
       const msaMap: MsaMap = {};
-      for (const [index, info] of filteredMsaInfo.entries()) {
+      for (const [index, info] of msaInfo.entries()) {
+        if (info.msaId === '0') {
+          continue;
+        }
         const entry = msaMap?.[info.msaId] || { ...info, accounts: {} };
         const [address, account] = accounts[index];
         entry.accounts[address] = account;
@@ -32,5 +34,26 @@ function createMsaStore(source: Readable<Promise<AccountMap>>) {
   );
 }
 
+function createNonMsaStore(source: Readable<Promise<AccountMap>>) {
+  return derived([source], ([$source]) =>
+    (async () => {
+      const accounts: [address: string, account: InjectedAccountWithExtensions][] = Object.entries(await $source);
+      const msaIds = await getMsaIds(accounts.map(([address]) => address));
+
+      const accountMap: AccountMap = {};
+      for (const [index, msaId] of msaIds.entries()) {
+        if (msaId !== '0') {
+          continue;
+        }
+        accountMap[accounts[index][0]] = accounts[index][1];
+      }
+
+      return accountMap;
+    })()
+  );
+}
+
 export const MsaAccountsDerivedStore = createMsaStore(AllAccountsDerivedStore);
 export const FilteredMsaAccountsDerivedStore = createMsaStore(FilteredAccountsDerivedStore);
+export const NonMsaAccountsDerivedStore = createNonMsaStore(AllAccountsDerivedStore);
+export const FilteredNonMsaAccountsDerivedStore = createNonMsaStore(FilteredAccountsDerivedStore);

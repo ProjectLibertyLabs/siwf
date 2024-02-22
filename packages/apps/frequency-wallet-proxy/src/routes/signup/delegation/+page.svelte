@@ -42,7 +42,7 @@
         {schema[0]}
         <span
           role="tooltip"
-          class="text-aqua -t-2 hover:border-rounded absolute ml-1 cursor-pointer px-2 py-1 text-sm hover:rounded-lg hover:bg-white hover:text-black"
+          class="text-aqua -t-2 hover:border-rounded absolute ml-1 cursor-pointer px-2 py-1 text-sm hover:rounded-xl hover:bg-white hover:text-black"
           on:mouseenter|preventDefault={toggleHelp}
           on:mouseleave|preventDefault={toggleHelp}>?</span
         >

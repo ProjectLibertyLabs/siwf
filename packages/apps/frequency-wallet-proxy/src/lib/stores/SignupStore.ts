@@ -1,13 +1,13 @@
 import { writable } from 'svelte/store';
 
 interface SignupStore {
-  address: string;
-  name: string;
-  handle: string;
+  address?: string;
+  name?: string;
+  handle?: string;
 }
 
 function createSignupStore() {
-  const { subscribe, update, set } = writable<SignupStore>({ address: '', name: '', handle: '' });
+  const { subscribe, update, set } = writable<SignupStore>({});
 
   return {
     set,

@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { delayMs, formatWalletAddress, parseHandle } from './misc_utils';
+import { delayMs, formatWalletAddress, getHandleBase, getHandleSuffix, parseHandle } from './misc_utils';
 
 test('delayMs waits for at least n millseconds', async () => {
   const t1 = Date.now();
@@ -40,4 +40,16 @@ test('parseHandle works on corrupt handle', () => {
   ({ base, suffix } = parseHandle('foobar'));
   expect(base).toBe('');
   expect(suffix).toBe(0);
+});
+
+test('getHandleBase returns base of handle', () => {
+  const { base: baseFromParse } = parseHandle('foobar.37');
+  const base = getHandleBase('foobar.37');
+  expect(base).toBe(baseFromParse);
+});
+
+test('getHandleSuffix returns suffix of handle', () => {
+  const { suffix: suffixFromParse } = parseHandle('foobar.37');
+  const suffix = getHandleSuffix('foobar.37');
+  expect(suffix).toBe(suffixFromParse);
 });
