@@ -1,51 +1,60 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  import { page } from '$app/stores';
+  import { FooterButton, PayloadConfirmation } from '$lib/components';
+  import type { PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
   import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
   import { SignupStore } from '$lib/stores/SignupStore';
-  import { getHandlePayloadSignature } from '$lib/utils';
+  import { getHandlePayload, getPayloadSignature } from '$lib/utils';
   import { buildHandleTx } from '@frequency-control-panel/utils';
+  import { goto } from '$app/navigation';
+
+  let payload: Awaited<ReturnType<typeof getHandlePayload>>;
+  let payloadSummary: PayloadSummaryItem[];
+
+  $: payload = $SignupStore.handle.payload;
+
+  $: payloadSummary = [
+    {
+      name: 'Operation',
+      content: 'claimHandle',
+    },
+    {
+      name: 'baseHandle',
+      content: payload?.raw.baseHandle,
+    },
+    {
+      name: 'expiration',
+      content: `${payload?.raw.expiration} blocks`,
+    },
+  ];
 
   async function handleHandle() {
-    const {
-      signature,
-      payload: { raw: _raw, bytes },
-    } = await getHandlePayloadSignature($CurrentSelectedExtensionIdStore, $SignupStore.address, $SignupStore.handle);
-
-    const _encodeClaimHandleTx = (
-      await buildHandleTx(
+    try {
+      const signature = await getPayloadSignature(
+        $CurrentSelectedExtensionIdStore,
         $SignupStore.address,
-        {
-          Sr25519: signature,
-        },
-        bytes
-      )
-    ).toHex();
+        payload.bytes
+      );
+
+      const _encodeClaimHandleTx = (
+        await buildHandleTx(
+          $SignupStore.address,
+          {
+            Sr25519: signature.toString(),
+          },
+          payload.bytes
+        )
+      ).toHex();
+
+      console.dir({ msg: 'Signature', signature, tx: _encodeClaimHandleTx });
+
+      // TODO: store result in SignupStore. Either the signed payload or the encoded extrinsic (not sure which yet)
+
+      goto('/signup/delegation');
+    } catch (err: unknown) {
+      console.error('Payload not signed', err);
+    }
   }
 </script>
 
-<div>Here is what your going to sign</div>
-
-<div>
-  <div>Message</div>
-  <div>Sign for you handle</div>
-
-  <div class="mt-4">
-    <div>
-      <label for="claimHandle">
-        Authorize <span class="font-bold text-white">Acme App</span> to create your handle
-      </label>
-      <div>
-        <button id="claimHandle" on:click|preventDefault={handleHandle}> I Claim </button>
-      </div>
-    </div>
-  </div>
-</div>
-{$SignupStore.handle}
-{$SignupStore.address}
-{$CurrentSelectedExtensionIdStore}
-
-<div>
-  <button on:click={() => goto(`/signup/handle?${$page.url.searchParams}`)}>back</button>
-  <button on:click={() => goto(`/signup/delegation?${$page.url.searchParams}`)}>sign > next</button>
-</div>
+<PayloadConfirmation items={payloadSummary} payload={payload.bytes} />
+<FooterButton on:click={handleHandle}>Next > Sign</FooterButton>

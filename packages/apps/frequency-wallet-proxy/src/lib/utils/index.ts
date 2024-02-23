@@ -26,21 +26,33 @@ export function debounce<T extends (...args: unknown[]) => void>(
   };
 }
 
-export async function getHandlePayloadSignature(
+export async function getHandlePayload(
+  baseHandle: string
+): Promise<{ raw: { baseHandle: string; expiration: number }; bytes: Uint8Array }> {
+  const blockNumber = await getBlockNumber();
+  const expiration = blockNumber + 50; // 60 seconds @ 12s block time
+
+  const handlePayload = await createClaimHandlePayload(expiration, baseHandle);
+  return {
+    raw: {
+      baseHandle,
+      expiration,
+    },
+    bytes: handlePayload,
+  };
+}
+
+export async function getPayloadSignature(
   extensionName: string,
   account: string,
-  handleName: string
-): Promise<{ signature: U8aLike; payload: Record<string, unknown> }> {
-  const blockNumber = await getBlockNumber();
-  const expiration = blockNumber + 50;
-  const handlePayload = await createClaimHandlePayload(expiration, handleName);
-
+  payload: Uint8Array
+): Promise<U8aLike> {
   try {
     const connector = new ExtensionConnector(window.injectedWeb3, APP_NAME);
     await connector.connect(extensionName);
 
-    const signature = await connector.signMessageWithWrappedBytes(handlePayload, account);
-    return { signature, payload: { raw: { baseHandle: handleName, expiration }, bytes: handlePayload } };
+    const signature = await connector.signMessageWithWrappedBytes(payload, account);
+    return signature;
   } catch (error) {
     console.error('Error while signing message', error);
     throw error;
