@@ -13,6 +13,7 @@
     { name: 'Message', content: 'Claim your handle' },
     { name: 'URI', content: 'http://localhost.xxy' },
   ];
+  export let isRaw: boolean = false;
 
   export let payload: string | Uint8Array;
 
@@ -40,19 +41,29 @@
             <div class="pb-1 pt-2"><hr class="flex-grow pb-1 pt-2" /></div>
           {/if}
           <div>
-            <span class="text-sm font-bold">{payloadItem.name.replace(/:*$/, ':')}</span>
+            <span class="text-sm font-bold">{payloadItem.name ? payloadItem.name.replace(/:*$/, ':') : ''}</span>
           </div>
           <div>
-            <span class="text-sm font-normal">{payloadItem.content}</span>
+            <span class="text-sm font-normal">{@html payloadItem.content}</span>
           </div>
         {/each}
       </div>
       <!-- PayloadDisplay -->
       <Modal basic big={true}>
         <Content class="bg-bgGradient flex">
-          The payload you will sign with your wallet should match the payload below:<br /><br />
-          {formatRawPayload()}</Content
-        >
+          <div class="flex-col">
+            <div class="whitespace-pre-wrap">
+              The payload you will sign with your wallet should match the payload below:<br /><br />
+            </div>
+            <div class="whitespace-pre-wrap">
+              {#if isRaw}
+                <pre class="whitespace-pre-wrap">{payload}</pre>
+              {:else}
+                {formatRawPayload()}
+              {/if}
+            </div>
+          </div>
+        </Content>
         <Trigger>
           <div class="mt-auto flex items-end justify-end pb-4 pr-2 pt-4">
             <!-- svelte-ignore a11y-missing-attribute -->

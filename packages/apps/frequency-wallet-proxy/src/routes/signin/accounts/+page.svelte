@@ -23,7 +23,7 @@
 
   function handleNext() {
     if (nextEnabled) {
-      goto('/confirm_siwx');
+      goto('/signin/confirm');
     } else {
       console.error('Button not enabled');
     }
