@@ -45,6 +45,7 @@
     "@iconify/svelte": "^3.1.6",
     "@polkadot/extension-dapp": "^0.46.6",
     "@polkadot/extension-inject": "^0.46.6",
+    "@polkadot/util": "^12.6.2",
     "@tailwindcss/forms": "^0.5.7",
     "@talismn/siws": "^0.0.9",
     "autoprefixer": "^10.4.17",

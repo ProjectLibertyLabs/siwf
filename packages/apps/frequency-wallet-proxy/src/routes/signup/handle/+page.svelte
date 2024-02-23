@@ -1,29 +1,33 @@
 <script lang="ts">
   import { SignupStore } from '$lib/stores/SignupStore';
-  import { HandleStore } from '$lib/stores/HandleStore';
   import { goto } from '$app/navigation';
   import HandleInput from '$lib/components/HandleInput.svelte';
   import WalletAddressSelector from '$lib/components/WalletAddressSelector.svelte';
   import type { InjectedAccountWithExtensions } from '$lib/stores/derived/AllAccountsDerivedStore';
   import { FilteredNonMsaAccountsDerivedStore } from '$lib/stores/derived/MsaAccountsDerivedStore';
   import FooterButton from '$lib/components/FooterButton.svelte';
+  import { getHandlePayload } from '$lib/utils';
 
-  export let selectedAddress: string;
-  export let selectedAccount: InjectedAccountWithExtensions;
+  let selectedAddress: string;
+  let selectedAccount: InjectedAccountWithExtensions;
   let isNextDisabled: boolean = true;
   let accounts: InjectedAccountWithExtensions[];
 
   $: {
-    isNextDisabled = !$SignupStore.address || !$HandleStore.isValid || !$HandleStore.isAvailable;
+    const { address, handle } = $SignupStore;
+    isNextDisabled = !address || !handle.isValid || !handle.isAvailable;
+    console.log('updating isNextDisabled');
   }
 
-  $: SignupStore.updateAddress(selectedAddress);
+  $: $SignupStore.address = selectedAddress;
 
   $: $FilteredNonMsaAccountsDerivedStore.then((allAccounts) => {
     accounts = Object.values(allAccounts);
   });
 
-  function handleNext() {
+  async function handleNext() {
+    const payload = await getHandlePayload($SignupStore.handle.baseHandle);
+    $SignupStore.handle.payload = payload;
     goto('/signup/handle-confirmation');
   }
 </script>
@@ -46,7 +50,7 @@
     </div>
     <div class=" flex w-full pb-8">
       <span class=" text-xs font-normal"
-        >Handle must be between 4-16 characters & can only consist of letters, numbers, and underscores</span
+        >Handle must be between 3-20 characters & can only consist of letters, numbers, and underscores</span
       >
     </div>
   </div>

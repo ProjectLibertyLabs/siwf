@@ -1,8 +1,9 @@
 import { PresumptiveSuffixesResponse } from '@frequency-chain/api-augment/interfaces';
 import { getApi } from './connect';
 import { ApiPromise } from '@polkadot/api';
-import type { AnyNumber, Codec } from '@polkadot/types/types';
-import { Bytes, TypeRegistry } from '@polkadot/types';
+import type { AnyNumber, Codec, ISubmittableResult } from '@polkadot/types/types';
+import { Bytes } from '@polkadot/types';
+import { SubmittableExtrinsic } from '@polkadot/api/types';
 
 export { Codec };
 export interface MsaInfo {
@@ -10,17 +11,9 @@ export interface MsaInfo {
   handle: string;
 }
 
-const Registry = new TypeRegistry();
-Registry.register({
-  ClaimHandle: {
-    baseHandle: 'Bytes',
-    expiration: 'u32',
-  },
-});
-
 export async function createClaimHandlePayload(expiration: number, handle: string): Promise<Uint8Array> {
   const api = await getApi();
-  const handleBytes = new Bytes(Registry, handle);
+  const handleBytes = new Bytes(api.registry, handle);
   return api.registry
     .createType('CommonPrimitivesHandlesClaimHandlePayload', {
       baseHandle: handleBytes,
@@ -80,7 +73,11 @@ export async function getHandleNextSuffixes(handle: string, count: number): Prom
   return await api.rpc.handles.getNextSuffixes(handle, count);
 }
 
-export async function buildHandleTx(msaOwnerKey: string, proof: string, payload: Uint8Array): Promise<Codec> {
+export async function buildHandleTx(
+  msaOwnerKey: string,
+  proof: { Sr25519: string },
+  payload: Uint8Array
+): Promise<SubmittableExtrinsic<'promise', ISubmittableResult>> {
   const api = await getApi();
   return api.tx.handles.claimHandle(msaOwnerKey, proof, payload);
 }

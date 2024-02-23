@@ -15,7 +15,7 @@ describe('WindowMessenger', () => {
     onmessage: vi.fn(),
   };
 
-  const eventEmitterEmitMock = vi.spyOn(EventTarget.prototype, 'dispatchEvent');
+  const _eventEmitterEmitMock = vi.spyOn(EventTarget.prototype, 'dispatchEvent');
   const eventEmitterOnMock = vi.spyOn(EventTarget.prototype, 'addEventListener');
   const eventEmitterOffMock = vi.spyOn(EventTarget.prototype, 'removeEventListener');
 

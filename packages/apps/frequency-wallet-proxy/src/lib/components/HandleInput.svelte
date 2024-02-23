@@ -1,14 +1,14 @@
 <script lang="ts">
   import { SignupStore } from '$lib/stores/SignupStore';
-  import { HandleStore } from '$lib/stores/HandleStore';
   import { debounce } from '$lib/utils';
+  import { onMount } from 'svelte';
 
   let handle: string;
 
   const debouncedHandleValidation = debounce(hasValidHandle, 500);
 
   async function hasValidHandle() {
-    HandleStore.validateAndSet(handle);
+    SignupStore.validateAndSetHandleStatus(handle);
   }
 
   function handleKeyup() {
@@ -19,9 +19,13 @@
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleInput = (event: any) => {
     const whitespaceAndDotRegex = /\s|\./g;
-    handle = event?.target?.value?.replace(whitespaceAndDotRegex, '');
+    handle = (event?.target as HTMLInputElement).value.replace(whitespaceAndDotRegex, '') || '';
     SignupStore.updateHandle(handle);
   };
+
+  onMount(() => {
+    handle = $SignupStore.handle.baseHandle;
+  });
 </script>
 
 <input
