@@ -66,7 +66,7 @@
       if (Object.keys(await $FilteredMsaAccountsDerivedStore).length === 0) {
         goto(`/signup/handle?${$page.url.searchParams}`);
       } else {
-        goto('/accounts');
+        goto('/signin/accounts');
       }
     }
   };

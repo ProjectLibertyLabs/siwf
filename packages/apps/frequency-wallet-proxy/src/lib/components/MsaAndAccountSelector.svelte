@@ -48,7 +48,6 @@
       selectedMsa = msaEntries[0].msaId;
     }
   }
-  $: console.dir(selectedMsaWithAccount);
 </script>
 
 <div>

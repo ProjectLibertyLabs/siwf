@@ -16,7 +16,6 @@
   $: {
     const { address, handle } = $SignupStore;
     isNextDisabled = !address || !handle.isValid || !handle.isAvailable;
-    console.log('updating isNextDisabled');
   }
 
   $: $SignupStore.address = selectedAddress;
