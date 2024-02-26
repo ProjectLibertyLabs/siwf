@@ -77,4 +77,8 @@ export class WindowMessenger {
     };
     this.eventTarget.removeEventListener(eventName, eventListener);
   }
+
+  public dispose() {
+    this.channel.port1.close();
+  }
 }

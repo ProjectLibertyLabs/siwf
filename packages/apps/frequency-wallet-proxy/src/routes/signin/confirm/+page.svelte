@@ -1,10 +1,12 @@
 <script lang="ts">
   import { SiwsMessage } from '@talismn/siws';
-  import { generateSIWxNonce } from '@frequency-control-panel/utils';
+  import { generateSIWxNonce, type SignInResponse } from '@frequency-control-panel/utils';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores/CurrentSelectedMsaAccountStore';
   import { ConnectedExtensionsDerivedStore } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
+  import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
   import FooterButton from '$lib/components/FooterButton.svelte';
+  import { sendSignInMessageResponse } from '$lib/utils';
 
   const now = new Date();
   const payload: SiwsMessage = new SiwsMessage({
@@ -75,6 +77,14 @@
     }
 
     const { signature, message } = await payload.sign(extension.connector.injectedExtension!);
+
+    const signInMessage: SignInResponse = {
+      siwsPayload: { message, signature },
+    };
+
+    RequestResponseStore.updateSignInResponse(signInMessage);
+
+    await sendSignInMessageResponse(signInMessage);
     console.info(`Message:
     ${message}
 
