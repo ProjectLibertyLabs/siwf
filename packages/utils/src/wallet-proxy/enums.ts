@@ -14,7 +14,7 @@ export enum Schema {
   PUBLIC_KEY = 'publicKey',
   PUBLIC_FOLLOWS = 'publicFollows',
   PRIVATE_FOLLOWS = 'privateFollows',
-  PRVIATE_CONNECTIONS = 'privateConnections',
+  PRIVATE_CONNECTIONS = 'privateConnections',
 }
 
 export enum ProxyUrl {

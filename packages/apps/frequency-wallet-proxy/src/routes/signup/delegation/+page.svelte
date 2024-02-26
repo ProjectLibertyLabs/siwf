@@ -1,67 +1,75 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  import { page } from '$app/stores';
   import { SignupStore } from '$lib/stores/SignupStore';
   import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
-  import { onMount } from 'svelte';
-  import { DSNPSchemas, getDelegationAndPermissionSignature } from '$lib/utils';
-  import type { SchemaData } from '$lib/utils';
+  import { DSNPSchemas, getDelegationPayload, getPayloadSignature } from '$lib/utils';
+  import { FooterButton } from '$lib/components';
+  import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
+  import { buildCreateSponsoredAccountTx, defaultConfig } from '@frequency-control-panel/utils';
 
-  let schemas: [string, SchemaData][] = [];
+  // TODO: read provider ID from SignupStore
+  let providerId: string = '1';
 
-  onMount(() => {
-    let inputSchemas = $page.url.searchParams.get('schemas')?.split(',');
+  let payloadBytes: Uint8Array;
 
-    schemas = (inputSchemas || [])
-      .filter((inputSchema) => !!DSNPSchemas[inputSchema])
-      .map((inputSchema) => [inputSchema, DSNPSchemas[inputSchema]]);
+  // TODO: Read requested schemas from SignupStore, read schema info from @dsnp package
+  // and @frequency-control-panel/utils package
+  let schemas = defaultConfig.schemas.map((schemaName) => {
+    const schema = DSNPSchemas?.[schemaName];
+    return {
+      // TODO: This should be dynamic
+      id: schema.id.mainnet,
+      name: `${schemaName} (${schema.id.mainnet})`,
+      content: schema.description,
+    };
+  });
+  let items: PayloadSummaryItem[] = [
+    {
+      name: 'By clicking "Next" and signing the resulting payload, you grant XYZ access to your Social Identity to:',
+      content:
+        '<ul style="list-style-type:disc; padding-left:20px; padding-top:5px;">' +
+        '<li>Update your Social Identity profile information and Handle</li>' +
+        '<li>Create or modify content associated with the following schemas (which may include posting messages or updating your social graph):</li>' +
+        '</ul>',
+    },
+    ...schemas,
+  ];
+
+  getDelegationPayload(
+    providerId,
+    schemas.map((s) => s.id)
+  ).then(({ bytes }) => {
+    payloadBytes = bytes;
   });
 
   async function signDelegationAndPermissions() {
-    const schemaIds: number[] = schemas.map((schema: [string, SchemaData]) => schema[1].id.mainnet as number);
-    const _authorizedDelegationAndSchemas = await getDelegationAndPermissionSignature(
-      $CurrentSelectedExtensionIdStore,
-      $SignupStore.address,
-      '1',
-      schemaIds
-    );
-  }
+    try {
+      const signature = await getPayloadSignature($CurrentSelectedExtensionIdStore, $SignupStore.address, payloadBytes);
 
-  const toggleHelp = (evt: Event) => {
-    let el = evt.target as HTMLElement;
-    el.nextElementSibling?.classList.toggle('hidden');
-  };
+      const encodedExtrinsic = (
+        await buildCreateSponsoredAccountTx(
+          $SignupStore.address,
+          {
+            Sr25519: signature.toString(),
+          },
+          payloadBytes
+        )
+      ).toHex();
+
+      console.dir({ msg: 'Signature', signature, tx: encodedExtrinsic });
+
+      // TODO: store result in SignupStore. Either the signed payload or the encoded extrinsic (not sure which yet)
+    } catch (err: unknown) {
+      console.error('Payload not signed', err);
+    }
+  }
 </script>
 
-<div>Delegation Page</div>
-
-<div class="mt-8 flex flex-wrap justify-start">
-  {#each schemas as schema, _index}
-    <ul class="m-2 p-2 underline">
-      <li class="relative text-xl font-thin">
-        {schema[0]}
-        <span
-          role="tooltip"
-          class="text-aqua -t-2 hover:border-rounded absolute ml-1 cursor-pointer px-2 py-1 text-sm hover:rounded-xl hover:bg-white hover:text-black"
-          on:mouseenter|preventDefault={toggleHelp}
-          on:mouseleave|preventDefault={toggleHelp}>?</span
-        >
-        <p
-          class="-bottom-80px border-rounded border-aqua text-md absolute z-40 hidden rounded-md bg-white p-4 leading-6 text-black"
-        >
-          {schema[1].description}
-        </p>
-      </li>
-    </ul>
-  {/each}
-</div>
-<div>
-  <button on:click|preventDefault={signDelegationAndPermissions}>
-    I Authorize <span class="font-bold text-white">Acme App</span>
-  </button>
-</div>
-
-<div>
-  <button on:click={() => goto(`/signup/handle?${$page.url.searchParams}`)}>back</button>
-  <button on:click={() => goto(`/delegation?${$page.url.searchParams}`)}>next</button>
-</div>
+<PayloadConfirmation payload={payloadBytes} {items}>
+  <span slot="heading" class="text-[16px] font-bold">Now you have to sign the permissions</span>
+  <span slot="subheading"
+    ><span class="text-[16px] font-semibold">{$SignupStore.handle.baseHandle}</span><span
+      class="font-medium text-neutral-400">.###</span
+    >
+  </span></PayloadConfirmation
+>
+<FooterButton on:click={signDelegationAndPermissions}>Next > Sign</FooterButton>

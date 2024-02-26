@@ -59,32 +59,18 @@ export async function getPayloadSignature(
   }
 }
 
-export async function getDelegationAndPermissionSignature(
-  extensionName: string,
-  account: string,
+export async function getDelegationPayload(
   providerId: string,
-  schemasIds: number[]
-): Promise<{
-  signature: Uint8Array;
-  payload: { raw: { authorizedMsaId: string; expiration: number; schemaIds: number[] }; bytes: U8aLike };
-}> {
+  schemaIds: number[]
+): Promise<{ raw: { authorizedMsaId: string; expiration: number; schemaIds: number[] }; bytes: Uint8Array }> {
   const blockNumber = await getBlockNumber();
   const expiration = blockNumber + 50;
-  const addProviderPayload = await createAddProviderPayload(expiration, providerId, schemasIds);
+  const bytes = await createAddProviderPayload(expiration, providerId, schemaIds);
 
-  try {
-    const connector = new ExtensionConnector(window.injectedWeb3, APP_NAME);
-    await connector.connect(extensionName);
-
-    const signature = connector.signMessageWithWrappedBytes(addProviderPayload, account);
-    return {
-      signature,
-      payload: { raw: { authorizedMsaId: providerId, expiration, schemaIds: schemasIds }, bytes: addProviderPayload },
-    };
-  } catch (error) {
-    console.error('Error while signing message', error);
-    throw error;
-  }
+  return {
+    raw: { authorizedMsaId: providerId, expiration, schemaIds },
+    bytes,
+  };
 }
 
 export * from './DSNPSchemas';

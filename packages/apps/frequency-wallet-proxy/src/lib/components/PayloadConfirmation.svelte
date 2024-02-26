@@ -1,7 +1,13 @@
 <script lang="ts" context="module">
   export type PayloadSummaryItem = {
-    name: string;
-    content: string;
+    name?: string;
+
+    // NOTE: content can be HTML (we use the Svelte {@html ...} tag to render it).
+    //       This is a workaround for the fact that you can't dynamically iterate/build up
+    //       slot content in Svelte. It's "safe", because we control the content being rendered;
+    //       ie, everything comes from hard-coded app strings, chain constants or domain name, no
+    //       user-generated content or other request parameters.
+    content?: string;
   };
 </script>
 
@@ -9,10 +15,7 @@
   import { Content, Modal, Trigger } from 'sv-popup';
   import { u8aToHex, u8aWrapBytes } from '@polkadot/util';
 
-  export let items: PayloadSummaryItem[] = [
-    { name: 'Message', content: 'Claim your handle' },
-    { name: 'URI', content: 'http://localhost.xxy' },
-  ];
+  export let items: PayloadSummaryItem[] = [];
   export let isRaw: boolean = false;
 
   export let payload: string | Uint8Array;
@@ -28,10 +31,10 @@
 
 <div>
   <div class="flex items-center justify-center pb-5">
-    <span class="text-md font-bold">Here is what you are going to sign</span>
+    <slot name="heading" />
   </div>
   <div class="flex items-center justify-center pb-3">
-    <span>Make sure to come back</span>
+    <slot name="subheading" />
   </div>
   <div class="flex items-center justify-center pb-5">
     <div class="flex h-[290px] w-full flex-col rounded-md border bg-transparent">
@@ -40,12 +43,17 @@
           {#if index > 0}
             <div class="pb-1 pt-2"><hr class="flex-grow pb-1 pt-2" /></div>
           {/if}
-          <div>
-            <span class="text-sm font-bold">{payloadItem.name ? payloadItem.name.replace(/:*$/, ':') : ''}</span>
-          </div>
-          <div>
-            <span class="text-sm font-normal">{@html payloadItem.content}</span>
-          </div>
+          {#if payloadItem?.name}
+            <div>
+              <span class="text-sm font-bold">{payloadItem.name.replace(/:*$/, ':')}</span>
+            </div>
+          {/if}
+          {#if payloadItem?.content}
+            <div>
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+              <span class="text-sm font-normal">{@html payloadItem.content}</span>
+            </div>
+          {/if}
         {/each}
       </div>
       <!-- PayloadDisplay -->
@@ -55,11 +63,11 @@
             <div class="whitespace-pre-wrap">
               The payload you will sign with your wallet should match the payload below:<br /><br />
             </div>
-            <div class="whitespace-pre-wrap">
+            <div>
               {#if isRaw}
                 <pre class="whitespace-pre-wrap">{payload}</pre>
               {:else}
-                {formatRawPayload()}
+                <pre class=" inline-block overflow-scroll">{formatRawPayload()}</pre>
               {/if}
             </div>
           </div>
