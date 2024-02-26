@@ -56,5 +56,8 @@
   }
 </script>
 
-<PayloadConfirmation items={payloadSummary} payload={payload.bytes} />
+<PayloadConfirmation items={payloadSummary} payload={payload.bytes}>
+  <span slot="heading" class="text-md font-bold">Here is what you are going to sign</span>
+  <span slot="subheading">Make sure to come back</span>
+</PayloadConfirmation>
 <FooterButton on:click={handleHandle}>Next > Sign</FooterButton>

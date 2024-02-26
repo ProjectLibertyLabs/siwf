@@ -1,7 +1,6 @@
 <script lang="ts">
   import { SiwsMessage } from '@talismn/siws';
   import { generateSIWxNonce } from '@frequency-control-panel/utils';
-  import { Content, Modal, Trigger } from 'sv-popup';
   import { APP_NAME } from '$lib/globals';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores/CurrentSelectedMsaAccountStore';
   import { ConnectedExtensionsDerivedStore } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
@@ -42,7 +41,7 @@
       name: 'From',
       content: `${$CurrentSelectedMsaAccountStore.account.name}<br/>${payload.address}`,
     },
-    { name: 'Domain', content: /^.*:\/\/([^\/:]*)/.exec(payload.uri!)?.[1] || '' },
+    { name: 'Domain', content: /^.*:\/\/([^/:]*)/.exec(payload.uri!)?.[1] || '' },
     { name: 'Statement', content: payload.statement },
     { name: 'Chain Name', content: payload.chainName },
     { name: 'Nonce', content: payload.nonce },
@@ -56,7 +55,7 @@
     },
     {
       name: 'Additional Resources',
-      content: ((payload as unknown as any)['resources'] as any[]).reduce((prev, curr, index) => {
+      content: (payload as unknown as Record<string, string[]>)['resources'].reduce((prev, curr, index) => {
         return prev + (index > 0 ? '<br/>' : '') + curr;
       }, ''),
     },
@@ -79,5 +78,8 @@
   }
 </script>
 
-<PayloadConfirmation items={payloadSummary} payload={payload.prepareMessage()} isRaw={true} />
+<PayloadConfirmation items={payloadSummary} payload={payload.prepareMessage()} isRaw={true}>
+  <span slot="heading" class="text-md font-bold">Here is what you are going to sign</span>
+  <span slot="subheading">Make sure to come back</span>
+</PayloadConfirmation>
 <FooterButton on:click={signPayload}>Next > Sign</FooterButton>

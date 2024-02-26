@@ -84,10 +84,9 @@ export async function buildHandleTx(
 
 export async function buildCreateSponsoredAccountTx(
   controlKey: string,
-  providerKey: string,
-  signature: string,
+  proof: { Sr25519: string },
   payload: Uint8Array
-): Promise<Uint8Array> {
+): Promise<SubmittableExtrinsic<'promise', ISubmittableResult>> {
   const api = await getApi();
-  return api.tx.msa.createSponsoredAccount(controlKey, providerKey, signature, payload).toU8a();
+  return api.tx.msa.createSponsoredAccountWithDelegation(controlKey, proof, payload);
 }

@@ -10,7 +10,7 @@ const defaultSchemas: Schema[] = [
   Schema.PUBLIC_KEY,
   Schema.PUBLIC_FOLLOWS,
   Schema.PRIVATE_FOLLOWS,
-  Schema.PRVIATE_CONNECTIONS,
+  Schema.PRIVATE_CONNECTIONS,
 ];
 
 export interface Config {

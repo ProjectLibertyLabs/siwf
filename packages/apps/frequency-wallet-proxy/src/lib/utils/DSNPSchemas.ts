@@ -1,5 +1,5 @@
 export interface SchemaData {
-  id: Record<string, unknown>;
+  id: Record<string, number>;
   description: string;
 }
 
