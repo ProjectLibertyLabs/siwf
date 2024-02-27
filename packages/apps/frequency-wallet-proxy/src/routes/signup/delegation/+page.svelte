@@ -6,20 +6,14 @@
   import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
   import { buildCreateSponsoredAccountTx, defaultConfig } from '@frequency-control-panel/utils';
 
-  // TODO: read provider ID from SignupStore
-  let providerId: string = '1';
-
   let payloadBytes: Uint8Array;
 
-  // TODO: Read requested schemas from SignupStore, read schema info from @dsnp package
-  // and @frequency-control-panel/utils package
-  let schemas = defaultConfig.schemas.map((schemaName) => {
-    const schema = DSNPSchemas?.[schemaName];
+  let schemas = defaultConfig.schemas.map((schema) => {
+    const d = DSNPSchemas.find((ds) => ds.name === schema.name);
     return {
-      // TODO: This should be dynamic
-      id: schema.id.mainnet,
-      name: `${schemaName} (${schema.id.mainnet})`,
-      content: schema.description,
+      id: schema.id,
+      name: `${schema.name} (${schema.id})`,
+      content: d?.description || '',
     };
   });
   let items: PayloadSummaryItem[] = [
@@ -35,7 +29,7 @@
   ];
 
   getDelegationPayload(
-    providerId,
+    '1', // hard-code providerId for now
     schemas.map((s) => s.id)
   ).then(({ bytes }) => {
     payloadBytes = bytes;

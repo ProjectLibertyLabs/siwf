@@ -1,9 +1,10 @@
-import { PresumptiveSuffixesResponse } from '@frequency-chain/api-augment/interfaces';
+import { PresumptiveSuffixesResponse, SchemaVersionResponse } from '@frequency-chain/api-augment/interfaces';
 import { getApi } from './connect';
 import { ApiPromise } from '@polkadot/api';
 import type { AnyNumber, Codec, ISubmittableResult } from '@polkadot/types/types';
-import { Bytes } from '@polkadot/types';
+import { Bytes, u16 } from '@polkadot/types';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
+import { RequestedSchema } from '../wallet-proxy/messenger';
 
 export { Codec };
 export interface MsaInfo {
@@ -89,4 +90,26 @@ export async function buildCreateSponsoredAccountTx(
 ): Promise<SubmittableExtrinsic<'promise', ISubmittableResult>> {
   const api = await getApi();
   return api.tx.msa.createSponsoredAccountWithDelegation(controlKey, proof, payload);
+}
+
+export async function resolveSchemas(schemas: RequestedSchema[]): Promise<void> {
+  const api = await getApi();
+  const response = await api.query.schemas.schemaNameToIds.multi(schemas.map((s) => ['dsnp', s.name]));
+
+  schemas.forEach((schema, index) => {
+    const ids = response[index].ids
+      .toArray()
+      .map((id) => (id as u16).toNumber())
+      .sort();
+    if (schema?.version && schema.version > 0) {
+      if (schema.version > ids.length) {
+        throw new Error(`Unable to find version ${schema.version} of schema ${schema.name}`);
+      }
+
+      schema.id = ids[schema.version - 1];
+    } else {
+      ids.reverse();
+      schema.id = ids[0];
+    }
+  });
 }

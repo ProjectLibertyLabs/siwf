@@ -1,80 +1,51 @@
+import { type SchemaName } from '@dsnp/frequency-schemas/dsnp';
 export interface SchemaData {
-  id: Record<string, number>;
+  name: SchemaName;
+  version?: number;
   description: string;
+  id?: number;
 }
 
-export type Schema = Record<string, SchemaData>;
-
-export const DSNPSchemas: Schema = {
-  tombstone: {
-    id: {
-      mainnet: 1,
-      rococo: 1,
-    },
+export const DSNPSchemas: SchemaData[] = [
+  {
+    name: 'tombstone',
     description:
-      'A previously announced content is invalid and the related Announcement should be considered reverted.',
+      'Publish a notice that previously announced content is invalid and the related Announcement should be considered reverted',
   },
-  broadcast: {
-    id: {
-      mainnet: 2,
-      rococo: 2,
-    },
+  {
+    name: 'broadcast',
     description: 'Post a public message',
   },
-  replay: {
-    id: {
-      mainnet: 3,
-      rococo: 3,
-    },
+  {
+    name: 'reply',
     description: 'Post a public reply to a Broadcast',
   },
-  reaction: {
-    id: {
-      mainnet: 4,
-      rococo: 4,
-    },
+  {
+    name: 'reaction',
     description: 'Publish emoji reactions to a Broadcast',
   },
-  profile: {
-    id: {
-      mainnet: 6,
-      rococo: 5,
-    },
+  {
+    name: 'profile',
     description: 'Publish profile updates',
   },
-  update: {
-    id: {
-      mainnet: 5,
-      rococo: 6,
-    },
+  {
+    name: 'update',
     description: 'Update previously announced content',
   },
-  publicKey: {
-    id: {
-      mainnet: 7,
-      rococo: 18,
-    },
+  {
+    name: 'public-key-key-agreement',
     description: 'Announce that a new cryptographic key has been added for logins and permissions',
   },
-  publicFollows: {
-    id: {
-      mainnet: 8,
-      rococo: 13,
-    },
+  {
+    name: 'public-follows',
     description: 'Publicly follow another identity',
   },
-  privateFollows: {
-    id: {
-      mainnet: 9,
-      rococo: 14,
-    },
+  {
+    name: 'private-follows',
     description: 'Privately follow another identity',
   },
-  privateConnections: {
-    id: {
-      mainnet: 10,
-      rococo: 15,
-    },
+  {
+    name: 'private-connections',
     description: 'Establish private, mutual connections between two identities',
   },
-};
+];

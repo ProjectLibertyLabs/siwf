@@ -4,19 +4,6 @@ export enum Network {
   MAINNET = 'https://rpc.frequency.xyz',
 }
 
-export enum Schema {
-  TOMBSTORE = 'tombstone',
-  BROADCAST = 'broadcast',
-  REPLAY = 'replay',
-  REACTION = 'reaction',
-  PROFILE = 'profile',
-  UPDATE = 'update',
-  PUBLIC_KEY = 'publicKey',
-  PUBLIC_FOLLOWS = 'publicFollows',
-  PRIVATE_FOLLOWS = 'privateFollows',
-  PRIVATE_CONNECTIONS = 'privateConnections',
-}
-
 export enum ProxyUrl {
-  DEV = 'http://localhost:5174',
+  DEV = 'http://localhost:5173',
 }

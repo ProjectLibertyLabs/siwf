@@ -1,27 +1,38 @@
-import { Network, ProxyUrl, Schema } from './enums';
+import { Network, ProxyUrl } from './enums';
+import { RequestedSchema } from './messenger';
 
-const defaultSchemas: Schema[] = [
-  Schema.TOMBSTORE,
-  Schema.BROADCAST,
-  Schema.REPLAY,
-  Schema.REACTION,
-  Schema.PROFILE,
-  Schema.UPDATE,
-  Schema.PUBLIC_KEY,
-  Schema.PUBLIC_FOLLOWS,
-  Schema.PRIVATE_FOLLOWS,
-  Schema.PRIVATE_CONNECTIONS,
+const defaultSchemas: RequestedSchema[] = [
+  {
+    name: 'profile',
+    id: 0,
+  },
+  {
+    name: 'public-key-key-agreement',
+    id: 0,
+  },
+  {
+    name: 'public-follows',
+    id: 0,
+  },
+  {
+    name: 'private-follows',
+    id: 0,
+  },
+  {
+    name: 'private-connections',
+    id: 0,
+  },
 ];
 
 export interface Config {
   proxyUrl: string;
-  rpc: string;
-  schemas: Schema[];
+  frequencyRpcUrl: string;
+  schemas: RequestedSchema[];
 }
 
 export const defaultConfig: Config = {
   proxyUrl: ProxyUrl.DEV,
-  rpc: Network.LOCALHOST,
+  frequencyRpcUrl: Network.LOCALHOST,
   schemas: defaultSchemas,
 };
 

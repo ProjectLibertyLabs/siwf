@@ -37,6 +37,7 @@
     "vitest": "^1.0.0"
   },
   "dependencies": {
+    "@dsnp/frequency-schemas": "^1.1.0",
     "@frequency-chain/api-augment": "^1.10.0",
     "@polkadot/api": "^10.11.2",
     "@polkadot/extension-dapp": "^0.46.6",
