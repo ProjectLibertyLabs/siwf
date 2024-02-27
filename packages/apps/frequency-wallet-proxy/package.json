@@ -39,6 +39,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@dsnp/frequency-schemas": "^1.1.0",
     "@frequency-control-panel/utils": "workspace:^",
     "@iconify/icons-ic": "^1.2.13",
     "@iconify/icons-mdi": "^1.2.48",
