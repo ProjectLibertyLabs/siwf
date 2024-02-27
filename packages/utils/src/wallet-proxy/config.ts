@@ -35,13 +35,3 @@ export const defaultConfig: Config = {
   frequencyRpcUrl: Network.LOCALHOST,
   schemas: defaultSchemas,
 };
-
-let currentConfig: Config = defaultConfig;
-
-export const getConfig = (): Config => {
-  return currentConfig;
-};
-
-export const setConfig = (newConfig: Partial<Config>): void => {
-  currentConfig = { ...currentConfig, ...newConfig };
-};

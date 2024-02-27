@@ -5,14 +5,16 @@
   import {
     getProviderRegistryInfo,
     resolveSchemas,
+    setApiUrl,
     type SignInRequest,
     WindowEndpoint,
   } from '@frequency-control-panel/utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
+  import { page } from '$app/stores';
 
   async function handleSigninPayload(e: CustomEvent) {
+    setApiUrl($page.url.searchParams.get('frequencyRpcUrl'));
     const payload = e.detail as SignInRequest;
-    console.dir({ msg: 'signinPayload', payload });
     await resolveSchemas(payload.requiredSchemas!);
     const providerName = await getProviderRegistryInfo(payload.providerId);
     RequestResponseStore.set({ request: { ...payload, providerName } });
