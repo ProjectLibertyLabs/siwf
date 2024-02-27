@@ -3,7 +3,7 @@ import { ErrorMessage, Message } from './enums';
 export class WindowMessenger {
   private channel: MessageChannel;
   private eventTarget: EventTarget;
-  private hanshakeComplete: boolean = false;
+  private handshakeComplete: boolean = false;
   public childWindow: Window | null;
 
   private constructor() {}
@@ -30,7 +30,7 @@ export class WindowMessenger {
   private setupChannel(url: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       const timeout = setTimeout(() => {
-        if (!this.hanshakeComplete) {
+        if (!this.handshakeComplete) {
           window.removeEventListener('message', handleMessageEvent);
           reject(new Error(ErrorMessage.FailedToEstablishHandshake));
         }
@@ -47,7 +47,7 @@ export class WindowMessenger {
 
           window.removeEventListener('message', handleMessageEvent);
           console.log('handshake complete');
-          this.hanshakeComplete = true;
+          this.handshakeComplete = true;
           resolve();
         }
       };

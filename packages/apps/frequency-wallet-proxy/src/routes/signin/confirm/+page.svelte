@@ -35,7 +35,9 @@
   let payloadSummary: PayloadSummaryItem[] = [
     {
       name: '',
-      content: 'You are about to sign in via Frequency. Please ensure you trust the application before continuing.',
+      content: `The domain <u>${
+        new URL(document.referrer).hostname
+      }</u> is requesting you to sign in via Frequency. Please ensure you trust the application before continuing.`,
     },
     {
       name: 'From',

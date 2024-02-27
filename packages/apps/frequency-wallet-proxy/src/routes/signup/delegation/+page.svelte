@@ -4,11 +4,12 @@
   import { DSNPSchemas, getDelegationPayload, getPayloadSignature } from '$lib/utils';
   import { FooterButton } from '$lib/components';
   import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
-  import { buildCreateSponsoredAccountTx, defaultConfig } from '@frequency-control-panel/utils';
+  import { buildCreateSponsoredAccountTx } from '@frequency-control-panel/utils';
+  import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
 
   let payloadBytes: Uint8Array;
 
-  let schemas = defaultConfig.schemas.map((schema) => {
+  let schemas = $RequestResponseStore.request.requiredSchemas.map((schema) => {
     const d = DSNPSchemas.find((ds) => ds.name === schema.name);
     return {
       id: schema.id,
@@ -18,7 +19,7 @@
   });
   let items: PayloadSummaryItem[] = [
     {
-      name: 'By clicking "Next" and signing the resulting payload, you grant XYZ access to your Social Identity to:',
+      name: `By clicking "Next" and signing the resulting payload, you grant ${$RequestResponseStore.request?.providerName} access to your Social Identity to:`,
       content:
         '<ul style="list-style-type:disc; padding-left:20px; padding-top:5px;">' +
         '<li>Update your Social Identity profile information and Handle</li>' +
@@ -29,7 +30,7 @@
   ];
 
   getDelegationPayload(
-    '1', // hard-code providerId for now
+    $RequestResponseStore.request.providerId,
     schemas.map((s) => s.id)
   ).then(({ bytes }) => {
     payloadBytes = bytes;
