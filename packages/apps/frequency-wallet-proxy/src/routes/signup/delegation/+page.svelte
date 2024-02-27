@@ -19,7 +19,9 @@
   });
   let items: PayloadSummaryItem[] = [
     {
-      name: `By clicking "Next" and signing the resulting payload, you grant ${$RequestResponseStore.request?.providerName} access to your Social Identity to:`,
+      name: `By clicking "Next" and signing the resulting payload, you grant the provider "${
+        $RequestResponseStore.request?.providerName
+      }", operating from the domain ${new URL(document.referrer).hostname}, access to your Social Identity to:`,
       content:
         '<ul style="list-style-type:disc; padding-left:20px; padding-top:5px;">' +
         '<li>Update your Social Identity profile information and Handle</li>' +
