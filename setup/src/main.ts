@@ -10,6 +10,8 @@ import {
   UserBuilder,
 } from 'frequency-scenario-template';
 import type { KeyringPair } from '@polkadot/keyring/types';
+import { PalletCapacityCapacityDetails } from '@polkadot/types/lookup';
+import { Option } from '@polkadot/types';
 
 // Monkey-patch BigInt so that JSON.stringify will work
 // eslint-disable-next-line
@@ -54,6 +56,8 @@ const accounts: ChainAccount[] = [
   },
 ];
 
+const AMOUNT_TO_STAKE = 1_000_000_000_000n;
+
 async function addPublicKeyToMsa(msaId: bigint, controlKey: KeyringPair, newKey: KeyringPair) {
   const payload = await generateAddKeyPayload({ msaId, newPublicKey: newKey.publicKey });
   const payloadData = ExtrinsicHelper.api.registry.createType('PalletMsaAddKeyData', payload);
@@ -74,7 +78,20 @@ export async function main() {
   await initialize('ws://localhost:9944');
 
   // Create and register a Provider
-  const provider = await new UserBuilder().withKeyUri(PROVIDER_MNEMONIC).asProvider('Narwhal').build();
+  const provider = await new UserBuilder()
+    .withKeyUri(PROVIDER_MNEMONIC)
+    .withInitialFundingLevel(AMOUNT_TO_STAKE)
+    .asProvider('Acme')
+    .build();
+  const capacityResult: Option<PalletCapacityCapacityDetails> =
+    (await ExtrinsicHelper.apiPromise.query.capacity.capacityLedger(provider.providerId)) as unknown as never;
+  const capacity = capacityResult.unwrapOr({ totalCapacityIssued: 0n });
+  const stakeAmount =
+    AMOUNT_TO_STAKE -
+    (typeof capacity.totalCapacityIssued === 'bigint'
+      ? capacity.totalCapacityIssued
+      : capacity.totalCapacityIssued.toBigInt());
+  await ExtrinsicHelper.stake(provider.keypair, provider.providerId, stakeAmount).signAndSend();
 
   // Create keys
   for (const account of accounts) {
@@ -98,7 +115,7 @@ export async function main() {
         if (controlKey === undefined) {
           controlKey = keypair;
         }
-        account.msaId = msaId;
+        account.msaId = msaId.toString();
         console.info(`Found existing MSA ${account.msaId} for key ${keypair.address}`);
       }
     }

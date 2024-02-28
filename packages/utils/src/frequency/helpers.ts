@@ -123,3 +123,9 @@ export async function resolveSchemas(schemas: RequestedSchema[]): Promise<void> 
     }
   });
 }
+
+export async function doesPublicKeyControlMsa(msaId: AnyNumber, publicKeyAddress: string): Promise<boolean> {
+  const api = await getApi();
+  const verifiedMsa = (await api.query.msa.publicKeyToMsaId(publicKeyAddress)).unwrapOrDefault().toString();
+  return msaId.toString() === verifiedMsa;
+}
