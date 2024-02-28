@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FilteredMsaAccountsDerivedStore, type MsaMap } from '$lib/stores/derived/MsaAccountsDerivedStore';
+  import { FilteredMsaAccountsDerivedStore } from '$lib/stores/derived/MsaAccountsDerivedStore';
   import { goto } from '$app/navigation';
   import {
     type CurrentSelectedMsaAccount,
@@ -9,13 +9,8 @@
   import FooterButton from '$lib/components/FooterButton.svelte';
 
   let selectedMsaWithAccount: CurrentSelectedMsaAccount;
-  let msaMap: MsaMap = {};
 
   $: nextEnabled = !!selectedMsaWithAccount;
-
-  $: $FilteredMsaAccountsDerivedStore.then((value) => {
-    msaMap = value;
-  });
 
   $: {
     $CurrentSelectedMsaAccountStore = selectedMsaWithAccount;
@@ -35,7 +30,7 @@
 </div>
 <div class="pb-[64px]">
   <MsaAndAccountSelector
-    msaEntries={Object.values(msaMap)}
+    msaEntries={Object.values($FilteredMsaAccountsDerivedStore)}
     bind:selectedMsaWithAccount
     initialSelection={{ msaId: '', address: '' }}
   />

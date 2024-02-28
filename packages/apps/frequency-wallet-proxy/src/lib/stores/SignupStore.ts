@@ -32,6 +32,9 @@ function createSignupStore() {
     set,
     subscribe,
     update,
+    updateAddress: (newAddress: string) => {
+      update((store) => ({ ...store, handle: { ...store.handle }, address: newAddress }));
+    },
     updateHandle: (newHandle: string) =>
       update((store) => ({ ...store, handle: { ...store.handle, baseHandle: newHandle } })),
     validateAndSetHandleStatus: async (baseHandle: string) => {
