@@ -1,7 +1,6 @@
 <script lang="ts">
   import { SiwsMessage } from '@talismn/siws';
   import { generateSIWxNonce } from '@frequency-control-panel/utils';
-  import { APP_NAME } from '$lib/globals';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores/CurrentSelectedMsaAccountStore';
   import { ConnectedExtensionsDerivedStore } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
   import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
@@ -16,7 +15,9 @@
     uri: window.location.href,
     // version: '1.0',
     chainName: 'Frequency',
-    statement: `The app '${APP_NAME}' wants you to sign in with your Frequency account`,
+    statement: `The domain ${
+      new URL(document.referrer).hostname
+    } wants you to sign in with your Frequency account via ${window.location.hostname}`,
     nonce: generateSIWxNonce(),
     issuedAt: now.valueOf(),
     expirationTime: new Date(now.valueOf() + 300000).valueOf(), // valid for 5 minutes
@@ -35,9 +36,11 @@
   let payloadSummary: PayloadSummaryItem[] = [
     {
       name: '',
-      content: `The domain <u>${
+      content: `The domain <a style="text-decoration:underline;" href="${
+        new URL(document.referrer).origin
+      }" target="_blank">${
         new URL(document.referrer).hostname
-      }</u> is requesting you to sign in via Frequency. Please ensure you trust the application before continuing.`,
+      }</a> is requesting you to sign in via Frequency. Please ensure you trust the application before continuing.`,
     },
     {
       name: 'From',
