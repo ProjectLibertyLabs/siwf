@@ -1,5 +1,5 @@
 import { objectToQueryString } from '../misc_utils';
-import { Config } from './config';
+import { getConfig } from './config';
 import { SignInRequest, WindowMessenger } from './messenger';
 
 export async function renderPopup(src: string, frequencyRpcUrl: string) {
@@ -15,8 +15,8 @@ export async function renderPopup(src: string, frequencyRpcUrl: string) {
   return messenger;
 }
 
-export async function signIn(providerId: string, config: Config) {
-  const { proxyUrl, frequencyRpcUrl, schemas } = config;
+export async function signIn() {
+  const { providerId, proxyUrl, frequencyRpcUrl, schemas } = getConfig();
 
   const signInRequest: SignInRequest = {
     providerId,
