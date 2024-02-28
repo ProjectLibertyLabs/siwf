@@ -2,12 +2,33 @@
   import { onMount } from 'svelte';
   import { resolveInjectedWeb3 } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
   import FrequencyLogo from '$lib/icons/FrequencyLogo.svelte';
-  import { defaultConfig, resolveSchemas, WindowEndpoint } from '@frequency-control-panel/utils';
+  import {
+    getProviderRegistryInfo,
+    resolveSchemas,
+    setApiUrl,
+    type SignInRequest,
+    WindowEndpoint,
+  } from '@frequency-control-panel/utils';
+  import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
+  import { page } from '$app/stores';
 
-  onMount(async () => {
+  async function handleSigninPayload(e: CustomEvent) {
+    setApiUrl($page.url.searchParams.get('frequencyRpcUrl'));
+    const payload = e.detail as SignInRequest;
+    await resolveSchemas(payload.requiredSchemas!);
+    const providerName = await getProviderRegistryInfo(payload.providerId);
+    RequestResponseStore.set({ request: { ...payload, providerName } });
+  }
+
+  onMount(() => {
     resolveInjectedWeb3(window.injectedWeb3);
-    await WindowEndpoint.create();
-    await resolveSchemas(defaultConfig.schemas);
+    if (window.opener) {
+      WindowEndpoint.create()
+        .then((endpoint) => {
+          endpoint.on('signinPayload', handleSigninPayload);
+        })
+        .catch((e) => console.error(e));
+    }
   });
 </script>
 

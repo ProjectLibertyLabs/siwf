@@ -25,12 +25,14 @@ const defaultSchemas: RequestedSchema[] = [
 ];
 
 export interface Config {
+  providerId: string;
   proxyUrl: string;
   frequencyRpcUrl: string;
   schemas: RequestedSchema[];
 }
 
 export const defaultConfig: Config = {
+  providerId: '1',
   proxyUrl: ProxyUrl.DEV,
   frequencyRpcUrl: Network.LOCALHOST,
   schemas: defaultSchemas,

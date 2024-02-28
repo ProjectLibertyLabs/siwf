@@ -1,33 +1,33 @@
-import { getConfig } from './config';
-import { WindowMessenger } from './messenger';
 import { objectToQueryString } from '../misc_utils';
+import { getConfig } from './config';
+import { SignInRequest, WindowMessenger } from './messenger';
 
-let childWindow: Window | undefined = undefined;
-
-export const renderPopup = async (src, params = {}) => {
-  const queryString = objectToQueryString(params);
-  const childURL = `${src}/signin?${queryString}`;
-  const messenger = await WindowMessenger.create(childURL, 'width=600, height=800 screenX=400 screenY=100');
+export async function renderPopup(src: string, frequencyRpcUrl: string) {
+  const messenger = await WindowMessenger.create(
+    `${src}/signin?${objectToQueryString({ frequencyRpcUrl })}`,
+    'width=600, height=800 screenX=400 screenY=100'
+  );
 
   if (!messenger.childWindow) {
     throw new Error('Popup was blocked');
   }
 
   return messenger;
-};
+}
 
 export async function signIn() {
-  const { proxyUrl, rpc, schemas } = getConfig();
+  const { providerId, proxyUrl, frequencyRpcUrl, schemas } = getConfig();
 
-  const renderParams = {
-    rpc,
-    schemas: schemas,
+  const signInRequest: SignInRequest = {
+    providerId,
+    requiredSchemas: schemas,
   };
   const popupUrl = proxyUrl;
 
-  childWindow = await renderPopup(popupUrl, renderParams);
+  const messenger: WindowMessenger = await renderPopup(popupUrl, frequencyRpcUrl);
+  messenger.sendEvent('signinPayload', signInRequest);
   const checkPopupClosed = setInterval(function () {
-    if (childWindow && childWindow.closed) {
+    if (messenger.childWindow && messenger.childWindow.closed) {
       clearInterval(checkPopupClosed);
     }
   }, 500);

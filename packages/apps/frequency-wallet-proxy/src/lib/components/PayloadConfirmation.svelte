@@ -37,7 +37,7 @@
     <slot name="subheading" />
   </div>
   <div class="flex items-center justify-center pb-5">
-    <div class="flex h-[290px] w-full flex-col rounded-md border bg-transparent">
+    <div class="flex h-[470px] w-full flex-col rounded-md border bg-transparent">
       <div class=" overflow-auto bg-transparent p-5">
         {#each items as payloadItem, index}
           {#if index > 0}

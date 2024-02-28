@@ -31,25 +31,25 @@ const accounts: ChainAccount[] = [
   {
     seedPhrase: 'dynamic split hedgehog grain bench toy rotate baby salon creek earn virus',
     keypairs: [],
-    msaId: '0',
+    msaId: '',
     handle: 'cp_user_1',
   },
   {
     seedPhrase: 'delay man segment gallery project plug thrive wool alcohol secret damage gold',
     keypairs: [],
-    msaId: '0',
+    msaId: '',
     handle: 'cp_user_2',
   },
   {
     seedPhrase: 'lab palm dawn net junior rubber mule fault post immune panic ethics',
     keypairs: [],
-    msaId: '0',
+    msaId: '',
     handle: 'cp_user_3',
   },
   {
     seedPhrase: 'coral tuna volcano lawsuit crime half area seed rapid mystery under reopen',
     keypairs: [],
-    msaId: '0',
+    msaId: '',
     handle: 'cp_user_4',
   },
 ];
@@ -72,9 +72,6 @@ async function addPublicKeyToMsa(msaId: bigint, controlKey: KeyringPair, newKey:
 
 export async function main() {
   await initialize('ws://localhost:9944');
-  const t = ExtrinsicHelper.apiPromise.registry.get('CommonPrimitivesHandlesClaimHandlePayload');
-  console.dir(t());
-  return;
 
   // Create and register a Provider
   const provider = await new UserBuilder().withKeyUri(PROVIDER_MNEMONIC).asProvider('Narwhal').build();
@@ -92,7 +89,7 @@ export async function main() {
     for (const keypair of account.keypairs) {
       const msa = await ExtrinsicHelper.apiPromise.query.msa.publicKeyToMsaId(keypair.publicKey);
       if (msa.isSome) {
-        const msaId = msa.unwrap().toBigInt();
+        const msaId = msa.unwrap().toString();
         if (!!account.msaId && account.msaId !== msaId) {
           throw new Error(
             `Key mismatch: attempting to add key ${keypair.address} to MSA ${account.msaId}, but it already belongs to MSA ${msaId}`
@@ -111,7 +108,7 @@ export async function main() {
       for (const keypair of account.keypairs) {
         const msa = await ExtrinsicHelper.apiPromise.query.msa.publicKeyToMsaId(keypair.publicKey);
         if (msa.isNone) {
-          await addPublicKeyToMsa(account.msaId!, controlKey, keypair);
+          await addPublicKeyToMsa(BigInt(account.msaId!), controlKey, keypair);
         }
       }
     }
@@ -135,8 +132,8 @@ export async function main() {
       );
       const [createMsaEvent] = await op.fundAndSend();
       if (createMsaEvent && ExtrinsicHelper.apiPromise.events.msa.MsaCreated.is(createMsaEvent)) {
-        account.msaId = createMsaEvent.data.msaId.toBigInt();
-        console.log(`Created MSA ${account.msaId.toString()} with key ${account.seedPhrase}`);
+        account.msaId = createMsaEvent.data.msaId.toString();
+        console.log(`Created MSA ${account.msaId} with key ${account.seedPhrase}`);
       }
 
       const handlePayload = await generateClaimHandlePayload(account.handle);
@@ -157,7 +154,7 @@ export async function main() {
           console.log(`Key ${key.address} already present for MSA ${account.msaId}`);
           continue;
         }
-        await addPublicKeyToMsa(account.msaId!, controlKey, key);
+        await addPublicKeyToMsa(BigInt(account.msaId!), controlKey, key);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
