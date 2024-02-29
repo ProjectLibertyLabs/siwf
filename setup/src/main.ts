@@ -106,8 +106,13 @@ export async function main() {
     for (const keypair of account.keypairs) {
       const msa = await ExtrinsicHelper.apiPromise.query.msa.publicKeyToMsaId(keypair.publicKey);
       if (msa.isSome) {
+<<<<<<< HEAD
         const msaId = msa.unwrap().toString();
         if (!!account.msaId && account.msaId !== msaId) {
+=======
+        const msaId = msa.unwrap().toBigInt();
+        if (!!account.msaId && account.msaId !== msaId.toString()) {
+>>>>>>> aefdbd0 (feat: add signin payload verification to example app)
           throw new Error(
             `Key mismatch: attempting to add key ${keypair.address} to MSA ${account.msaId}, but it already belongs to MSA ${msaId}`
           );
@@ -150,7 +155,11 @@ export async function main() {
       const [createMsaEvent] = await op.fundAndSend();
       if (createMsaEvent && ExtrinsicHelper.apiPromise.events.msa.MsaCreated.is(createMsaEvent)) {
         account.msaId = createMsaEvent.data.msaId.toString();
+<<<<<<< HEAD
         console.log(`Created MSA ${account.msaId} with key ${account.seedPhrase}`);
+=======
+        console.log(`Created MSA ${account.msaId.toString()} with key ${account.seedPhrase}`);
+>>>>>>> aefdbd0 (feat: add signin payload verification to example app)
       }
 
       const handlePayload = await generateClaimHandlePayload(account.handle);

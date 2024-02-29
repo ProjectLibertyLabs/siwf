@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { cryptoWaitReady, decodeAddress, signatureVerify } from '@polkadot/util-crypto';
+  import { decodeAddress, signatureVerify } from '@polkadot/util-crypto';
   import { u8aToHex } from '@polkadot/util';
-  import { parseJson, parseMessage, type SiwsMessage } from '@talismn/siws';
+  import { parseJson, type SiwsMessage } from '@talismn/siws';
   import Icon from '@iconify/svelte';
   import { doesPublicKeyControlMsa } from '@frequency-control-panel/utils';
 

@@ -79,7 +79,7 @@
     const { signature, message } = await payload.sign(extension.connector.injectedExtension!);
 
     const signInMessage: SignInResponse = {
-      siwsPayload: { message, signature },
+      siwsPayload: { message, signature: signature as `0x${string}` },
     };
 
     RequestResponseStore.updateSignInResponse(signInMessage);
