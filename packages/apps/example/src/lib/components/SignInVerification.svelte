@@ -3,7 +3,7 @@
   import { u8aToHex } from '@polkadot/util';
   import { parseJson, type SiwsMessage } from '@talismn/siws';
   import Icon from '@iconify/svelte';
-  import { doesPublicKeyControlMsa } from '@frequency-control-panel/utils';
+  import { doesPublicKeyControlMsa, getMsaForAddress } from '@frequency-control-panel/utils';
   import { onDestroy, onMount } from 'svelte';
 
   export let payload: SiwsMessage;
@@ -12,7 +12,7 @@
   let payloadValid: boolean = false;
   let msaId: string;
   let msaOwnershipVerified = false;
-  let interval: NodeJS.Timeout;
+  let interval: number;
 
   function isValidSignature(signedMessage: string, signature: `0x${string}`, address: string): boolean {
     const publicKey = decodeAddress(address);
@@ -24,7 +24,9 @@
   function isPayloadValid(p: SiwsMessage): boolean {
     try {
       return !!parseJson(p.prepareJson());
-    } catch (e) {}
+    } catch (e) {
+      console.error(e);
+    }
     return false;
   }
 
@@ -37,11 +39,17 @@
   $: payloadValid = isPayloadValid(payload);
 
   $: {
-    const resources = (payload as unknown as any)['resources'];
-    const msaUri = resources?.[0] || '';
-    msaId = /([0-9]*)$/.exec(msaUri)?.[1] || '';
-    doesPublicKeyControlMsa(msaId, payload.address).then((val) => {
-      msaOwnershipVerified = val;
+    // TODO: Need support from SIWS for the 'resources' property
+    // const resources = (payload as unknown as any)['resources'];
+    // const msaUri = resources?.[0] || '';
+    // msaId = /([0-9]*)$/.exec(msaUri)?.[1] || '';
+    getMsaForAddress(payload.address).then((value) => {
+      msaId = value;
+      if (msaId) {
+        doesPublicKeyControlMsa(msaId, payload.address).then((val) => {
+          msaOwnershipVerified = val;
+        });
+      }
     });
   }
 
@@ -83,7 +91,7 @@
       {/if}
     </div>
     <div class="flex">
-      {#if msaId}
+      {#if msaOwnershipVerified}
         <Icon icon="openmoji:check-mark" /><span>MSA control key verified</span>
       {:else}
         <Icon icon="openmoji:cross-mark" /><span>MSA control key invalid</span>

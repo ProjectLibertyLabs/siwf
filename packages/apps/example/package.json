@@ -43,6 +43,7 @@
 		"@iconify/icons-openmoji": "^1.2.33",
 		"@iconify/svelte": "^3.1.6",
 		"@polkadot/api": "^10.11.2",
+		"@polkadot/types": "^10.11.2",
 		"@polkadot/util": "^12.6.2",
 		"@polkadot/util-crypto": "^12.6.2",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",

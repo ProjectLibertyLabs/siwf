@@ -1,19 +1,34 @@
 <script lang="ts">
-  import { getLoginOrRegistrationPayload, type ControlPanelResponse, isSignIn } from '@frequency-control-panel/utils';
+  import {
+    type ControlPanelResponse,
+    getLoginOrRegistrationPayload,
+    isSignIn,
+    isSignUp,
+    type SignUpResponse,
+  } from '@frequency-control-panel/utils';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
   import { parseMessage, SiwsMessage } from '@talismn/siws';
+  import AccountCreator from '$lib/components/AccountCreator.svelte';
 
-  let signInResponse: ControlPanelResponse;
+  let signInResponse: ControlPanelResponse | undefined;
   let signInPayload: SiwsMessage;
   let signature: `0x${string}`;
 
+  let signUpPayload: SignUpResponse;
+
   const handleSignIn = async () => {
+    signInResponse = undefined;
     signInResponse = await getLoginOrRegistrationPayload();
   };
 
   $: {
     console.dir(signInResponse);
-    if (isSignIn(signInResponse) && signInResponse?.siwsPayload?.message && signInResponse?.siwsPayload?.signature) {
+    if (
+      signInResponse &&
+      isSignIn(signInResponse) &&
+      signInResponse?.siwsPayload?.message &&
+      signInResponse?.siwsPayload?.signature
+    ) {
       try {
         // signInPayload = new SiwsMessage(signInResponse.siwsPayload.message as unknown as any);
         signInPayload = parseMessage(signInResponse.siwsPayload.message);
@@ -22,6 +37,9 @@
       } catch (e) {
         console.error(e);
       }
+    } else if (signInResponse && isSignUp(signInResponse)) {
+      signUpPayload = signInResponse;
+      console.dir({ signUpPayload });
     }
   }
 </script>
@@ -34,6 +52,8 @@
   <div class="mt-12">
     {#if signInPayload}
       <SignInVerification payload={signInPayload} {signature} />
+    {:else if signUpPayload}
+      <AccountCreator payload={signUpPayload} />
     {:else}
       <p class="mt-4">Please click 'Login'</p>
     {/if}

@@ -1,5 +1,5 @@
 import { objectToQueryString } from '../misc_utils';
-import { ControlPanelResponse, SignInEvent, SignInResponse, SignUpEvent, SignUpResponse } from './types';
+import { ControlPanelResponse, SignInEvent, SignUpEvent } from './types';
 import { Message } from './messenger/enums';
 import { getConfig } from './config';
 import { SignInRequest, WindowMessenger } from './messenger';
@@ -25,7 +25,7 @@ export async function getLoginOrRegistrationPayload(): Promise<ControlPanelRespo
     }
   }, 500);
 
-  let payload;
+  let payload: ControlPanelResponse;
   try {
     payload = await doGetLoginOrRegistrationPayload();
   } finally {
@@ -40,11 +40,12 @@ export async function getLoginOrRegistrationPayload(): Promise<ControlPanelRespo
 }
 
 async function doGetLoginOrRegistrationPayload(): Promise<ControlPanelResponse> {
-  const { providerId, proxyUrl, frequencyRpcUrl, schemas } = getConfig();
+  const { providerId, proxyUrl, frequencyRpcUrl, schemas, siwsOptions } = getConfig();
 
   const signInRequest: SignInRequest = {
     providerId,
     requiredSchemas: schemas,
+    siwsOptions,
   };
 
   await renderPopup(proxyUrl, frequencyRpcUrl);

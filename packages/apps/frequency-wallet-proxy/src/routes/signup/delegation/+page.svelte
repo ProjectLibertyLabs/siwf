@@ -56,8 +56,6 @@
 
       RequestResponseStore.updateEncodedCreateSponsoredAccountWithDelegation(encodedExtrinsic);
 
-      console.dir({ msg: 'Signature', signature, tx: encodedExtrinsic });
-
       const response: SignUpResponse = {
         encodedClaimHandle: $RequestResponseStore.response?.signUp?.encodedClaimHandle,
         encodedCreateSponsoredAccountWithDelegation:

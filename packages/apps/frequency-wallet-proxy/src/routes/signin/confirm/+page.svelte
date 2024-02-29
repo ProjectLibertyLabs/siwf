@@ -7,6 +7,7 @@
   import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
   import FooterButton from '$lib/components/FooterButton.svelte';
   import { sendSignInMessageResponse } from '$lib/utils';
+  import { onMount } from 'svelte';
 
   const now = new Date();
   const payload: SiwsMessage = new SiwsMessage({
@@ -17,12 +18,16 @@
     uri: window.location.href,
     // version: '1.0',
     chainName: 'Frequency',
-    statement: `The domain ${
-      new URL(document.referrer).hostname
-    } wants you to sign in with your Frequency account via ${window.location.hostname}`,
+    statement:
+      $RequestResponseStore.request?.siwsOptions?.statement ||
+      `The domain ${new URL(document.referrer).hostname} wants you to sign in with your Frequency account via ${
+        window.location.hostname
+      }`,
     nonce: generateSIWxNonce(),
     issuedAt: now.valueOf(),
-    expirationTime: new Date(now.valueOf() + 300000).valueOf(), // valid for 5 minutes
+    expirationTime: new Date(
+      now.valueOf() + ($RequestResponseStore.request?.siwsOptions?.expiresInMsecs || 300000)
+    ).valueOf(), // default 5 minutes
     // notBefore: now,
     // requestId: ? TBD pass-through from app
     // resources: [`dsnp://${$CurrentSelectedAccountWithMsaStore.msaInfo.msaId}`],
@@ -31,8 +36,15 @@
   /* eslint-disable @typescript-eslint/no-explicit-any */
   // Add optional fields not yet supported by siws
   (payload as unknown as any)['version'] = '1.0';
-  (payload as unknown as any)['notBefore'] = now.valueOf();
-  (payload as unknown as any)['resources'] = [`dsnp://${$CurrentSelectedMsaAccountStore.msaId}`];
+  (payload as unknown as any)['notBefore'] = $RequestResponseStore.request?.siwsOptions?.notBefore || now.valueOf();
+  if ($RequestResponseStore.request?.siwsOptions?.requestId) {
+    (payload as unknown as any)['requestId'] = $RequestResponseStore.request?.siwsOptions?.requestId;
+  }
+  const resources = [`dsnp://${$CurrentSelectedMsaAccountStore.msaId}`];
+  if ($RequestResponseStore.request?.siwsOptions?.resources?.length) {
+    resources.push(...$RequestResponseStore.request.siwsOptions.resources);
+  }
+  (payload as unknown as any)['resources'] = resources;
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
   let payloadSummary: PayloadSummaryItem[] = [

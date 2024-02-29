@@ -1,4 +1,4 @@
-import { PresumptiveSuffixesResponse, SchemaVersionResponse } from '@frequency-chain/api-augment/interfaces';
+import { PresumptiveSuffixesResponse } from '@frequency-chain/api-augment/interfaces';
 import { getApi } from './connect';
 import { ApiPromise } from '@polkadot/api';
 import type { AnyNumber, Codec, ISubmittableResult } from '@polkadot/types/types';
@@ -128,4 +128,10 @@ export async function doesPublicKeyControlMsa(msaId: AnyNumber, publicKeyAddress
   const api = await getApi();
   const verifiedMsa = (await api.query.msa.publicKeyToMsaId(publicKeyAddress)).unwrapOrDefault().toString();
   return msaId.toString() === verifiedMsa;
+}
+
+export async function getMsaForAddress(address: string): Promise<string> {
+  const api = await getApi();
+  const msaId = (await api.query.msa.publicKeyToMsaId(address)).unwrapOrDefault().toString();
+  return msaId === '0' ? '' : msaId;
 }
