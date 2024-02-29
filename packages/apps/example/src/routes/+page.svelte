@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getLoginOrRegistrationPayload, type ControlPanelResponse, isSignIn } from '@frequency-control-panel/utils';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
-  import { parseMessage, type SiwsMessage } from '@talismn/siws';
+  import { parseMessage, SiwsMessage } from '@talismn/siws';
 
   let signInResponse: ControlPanelResponse;
   let signInPayload: SiwsMessage;
@@ -13,17 +13,12 @@
 
   $: {
     console.dir(signInResponse);
-    console.log(`isSignIn: ${isSignIn(signInResponse)}`);
-    if (isSignIn(signInResponse)) {
-      console.log(`Message: ${signInResponse?.siwsPayload?.message}
-Signature: ${signInResponse?.siwsPayload?.signature}`);
-    }
     if (isSignIn(signInResponse) && signInResponse?.siwsPayload?.message && signInResponse?.siwsPayload?.signature) {
       try {
+        // signInPayload = new SiwsMessage(signInResponse.siwsPayload.message as unknown as any);
         signInPayload = parseMessage(signInResponse.siwsPayload.message);
+        console.dir(signInPayload);
         signature = signInResponse.siwsPayload.signature;
-        console.dir(signInResponse);
-        console.log(`Signature: ${signature}`);
       } catch (e) {
         console.error(e);
       }

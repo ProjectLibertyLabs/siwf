@@ -4,6 +4,7 @@
   import { parseJson, type SiwsMessage } from '@talismn/siws';
   import Icon from '@iconify/svelte';
   import { doesPublicKeyControlMsa } from '@frequency-control-panel/utils';
+  import { onDestroy, onMount } from 'svelte';
 
   export let payload: SiwsMessage;
   export let signature: `0x${string}`;
@@ -11,13 +12,21 @@
   let payloadValid: boolean = false;
   let msaId: string;
   let msaOwnershipVerified = false;
+  let interval: NodeJS.Timeout;
 
-  const isValidSignature = (signedMessage: string, signature: `0x${string}`, address: string) => {
+  function isValidSignature(signedMessage: string, signature: `0x${string}`, address: string): boolean {
     const publicKey = decodeAddress(address);
     const hexPublicKey = u8aToHex(publicKey);
 
     return signatureVerify(signedMessage, signature, hexPublicKey).isValid;
-  };
+  }
+
+  function isPayloadValid(p: SiwsMessage): boolean {
+    try {
+      return !!parseJson(p.prepareJson());
+    } catch (e) {}
+    return false;
+  }
 
   $: try {
     signatureVerified = isValidSignature(payload.prepareMessage(), signature, payload.address);
@@ -25,12 +34,7 @@
     signatureVerified = false;
   }
 
-  $: try {
-    const p = parseJson(payload.prepareJson());
-    payloadValid = true;
-  } catch (e) {
-    payloadValid = false;
-  }
+  $: payloadValid = isPayloadValid(payload);
 
   $: {
     const resources = (payload as unknown as any)['resources'];
@@ -40,6 +44,15 @@
       msaOwnershipVerified = val;
     });
   }
+
+  onMount(() => {
+    interval = setInterval(() => {
+      payloadValid = isPayloadValid(payload);
+      console.log(`Payload is ${payloadValid ? 'valid' : 'invalid'}`);
+    }, 3000);
+  });
+
+  onDestroy(() => clearInterval(interval));
 </script>
 
 <div class="flex">

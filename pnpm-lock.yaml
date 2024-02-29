@@ -23,6 +23,9 @@ importers:
 
   packages/apps/example:
     dependencies:
+      '@frequency-chain/api-augment':
+        specifier: ^1.10.0
+        version: 1.10.0
       '@frequency-control-panel/utils':
         specifier: workspace:^
         version: link:../../utils
@@ -50,6 +53,9 @@ importers:
       '@talismn/siws':
         specifier: ^0.0.9
         version: 0.0.9(@polkadot/api-contract@10.11.2)(@polkadot/api@10.11.2)(@polkadot/extension-dapp@0.46.6)(@polkadot/types@10.11.2)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
+      frequency-scenario-template:
+        specifier: link:../../../../frequency-scenario-template
+        version: link:../../../../frequency-scenario-template
     devDependencies:
       '@frequency-control-panel/eslint-config':
         specifier: workspace:*
@@ -321,8 +327,8 @@ importers:
         specifier: ^12.6.2
         version: 12.6.2(@polkadot/util@12.6.2)
       frequency-scenario-template:
-        specifier: link:../../frequency-scenario-template
-        version: link:../../frequency-scenario-template
+        specifier: github:AmplicaLabs/frequency-scenario-template
+        version: git/github.com+AmplicaLabs/frequency-scenario-template/109384f54568592834f8154af6f3dea80bdc3f50
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
@@ -1182,6 +1188,11 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
+    dev: false
+
+  /@dsnp/graph-sdk@1.0.1:
+    resolution: {integrity: sha512-kzrk0OpCLRzcIpqrKiC4Ij+qyxYEp9wDmHgp70eIBRd+gQup2nZHNesHppi4Ua7HdENd20a6k+KCaRIqvcVAOw==}
+    engines: {node: ^14.0.0 || ^16.0.0 || >=17.0.0}
     dev: false
 
   /@dsnp/parquetjs@1.6.0:
@@ -3148,6 +3159,10 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@types/minimist@1.2.5:
+    resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
+    dev: false
 
   /@types/node-int64@0.4.32:
     resolution: {integrity: sha512-xf/JsSlnXQ+mzvc0IpXemcrO4BrCfpgNpMco+GLcXkFk01k/gW9lGJu+Vof0ZSvHK6DsHJDPSbjFPs36QkWXqw==}
@@ -5495,7 +5510,6 @@ packages:
 
   /minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-    dev: true
 
   /minipass@7.0.4:
     resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
@@ -7504,3 +7518,32 @@ packages:
     optionalDependencies:
       commander: 9.5.0
     dev: true
+
+  git/github.com+AmplicaLabs/frequency-scenario-template/109384f54568592834f8154af6f3dea80bdc3f50:
+    resolution: {commit: 109384f54568592834f8154af6f3dea80bdc3f50, repo: git@github.com:AmplicaLabs/frequency-scenario-template.git, type: git}
+    name: frequency-scenario-template
+    version: 1.0.0
+    requiresBuild: true
+    dependencies:
+      '@dsnp/frequency-schemas': 1.1.0(@types/node@20.11.5)
+      '@dsnp/graph-sdk': 1.0.1
+      '@frequency-chain/api-augment': 1.10.0
+      '@polkadot/api': 10.11.2
+      '@polkadot/keyring': 12.6.2(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
+      '@polkadot/types': 10.11.2
+      '@polkadot/util': 12.6.2
+      '@polkadot/util-crypto': 12.6.2(@polkadot/util@12.6.2)
+      '@types/minimist': 1.2.5
+      '@types/node': 20.11.5
+      loglevel: 1.9.1
+      minimist: 1.2.8
+      rxjs: 7.8.1
+    transitivePeerDependencies:
+      - '@swc/core'
+      - '@swc/wasm'
+      - aws-crt
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
