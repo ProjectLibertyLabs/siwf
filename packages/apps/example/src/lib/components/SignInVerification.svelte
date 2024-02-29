@@ -57,7 +57,16 @@
     interval = setInterval(() => {
       payloadValid = isPayloadValid(payload);
       console.log(`Payload is ${payloadValid ? 'valid' : 'invalid'}`);
-    }, 3000);
+      if (!payloadValid) {
+        clearInterval(interval);
+      }
+    }, 3000) as unknown as number;
+  });
+
+  onDestroy(() => {
+    if (interval) {
+      clearInterval(interval);
+    }
   });
 
   onDestroy(() => clearInterval(interval));

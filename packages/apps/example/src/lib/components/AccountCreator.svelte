@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { AnyJson, ISubmittableResult } from '@polkadot/types/types';
-  import type { EventRecord as PolkadotEventRecord, Event as PolkadotEvent } from '@polkadot/types/interfaces';
+  import type { ISubmittableResult } from '@polkadot/types/types';
+  import type { EventRecord as PolkadotEventRecord } from '@polkadot/types/interfaces';
   import '@frequency-chain/api-augment';
   import { onMount } from 'svelte';
   import { Keyring } from '@polkadot/api';

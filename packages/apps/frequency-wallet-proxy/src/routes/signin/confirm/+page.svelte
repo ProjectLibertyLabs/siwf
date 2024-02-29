@@ -7,7 +7,6 @@
   import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
   import FooterButton from '$lib/components/FooterButton.svelte';
   import { sendSignInMessageResponse } from '$lib/utils';
-  import { onMount } from 'svelte';
 
   const now = new Date();
   const payload: SiwsMessage = new SiwsMessage({
