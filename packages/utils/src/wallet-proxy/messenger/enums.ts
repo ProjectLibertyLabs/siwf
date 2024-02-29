@@ -1,5 +1,7 @@
 export enum Message {
   Handshake = 'handshake',
+  SignUpMessage = 'signUpMessage',
+  SignInMessage = 'signInMessage',
 }
 
 export enum ErrorMessage {

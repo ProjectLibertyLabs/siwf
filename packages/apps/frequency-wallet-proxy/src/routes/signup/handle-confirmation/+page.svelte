@@ -3,6 +3,7 @@
   import type { PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
   import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
   import { SignupStore } from '$lib/stores/SignupStore';
+  import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { getHandlePayload, getPayloadSignature } from '$lib/utils';
   import { buildHandleTx } from '@frequency-control-panel/utils';
   import { goto } from '$app/navigation';
@@ -35,7 +36,7 @@
         payload.bytes
       );
 
-      const _encodeClaimHandleTx = (
+      const encodeClaimHandleTx = (
         await buildHandleTx(
           $SignupStore.address,
           {
@@ -45,7 +46,9 @@
         )
       ).toHex();
 
-      console.dir({ msg: 'Signature', signature, tx: _encodeClaimHandleTx });
+      RequestResponseStore.updateEncodedClaimHandle(encodeClaimHandleTx);
+
+      console.dir({ msg: 'Signature', signature, tx: encodeClaimHandleTx });
 
       // TODO: store result in SignupStore. Either the signed payload or the encoded extrinsic (not sure which yet)
 

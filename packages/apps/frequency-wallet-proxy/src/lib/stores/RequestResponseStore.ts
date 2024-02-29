@@ -1,4 +1,4 @@
-import { type SignInRequest } from '@frequency-control-panel/utils';
+import type { SignInRequest, SignInResponse, SignUpResponse } from '@frequency-control-panel/utils';
 import { writable } from 'svelte/store';
 
 export type AugmentedSignInRequest = SignInRequest & {
@@ -7,9 +7,45 @@ export type AugmentedSignInRequest = SignInRequest & {
 
 export type RequestResponseData = {
   request: AugmentedSignInRequest;
-  response?: unknown;
+  response?: { signIn?: SignInResponse; signUp?: SignUpResponse };
 };
 
-export const RequestResponseStore = writable<RequestResponseData>({
-  request: { providerId: '', providerName: '', requiredSchemas: [] },
-});
+function createRequestResponseStore() {
+  const { subscribe, set, update } = writable<RequestResponseData>({
+    request: { providerId: '', providerName: '', requiredSchemas: [] },
+  });
+
+  return {
+    set,
+    subscribe,
+    update,
+    updateSignInResponse: (newSignInResponse: SignInResponse) =>
+      update((store) => ({
+        ...store,
+        response: { ...store.response, signIn: newSignInResponse },
+      })),
+    updateEncodedClaimHandle: (newEncodedClaimHandle: `0x${string}`) =>
+      update((store) => ({
+        ...store,
+        response: {
+          ...store.response,
+          signUp: { ...store.response?.signUp, encodedClaimHandle: newEncodedClaimHandle },
+        },
+      })),
+    updateEncodedCreateSponsoredAccountWithDelegation: (
+      newEncodedCreateSponsoredAccountWithDelegation: `0x${string}`
+    ) =>
+      update((store) => ({
+        ...store,
+        response: {
+          ...store.response,
+        },
+        signUp: {
+          ...store.response?.signUp,
+          encodedCreateSponsoredAccountWithDelegation: newEncodedCreateSponsoredAccountWithDelegation,
+        },
+      })),
+  };
+}
+
+export const RequestResponseStore = createRequestResponseStore();

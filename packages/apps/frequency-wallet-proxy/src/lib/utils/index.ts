@@ -7,6 +7,9 @@ import {
 } from '@frequency-control-panel/utils';
 import { APP_NAME } from '$lib/globals';
 import type { U8aLike } from '@polkadot/util/types';
+import { Message, WindowEndpoint } from '@frequency-control-panel/utils';
+import type { SignInResponse, SignUpResponse } from '@frequency-wallet-proxy/types';
+
 
 export async function checkHandleAvailability(handle: string): Promise<boolean> {
   const minAvailableHandles = 5;
@@ -71,6 +74,22 @@ export async function getDelegationPayload(
     raw: { authorizedMsaId: providerId, expiration, schemaIds },
     bytes,
   };
+}
+
+let windowEndpoint: WindowEndpoint | undefined;
+
+export const getWindowEndpoint = async () => {
+    return windowEndpoint ?? (windowEndpoint = await WindowEndpoint.create());
+};
+
+export const sendSignUpMessageResponse = async (message: SignUpResponse) => {
+    const endpoint = await getWindowEndpoint();
+    endpoint.sendEvent(Message.SignUpMessage, message);
+}
+
+export const sendSignInMessageResponse = async (message: SignInResponse) => {
+    const endpoint = await getWindowEndpoint();
+    endpoint.sendEvent(Message.SignInMessage, message);
 }
 
 export * from './DSNPSchemas';

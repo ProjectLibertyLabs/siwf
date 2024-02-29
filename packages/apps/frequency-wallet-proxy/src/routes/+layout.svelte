@@ -7,10 +7,11 @@
     resolveSchemas,
     setApiUrl,
     type SignInRequest,
-    WindowEndpoint,
   } from '@frequency-control-panel/utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { page } from '$app/stores';
+  import { getWindowEndpoint } from '$lib/utils';
+  import { SignupStore } from '$lib/stores/SignupStore';
 
   async function handleSigninPayload(e: CustomEvent) {
     setApiUrl($page.url.searchParams.get('frequencyRpcUrl'));
@@ -23,7 +24,7 @@
   onMount(() => {
     resolveInjectedWeb3(window.injectedWeb3);
     if (window.opener) {
-      WindowEndpoint.create()
+      getWindowEndpoint()
         .then((endpoint) => {
           endpoint.on('signinPayload', handleSigninPayload);
         })
