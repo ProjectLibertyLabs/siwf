@@ -39,10 +39,10 @@ function createRequestResponseStore() {
         ...store,
         response: {
           ...store.response,
-        },
-        signUp: {
-          ...store.response?.signUp,
-          encodedCreateSponsoredAccountWithDelegation: newEncodedCreateSponsoredAccountWithDelegation,
+          signUp: {
+            ...store.response?.signUp,
+            encodedCreateSponsoredAccountWithDelegation: newEncodedCreateSponsoredAccountWithDelegation,
+          },
         },
       })),
   };
