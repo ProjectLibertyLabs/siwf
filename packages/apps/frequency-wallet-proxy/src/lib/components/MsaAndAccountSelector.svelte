@@ -4,11 +4,7 @@
   import { type CurrentSelectedMsaAccount } from '$lib/stores/CurrentSelectedMsaAccountStore';
   import { getHandleBase, getHandleSuffix } from '@frequency-control-panel/utils';
   import WalletAddressSelector from './WalletAddressSelector.svelte';
-
-  type MsaAndAddress = {
-    msaId: string;
-    address: string;
-  };
+  import type { MsaAndAddress } from '$lib/stores/CachedLastUsedMsaAndAddressStore';
 
   export let msaEntries: MsaInfoWithAccounts[] = [];
   export let selectedMsaWithAccount: CurrentSelectedMsaAccount;
