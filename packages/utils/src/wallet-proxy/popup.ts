@@ -1,5 +1,5 @@
 import { objectToQueryString } from '../misc_utils';
-import { ControlPanelResponse, SignInResponse, SignUpResponse } from './types';
+import { ControlPanelResponse, SignInEvent, SignUpEvent } from './types';
 import { Message } from './messenger/enums';
 import { getConfig } from './config';
 import { SignInRequest, WindowMessenger } from './messenger';
@@ -25,7 +25,7 @@ export async function getLoginOrRegistrationPayload(): Promise<ControlPanelRespo
     }
   }, 500);
 
-  let payload;
+  let payload: ControlPanelResponse;
   try {
     payload = await doGetLoginOrRegistrationPayload();
   } finally {
@@ -40,11 +40,12 @@ export async function getLoginOrRegistrationPayload(): Promise<ControlPanelRespo
 }
 
 async function doGetLoginOrRegistrationPayload(): Promise<ControlPanelResponse> {
-  const { providerId, proxyUrl, frequencyRpcUrl, schemas } = getConfig();
+  const { providerId, proxyUrl, frequencyRpcUrl, schemas, siwsOptions } = getConfig();
 
   const signInRequest: SignInRequest = {
     providerId,
     requiredSchemas: schemas,
+    siwsOptions,
   };
 
   await renderPopup(proxyUrl, frequencyRpcUrl);
@@ -52,27 +53,23 @@ async function doGetLoginOrRegistrationPayload(): Promise<ControlPanelResponse> 
   windowMessenger.sendEvent('signinPayload', signInRequest);
 
   return new Promise((resolve, _reject) => {
-    windowMessenger.on(Message.SignInMessage, (data) => {
+    windowMessenger.on(Message.SignInMessage, (data: SignInEvent) => {
       const response: ControlPanelResponse = {
         type: 'sign-in',
-        data: {
-          siwsPayload: data.detail.siwsPayload,
-        } as SignInResponse,
+        siwsPayload: data.detail.siwsPayload,
       };
 
       return resolve(response);
     });
 
-    windowMessenger.on(Message.SignUpMessage, (data) => {
+    windowMessenger.on(Message.SignUpMessage, (data: SignUpEvent) => {
       const {
         detail: { encodedClaimHandle, encodedCreateSponsoredAccountWithDelegation },
       } = data;
       const response: ControlPanelResponse = {
         type: 'sign-up',
-        data: {
-          encodedClaimHandle,
-          encodedCreateSponsoredAccountWithDelegation,
-        } as SignUpResponse,
+        encodedClaimHandle,
+        encodedCreateSponsoredAccountWithDelegation,
       };
 
       return resolve(response);

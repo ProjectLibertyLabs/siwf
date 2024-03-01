@@ -1,5 +1,5 @@
 import { Network, ProxyUrl } from './enums';
-import { RequestedSchema } from './messenger';
+import { RequestedSchema, type SiwsOptions } from './messenger';
 
 const defaultSchemas: RequestedSchema[] = [
   {
@@ -29,6 +29,7 @@ export interface Config {
   proxyUrl: string;
   frequencyRpcUrl: string;
   schemas: RequestedSchema[];
+  siwsOptions?: SiwsOptions;
 }
 
 export const defaultConfig: Config = {
@@ -36,6 +37,9 @@ export const defaultConfig: Config = {
   proxyUrl: ProxyUrl.DEV,
   frequencyRpcUrl: Network.LOCALHOST,
   schemas: defaultSchemas,
+  siwsOptions: {
+    expiresInMsecs: 30000,
+  },
 };
 
 let currentConfig: Config = defaultConfig;

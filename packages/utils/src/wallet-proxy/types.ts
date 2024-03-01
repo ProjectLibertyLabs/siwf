@@ -1,6 +1,8 @@
+import { Message } from './messenger/enums';
+
 export type SiwsPayload = {
   message: string;
-  signature: string;
+  signature: `0x${string}`;
 };
 
 export type ErrorResponse = {
@@ -20,5 +22,22 @@ export type SignUpResponse = {
 
 export type ControlPanelResponse = (SignInResponse | SignUpResponse) & {
   type?: 'sign-in' | 'sign-up';
-  data: SignUpResponse | SignInResponse;
 };
+
+export class SignInEvent extends Event {
+  public readonly detail: SignInResponse;
+
+  constructor(detail: SignInResponse) {
+    super(Message.SignInMessage);
+    this.detail = detail;
+  }
+}
+
+export class SignUpEvent extends Event {
+  public readonly detail: SignUpResponse;
+
+  constructor(detail: SignUpResponse) {
+    super(Message.SignUpMessage);
+    this.detail = detail;
+  }
+}

@@ -1,19 +1,13 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
-import { resolve } from 'path';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-	plugins: [
-		sveltekit()
-	],
-	resolve: {
-		alias: {
-			$lib: resolve(__dirname, 'src/lib'),
-			$components: resolve(__dirname, 'src/components'),
-			$routes: resolve(__dirname, 'src/routes')
-		}
-	},
-	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
-	}
+  plugins: [sveltekit(), tsconfigPaths()],
+  test: {
+    include: ['src/**/*.{test,spec}.{js,ts}'],
+    globals: true,
+    environment: 'jsdom',
+    mockReset: true,
+  },
 });

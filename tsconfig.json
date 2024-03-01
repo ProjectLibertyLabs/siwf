@@ -6,6 +6,9 @@
       "path": "packages/apps/frequency-wallet-proxy",
     },
     {
+      "path": "packages/apps/example",
+    },
+    {
       "path": "packages/utils",
     },
     {

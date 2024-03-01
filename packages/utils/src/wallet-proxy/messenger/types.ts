@@ -13,6 +13,26 @@ export type RequestedSchema = {
   id: number;
 };
 
+/// Data type to control optional parameters for "Sign in with Substrate"
+export type SiwsOptions = {
+  /// Text to be display to the user as part of the sign-in request. May not contain newlines.
+  statement?: string;
+
+  /// An optional application-specific value that will be recycled in the returned signed payload
+  requestId?: string;
+
+  /// List of information or references to information the user wishes to have resolved
+  /// as part of the authentication by the relying party; express as RFC 3986 URIs
+  resources?: string[];
+
+  /// The number of milliseconds for which the resulting signed payload will be valid post-signing
+  expiresInMsecs?: number;
+
+  /// A timestamp value expressed in milliseconds since Jan 1, 1970 UTC before which the resulting
+  /// signed payload is not valid
+  notBefore?: number;
+};
+
 /// Data type representing a "Sign in with Frequency" request
 export type SignInRequest = {
   /// Provider ID registered on-chain (technically a u64, but we use a string as bigints don't serialize/deserialize well)
@@ -22,22 +42,5 @@ export type SignInRequest = {
   requiredSchemas: RequestedSchema[];
 
   /// Optional parameters to be used in constructing the "Sign in with Substrate" request
-  siwsOptions?: {
-    /// Text to be display to the user as part of the sign-in request. May not contain newlines.
-    statement?: string;
-
-    /// An optional application-specific value that will be recycled in the returned signed payload
-    requestId?: string;
-
-    /// List of information or references to information the user wishes to have resolved
-    /// as part of the authentication by the relying party; express as RFC 3986 URIs
-    resources?: string[];
-
-    /// The number of milliseconds for which the resulting signed payload will be valid post-signing
-    expiresInMsecs?: number;
-
-    /// A timestamp value expressed in milliseconds since Jan 1, 1970 UTC before which the resulting
-    /// signed payload is not valid
-    notBefore?: number;
-  };
+  siwsOptions?: SiwsOptions;
 };

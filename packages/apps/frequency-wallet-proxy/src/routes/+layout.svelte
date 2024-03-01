@@ -11,7 +11,6 @@
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { page } from '$app/stores';
   import { getWindowEndpoint } from '$lib/utils';
-  import { SignupStore } from '$lib/stores/SignupStore';
 
   async function handleSigninPayload(e: CustomEvent) {
     setApiUrl($page.url.searchParams.get('frequencyRpcUrl'));
