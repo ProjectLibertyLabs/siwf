@@ -37,7 +37,11 @@
   }
 
   $: if (!_selectedAddress) {
-    _selectedAddress = initialSelectedAddress || accounts?.[0]?.address;
+    if (initialSelectedAddress && accounts.find((account) => account.address === initialSelectedAddress)) {
+      _selectedAddress = initialSelectedAddress;
+    } else {
+      _selectedAddress = accounts?.[0]?.address;
+    }
   }
 </script>
 
