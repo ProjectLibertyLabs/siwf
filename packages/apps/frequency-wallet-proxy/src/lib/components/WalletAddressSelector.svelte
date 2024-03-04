@@ -1,8 +1,10 @@
 <script lang="ts">
   import type { InjectedAccountWithExtensions } from '$lib/stores/derived/AllAccountsDerivedStore';
   import { formatWalletAddress } from '@frequency-control-panel/utils';
+  import checkIcon from '@iconify/icons-mdi/check';
+  import Icon from '@iconify/svelte';
 
-  export let selectShown: boolean = true;
+  export let active: boolean = true;
   export let accounts: InjectedAccountWithExtensions[] = [];
   export let initialSelectedAddress: string = '';
 
@@ -27,7 +29,7 @@
       label = '<no address selected>';
     }
 
-    if (selectShown) {
+    if (active) {
       selectedAddress = _selectedAddress;
       if (account) {
         _selectedAccount = account;
@@ -37,11 +39,15 @@
   }
 
   $: if (!_selectedAddress) {
-    _selectedAddress = initialSelectedAddress || accounts?.[0]?.address;
+    if (initialSelectedAddress && accounts.find((account) => account.address === initialSelectedAddress)) {
+      _selectedAddress = initialSelectedAddress;
+    } else {
+      _selectedAddress = accounts?.[0]?.address;
+    }
   }
 </script>
 
-{#if selectShown}
+{#if active && accounts.length > 1}
   <div class="bg-button w-full rounded-md border border-white bg-opacity-25">
     <select class="bg-button bg-opacity-25 text-sm font-semibold text-white" bind:value={_selectedAddress}>
       {#each accounts as account}
@@ -55,5 +61,12 @@
     </select>
   </div>
 {:else}
-  <span class="text-sm font-semibold">{label}</span>
+  <div class=" flow-root">
+    <div>
+      <span class="float-left text-sm font-semibold">{label}</span>
+    </div>
+    {#if active}
+      <div class=" float-right"><Icon icon={checkIcon} /></div>
+    {/if}
+  </div>
 {/if}

@@ -7,8 +7,11 @@
   } from '$lib/stores/CurrentSelectedMsaAccountStore';
   import MsaAndAccountSelector from '$lib/components/MsaAndAccountSelector.svelte';
   import FooterButton from '$lib/components/FooterButton.svelte';
+  import { CachedLastUsedMsaAndAddressStore, type MsaAndAddress } from '$lib/stores/CachedLastUsedMsaAndAddressStore';
+  import { onMount } from 'svelte';
 
   let selectedMsaWithAccount: CurrentSelectedMsaAccount;
+  let initialSelection: MsaAndAddress;
 
   $: nextEnabled = !!selectedMsaWithAccount;
 
@@ -18,11 +21,21 @@
 
   function handleNext() {
     if (nextEnabled) {
+      $CachedLastUsedMsaAndAddressStore = {
+        msaId: selectedMsaWithAccount.msaId,
+        address: selectedMsaWithAccount.account.address,
+      };
       goto('/signin/confirm');
     } else {
       console.error('Button not enabled');
     }
   }
+
+  onMount(() => {
+    if ($CachedLastUsedMsaAndAddressStore) {
+      initialSelection = $CachedLastUsedMsaAndAddressStore;
+    }
+  });
 </script>
 
 <div class="flex h-full items-center justify-center pb-9">
@@ -32,7 +45,7 @@
   <MsaAndAccountSelector
     msaEntries={Object.values($FilteredMsaAccountsDerivedStore)}
     bind:selectedMsaWithAccount
-    initialSelection={{ msaId: '', address: '' }}
+    {initialSelection}
   />
 </div>
 <FooterButton on:click={handleNext}>Next > Sign In</FooterButton>
