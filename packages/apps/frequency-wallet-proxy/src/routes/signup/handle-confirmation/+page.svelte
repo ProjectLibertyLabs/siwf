@@ -7,6 +7,7 @@
   import { getHandlePayload, getPayloadSignature } from '$lib/utils';
   import { buildHandleTx } from '@frequency-control-panel/utils';
   import { goto } from '$app/navigation';
+  import { base } from '$app/paths';
 
   let payload: Awaited<ReturnType<typeof getHandlePayload>>;
   let payloadSummary: PayloadSummaryItem[];
@@ -52,7 +53,7 @@
 
       // TODO: store result in SignupStore. Either the signed payload or the encoded extrinsic (not sure which yet)
 
-      goto('/signup/delegation');
+      goto(`${base}/signup/delegation`);
     } catch (err: unknown) {
       console.error('Payload not signed', err);
     }

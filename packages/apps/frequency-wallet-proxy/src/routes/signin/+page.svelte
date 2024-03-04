@@ -14,6 +14,7 @@
   import { goto } from '$app/navigation';
   import { FilteredMsaAccountsDerivedStore } from '$lib/stores/derived/MsaAccountsDerivedStore';
   import { page } from '$app/stores';
+  import { base } from '$app/paths';
 
   const getErrorMessage = (error: unknown) => {
     if (error instanceof Error) return error.message;
@@ -64,9 +65,9 @@
     if (cachedExt.installed && cachedExt.authorized === ExtensionAuthorizationEnum.Authorized) {
       CurrentSelectedExtensionIdStore.set(cachedExt.injectedName);
       if (Object.keys(await $FilteredMsaAccountsDerivedStore).length === 0) {
-        goto(`/signup/handle?${$page.url.searchParams}`);
+        goto(`${base}/signup/handle?${$page.url.searchParams}`);
       } else {
-        goto('/signin/accounts');
+        goto(`${base}/signin/accounts`);
       }
     }
   };
