@@ -13,36 +13,30 @@
   let selectedAccount: InjectedAccountWithExtensions;
   let selectedAddress: string;
 
-  function createSelectedMsa(msaId: string, account: InjectedAccountWithExtensions): CurrentSelectedMsaAccount {
-    let selectedValue: CurrentSelectedMsaAccount;
+  function createSelectedMsa(msaId: string, account: InjectedAccountWithExtensions) {
     const msaWithAccounts = msaEntries.find((msa) => msa.msaId === msaId);
     if (msaWithAccounts) {
       const { accounts: _accounts, ...msaInfo } = msaWithAccounts;
-      selectedValue = {
+      selectedMsaWithAccount = {
         ...msaInfo,
         account,
       };
-    } else {
-      selectedValue = {
-        msaId: '',
-        handle: '',
-        account,
-      };
     }
-
-    return selectedValue;
   }
 
-  $: {
-    selectedMsaWithAccount = createSelectedMsa(selectedMsa, selectedAccount);
+  $: if (selectedMsa && selectedAccount) {
+    createSelectedMsa(selectedMsa, selectedAccount);
   }
 
-  $: if (!selectedMsa) {
-    if (initialSelection && msaEntries.find((msa) => msa.msaId === initialSelection?.msaId)) {
-      selectedMsa = initialSelection.msaId;
-    } else if (msaEntries.length > 0) {
-      selectedMsa = msaEntries[0].msaId;
+  $: if (!selectedMsaWithAccount && msaEntries.length > 0) {
+    let msa: MsaInfoWithAccounts = msaEntries[0];
+    let account = Object.values(msa.accounts)[0];
+    if (initialSelection) {
+      msa = msaEntries.find((msa) => msa.msaId === initialSelection?.msaId) || msa;
+      account = msa.accounts?.[initialSelection.address] || Object.values(msa.accounts)[0];
     }
+    selectedMsa = msa.msaId;
+    createSelectedMsa(selectedMsa, account);
   }
 </script>
 
@@ -57,7 +51,7 @@
       >
       <div class="pl-5">
         <WalletAddressSelector
-          selectShown={msaInfo.msaId === selectedMsa}
+          active={msaInfo.msaId === selectedMsa}
           accounts={Object.values(msaInfo.accounts)}
           initialSelectedAddress={initialSelection?.address || Object.keys(msaInfo.accounts)[0]}
           bind:selectedAddress
