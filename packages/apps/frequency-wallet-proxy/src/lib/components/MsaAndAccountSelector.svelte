@@ -57,7 +57,7 @@
       >
       <div class="pl-5">
         <WalletAddressSelector
-          selectShown={msaInfo.msaId === selectedMsa}
+          active={msaInfo.msaId === selectedMsa}
           accounts={Object.values(msaInfo.accounts)}
           initialSelectedAddress={initialSelection?.address || Object.keys(msaInfo.accounts)[0]}
           bind:selectedAddress
