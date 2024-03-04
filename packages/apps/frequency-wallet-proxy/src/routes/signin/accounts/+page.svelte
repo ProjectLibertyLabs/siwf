@@ -7,6 +7,7 @@
   } from '$lib/stores/CurrentSelectedMsaAccountStore';
   import MsaAndAccountSelector from '$lib/components/MsaAndAccountSelector.svelte';
   import FooterButton from '$lib/components/FooterButton.svelte';
+  import { base } from '$app/paths';
   import { CachedLastUsedMsaAndAddressStore, type MsaAndAddress } from '$lib/stores/CachedLastUsedMsaAndAddressStore';
   import { onMount } from 'svelte';
 
@@ -25,7 +26,7 @@
         msaId: selectedMsaWithAccount.msaId,
         address: selectedMsaWithAccount.account.address,
       };
-      goto('/signin/confirm');
+      goto(`${base}/signin/confirm`);
     } else {
       console.error('Button not enabled');
     }

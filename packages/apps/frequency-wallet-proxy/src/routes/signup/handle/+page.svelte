@@ -7,6 +7,7 @@
   import { FilteredNonMsaAccountsDerivedStore } from '$lib/stores/derived/MsaAccountsDerivedStore';
   import FooterButton from '$lib/components/FooterButton.svelte';
   import { getHandlePayload } from '$lib/utils';
+  import { base } from '$app/paths';
 
   let selectedAddress: string;
   let selectedAccount: InjectedAccountWithExtensions;
@@ -22,7 +23,7 @@
   async function handleNext() {
     const payload = await getHandlePayload($SignupStore.handle.baseHandle);
     $SignupStore.handle.payload = payload;
-    goto('/signup/handle-confirmation');
+    goto(`${base}/signup/handle-confirmation`);
   }
 </script>
 
