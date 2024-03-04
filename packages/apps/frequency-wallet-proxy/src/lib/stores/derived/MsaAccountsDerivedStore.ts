@@ -13,43 +13,47 @@ export interface MsaInfoWithAccounts extends MsaInfo {
 
 export type MsaMap = Record<string, MsaInfoWithAccounts>;
 
-function createMsaStore(source: Readable<Promise<AccountMap>>) {
-  return derived([source], ([$source]) =>
-    (async () => {
-      const accounts: [address: string, account: InjectedAccountWithExtensions][] = Object.entries(await $source);
-      const msaInfo = await getMsaInfo(accounts.map(([address]) => address));
-
-      const msaMap: MsaMap = {};
-      for (const [index, info] of msaInfo.entries()) {
-        if (info.msaId === '0') {
-          continue;
+function createMsaStore(source: Readable<AccountMap>) {
+  return derived(
+    [source],
+    ([$source], set) => {
+      const accounts: [address: string, account: InjectedAccountWithExtensions][] = Object.entries($source);
+      getMsaInfo(accounts.map(([address]) => address)).then((msaInfo) => {
+        const msaMap: MsaMap = {};
+        for (const [index, info] of msaInfo.entries()) {
+          if (info.msaId === '0') {
+            continue;
+          }
+          const entry = msaMap?.[info.msaId] || { ...info, accounts: {} };
+          const [address, account] = accounts[index];
+          entry.accounts[address] = account;
+          msaMap[info.msaId] = entry;
         }
-        const entry = msaMap?.[info.msaId] || { ...info, accounts: {} };
-        const [address, account] = accounts[index];
-        entry.accounts[address] = account;
-        msaMap[info.msaId] = entry;
-      }
-      return msaMap;
-    })()
+        set(msaMap);
+      });
+    },
+    {} as MsaMap
   );
 }
 
-function createNonMsaStore(source: Readable<Promise<AccountMap>>) {
-  return derived([source], ([$source]) =>
-    (async () => {
-      const accounts: [address: string, account: InjectedAccountWithExtensions][] = Object.entries(await $source);
-      const msaIds = await getMsaIds(accounts.map(([address]) => address));
-
-      const accountMap: AccountMap = {};
-      for (const [index, msaId] of msaIds.entries()) {
-        if (msaId !== '0') {
-          continue;
+function createNonMsaStore(source: Readable<AccountMap>) {
+  return derived(
+    [source],
+    ([$source], set) => {
+      const accounts: [address: string, account: InjectedAccountWithExtensions][] = Object.entries($source);
+      getMsaIds(accounts.map(([address]) => address)).then((msaIds) => {
+        const accountMap: AccountMap = {};
+        for (const [index, msaId] of msaIds.entries()) {
+          if (msaId !== '0') {
+            continue;
+          }
+          accountMap[accounts[index][0]] = accounts[index][1];
         }
-        accountMap[accounts[index][0]] = accounts[index][1];
-      }
 
-      return accountMap;
-    })()
+        set(accountMap);
+      });
+    },
+    {} as AccountMap
   );
 }
 

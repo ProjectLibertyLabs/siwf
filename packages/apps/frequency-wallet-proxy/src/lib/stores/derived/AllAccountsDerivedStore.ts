@@ -16,17 +16,19 @@ function updateAccount(map: AccountMap, account: InjectedAccount, wallet: string
   map[account.address] = value;
 }
 
-export const AllAccountsDerivedStore = derived([ConnectedExtensionsDerivedStore], ([$ConnectedExtensionsStore]) =>
-  (async () => {
+export const AllAccountsDerivedStore = derived(
+  [ConnectedExtensionsDerivedStore],
+  ([$ConnectedExtensionsDerivedStore], set) => {
     const accountMap: AccountMap = {};
-    if (!!$ConnectedExtensionsStore) {
-      const extensionMap: ConnectedExtensionMap = await $ConnectedExtensionsStore;
+    if (!!$ConnectedExtensionsDerivedStore) {
+      const extensionMap: ConnectedExtensionMap = $ConnectedExtensionsDerivedStore;
       for (const extension of Object.values(extensionMap)) {
         for (const account of extension.accounts) {
           updateAccount(accountMap, account, extension.injectedName);
         }
       }
     }
-    return accountMap;
-  })()
+    set(accountMap);
+  },
+  {} as AccountMap
 );

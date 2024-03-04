@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FilteredMsaAccountsDerivedStore, type MsaMap } from '$lib/stores/derived/MsaAccountsDerivedStore';
+  import { FilteredMsaAccountsDerivedStore } from '$lib/stores/derived/MsaAccountsDerivedStore';
   import { goto } from '$app/navigation';
   import {
     type CurrentSelectedMsaAccount,
@@ -11,14 +11,9 @@
   import { onMount } from 'svelte';
 
   let selectedMsaWithAccount: CurrentSelectedMsaAccount;
-  let msaMap: MsaMap = {};
   let initialSelection: MsaAndAddress;
 
   $: nextEnabled = !!selectedMsaWithAccount;
-
-  $: $FilteredMsaAccountsDerivedStore.then((value) => {
-    msaMap = value;
-  });
 
   $: {
     $CurrentSelectedMsaAccountStore = selectedMsaWithAccount;
@@ -47,7 +42,11 @@
   <span class=" text-[16px] font-bold">Choose a handle to sign in with</span>
 </div>
 <div class="pb-[64px]">
-  <MsaAndAccountSelector msaEntries={Object.values(msaMap)} bind:selectedMsaWithAccount {initialSelection} />
+  <MsaAndAccountSelector
+    msaEntries={Object.values($FilteredMsaAccountsDerivedStore)}
+    bind:selectedMsaWithAccount
+    {initialSelection}
+  />
 </div>
 <FooterButton on:click={handleNext}>Next > Sign In</FooterButton>
 <div class="flex items-center justify-center pt-8">

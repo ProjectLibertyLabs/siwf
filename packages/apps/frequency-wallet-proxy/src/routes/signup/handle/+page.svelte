@@ -11,18 +11,13 @@
   let selectedAddress: string;
   let selectedAccount: InjectedAccountWithExtensions;
   let isNextDisabled: boolean = true;
-  let accounts: InjectedAccountWithExtensions[];
 
   $: {
     const { address, handle } = $SignupStore;
     isNextDisabled = !address || !handle.isValid || !handle.isAvailable;
   }
 
-  $: $SignupStore.address = selectedAddress;
-
-  $: $FilteredNonMsaAccountsDerivedStore.then((allAccounts) => {
-    accounts = Object.values(allAccounts);
-  });
+  $: SignupStore.updateAddress(selectedAddress);
 
   async function handleNext() {
     const payload = await getHandlePayload($SignupStore.handle.baseHandle);
@@ -38,7 +33,11 @@
   <div class=" flex-col">
     <div class="flex">Select a key to associate with a handle</div>
     <div class="flex pb-9">
-      <WalletAddressSelector {accounts} bind:selectedAccount bind:selectedAddress />
+      <WalletAddressSelector
+        accounts={Object.values($FilteredNonMsaAccountsDerivedStore)}
+        bind:selectedAccount
+        bind:selectedAddress
+      />
     </div>
     <div class="flex pb-6">
       <span class=" text-sm font-bold">Claim your handle:</span>
