@@ -7,6 +7,7 @@ import {
   generateDelegationPayload,
   initialize,
   signPayloadSr25519,
+  Sr25519Signature,
   UserBuilder,
 } from 'frequency-scenario-template';
 import type { KeyringPair } from '@polkadot/keyring/types';
@@ -24,6 +25,8 @@ interface ChainAccount {
   keypairs: KeyringPair[];
   msaId: string;
   handle: string;
+  doDelegate?: boolean;
+  delegatedSchemas?: number[];
 }
 
 const PROVIDER_MNEMONIC = 'lounge monster rotate olympic grass correct potato pumpkin inside scissors lucky vote';
@@ -35,12 +38,16 @@ const accounts: ChainAccount[] = [
     keypairs: [],
     msaId: '',
     handle: 'cp_user_1',
+    doDelegate: true,
+    delegatedSchemas: [5, 7, 8, 9, 10],
   },
   {
     seedPhrase: 'delay man segment gallery project plug thrive wool alcohol secret damage gold',
     keypairs: [],
     msaId: '',
     handle: 'cp_user_2',
+    doDelegate: true,
+    delegatedSchemas: [5, 7, 8],
   },
   {
     seedPhrase: 'lab palm dawn net junior rubber mule fault post immune panic ethics',
@@ -96,7 +103,9 @@ export async function main() {
   // Create keys
   for (const account of accounts) {
     for (const index in Array(KEYS_PER_ACCOUNT).fill(0)) {
-      account.keypairs.push(await createAndFundKeypair({ uri: account.seedPhrase + `//${index}` }));
+      account.keypairs.push(
+        await createAndFundKeypair({ amount: 1_000_000_000n, uri: account.seedPhrase + `//${index}` })
+      );
     }
   }
 
@@ -135,34 +144,49 @@ export async function main() {
   const nonMsaAccounts = accounts.filter((account) => !account.msaId);
   for (const account of nonMsaAccounts) {
     const controlKey = account.keypairs[0]!;
+    const handlePayload = await generateClaimHandlePayload(account.handle);
+    const handlePayloadData = ExtrinsicHelper.api.registry.createType(
+      'CommonPrimitivesHandlesClaimHandlePayload',
+      handlePayload
+    );
+    let signature: Sr25519Signature;
     try {
-      const payload = await generateDelegationPayload({
-        authorizedMsaId: provider.msaId,
-        schemaIds: [],
-      });
-      let signature = signPayloadSr25519(controlKey, ExtrinsicHelper.api.createType('PalletMsaAddProvider', payload));
-      let op = ExtrinsicHelper.createSponsoredAccountWithDelegation(
-        controlKey,
-        provider.allKeys[0]!,
-        signature,
-        payload
-      );
-      const [createMsaEvent] = await op.fundAndSend();
-      if (createMsaEvent && ExtrinsicHelper.apiPromise.events.msa.MsaCreated.is(createMsaEvent)) {
-        account.msaId = createMsaEvent.data.msaId.toString();
-        console.log(`Created MSA ${account.msaId} with key ${account.seedPhrase}`);
-      }
+      if (account?.doDelegate) {
+        const payload = await generateDelegationPayload({
+          authorizedMsaId: provider.msaId,
+          schemaIds: account?.delegatedSchemas ? [...account.delegatedSchemas] : [],
+        });
+        signature = signPayloadSr25519(controlKey, ExtrinsicHelper.api.createType('PalletMsaAddProvider', payload));
+        let op = ExtrinsicHelper.createSponsoredAccountWithDelegation(
+          controlKey,
+          provider.allKeys[0]!,
+          signature,
+          payload
+        );
+        const [createMsaEvent] = await op.payWithCapacity();
+        if (createMsaEvent && ExtrinsicHelper.apiPromise.events.msa.MsaCreated.is(createMsaEvent)) {
+          account.msaId = createMsaEvent.data.msaId.toString();
+          console.log(`Created MSA ${account.msaId} with key ${account.seedPhrase}`);
+        }
 
-      const handlePayload = await generateClaimHandlePayload(account.handle);
-      const handlePayloadData = ExtrinsicHelper.api.registry.createType(
-        'CommonPrimitivesHandlesClaimHandlePayload',
-        handlePayload
-      );
-      signature = signPayloadSr25519(controlKey, handlePayloadData);
-      op = ExtrinsicHelper.claimHandleWithProvider(controlKey, provider.allKeys[0]!, signature, handlePayload);
-      const [handleResult] = await op.fundAndSend();
-      if (handleResult && ExtrinsicHelper.api.events.handles.HandleClaimed.is(handleResult)) {
-        console.info(`Claimed handle '${handleResult.data.handle} for MSA ${account.msaId}`);
+        signature = signPayloadSr25519(controlKey, handlePayloadData);
+        op = ExtrinsicHelper.claimHandleWithProvider(controlKey, provider.allKeys[0]!, signature, handlePayload);
+        const [handleResult] = await op.fundAndSend();
+        if (handleResult && ExtrinsicHelper.api.events.handles.HandleClaimed.is(handleResult)) {
+          console.info(`Claimed handle '${handleResult.data.handle} for MSA ${account.msaId}`);
+        }
+      } else {
+        const [createMsaEvent] = await ExtrinsicHelper.createMsa(controlKey).fundAndSend();
+        if (createMsaEvent && ExtrinsicHelper.apiPromise.events.msa.MsaCreated.is(createMsaEvent)) {
+          account.msaId = createMsaEvent.data.msaId.toString();
+          console.log(`Created MSA ${account.msaId} with key ${account.seedPhrase}`);
+        }
+
+        signature = signPayloadSr25519(controlKey, handlePayloadData);
+        const [handleResult] = await ExtrinsicHelper.claimHandle(controlKey, handlePayload).fundAndSend();
+        if (handleResult && ExtrinsicHelper.api.events.handles.HandleClaimed.is(handleResult)) {
+          console.info(`Claimed handle '${handleResult.data.handle} for MSA ${account.msaId}`);
+        }
       }
 
       for (const key of account.keypairs.slice(1)) {

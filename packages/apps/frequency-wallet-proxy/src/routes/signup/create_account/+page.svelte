@@ -6,8 +6,7 @@
   import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
   import { buildCreateSponsoredAccountTx } from '@frequency-control-panel/utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
-  import { sendSignUpMessageResponse } from '$lib/utils';
-  import type { SignUpResponse } from '@frequency-control-panel/utils/types';
+  import { sendWalletProxyResponse } from '$lib/utils';
 
   let payloadBytes: Uint8Array;
 
@@ -54,16 +53,13 @@
         )
       ).toHex();
 
-      RequestResponseStore.updateEncodedCreateSponsoredAccountWithDelegation(encodedExtrinsic);
+      RequestResponseStore.upsertExtrinsic({
+        pallet: 'msa',
+        extrinsicName: 'createSponsoredAccountWithDelegation',
+        encodedExtrinsic,
+      });
 
-      const response: SignUpResponse = {
-        encodedClaimHandle: $RequestResponseStore.response?.signUp?.encodedClaimHandle,
-        encodedCreateSponsoredAccountWithDelegation:
-          $RequestResponseStore.response?.signUp?.encodedCreateSponsoredAccountWithDelegation,
-      };
-      await sendSignUpMessageResponse(response);
-
-      // TODO: store result in SignupStore. Either the signed payload or the encoded extrinsic (not sure which yet)
+      await sendWalletProxyResponse($RequestResponseStore.response!);
     } catch (err: unknown) {
       console.error('Payload not signed', err);
     }

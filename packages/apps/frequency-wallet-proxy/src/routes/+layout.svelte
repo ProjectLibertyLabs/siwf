@@ -17,7 +17,7 @@
     const payload = e.detail as SignInRequest;
     await resolveSchemas(payload.requiredSchemas!);
     const providerName = await getProviderRegistryInfo(payload.providerId);
-    RequestResponseStore.set({ request: { ...payload, providerName } });
+    RequestResponseStore.set({ request: { ...payload, isNewProvider: true, providerName } });
   }
 
   onMount(() => {

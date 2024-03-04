@@ -1,10 +1,15 @@
+import '@frequency-chain/api-augment';
 import { PresumptiveSuffixesResponse } from '@frequency-chain/api-augment/interfaces';
 import { getApi } from './connect';
 import { ApiPromise } from '@polkadot/api';
 import type { AnyNumber, Codec, ISubmittableResult } from '@polkadot/types/types';
-import { Bytes, u16 } from '@polkadot/types';
+import { Bytes, Option, u16 } from '@polkadot/types';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
-import { CommonPrimitivesMsaProviderRegistryEntry } from '@polkadot/types/lookup';
+import {
+  CommonPrimitivesMsaDelegation,
+  CommonPrimitivesMsaProviderRegistryEntry,
+  PalletMsaAddProvider,
+} from '@polkadot/types/lookup';
 import { RequestedSchema } from '../wallet-proxy/messenger';
 
 export { Codec };
@@ -134,4 +139,55 @@ export async function getMsaForAddress(address: string): Promise<string> {
   const api = await getApi();
   const msaId = (await api.query.msa.publicKeyToMsaId(address)).unwrapOrDefault().toString();
   return msaId === '0' ? '' : msaId;
+}
+
+/**
+ * Check whether an MSA has a delegation to the indicated provider,
+ * and whether it includes the requested delegations.
+ *
+ * @param {AnyNumber} msaId
+ * @param {AnyNumber} providerId
+ * @param {number[]} requestedDelegations
+ * @returns {[boolean, boolean, number[]} Boolean whether a delegation exists, whether the delegation contains all request schemas, and the complete set of schemas to request
+ */
+export async function checkDelegations(
+  msaId: AnyNumber,
+  providerId: AnyNumber,
+  requestedDelegations: number[]
+): Promise<[boolean, boolean, number[]]> {
+  const delegationsToRequest: number[] = [];
+  const api = await getApi();
+
+  const response: Option<CommonPrimitivesMsaDelegation> = await api.query.msa.delegatorAndProviderToDelegation(
+    msaId,
+    providerId
+  );
+  if (response.isNone) {
+    return [false, true, requestedDelegations];
+  }
+
+  const delegation = response.unwrap();
+  if (delegation.revokedAt.toNumber() > 0) {
+    return [false, true, requestedDelegations];
+  }
+
+  // Get the currently delegated (not revoked) schemas.
+  // These will all need to be passed in a new `grantDelegation`
+  // extrinsic if one is to be executed, as the extrinsic does not
+  // append, but overwrites existing delegations
+  delegation.schemaPermissions.forEach((revokedAt, schemaId) => {
+    if (revokedAt.toNumber() === 0) {
+      delegationsToRequest.push(schemaId.toNumber());
+    }
+  });
+
+  let needsUpdate = false;
+  requestedDelegations.forEach((requestedSchema) => {
+    if (!delegationsToRequest.some((d) => d === requestedSchema)) {
+      needsUpdate = true;
+      delegationsToRequest.push(requestedSchema);
+    }
+  });
+
+  return [true, needsUpdate, delegationsToRequest];
 }

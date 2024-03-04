@@ -21,15 +21,20 @@
 
   onMount(async () => {
     api = await getApi('ws://127.0.0.1:9944');
-    const transactions = [];
-    if (payload?.encodedCreateSponsoredAccountWithDelegation) {
-      transactions.push(payload.encodedCreateSponsoredAccountWithDelegation);
-    }
-    if (payload?.encodedClaimHandle) {
-      transactions.push(payload.encodedClaimHandle);
-    }
+    const transactions: `0x${string}`[] = [];
+    // Execute 'msa' pallet extrinsics before other pallets (ie, handles)
+    payload.extrinsics
+      ?.filter((e) => e.pallet === 'msa')
+      .forEach((e) => {
+        transactions.push(e.encodedExtrinsic);
+      });
+    payload.extrinsics
+      ?.filter((e) => e.pallet !== 'msa')
+      .forEach((e) => {
+        transactions.push(e.encodedExtrinsic);
+      });
     if (transactions.length > 0) console.log('Creating account');
-    const txns = transactions.map((t) => api.tx(t));
+    const txns = transactions.reverse().map((t) => api.tx(t));
     const vec = api.registry.createType('Vec<Call>', txns);
     const createAccountTx = api.tx.frequencyTxPayment.payWithCapacityBatchAll(vec);
     const unsub = await createAccountTx.signAndSend(keys, (result: ISubmittableResult) => {

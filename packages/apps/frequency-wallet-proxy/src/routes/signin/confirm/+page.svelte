@@ -6,7 +6,7 @@
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
   import FooterButton from '$lib/components/FooterButton.svelte';
-  import { sendSignInMessageResponse } from '$lib/utils';
+  import { sendWalletProxyResponse } from '$lib/utils';
 
   const now = new Date();
   const payload: SiwsMessage = new SiwsMessage({
@@ -95,7 +95,7 @@
 
     RequestResponseStore.updateSignInResponse(signInMessage);
 
-    await sendSignInMessageResponse(signInMessage);
+    await sendWalletProxyResponse($RequestResponseStore.response!);
     console.info(`Message:
     ${message}
 

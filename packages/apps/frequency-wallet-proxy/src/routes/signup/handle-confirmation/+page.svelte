@@ -47,13 +47,15 @@
         )
       ).toHex();
 
-      RequestResponseStore.updateEncodedClaimHandle(encodeClaimHandleTx);
+      RequestResponseStore.upsertExtrinsic({
+        pallet: 'handles',
+        extrinsicName: 'claimHandle',
+        encodedExtrinsic: encodeClaimHandleTx,
+      });
 
       console.dir({ msg: 'Signature', signature, tx: encodeClaimHandleTx });
 
-      // TODO: store result in SignupStore. Either the signed payload or the encoded extrinsic (not sure which yet)
-
-      goto(`${base}/signup/delegation`);
+      goto(`${base}/signup/create_account`);
     } catch (err: unknown) {
       console.error('Payload not signed', err);
     }

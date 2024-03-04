@@ -1,16 +1,14 @@
 <script lang="ts">
   import {
-    type ControlPanelResponse,
+    type WalletProxyResponse,
     getLoginOrRegistrationPayload,
-    isSignIn,
-    isSignUp,
     type SignUpResponse,
   } from '@frequency-control-panel/utils';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
   import { parseMessage, SiwsMessage } from '@talismn/siws';
   import AccountCreator from '$lib/components/AccountCreator.svelte';
 
-  let signInResponse: ControlPanelResponse | undefined;
+  let signInResponse: WalletProxyResponse | undefined;
   let signInPayload: SiwsMessage;
   let signature: `0x${string}`;
 
@@ -23,22 +21,18 @@
 
   $: {
     console.dir(signInResponse);
-    if (
-      signInResponse &&
-      isSignIn(signInResponse) &&
-      signInResponse?.siwsPayload?.message &&
-      signInResponse?.siwsPayload?.signature
-    ) {
+    if (signInResponse?.signIn?.siwsPayload?.message && signInResponse?.signIn?.siwsPayload?.signature) {
       try {
         // signInPayload = new SiwsMessage(signInResponse.siwsPayload.message as unknown as any);
-        signInPayload = parseMessage(signInResponse.siwsPayload.message);
+        signInPayload = parseMessage(signInResponse.signIn.siwsPayload.message);
         console.dir(signInPayload);
-        signature = signInResponse.siwsPayload.signature;
+        signature = signInResponse.signIn.siwsPayload.signature;
       } catch (e) {
         console.error(e);
       }
-    } else if (signInResponse && isSignUp(signInResponse)) {
-      signUpPayload = signInResponse;
+    }
+    if (signInResponse?.signUp) {
+      signUpPayload = signInResponse.signUp;
       console.dir({ signUpPayload });
     }
   }
@@ -50,10 +44,13 @@
     Login with Frequency
   </button>
   <div class="mt-12">
-    {#if signInPayload}
-      <SignInVerification payload={signInPayload} {signature} />
-    {:else if signUpPayload}
-      <AccountCreator payload={signUpPayload} />
+    {#if signInResponse}
+      {#if signInPayload}
+        <SignInVerification payload={signInPayload} {signature} />
+      {/if}
+      {#if signUpPayload}
+        <AccountCreator payload={signUpPayload} />
+      {/if}
     {:else}
       <p class="mt-4">Please click 'Login'</p>
     {/if}
