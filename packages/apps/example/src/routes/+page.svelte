@@ -1,19 +1,11 @@
 <script lang="ts">
   import {
-<<<<<<< HEAD
-    type ControlPanelResponse,
     defaultConfig,
-=======
->>>>>>> main
     getLoginOrRegistrationPayload,
-    setConfig,
     type SignUpResponse,
-<<<<<<< HEAD
     setConfig,
     type Config,
-=======
     type WalletProxyResponse,
->>>>>>> main
   } from '@frequency-control-panel/utils';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
   import { parseMessage, SiwsMessage } from '@talismn/siws';
