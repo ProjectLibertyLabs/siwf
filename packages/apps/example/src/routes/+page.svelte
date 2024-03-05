@@ -4,11 +4,19 @@
     getLoginOrRegistrationPayload,
     isSignIn,
     isSignUp,
+    setConfig,
     type SignUpResponse,
   } from '@frequency-control-panel/utils';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
   import { parseMessage, SiwsMessage } from '@talismn/siws';
   import AccountCreator from '$lib/components/AccountCreator.svelte';
+  
+  if (process.env.BUILD_TARGET === "production") {
+    setConfig({
+      proxyUrl: "https://amplicalabs.github.io/frequency-control-panel/wallet-proxy",
+      frequencyRpcUrl: "https://rpc.rococo.frequency.xyz",
+    })
+  }
 
   let signInResponse: ControlPanelResponse | undefined;
   let signInPayload: SiwsMessage;
