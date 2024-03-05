@@ -21,38 +21,33 @@
   const keys = keyring.addFromMnemonic(PROVIDER_MNEMONIC);
 
   onMount(async () => {
-    api = await getApi(chainUrl);
-    const transactions = [];
-    if (payload?.encodedCreateSponsoredAccountWithDelegation) {
-      transactions.push(payload.encodedCreateSponsoredAccountWithDelegation);
-    }
-    if (payload?.encodedClaimHandle) {
-      transactions.push(payload.encodedClaimHandle);
-    }
-    if (transactions.length > 0) console.log('Creating account');
-    const txns = transactions.map((t) => api.tx(t));
-    const vec = api.registry.createType('Vec<Call>', txns);
-    const createAccountTx = api.tx.frequencyTxPayment.payWithCapacityBatchAll(vec);
-    const unsub = await createAccountTx.signAndSend(keys, (result: ISubmittableResult) => {
-      console.dir(result);
-      if (result.dispatchError) {
-        let message: string;
-        if (result.dispatchError.isModule) {
-          const decoded = result.dispatchError.registry.findMetaError(result.dispatchError.asModule);
-          message = decoded.docs.join(' ');
-        } else {
-          message = result.dispatchError.type;
+    const transactions = payload.extrinsics?.map((e) => e.encodedExtrinsic);
+    if (transactions?.length) {
+      api = await getApi(chainUrl);
+      const txns = transactions?.map((t) => api.tx(t));
+      const vec = api.registry.createType('Vec<Call>', txns);
+      const createAccountTx = api.tx.frequencyTxPayment.payWithCapacityBatchAll(vec);
+      const unsub = await createAccountTx.signAndSend(keys, (result: ISubmittableResult) => {
+        console.dir(result);
+        if (result.dispatchError) {
+          let message: string;
+          if (result.dispatchError.isModule) {
+            const decoded = result.dispatchError.registry.findMetaError(result.dispatchError.asModule);
+            message = decoded.docs.join(' ');
+          } else {
+            message = result.dispatchError.type;
+          }
+          error = new Error(message);
+          isWaiting = false;
         }
-        error = new Error(message);
-        isWaiting = false;
-      }
 
-      if (result.status.isFinalized) {
-        events = result.events;
-        isWaiting = false;
-        unsub();
-      }
-    });
+        if (result.status.isFinalized) {
+          events = result.events;
+          isWaiting = false;
+          unsub();
+        }
+      });
+    }
   });
 </script>
 

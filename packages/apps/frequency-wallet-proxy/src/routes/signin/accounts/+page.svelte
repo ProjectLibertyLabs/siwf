@@ -10,6 +10,8 @@
   import { base } from '$app/paths';
   import { CachedLastUsedMsaAndAddressStore, type MsaAndAddress } from '$lib/stores/CachedLastUsedMsaAndAddressStore';
   import { onMount } from 'svelte';
+  import { getDelegatedSchemaPermissions } from '@frequency-control-panel/utils';
+  import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
 
   let selectedMsaWithAccount: CurrentSelectedMsaAccount;
   let initialSelection: MsaAndAddress;
@@ -20,13 +22,27 @@
     $CurrentSelectedMsaAccountStore = selectedMsaWithAccount;
   }
 
-  function handleNext() {
+  async function handleNext() {
     if (nextEnabled) {
       $CachedLastUsedMsaAndAddressStore = {
         msaId: selectedMsaWithAccount.msaId,
         address: selectedMsaWithAccount.account.address,
       };
-      goto(`${base}/signin/confirm`);
+
+      const { hasDelegation, missingSchemaPermissions, expectedSchemaPermissions } =
+        await getDelegatedSchemaPermissions(
+          selectedMsaWithAccount.msaId,
+          $RequestResponseStore.request.providerId,
+          $RequestResponseStore.request.requiredSchemas.map((s) => s.id)
+        );
+
+      RequestResponseStore.updateDelegation(!hasDelegation, missingSchemaPermissions, expectedSchemaPermissions);
+
+      if (hasDelegation && !missingSchemaPermissions?.length) {
+        goto(`${base}/signin/confirm`);
+      } else {
+        goto(`${base}/signup/update-delegations`);
+      }
     } else {
       console.error('Button not enabled');
     }
