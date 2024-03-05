@@ -1,17 +1,17 @@
 <script lang="ts">
   import {
+    type Config,
     defaultConfig,
     getLoginOrRegistrationPayload,
-    type SignUpResponse,
     setConfig,
-    type Config,
+    type SignUpResponse,
     type WalletProxyResponse,
   } from '@frequency-control-panel/utils';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
   import { parseMessage, SiwsMessage } from '@talismn/siws';
   import AccountCreator from '$lib/components/AccountCreator.svelte';
-  import { MultiSelect, type Option, type ObjectOption } from 'svelte-multiselect';
-  import { schemas, type SchemaName } from '@dsnp/frequency-schemas/dsnp';
+  import { MultiSelect, type ObjectOption, type Option } from 'svelte-multiselect';
+  import { type SchemaName, schemas } from '@dsnp/frequency-schemas/dsnp';
 
   if (process.env.BUILD_TARGET === 'production') {
     setConfig({
@@ -24,7 +24,13 @@
   let signInPayload: SiwsMessage;
   let signature: `0x${string}`;
 
-  const CHAIN_URLS = [
+  type ChainUrl = {
+    name: string;
+    http: string;
+    ws: string;
+  };
+
+  const CHAIN_URLS: ChainUrl[] = [
     {
       name: 'Mainnet #1',
       http: 'https://0.rpc.frequency.xyz',
@@ -47,7 +53,12 @@
     },
   ];
 
-  const PROXY_URLS = [
+  type ProxyUrl = {
+    name: string;
+    url: string;
+  };
+
+  const PROXY_URLS: ProxyUrl[] = [
     {
       name: 'Production',
       url: 'https://amplicalabs.github.io/frequency-control-panel/wallet-proxy',
@@ -58,8 +69,8 @@
     },
   ];
 
-  let chainUrl: any;
-  let loginUrl: any;
+  let chainUrl: ChainUrl;
+  let loginUrl: ProxyUrl;
   let expirationSeconds: number = 300;
   let requestedSchemas: Option[] = defaultConfig.schemas.map((s) => ({ label: s.name, value: s.name, id: s.id }));
   let options = [...schemas.keys()];
