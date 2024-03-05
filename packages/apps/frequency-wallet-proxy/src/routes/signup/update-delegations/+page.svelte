@@ -5,7 +5,6 @@
   import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
   import { buildGrantDelegationTx } from '@frequency-control-panel/utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
-  import { sendWalletProxyResponse } from '$lib/utils';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores';
   import { goto } from '$app/navigation';
   import { base } from '$app/paths';
