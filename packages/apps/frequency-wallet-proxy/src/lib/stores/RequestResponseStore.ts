@@ -35,12 +35,13 @@ function createRequestResponseStore() {
     set,
     subscribe,
     update,
-    updateDelegation: (missingSchemas: number[], allSchemasToGrant: number[]) =>
+    updateDelegation: (isNewProvider: boolean, missingSchemas: number[], allSchemasToGrant: number[]) =>
       update((store) => {
         return {
           ...store,
           request: {
             ...store.request,
+            isNewProvider,
             missingSchemas,
             allSchemasToGrant,
           },

@@ -35,14 +35,12 @@
         $RequestResponseStore.request.requiredSchemas.map((s) => s.id)
       );
 
-      RequestResponseStore.updateDelegation(missingDelegations, allDelegations);
+      RequestResponseStore.updateDelegation(!hasDelegation, missingDelegations, allDelegations);
 
-      if (hasDelegation && needsUpdate) {
-        goto(`${base}/signup/update_delegations`);
-      } else if (!hasDelegation) {
-        goto(`${base}/signup/new_provider`);
-      } else {
+      if (hasDelegation && !needsUpdate) {
         goto(`${base}/signin/confirm`);
+      } else {
+        goto(`${base}/signup/update_delegations`);
       }
     } else {
       console.error('Button not enabled');

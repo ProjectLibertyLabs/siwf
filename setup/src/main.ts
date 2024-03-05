@@ -171,7 +171,7 @@ export async function main() {
 
         signature = signPayloadSr25519(controlKey, handlePayloadData);
         op = ExtrinsicHelper.claimHandleWithProvider(controlKey, provider.allKeys[0]!, signature, handlePayload);
-        const [handleResult] = await op.fundAndSend();
+        const [handleResult] = await op.payWithCapacity();
         if (handleResult && ExtrinsicHelper.api.events.handles.HandleClaimed.is(handleResult)) {
           console.info(`Claimed handle '${handleResult.data.handle} for MSA ${account.msaId}`);
         }

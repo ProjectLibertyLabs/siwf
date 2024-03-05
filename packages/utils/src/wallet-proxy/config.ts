@@ -38,7 +38,7 @@ export const defaultConfig: Config = {
   frequencyRpcUrl: Network.LOCALHOST,
   schemas: defaultSchemas,
   siwsOptions: {
-    expiresInMsecs: 30000,
+    expiresInMsecs: 300_000, // 5 minutes
   },
 };
 
