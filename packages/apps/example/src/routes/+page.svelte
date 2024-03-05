@@ -8,32 +8,29 @@
   import { parseMessage, SiwsMessage } from '@talismn/siws';
   import AccountCreator from '$lib/components/AccountCreator.svelte';
 
-  let signInResponse: WalletProxyResponse | undefined;
+  let walletProxyResponse: WalletProxyResponse | undefined;
   let signInPayload: SiwsMessage;
   let signature: `0x${string}`;
 
   let signUpPayload: SignUpResponse;
 
   const handleSignIn = async () => {
-    signInResponse = undefined;
-    signInResponse = await getLoginOrRegistrationPayload();
+    walletProxyResponse = undefined;
+    walletProxyResponse = await getLoginOrRegistrationPayload();
   };
 
   $: {
-    console.dir(signInResponse);
-    if (signInResponse?.signIn?.siwsPayload?.message && signInResponse?.signIn?.siwsPayload?.signature) {
+    if (walletProxyResponse?.signIn?.siwsPayload?.message && walletProxyResponse?.signIn?.siwsPayload?.signature) {
       try {
         // signInPayload = new SiwsMessage(signInResponse.siwsPayload.message as unknown as any);
-        signInPayload = parseMessage(signInResponse.signIn.siwsPayload.message);
-        console.dir(signInPayload);
-        signature = signInResponse.signIn.siwsPayload.signature;
+        signInPayload = parseMessage(walletProxyResponse.signIn.siwsPayload.message);
+        signature = walletProxyResponse.signIn.siwsPayload.signature;
       } catch (e) {
         console.error(e);
       }
     }
-    if (signInResponse?.signUp) {
-      signUpPayload = signInResponse.signUp;
-      console.dir({ signUpPayload });
+    if (walletProxyResponse?.signUp) {
+      signUpPayload = walletProxyResponse.signUp;
     }
   }
 </script>
@@ -44,7 +41,7 @@
     Login with Frequency
   </button>
   <div class="mt-12">
-    {#if signInResponse}
+    {#if walletProxyResponse}
       {#if signInPayload}
         <SignInVerification payload={signInPayload} {signature} />
       {/if}

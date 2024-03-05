@@ -58,6 +58,18 @@ function createRequestResponseStore() {
         } else {
           extrinsics.push(extrinsic);
         }
+        // Make sure 'msa' pallet extrinsics are first (to make sure we create an account before claiming a handle)
+        extrinsics.sort((a, b) => {
+          if (a.pallet === b.pallet) {
+            return 0;
+          } else if (a.pallet === 'msa') {
+            return -1;
+          } else if (b.pallet === 'msa') {
+            return 1;
+          }
+
+          return 0;
+        });
 
         return { ...store, response: { ...store?.response, signUp: { ...store?.response?.signUp, extrinsics } } };
       }),

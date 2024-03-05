@@ -152,21 +152,20 @@ export async function getMsaForAddress(address: string): Promise<string> {
  *
  * @param {AnyNumber} msaId
  * @param {AnyNumber} providerId
- * @param {number[]} requestedDelegations
- * @returns {[boolean, boolean, number[]} Boolean whether a delegation exists, whether the delegation contains all request schemas, and the complete set of schemas to request
+ * @param {number[]} requestedSchemaPermissions
+ * @returns {{ boolean, number[], number[] }} Boolean whether a delegation exists, whether the delegation contains all request schemas, and the complete set of schemas to request
  */
-export async function checkDelegations(
+export async function getDelegatedSchemaPermissions(
   msaId: AnyNumber,
   providerId: AnyNumber,
-  requestedDelegations: number[]
-): Promise<{ hasDelegation: boolean; needsUpdate: boolean; missingDelegations: number[]; allDelegations: number[] }> {
+  requestedSchemaPermissions: number[]
+): Promise<{ hasDelegation: boolean; missingSchemaPermissions: number[]; expectedSchemaPermissions: number[] }> {
   const api = await getApi();
 
   const retval = {
     hasDelegation: false,
-    needsUpdate: false,
-    missingDelegations: requestedDelegations,
-    allDelegations: [] as number[],
+    missingSchemaPermissions: requestedSchemaPermissions,
+    expectedSchemaPermissions: [] as number[],
   };
 
   const response: Option<CommonPrimitivesMsaDelegation> = await api.query.msa.delegatorAndProviderToDelegation(
@@ -179,7 +178,7 @@ export async function checkDelegations(
     // Not revoked
     if (delegation.revokedAt.toNumber() === 0) {
       retval.hasDelegation = true;
-      retval.missingDelegations = [];
+      retval.missingSchemaPermissions = [];
 
       // Get the currently delegated (not revoked) schemas.
       // These will all need to be passed in a new `grantDelegation`
@@ -187,15 +186,14 @@ export async function checkDelegations(
       // append, but overwrites existing delegations
       delegation.schemaPermissions.forEach((revokedAt, schemaId) => {
         if (revokedAt.toNumber() === 0) {
-          retval.allDelegations.push(schemaId.toNumber());
+          retval.expectedSchemaPermissions.push(schemaId.toNumber());
         }
       });
 
-      requestedDelegations.forEach((requestedSchema) => {
-        if (!retval.allDelegations.some((d) => d === requestedSchema)) {
-          retval.needsUpdate = true;
-          retval.missingDelegations.push(requestedSchema);
-          retval.allDelegations.push(requestedSchema);
+      requestedSchemaPermissions.forEach((requestedSchema) => {
+        if (!retval.expectedSchemaPermissions.some((d) => d === requestedSchema)) {
+          retval.missingSchemaPermissions.push(requestedSchema);
+          retval.expectedSchemaPermissions.push(requestedSchema);
         }
       });
     }

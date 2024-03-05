@@ -20,43 +20,33 @@
   const keys = keyring.addFromMnemonic(PROVIDER_MNEMONIC);
 
   onMount(async () => {
-    api = await getApi('ws://127.0.0.1:9944');
-    const transactions: `0x${string}`[] = [];
-    // Execute 'msa' pallet extrinsics before other pallets (ie, handles)
-    payload.extrinsics
-      ?.filter((e) => e.pallet === 'msa')
-      .forEach((e) => {
-        transactions.push(e.encodedExtrinsic);
-      });
-    payload.extrinsics
-      ?.filter((e) => e.pallet !== 'msa')
-      .forEach((e) => {
-        transactions.push(e.encodedExtrinsic);
-      });
-    if (transactions.length > 0) console.log('Creating account');
-    const txns = transactions.reverse().map((t) => api.tx(t));
-    const vec = api.registry.createType('Vec<Call>', txns);
-    const createAccountTx = api.tx.frequencyTxPayment.payWithCapacityBatchAll(vec);
-    const unsub = await createAccountTx.signAndSend(keys, (result: ISubmittableResult) => {
-      console.dir(result);
-      if (result.dispatchError) {
-        let message: string;
-        if (result.dispatchError.isModule) {
-          const decoded = result.dispatchError.registry.findMetaError(result.dispatchError.asModule);
-          message = decoded.docs.join(' ');
-        } else {
-          message = result.dispatchError.type;
+    const transactions = payload.extrinsics?.map((e) => e.encodedExtrinsic);
+    if (transactions?.length) {
+      api = await getApi('ws://127.0.0.1:9944');
+      const txns = transactions?.map((t) => api.tx(t));
+      const vec = api.registry.createType('Vec<Call>', txns);
+      const createAccountTx = api.tx.frequencyTxPayment.payWithCapacityBatchAll(vec);
+      const unsub = await createAccountTx.signAndSend(keys, (result: ISubmittableResult) => {
+        console.dir(result);
+        if (result.dispatchError) {
+          let message: string;
+          if (result.dispatchError.isModule) {
+            const decoded = result.dispatchError.registry.findMetaError(result.dispatchError.asModule);
+            message = decoded.docs.join(' ');
+          } else {
+            message = result.dispatchError.type;
+          }
+          error = new Error(message);
+          isWaiting = false;
         }
-        error = new Error(message);
-        isWaiting = false;
-      }
 
-      if (result.status.isFinalized) {
-        events = result.events;
-        isWaiting = false;
-        unsub();
-      }
-    });
+        if (result.status.isFinalized) {
+          events = result.events;
+          isWaiting = false;
+          unsub();
+        }
+      });
+    }
   });
 </script>
 

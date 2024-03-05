@@ -10,7 +10,7 @@
   import { base } from '$app/paths';
   import { CachedLastUsedMsaAndAddressStore, type MsaAndAddress } from '$lib/stores/CachedLastUsedMsaAndAddressStore';
   import { onMount } from 'svelte';
-  import { checkDelegations } from '@frequency-control-panel/utils';
+  import { getDelegatedSchemaPermissions } from '@frequency-control-panel/utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
 
   let selectedMsaWithAccount: CurrentSelectedMsaAccount;
@@ -29,18 +29,19 @@
         address: selectedMsaWithAccount.account.address,
       };
 
-      const { hasDelegation, needsUpdate, missingDelegations, allDelegations } = await checkDelegations(
-        selectedMsaWithAccount.msaId,
-        $RequestResponseStore.request.providerId,
-        $RequestResponseStore.request.requiredSchemas.map((s) => s.id)
-      );
+      const { hasDelegation, missingSchemaPermissions, expectedSchemaPermissions } =
+        await getDelegatedSchemaPermissions(
+          selectedMsaWithAccount.msaId,
+          $RequestResponseStore.request.providerId,
+          $RequestResponseStore.request.requiredSchemas.map((s) => s.id)
+        );
 
-      RequestResponseStore.updateDelegation(!hasDelegation, missingDelegations, allDelegations);
+      RequestResponseStore.updateDelegation(!hasDelegation, missingSchemaPermissions, expectedSchemaPermissions);
 
-      if (hasDelegation && !needsUpdate) {
+      if (hasDelegation && !missingSchemaPermissions?.length) {
         goto(`${base}/signin/confirm`);
       } else {
-        goto(`${base}/signup/update_delegations`);
+        goto(`${base}/signup/update-delegations`);
       }
     } else {
       console.error('Button not enabled');

@@ -55,7 +55,7 @@
 
       console.dir({ msg: 'Signature', signature, tx: encodeClaimHandleTx });
 
-      goto(`${base}/signup/create_account`);
+      goto(`${base}/signup/create-account`);
     } catch (err: unknown) {
       console.error('Payload not signed', err);
     }
