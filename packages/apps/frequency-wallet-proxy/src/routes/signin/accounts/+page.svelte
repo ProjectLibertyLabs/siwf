@@ -29,15 +29,15 @@
         address: selectedMsaWithAccount.account.address,
       };
 
-      const [hasDelegation, schemasToRequest] = await checkDelegations(
+      const { hasDelegation, needsUpdate, missingDelegations, allDelegations } = await checkDelegations(
         selectedMsaWithAccount.msaId,
         $RequestResponseStore.request.providerId,
         $RequestResponseStore.request.requiredSchemas.map((s) => s.id)
       );
 
-      RequestResponseStore.updateDelegationPayload(schemasToRequest);
+      RequestResponseStore.updateDelegation(missingDelegations, allDelegations);
 
-      if (hasDelegation && schemasToRequest) {
+      if (hasDelegation && needsUpdate) {
         goto(`${base}/signup/update_delegations`);
       } else if (!hasDelegation) {
         goto(`${base}/signup/new_provider`);

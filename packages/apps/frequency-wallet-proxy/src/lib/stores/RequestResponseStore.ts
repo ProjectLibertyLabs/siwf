@@ -1,5 +1,4 @@
 import '@frequency-chain/api-augment';
-import { type PalletMsaAddProvider } from '@polkadot/types/lookup';
 import type {
   EncodedExtrinsic,
   SignInRequest,
@@ -11,7 +10,8 @@ import { writable } from 'svelte/store';
 export type AugmentedSignInRequest = SignInRequest & {
   providerName: string;
   isNewProvider: boolean;
-  delegationPayload?: PalletMsaAddProvider;
+  missingSchemas: number[];
+  allSchemasToGrant: number[];
 };
 
 export type RequestResponseData = {
@@ -21,20 +21,28 @@ export type RequestResponseData = {
 
 function createRequestResponseStore() {
   const { subscribe, set, update } = writable<RequestResponseData>({
-    request: { providerId: '', providerName: '', isNewProvider: true, requiredSchemas: [] },
+    request: {
+      providerId: '',
+      providerName: '',
+      isNewProvider: true,
+      requiredSchemas: [],
+      missingSchemas: [],
+      allSchemasToGrant: [],
+    },
   });
 
   return {
     set,
     subscribe,
     update,
-    updateDelegationPayload: (payload: PalletMsaAddProvider | undefined) =>
+    updateDelegation: (missingSchemas: number[], allSchemasToGrant: number[]) =>
       update((store) => {
         return {
           ...store,
           request: {
             ...store.request,
-            delegationPayload: payload,
+            missingSchemas,
+            allSchemasToGrant,
           },
         };
       }),

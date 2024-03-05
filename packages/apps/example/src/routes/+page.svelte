@@ -1,8 +1,8 @@
 <script lang="ts">
   import {
-    type WalletProxyResponse,
     getLoginOrRegistrationPayload,
     type SignUpResponse,
+    type WalletProxyResponse,
   } from '@frequency-control-panel/utils';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
   import { parseMessage, SiwsMessage } from '@talismn/siws';

@@ -4,10 +4,10 @@
   import { DSNPSchemas, getDelegationPayload, getPayloadSignature } from '$lib/utils';
   import { FooterButton } from '$lib/components';
   import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
-  import { buildCreateSponsoredAccountTx } from '@frequency-control-panel/utils';
+  import { buildGrantDelegationTx } from '@frequency-control-panel/utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { sendWalletProxyResponse } from '$lib/utils';
-  import { CurrentSelectedMsaAccountStore } from '$lib/stores/CurrentSelectedMsaAccountStore';
+  import { CurrentSelectedMsaAccountStore } from '$lib/stores';
 
   let payloadBytes: Uint8Array;
 
@@ -45,7 +45,7 @@
       const signature = await getPayloadSignature($CurrentSelectedExtensionIdStore, $SignupStore.address, payloadBytes);
 
       const encodedExtrinsic = (
-        await buildCreateSponsoredAccountTx(
+        await buildGrantDelegationTx(
           $SignupStore.address,
           {
             Sr25519: signature.toString(),
@@ -68,11 +68,9 @@
 </script>
 
 <PayloadConfirmation payload={payloadBytes} {items}>
-  <span slot="heading" class="text-[16px] font-bold">Now you have to sign the permissions</span>
+  <span slot="heading" class="text-[16px] font-bold">Authorize a new Provider</span>
   <span slot="subheading"
-    ><span class="text-[16px] font-semibold">{$SignupStore.handle.baseHandle}</span><span
-      class="font-medium text-neutral-400">.###</span
-    >
+    ><span class="text-[16px] font-semibold">{$CurrentSelectedMsaAccountStore.handle}</span>
   </span></PayloadConfirmation
 >
 <FooterButton on:click={signDelegationAndPermissions}>Next > Sign</FooterButton>

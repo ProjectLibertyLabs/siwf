@@ -20,12 +20,14 @@
   });
   let items: PayloadSummaryItem[] = [
     {
-      name: `By clicking "Next" and signing the resulting payload, you grant the provider "${
+      name: `By clicking "Next" and signing the resulting payload, you authorize the provider "${
         $RequestResponseStore.request?.providerName
-      }", operating from the domain ${new URL(document.referrer).hostname}, access to your Social Identity to:`,
+      }", operating from the domain ${
+        new URL(document.referrer).hostname
+      }, to create a new Social Identity, and grant access to your Social Identity to:`,
       content:
         '<ul style="list-style-type:disc; padding-left:20px; padding-top:5px;">' +
-        '<li>Update your Social Identity profile information and Handle</li>' +
+        '<li>Update your Social Identity profile information</li>' +
         '<li>Create or modify content associated with the following schemas (which may include posting messages or updating your social graph):</li>' +
         '</ul>',
     },

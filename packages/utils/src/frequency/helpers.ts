@@ -5,11 +5,7 @@ import { ApiPromise } from '@polkadot/api';
 import type { AnyNumber, Codec, ISubmittableResult } from '@polkadot/types/types';
 import { Bytes, Option, u16 } from '@polkadot/types';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
-import {
-  CommonPrimitivesMsaDelegation,
-  CommonPrimitivesMsaProviderRegistryEntry,
-  PalletMsaAddProvider,
-} from '@polkadot/types/lookup';
+import { CommonPrimitivesMsaDelegation, CommonPrimitivesMsaProviderRegistryEntry } from '@polkadot/types/lookup';
 import { RequestedSchema } from '../wallet-proxy/messenger';
 
 export { Codec };
@@ -98,6 +94,15 @@ export async function buildCreateSponsoredAccountTx(
   return api.tx.msa.createSponsoredAccountWithDelegation(controlKey, proof, payload);
 }
 
+export async function buildGrantDelegationTx(
+  controlKey: string,
+  proof: { Sr25519: string },
+  payload: Uint8Array
+): Promise<SubmittableExtrinsic<'promise', ISubmittableResult>> {
+  const api = await getApi();
+  return api.tx.msa.grantDelegation(controlKey, proof, payload);
+}
+
 export async function getProviderRegistryInfo(providerId: AnyNumber) {
   const api = await getApi();
   const providerInfo: CommonPrimitivesMsaProviderRegistryEntry = (
@@ -154,40 +159,47 @@ export async function checkDelegations(
   msaId: AnyNumber,
   providerId: AnyNumber,
   requestedDelegations: number[]
-): Promise<[boolean, boolean, number[]]> {
-  const delegationsToRequest: number[] = [];
+): Promise<{ hasDelegation: boolean; needsUpdate: boolean; missingDelegations: number[]; allDelegations: number[] }> {
   const api = await getApi();
+
+  const retval = {
+    hasDelegation: false,
+    needsUpdate: false,
+    missingDelegations: requestedDelegations,
+    allDelegations: [] as number[],
+  };
 
   const response: Option<CommonPrimitivesMsaDelegation> = await api.query.msa.delegatorAndProviderToDelegation(
     msaId,
     providerId
   );
-  if (response.isNone) {
-    return [false, true, requestedDelegations];
+
+  if (response.isSome) {
+    const delegation = response.unwrap();
+    // Not revoked
+    if (delegation.revokedAt.toNumber() === 0) {
+      retval.hasDelegation = true;
+      retval.missingDelegations = [];
+
+      // Get the currently delegated (not revoked) schemas.
+      // These will all need to be passed in a new `grantDelegation`
+      // extrinsic if one is to be executed, as the extrinsic does not
+      // append, but overwrites existing delegations
+      delegation.schemaPermissions.forEach((revokedAt, schemaId) => {
+        if (revokedAt.toNumber() === 0) {
+          retval.allDelegations.push(schemaId.toNumber());
+        }
+      });
+
+      requestedDelegations.forEach((requestedSchema) => {
+        if (!retval.allDelegations.some((d) => d === requestedSchema)) {
+          retval.needsUpdate = true;
+          retval.missingDelegations.push(requestedSchema);
+          retval.allDelegations.push(requestedSchema);
+        }
+      });
+    }
   }
 
-  const delegation = response.unwrap();
-  if (delegation.revokedAt.toNumber() > 0) {
-    return [false, true, requestedDelegations];
-  }
-
-  // Get the currently delegated (not revoked) schemas.
-  // These will all need to be passed in a new `grantDelegation`
-  // extrinsic if one is to be executed, as the extrinsic does not
-  // append, but overwrites existing delegations
-  delegation.schemaPermissions.forEach((revokedAt, schemaId) => {
-    if (revokedAt.toNumber() === 0) {
-      delegationsToRequest.push(schemaId.toNumber());
-    }
-  });
-
-  let needsUpdate = false;
-  requestedDelegations.forEach((requestedSchema) => {
-    if (!delegationsToRequest.some((d) => d === requestedSchema)) {
-      needsUpdate = true;
-      delegationsToRequest.push(requestedSchema);
-    }
-  });
-
-  return [true, needsUpdate, delegationsToRequest];
+  return retval;
 }
