@@ -26,7 +26,10 @@ export class ExtensionConnector {
   public readonly appName: string;
   private extension?: InjectedExtension;
 
-  constructor(injectedWeb3: InjectedWeb3, appName: string) {
+  constructor(injectedWeb3: InjectedWeb3 | undefined, appName: string) {
+    if (!injectedWeb3) {
+      throw new Error('No web3 extensions detected on window');
+    }
     this.injectedWeb3 = injectedWeb3;
     this.appName = appName;
   }

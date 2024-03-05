@@ -6,8 +6,7 @@
   import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
   import { buildCreateSponsoredAccountTx } from '@frequency-control-panel/utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
-  import { sendSignUpMessageResponse } from '$lib/utils';
-  import type { SignUpResponse } from '@frequency-control-panel/utils/types';
+  import { sendWalletProxyResponse } from '$lib/utils';
 
   let payloadBytes: Uint8Array;
 
@@ -21,12 +20,14 @@
   });
   let items: PayloadSummaryItem[] = [
     {
-      name: `By clicking "Next" and signing the resulting payload, you grant the provider "${
+      name: `By clicking "Next" and signing the resulting payload, you authorize the provider "${
         $RequestResponseStore.request?.providerName
-      }", operating from the domain ${new URL(document.referrer).hostname}, access to your Social Identity to:`,
+      }", operating from the domain ${
+        new URL(document.referrer).hostname
+      }, to create a new Social Identity, and grant access to your Social Identity to:`,
       content:
         '<ul style="list-style-type:disc; padding-left:20px; padding-top:5px;">' +
-        '<li>Update your Social Identity profile information and Handle</li>' +
+        '<li>Update your Social Identity profile information</li>' +
         '<li>Create or modify content associated with the following schemas (which may include posting messages or updating your social graph):</li>' +
         '</ul>',
     },
@@ -54,16 +55,13 @@
         )
       ).toHex();
 
-      RequestResponseStore.updateEncodedCreateSponsoredAccountWithDelegation(encodedExtrinsic);
+      RequestResponseStore.upsertExtrinsic({
+        pallet: 'msa',
+        extrinsicName: 'createSponsoredAccountWithDelegation',
+        encodedExtrinsic,
+      });
 
-      const response: SignUpResponse = {
-        encodedClaimHandle: $RequestResponseStore.response?.signUp?.encodedClaimHandle,
-        encodedCreateSponsoredAccountWithDelegation:
-          $RequestResponseStore.response?.signUp?.encodedCreateSponsoredAccountWithDelegation,
-      };
-      await sendSignUpMessageResponse(response);
-
-      // TODO: store result in SignupStore. Either the signed payload or the encoded extrinsic (not sure which yet)
+      await sendWalletProxyResponse($RequestResponseStore.response!);
     } catch (err: unknown) {
       console.error('Payload not signed', err);
     }

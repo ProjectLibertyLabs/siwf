@@ -14,30 +14,27 @@ export type SignInResponse = {
   error?: ErrorResponse;
 };
 
+export type EncodedExtrinsic = {
+  pallet: string;
+  extrinsicName: string;
+  encodedExtrinsic: `0x${string}`;
+};
+
 export type SignUpResponse = {
-  encodedClaimHandle?: `0x${string}`;
-  encodedCreateSponsoredAccountWithDelegation?: `0x${string}`;
+  extrinsics?: EncodedExtrinsic[];
   error?: ErrorResponse;
 };
 
-export type ControlPanelResponse = (SignInResponse | SignUpResponse) & {
-  type?: 'sign-in' | 'sign-up';
+export type WalletProxyResponse = {
+  signIn?: SignInResponse;
+  signUp?: SignUpResponse;
 };
 
-export class SignInEvent extends Event {
-  public readonly detail: SignInResponse;
+export class WalletProxyResponseEvent extends Event {
+  public readonly detail: WalletProxyResponse;
 
-  constructor(detail: SignInResponse) {
-    super(Message.SignInMessage);
-    this.detail = detail;
-  }
-}
-
-export class SignUpEvent extends Event {
-  public readonly detail: SignUpResponse;
-
-  constructor(detail: SignUpResponse) {
-    super(Message.SignUpMessage);
+  constructor(detail: WalletProxyResponse) {
+    super(Message.WalletProxyResponseMessage);
     this.detail = detail;
   }
 }

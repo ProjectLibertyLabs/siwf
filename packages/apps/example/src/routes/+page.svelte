@@ -1,53 +1,44 @@
 <script lang="ts">
   import {
-    type ControlPanelResponse,
     getLoginOrRegistrationPayload,
-    isSignIn,
-    isSignUp,
     setConfig,
     type SignUpResponse,
+    type WalletProxyResponse,
   } from '@frequency-control-panel/utils';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
   import { parseMessage, SiwsMessage } from '@talismn/siws';
   import AccountCreator from '$lib/components/AccountCreator.svelte';
-  
-  if (process.env.BUILD_TARGET === "production") {
+
+  if (process.env.BUILD_TARGET === 'production') {
     setConfig({
-      proxyUrl: "https://amplicalabs.github.io/frequency-control-panel/wallet-proxy",
-      frequencyRpcUrl: "https://rpc.rococo.frequency.xyz",
-    })
+      proxyUrl: 'https://amplicalabs.github.io/frequency-control-panel/wallet-proxy',
+      frequencyRpcUrl: 'https://rpc.rococo.frequency.xyz',
+    });
   }
 
-  let signInResponse: ControlPanelResponse | undefined;
+  let walletProxyResponse: WalletProxyResponse | undefined;
   let signInPayload: SiwsMessage;
   let signature: `0x${string}`;
 
   let signUpPayload: SignUpResponse;
 
   const handleSignIn = async () => {
-    signInResponse = undefined;
-    signInResponse = await getLoginOrRegistrationPayload();
+    walletProxyResponse = undefined;
+    walletProxyResponse = await getLoginOrRegistrationPayload();
   };
 
   $: {
-    console.dir(signInResponse);
-    if (
-      signInResponse &&
-      isSignIn(signInResponse) &&
-      signInResponse?.siwsPayload?.message &&
-      signInResponse?.siwsPayload?.signature
-    ) {
+    if (walletProxyResponse?.signIn?.siwsPayload?.message && walletProxyResponse?.signIn?.siwsPayload?.signature) {
       try {
         // signInPayload = new SiwsMessage(signInResponse.siwsPayload.message as unknown as any);
-        signInPayload = parseMessage(signInResponse.siwsPayload.message);
-        console.dir(signInPayload);
-        signature = signInResponse.siwsPayload.signature;
+        signInPayload = parseMessage(walletProxyResponse.signIn.siwsPayload.message);
+        signature = walletProxyResponse.signIn.siwsPayload.signature;
       } catch (e) {
         console.error(e);
       }
-    } else if (signInResponse && isSignUp(signInResponse)) {
-      signUpPayload = signInResponse;
-      console.dir({ signUpPayload });
+    }
+    if (walletProxyResponse?.signUp) {
+      signUpPayload = walletProxyResponse.signUp;
     }
   }
 </script>
@@ -58,10 +49,13 @@
     Login with Frequency
   </button>
   <div class="mt-12">
-    {#if signInPayload}
-      <SignInVerification payload={signInPayload} {signature} />
-    {:else if signUpPayload}
-      <AccountCreator payload={signUpPayload} />
+    {#if walletProxyResponse}
+      {#if signInPayload}
+        <SignInVerification payload={signInPayload} {signature} />
+      {/if}
+      {#if signUpPayload}
+        <AccountCreator payload={signUpPayload} />
+      {/if}
     {:else}
       <p class="mt-4">Please click 'Login'</p>
     {/if}
