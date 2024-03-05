@@ -10,7 +10,7 @@
   import SignInVerification from '$lib/components/SignInVerification.svelte';
   import { parseMessage, SiwsMessage } from '@talismn/siws';
   import AccountCreator from '$lib/components/AccountCreator.svelte';
-  import { MultiSelect, type Option } from 'svelte-multiselect';
+  import { MultiSelect, type Option, type ObjectOption } from 'svelte-multiselect';
   import { schemas, type SchemaName } from '@dsnp/frequency-schemas/dsnp';
 
   if (process.env.BUILD_TARGET === 'production') {
@@ -63,14 +63,17 @@
   let expirationSeconds: number = 300;
   let requestedSchemas: Option[] = defaultConfig.schemas.map((s) => ({ label: s.name, value: s.name, id: s.id }));
   let options = [...schemas.keys()];
+  let providerId: number = 1;
 
   let signUpPayload: SignUpResponse;
 
   const handleSignIn = async () => {
+    console.dir(requestedSchemas);
     const config: Partial<Config> = {
+      providerId: providerId.toString(),
       frequencyRpcUrl: chainUrl.http,
       proxyUrl: loginUrl.url,
-      schemas: requestedSchemas.map((option) => ({ name: option.toString() as SchemaName, id: 0 })),
+      schemas: requestedSchemas.map((option) => ({ name: (option as ObjectOption).value as SchemaName, id: 0 })),
       siwsOptions: {
         expiresInMsecs: expirationSeconds * 1_000,
       },
@@ -114,6 +117,8 @@
         <option value={url}>{url.name}</option>
       {/each}
     </select>
+    <label for="provider-id">Provider ID</label>
+    <input id="provider-id" type="number" placeholder="1" bind:value={providerId} />
     <label for="expiration">Login payload expiration (seconds)</label>
     <input type="text" placeholder="300" bind:value={expirationSeconds} />
     <label for="schemas">Requested schemas</label>
