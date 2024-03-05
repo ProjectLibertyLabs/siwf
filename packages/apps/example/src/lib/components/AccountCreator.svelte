@@ -10,6 +10,7 @@
 
   export let payload: SignUpResponse;
 
+  export let chainUrl: string;
   let api: ApiPromise;
   let isWaiting = true;
   let events: PolkadotEventRecord[] = [];
@@ -20,7 +21,7 @@
   const keys = keyring.addFromMnemonic(PROVIDER_MNEMONIC);
 
   onMount(async () => {
-    api = await getApi('ws://127.0.0.1:9944');
+    api = await getApi(chainUrl);
     const transactions = [];
     if (payload?.encodedCreateSponsoredAccountWithDelegation) {
       transactions.push(payload.encodedCreateSponsoredAccountWithDelegation);
