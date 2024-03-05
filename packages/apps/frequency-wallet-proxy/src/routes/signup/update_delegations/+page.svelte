@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { SignupStore } from '$lib/stores/SignupStore';
   import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
   import { DSNPSchemas, getDelegationPayload, getPayloadSignature } from '$lib/utils';
   import { FooterButton } from '$lib/components';
@@ -53,7 +52,7 @@
 
       const encodedExtrinsic = (
         await buildGrantDelegationTx(
-          $SignupStore.address,
+          $CurrentSelectedMsaAccountStore.account.address,
           {
             Sr25519: signature.toString(),
           },

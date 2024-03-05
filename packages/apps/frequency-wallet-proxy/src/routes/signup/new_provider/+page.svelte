@@ -42,11 +42,15 @@
 
   async function signDelegationAndPermissions() {
     try {
-      const signature = await getPayloadSignature($CurrentSelectedExtensionIdStore, $SignupStore.address, payloadBytes);
+      const signature = await getPayloadSignature(
+        $CurrentSelectedExtensionIdStore,
+        $CurrentSelectedMsaAccountStore.account.address,
+        payloadBytes
+      );
 
       const encodedExtrinsic = (
         await buildGrantDelegationTx(
-          $SignupStore.address,
+          $CurrentSelectedMsaAccountStore.account.address,
           {
             Sr25519: signature.toString(),
           },
