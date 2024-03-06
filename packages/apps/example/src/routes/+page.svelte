@@ -12,6 +12,7 @@
   import AccountCreator from '$lib/components/AccountCreator.svelte';
   import { MultiSelect, type ObjectOption, type Option } from 'svelte-multiselect';
   import { type SchemaName, schemas } from '@dsnp/frequency-schemas/dsnp';
+  import Spinner from '../lib/components/Spinner.svelte';
 
   if (process.env.BUILD_TARGET === 'production') {
     setConfig({
@@ -75,6 +76,7 @@
   let requestedSchemas: Option[] = defaultConfig.schemas.map((s) => ({ label: s.name, value: s.name, id: s.id }));
   let options = [...schemas.keys()];
   let providerId: number = 1;
+  let isFetchingPayload = false;
 
   let signUpPayload: SignUpResponse;
 
@@ -91,7 +93,9 @@
     };
     setConfig(config);
     walletProxyResponse = undefined;
+    isFetchingPayload = true;
     walletProxyResponse = await getLoginOrRegistrationPayload();
+    isFetchingPayload = false;
   };
 
   $: {
@@ -134,6 +138,15 @@
     <input type="text" placeholder="300" bind:value={expirationSeconds} />
     <label for="schemas">Requested schemas</label>
     <MultiSelect bind:selected={requestedSchemas} {options}></MultiSelect>
+  </div>
+  <div class="mt-12">
+    <h1 class="text-2xl">Wallet Proxy Response Payload</h1>
+    {#if isFetchingPayload}
+      <Spinner />
+    {/if}
+    {#if !isFetchingPayload && walletProxyResponse}
+      <pre>{JSON.stringify(walletProxyResponse, null, 4)}</pre>
+    {/if}
   </div>
   <div class="mt-12">
     {#if walletProxyResponse}
