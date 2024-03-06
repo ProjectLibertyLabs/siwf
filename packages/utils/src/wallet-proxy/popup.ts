@@ -19,19 +19,10 @@ export async function renderPopup(src: string, frequencyRpcUrl: string) {
 }
 
 export async function getLoginOrRegistrationPayload(): Promise<WalletProxyResponse> {
-  const checkPopupClosed = setInterval(function () {
-    if (windowMessenger?.childWindow?.closed) {
-      clearInterval(checkPopupClosed);
-    }
-  }, 500);
-
   let payload: WalletProxyResponse;
   try {
     payload = await doGetLoginOrRegistrationPayload();
   } finally {
-    if (checkPopupClosed) {
-      clearInterval(checkPopupClosed);
-    }
     windowMessenger.childWindow?.close();
     windowMessenger.dispose();
   }
@@ -53,6 +44,13 @@ async function doGetLoginOrRegistrationPayload(): Promise<WalletProxyResponse> {
   windowMessenger.sendEvent('signinPayload', signInRequest);
 
   return new Promise((resolve, _reject) => {
+    const checkPopupClosed = setInterval(function () {
+      if (windowMessenger?.childWindow?.closed) {
+        clearInterval(checkPopupClosed);
+        return resolve({});
+      }
+    }, 500);
+
     windowMessenger.on(Message.WalletProxyResponseMessage, (data: WalletProxyResponseEvent) => {
       const response: WalletProxyResponse = data.detail;
 
