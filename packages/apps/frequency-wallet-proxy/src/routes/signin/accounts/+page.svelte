@@ -67,5 +67,5 @@
 </div>
 <FooterButton on:click={handleNext}>Next > Sign In</FooterButton>
 <div class="flex items-center justify-center pt-8">
-  <a href="/signup/handle" class="text-center text-sm font-semibold">Create an account</a>
+  <a href={`${base}/signup/handle`} class="text-center text-sm font-semibold">Create an account</a>
 </div>
