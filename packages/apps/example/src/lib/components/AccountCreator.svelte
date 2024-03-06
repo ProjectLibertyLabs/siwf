@@ -51,7 +51,7 @@
   });
 </script>
 
-<div class="flex">Creating account</div>
+<div class="flex text-2xl">Creating account</div>
 {#if error}
   <div class="flex pb-3 font-bold">{error}</div>
 {/if}

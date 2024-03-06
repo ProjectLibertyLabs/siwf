@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ['main', 'chore/publish-to-gh-pages-issue-107']
+    branches: ['main']
 env:
   BUILD_TARGET: 'production'
 jobs:
