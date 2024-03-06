@@ -10,6 +10,7 @@
 
   export let payload: SignUpResponse;
 
+  export let chainUrl: string;
   let api: ApiPromise;
   let isWaiting = true;
   let events: PolkadotEventRecord[] = [];
@@ -22,7 +23,7 @@
   onMount(async () => {
     const transactions = payload.extrinsics?.map((e) => e.encodedExtrinsic);
     if (transactions?.length) {
-      api = await getApi('ws://127.0.0.1:9944');
+      api = await getApi(chainUrl);
       const txns = transactions?.map((t) => api.tx(t));
       const vec = api.registry.createType('Vec<Call>', txns);
       const createAccountTx = api.tx.frequencyTxPayment.payWithCapacityBatchAll(vec);
