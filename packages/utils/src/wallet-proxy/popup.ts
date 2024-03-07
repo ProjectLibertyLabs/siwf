@@ -34,6 +34,7 @@ async function doGetLoginOrRegistrationPayload(): Promise<WalletProxyResponse> {
   const { providerId, proxyUrl, frequencyRpcUrl, schemas, siwsOptions } = getConfig();
 
   const signInRequest: SignInRequest = {
+    frequencyRpcUrl,
     providerId,
     requiredSchemas: schemas,
     siwsOptions,

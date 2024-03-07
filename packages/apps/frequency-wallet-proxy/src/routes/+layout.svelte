@@ -3,18 +3,20 @@
   import { resolveInjectedWeb3 } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
   import FrequencyLogo from '$lib/icons/FrequencyLogo.svelte';
   import {
+    getApi,
     getProviderRegistryInfo,
     resolveSchemas,
     setApiUrl,
     type SignInRequest,
   } from '@frequency-control-panel/utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
-  import { page } from '$app/stores';
   import { getWindowEndpoint } from '$lib/utils';
 
   async function handleSigninPayload(e: CustomEvent) {
-    setApiUrl($page.url.searchParams.get('frequencyRpcUrl'));
+    console.dir(`Received signin request:
+${JSON.stringify(e.detail, (_, value) => value, 3)}`);
     const payload = e.detail as SignInRequest;
+    setApiUrl(payload.frequencyRpcUrl);
     await resolveSchemas(payload.requiredSchemas!);
     const providerName = await getProviderRegistryInfo(payload.providerId);
     RequestResponseStore.set({
@@ -40,6 +42,8 @@
     <div class="flex items-center justify-center pb-[60px] pt-[60px]">
       <svelte:component this={FrequencyLogo} />
     </div>
-    <slot />
+    {#await getApi() then}
+      <slot />
+    {/await}
   </div>
 </div>
