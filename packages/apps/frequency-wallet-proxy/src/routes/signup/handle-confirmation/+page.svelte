@@ -1,6 +1,5 @@
 <script lang="ts">
   import { FooterButton, PayloadConfirmation } from '$lib/components';
-  import type { PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
   import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
   import { SignupStore } from '$lib/stores/SignupStore';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
@@ -10,24 +9,8 @@
   import { base } from '$app/paths';
 
   let payload: Awaited<ReturnType<typeof getHandlePayload>>;
-  let payloadSummary: PayloadSummaryItem[];
 
   $: payload = $SignupStore.handle.payload;
-
-  $: payloadSummary = [
-    {
-      name: 'Operation',
-      content: 'claimHandle',
-    },
-    {
-      name: 'baseHandle',
-      content: payload?.raw.baseHandle,
-    },
-    {
-      name: 'expiration',
-      content: `${payload?.raw.expiration} blocks`,
-    },
-  ];
 
   async function handleHandle() {
     try {
@@ -62,8 +45,15 @@
   }
 </script>
 
-<PayloadConfirmation items={payloadSummary} payload={payload.bytes}>
+<PayloadConfirmation payload={payload.bytes}>
   <span slot="heading" class="text-md font-bold">Here is what you are going to sign</span>
   <span slot="subheading">Make sure to come back</span>
+  <div slot="payloadDescription">
+    <div><span class="text-sm font-bold">Operation:</span></div>
+    <div><span class="text-sm font-normal">Claim Handle</span></div>
+    <div class="pb-1 pt-2"><hr class="flex-grow pb-1 pt-2" /></div>
+    <div><span class="text-sm font-bold">Handle:</span></div>
+    <div><span class="text-sm font-normal">{payload.raw.baseHandle}</span></div>
+  </div>
 </PayloadConfirmation>
 <FooterButton on:click={handleHandle}>Next > Sign</FooterButton>
