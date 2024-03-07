@@ -4,6 +4,8 @@
   import FrequencyLogo from '$lib/icons/FrequencyLogo.svelte';
   import {
     getApi,
+    getApiUrl,
+    getChainName,
     getProviderRegistryInfo,
     resolveSchemas,
     setApiUrl,
@@ -52,3 +54,10 @@ ${JSON.stringify(e.detail, (_, value) => value, 3)}`);
     {/await}
   </div>
 </div>
+{#await getChainName() then chainName}
+  <footer class="fixed bottom-0 left-0 z-20 w-full p-4 text-right">
+    {#await getApiUrl() then apiUrl}
+      <span class=" text-right text-xs font-extralight" title={apiUrl}>{chainName}</span>
+    {/await}
+  </footer>
+{/await}
