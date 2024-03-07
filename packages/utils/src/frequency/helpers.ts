@@ -3,7 +3,7 @@ import { PresumptiveSuffixesResponse } from '@frequency-chain/api-augment/interf
 import { getApi } from './connect';
 import { ApiPromise } from '@polkadot/api';
 import type { AnyNumber, Codec, ISubmittableResult } from '@polkadot/types/types';
-import { Bytes, Option, u16 } from '@polkadot/types';
+import { Bytes, Option, Text, u16 } from '@polkadot/types';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { CommonPrimitivesMsaDelegation, CommonPrimitivesMsaProviderRegistryEntry } from '@polkadot/types/lookup';
 import { RequestedSchema } from '../wallet-proxy/messenger';
@@ -221,4 +221,11 @@ export async function getDelegatedSchemaPermissions(
   }
 
   return retval;
+}
+
+export async function getChainName(): Promise<string> {
+  const api = await getApi();
+
+  const text: Text = await api.rpc.system.chain();
+  return text.toString();
 }

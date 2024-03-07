@@ -15,6 +15,10 @@ export function setApiUrl(u: string) {
   }
 }
 
+export function getApiUrl(): Promise<string> {
+  return rpcNodeUrl;
+}
+
 /// Return a promise that will not resolve until:
 ///   - the chain URL is set
 ///   - the chain is successfully connected
