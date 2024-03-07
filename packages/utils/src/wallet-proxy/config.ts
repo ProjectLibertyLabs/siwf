@@ -4,23 +4,18 @@ import { RequestedSchema, type SiwsOptions } from './messenger';
 const defaultSchemas: RequestedSchema[] = [
   {
     name: 'profile',
-    id: 0,
   },
   {
     name: 'public-key-key-agreement',
-    id: 0,
   },
   {
     name: 'public-follows',
-    id: 0,
   },
   {
     name: 'private-follows',
-    id: 0,
   },
   {
     name: 'private-connections',
-    id: 0,
   },
 ];
 

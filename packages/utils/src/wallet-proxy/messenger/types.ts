@@ -10,7 +10,7 @@ export type RequestedSchema = {
   version?: number;
 
   /// Resolved schema ID of the named/versioned schema.
-  id: number;
+  id?: number;
 };
 
 /// Data type to control optional parameters for "Sign in with Substrate"
@@ -35,6 +35,9 @@ export type SiwsOptions = {
 
 /// Data type representing a "Sign in with Frequency" request
 export type SignInRequest = {
+  /// Frequency chain RPC node to connect to
+  frequencyRpcUrl: string;
+
   /// Provider ID registered on-chain (technically a u64, but we use a string as bigints don't serialize/deserialize well)
   providerId: string;
 

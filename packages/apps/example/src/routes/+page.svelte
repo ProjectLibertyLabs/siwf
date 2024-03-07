@@ -3,6 +3,7 @@
     type Config,
     defaultConfig,
     getLoginOrRegistrationPayload,
+    type RequestedSchema,
     setConfig,
     type SignUpResponse,
     type WalletProxyResponse,
@@ -11,7 +12,7 @@
   import { parseMessage, SiwsMessage } from '@talismn/siws';
   import AccountCreator from '$lib/components/AccountCreator.svelte';
   import { MultiSelect, type ObjectOption, type Option } from 'svelte-multiselect';
-  import { type SchemaName, schemas } from '@dsnp/frequency-schemas/dsnp';
+  import { schemas } from '@dsnp/frequency-schemas/dsnp';
   import Spinner from '../lib/components/Spinner.svelte';
 
   if (process.env.BUILD_TARGET === 'production') {
@@ -32,16 +33,17 @@
   };
 
   const CHAIN_URLS: ChainUrl[] = [
-    {
-      name: 'Mainnet #1',
-      http: 'https://0.rpc.frequency.xyz',
-      ws: 'wss://0.rpc.frequency.xyz',
-    },
-    {
-      name: 'Mainnet #2',
-      http: 'https://1.rpc.frequency.xyz',
-      ws: 'wss://1.rpc.frequency.xyz',
-    },
+    // NOTE: Disable mainnet until schema names are deployed
+    // {
+    //   name: 'Mainnet #1',
+    //   http: 'https://0.rpc.frequency.xyz',
+    //   ws: 'wss://0.rpc.frequency.xyz',
+    // },
+    // {
+    //   name: 'Mainnet #2',
+    //   http: 'https://1.rpc.frequency.xyz',
+    //   ws: 'wss://1.rpc.frequency.xyz',
+    // },
     {
       name: 'Rococo',
       http: 'https://rpc.rococo.frequency.xyz',
@@ -73,7 +75,11 @@
   let chainUrl: ChainUrl;
   let loginUrl: ProxyUrl;
   let expirationSeconds: number = 300;
-  let requestedSchemas: Option[] = defaultConfig.schemas.map((s) => ({ label: s.name, value: s.name, id: s.id }));
+  let requestedSchemas: Option[] = defaultConfig.schemas.map((s) => ({
+    ...s,
+    label: s.name,
+    value: s.name,
+  }));
   let options = [...schemas.keys()];
   let providerId: number = 1;
   let isFetchingPayload = false;
@@ -86,7 +92,10 @@
       providerId: providerId.toString(),
       frequencyRpcUrl: chainUrl.http,
       proxyUrl: loginUrl.url,
-      schemas: requestedSchemas.map((option) => ({ name: (option as ObjectOption).value as SchemaName, id: 0 })),
+      schemas: requestedSchemas.map((option) => {
+        const { label: _label, value: _value, ...s } = option as unknown as ObjectOption;
+        return { ...s } as RequestedSchema;
+      }),
       siwsOptions: {
         expiresInMsecs: expirationSeconds * 1_000,
       },

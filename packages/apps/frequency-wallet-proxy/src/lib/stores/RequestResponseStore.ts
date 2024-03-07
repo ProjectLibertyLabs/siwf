@@ -22,6 +22,7 @@ export type RequestResponseData = {
 function createRequestResponseStore() {
   const { subscribe, set, update } = writable<RequestResponseData>({
     request: {
+      frequencyRpcUrl: '',
       providerId: '',
       providerName: '',
       isNewProvider: true,
