@@ -33,21 +33,35 @@
   };
 
   const CHAIN_URLS: ChainUrl[] = [
-    // NOTE: Disable mainnet until schema names are deployed
-    // {
-    //   name: 'Mainnet #1',
-    //   http: 'https://0.rpc.frequency.xyz',
-    //   ws: 'wss://0.rpc.frequency.xyz',
-    // },
-    // {
-    //   name: 'Mainnet #2',
-    //   http: 'https://1.rpc.frequency.xyz',
-    //   ws: 'wss://1.rpc.frequency.xyz',
-    // },
+    {
+      name: 'Mainnet #1',
+      http: 'https://0.rpc.frequency.xyz',
+      ws: 'wss://0.rpc.frequency.xyz',
+    },
+    {
+      name: 'Mainnet #2',
+      http: 'https://1.rpc.frequency.xyz',
+      ws: 'wss://1.rpc.frequency.xyz',
+    },
+    {
+      name: 'Mainnet Dwellir',
+      http: 'https://frequency-rpc.dwellir.com',
+      ws: 'wss://frequency-rpc.dwellir.com',
+    },
+    {
+      name: 'Mainnet OnFinality',
+      http: 'https://frequency-polkadot.api.onfinality.io/public-http',
+      ws: 'wss://frequency-polkadot.api.onfinality.io/public-ws',
+    },
     {
       name: 'Rococo',
       http: 'https://rpc.rococo.frequency.xyz',
       ws: 'wss://rpc.rococo.frequency.xyz',
+    },
+    {
+      name: 'Rococo Dwellir',
+      http: 'https://frequency-rococo-rpc.dwellir.com',
+      ws: 'wss://frequency-rococo-rpc.dwellir.com',
     },
     {
       name: 'Local dev node',

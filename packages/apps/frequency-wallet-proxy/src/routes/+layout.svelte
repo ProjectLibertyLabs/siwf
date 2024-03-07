@@ -11,6 +11,7 @@
   } from '@frequency-control-panel/utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { getWindowEndpoint } from '$lib/utils';
+  import Spinner from '$lib/components/Spinner.svelte';
 
   async function handleSigninPayload(e: CustomEvent) {
     console.dir(`Received signin request:
@@ -42,8 +43,12 @@ ${JSON.stringify(e.detail, (_, value) => value, 3)}`);
     <div class="flex items-center justify-center pb-[60px] pt-[60px]">
       <svelte:component this={FrequencyLogo} />
     </div>
-    {#await getApi() then}
+    {#await getApi()}
+      <Spinner />
+    {:then}
       <slot />
+    {:catch error}
+      <p>{error.message}</p>
     {/await}
   </div>
 </div>

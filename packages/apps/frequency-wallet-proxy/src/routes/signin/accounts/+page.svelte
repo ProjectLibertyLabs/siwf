@@ -33,7 +33,7 @@
         await getDelegatedSchemaPermissions(
           selectedMsaWithAccount.msaId,
           $RequestResponseStore.request.providerId,
-          $RequestResponseStore.request.requiredSchemas.map((s) => s.id)
+          $RequestResponseStore.request.requiredSchemas.map((s) => s.id || 0)
         );
 
       RequestResponseStore.updateDelegation(!hasDelegation, missingSchemaPermissions, expectedSchemaPermissions);

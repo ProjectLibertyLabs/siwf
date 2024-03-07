@@ -7,6 +7,7 @@ import { Bytes, Option, u16 } from '@polkadot/types';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { CommonPrimitivesMsaDelegation, CommonPrimitivesMsaProviderRegistryEntry } from '@polkadot/types/lookup';
 import { RequestedSchema } from '../wallet-proxy/messenger';
+import { SchemaName } from '@dsnp/frequency-schemas/dsnp';
 
 export { Codec };
 export interface MsaInfo {
@@ -114,6 +115,26 @@ export async function getProviderRegistryInfo(providerId: AnyNumber) {
 
 export async function resolveSchemas(schemas: RequestedSchema[]): Promise<void> {
   const api = await getApi();
+
+  // hack to suppress errors on mainnet until schema names are deployed
+  if (!api.query.schemas.schemaNameToIds) {
+    const mainnetSchemas: SchemaName[] = [
+      'tombstone',
+      'broadcast',
+      'reply',
+      'reaction',
+      'profile',
+      'update',
+      'public-key-key-agreement',
+      'public-follows',
+      'private-follows',
+      'private-connections',
+    ];
+    schemas.forEach((schema) => {
+      schema.id = (mainnetSchemas.findIndex((name) => name === schema.name) || -1) + 1;
+    });
+    return;
+  }
   const response = await api.query.schemas.schemaNameToIds.multi(schemas.map((s) => ['dsnp', s.name]));
 
   schemas.forEach((schema, index) => {

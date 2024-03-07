@@ -41,7 +41,7 @@ async function doGetLoginOrRegistrationPayload(): Promise<WalletProxyResponse> {
   };
 
   await renderPopup(proxyUrl, frequencyRpcUrl);
-
+  // await new Promise((resolve) => setTimeout(resolve, 10000));
   windowMessenger.sendEvent('signinPayload', signInRequest);
 
   return new Promise((resolve, _reject) => {
