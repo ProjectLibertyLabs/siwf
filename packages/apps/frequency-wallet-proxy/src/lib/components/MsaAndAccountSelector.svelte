@@ -40,7 +40,7 @@
   }
 </script>
 
-<div>
+<div class="flex h-[400px] w-full flex-col overflow-auto bg-transparent">
   <ul>
     {#each msaEntries as msaInfo}
       <label class="text-base font-semibold">
