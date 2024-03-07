@@ -4,7 +4,7 @@
   import '@frequency-chain/api-augment';
   import { onMount } from 'svelte';
   import { Keyring } from '@polkadot/api';
-  import { getApi, type SignUpResponse } from '@frequency-control-panel/utils';
+  import { getApi, setApiUrl, type SignUpResponse } from '@frequency-control-panel/utils';
   import type { ApiPromise } from '@polkadot/api/promise';
   import Spinner from './Spinner.svelte';
 
@@ -23,7 +23,8 @@
   onMount(async () => {
     const transactions = payload.extrinsics?.map((e) => e.encodedExtrinsic);
     if (transactions?.length) {
-      api = await getApi(chainUrl);
+      setApiUrl(chainUrl);
+      api = await getApi();
       const txns = transactions?.map((t) => api.tx(t));
       const vec = api.registry.createType('Vec<Call>', txns);
       const createAccountTx = api.tx.frequencyTxPayment.payWithCapacityBatchAll(vec);
