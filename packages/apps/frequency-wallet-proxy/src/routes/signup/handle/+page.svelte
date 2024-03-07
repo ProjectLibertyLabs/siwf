@@ -33,7 +33,7 @@
   </div>
   <div class=" flex-col">
     <div class="flex">Select a key to associate with a handle</div>
-    <div class="flex pb-9">
+    <div class="pb-9">
       <WalletAddressSelector
         accounts={Object.values($FilteredNonMsaAccountsDerivedStore)}
         bind:selectedAccount

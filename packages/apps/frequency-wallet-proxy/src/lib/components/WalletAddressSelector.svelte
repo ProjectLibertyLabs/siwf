@@ -61,7 +61,7 @@
     </select>
   </div>
 {:else}
-  <div class=" flow-root">
+  <div class="flow-root">
     <div>
       <span class="float-left text-sm font-semibold">{label}</span>
     </div>
