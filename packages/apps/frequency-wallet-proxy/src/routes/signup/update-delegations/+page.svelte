@@ -2,7 +2,7 @@
   import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
   import { DSNPSchemas, getDelegationPayload, getPayloadSignature } from '$lib/utils';
   import { FooterButton } from '$lib/components';
-  import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
+  import PayloadConfirmation from '$lib/components/PayloadConfirmation.svelte';
   import { buildGrantDelegationTx } from '@frequency-control-panel/utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores';
@@ -16,33 +16,10 @@
     .map((schema) => {
       const d = DSNPSchemas.find((ds) => ds.name === schema.name);
       return {
-        id: schema.id,
-        name: `${schema.name} (${schema.id})`,
-        content: d?.description || '',
+        ...schema,
+        description: d?.description || `Update data associated with the ${schema.name} schema`,
       };
     });
-
-  let name = $RequestResponseStore.request.isNewProvider
-    ? `By clicking "Next" and signing the resulting payload, you grant the provider "${
-        $RequestResponseStore.request?.providerName
-      }", operating from the domain ${new URL(document.referrer).hostname}, access to your Social Identity to:`
-    : `${
-        $RequestResponseStore.request?.providerName
-      } requires additional permissions. By clicking "Next" and signing the resulting payload, you grant the provider "${
-        $RequestResponseStore.request?.providerName
-      }", operating from the domain ${new URL(document.referrer).hostname}, access to your Social Identity to:`;
-
-  let items: PayloadSummaryItem[] = [
-    {
-      name,
-      content:
-        '<ul style="list-style-type:disc; padding-left:20px; padding-top:5px;">' +
-        '<li>Update your Social Identity profile information and Handle</li>' +
-        '<li>Create or modify content associated with the following schemas (which may include posting messages or updating your social graph):</li>' +
-        '</ul>',
-    },
-    ...missingSchemas,
-  ];
 
   getDelegationPayload($RequestResponseStore.request.providerId, $RequestResponseStore.request.allSchemasToGrant).then(
     ({ bytes }) => {
@@ -81,12 +58,26 @@
   }
 </script>
 
-<PayloadConfirmation payload={payloadBytes} {items}>
+<PayloadConfirmation payload={payloadBytes}>
   <span slot="heading" class="text-[16px] font-bold"
     >{$RequestResponseStore.request.isNewProvider ? 'Authorize a new Provider' : 'Updated permissions requested'}</span
   >
   <span slot="subheading"
     ><span class="text-[16px] font-semibold">{$CurrentSelectedMsaAccountStore.handle}</span>
-  </span></PayloadConfirmation
->
+  </span>
+  <div slot="payloadDescription">
+    <div>
+      <span class="text-base font-bold"
+        >By clicking "Next" and signing the resulting payload, you authorize the provider "{$RequestResponseStore
+          .request?.providerName}", operating from the domain
+        <a class="underline" href={document.referrer}>{new URL(document.referrer).hostname}</a>, to do the following</span
+      >
+      <ul class=" list-disc pl-6 pt-3">
+        {#each missingSchemas as schema}
+          <li class="text-base font-normal">{schema.description}</li>
+        {/each}
+      </ul>
+    </div>
+  </div>
+</PayloadConfirmation>
 <FooterButton on:click={signDelegationAndPermissions}>Next > Sign</FooterButton>

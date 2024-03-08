@@ -14,6 +14,7 @@
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { getWindowEndpoint } from '$lib/utils';
   import Spinner from '$lib/components/Spinner.svelte';
+  import { Footer } from 'flowbite-svelte';
 
   async function handleSigninPayload(e: CustomEvent) {
     console.dir(`Received signin request:
@@ -55,9 +56,9 @@ ${JSON.stringify(e.detail, (_, value) => value, 3)}`);
   </div>
 </div>
 {#await getChainName() then chainName}
-  <footer class="fixed bottom-0 left-0 z-20 w-full p-4 text-right">
+  <Footer class="absolute bottom-0 start-0 z-20 w-full pr-4 pt-4 text-right">
     {#await getApiUrl() then apiUrl}
-      <span class=" text-right text-xs font-extralight" title={apiUrl}>{chainName}</span>
+      <span class="text-xs font-extralight" title={apiUrl}>{chainName}</span>
     {/await}
-  </footer>
+  </Footer>
 {/await}

@@ -3,7 +3,7 @@
   import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
   import { DSNPSchemas, getDelegationPayload, getPayloadSignature } from '$lib/utils';
   import { FooterButton } from '$lib/components';
-  import PayloadConfirmation, { type PayloadSummaryItem } from '$lib/components/PayloadConfirmation.svelte';
+  import PayloadConfirmation from '$lib/components/PayloadConfirmation.svelte';
   import { buildCreateSponsoredAccountTx } from '@frequency-control-panel/utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { sendWalletProxyResponse } from '$lib/utils';
@@ -13,30 +13,14 @@
   let schemas = $RequestResponseStore.request.requiredSchemas.map((schema) => {
     const d = DSNPSchemas.find((ds) => ds.name === schema.name);
     return {
-      id: schema.id,
-      name: `${schema.name} (${schema.id})`,
-      content: d?.description || '',
+      ...schema,
+      description: d?.description || `Update data associated with the ${schema.name} schema`,
     };
   });
-  let items: PayloadSummaryItem[] = [
-    {
-      name: `By clicking "Next" and signing the resulting payload, you authorize the provider "${
-        $RequestResponseStore.request?.providerName
-      }", operating from the domain ${
-        new URL(document.referrer).hostname
-      }, to create a new Social Identity, and grant access to your Social Identity to:`,
-      content:
-        '<ul style="list-style-type:disc; padding-left:20px; padding-top:5px;">' +
-        '<li>Update your Social Identity profile information</li>' +
-        '<li>Create or modify content associated with the following schemas (which may include posting messages or updating your social graph):</li>' +
-        '</ul>',
-    },
-    ...schemas,
-  ];
 
   getDelegationPayload(
     $RequestResponseStore.request.providerId,
-    schemas.map((s) => s.id)
+    schemas.map((s) => s.id!)
   ).then(({ bytes }) => {
     payloadBytes = bytes;
   });
@@ -68,12 +52,27 @@
   }
 </script>
 
-<PayloadConfirmation payload={payloadBytes} {items}>
+<PayloadConfirmation payload={payloadBytes}>
   <span slot="heading" class="text-[16px] font-bold">Now you have to sign the permissions</span>
   <span slot="subheading"
     ><span class="text-[16px] font-semibold">{$SignupStore.handle.baseHandle}</span><span
       class="font-medium text-neutral-400">.###</span
     >
-  </span></PayloadConfirmation
->
+  </span>
+  <div slot="payloadDescription">
+    <div>
+      <span class="text-base font-bold"
+        >By clicking "Next" and signing the resulting payload, you authorize the provider "{$RequestResponseStore
+          .request?.providerName}", operating from the domain
+        <a class="underline" href={document.referrer}>{new URL(document.referrer).hostname}</a>, to do the following</span
+      >
+      <ul class=" list-disc pl-6 pt-3">
+        <li class=" text-base font-normal">Create a new social identity on your behalf</li>
+        {#each schemas as schema}
+          <li class="text-base font-normal">{schema.description}</li>
+        {/each}
+      </ul>
+    </div>
+  </div>
+</PayloadConfirmation>
 <FooterButton on:click={signDelegationAndPermissions}>Next > Sign</FooterButton>
