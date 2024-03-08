@@ -49,11 +49,11 @@
   <span slot="heading" class="text-md font-bold">Here is what you are going to sign</span>
   <span slot="subheading">Make sure to come back</span>
   <div slot="payloadDescription">
-    <div><span class="text-sm font-bold">Operation:</span></div>
-    <div><span class="text-sm font-normal">Claim Handle</span></div>
+    <div class="text-sm font-bold">Operation:</div>
+    <div class="text-sm font-normal">Claim Handle</div>
     <div class="pb-1 pt-2"><hr class="flex-grow pb-1 pt-2" /></div>
-    <div><span class="text-sm font-bold">Handle:</span></div>
-    <div><span class="text-sm font-normal">{payload.raw.baseHandle}</span></div>
+    <div class="text-sm font-bold">Handle:</div>
+    <div class="text-sm font-normal">{payload.raw.baseHandle}</div>
   </div>
 </PayloadConfirmation>
 <FooterButton on:click={handleHandle}>Next > Sign</FooterButton>

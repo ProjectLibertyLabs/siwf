@@ -99,7 +99,7 @@
       >
     </div>
     <div class="pb-1 pt-2"><hr class="flex-grow pb-1 pt-2" /></div>
-    <div><span class="text-sm font-bold">From:</span></div>
+    <div class="text-sm font-bold">From:</div>
     <div>
       <button
         class="min-w-full"
@@ -115,11 +115,11 @@
       >
     </div>
     <div class="pb-1 pt-2"><hr class="flex-grow pb-1 pt-2" /></div>
-    <div><span class="text-sm font-bold">Domain:</span></div>
-    <div><span class="text-sm font-normal">{new URL(payload.uri).hostname}</span></div>
+    <div class="text-sm font-bold">Domain:</div>
+    <div class="text-sm font-normal">{new URL(payload.uri).hostname}</div>
     <div class="pb-1 pt-2"><hr class="flex-grow pb-1 pt-2" /></div>
-    <div><span class="text-sm font-bold">Chain name:</span></div>
-    <div><span class="text-sm font-normal">{payload.chainName}</span></div>
+    <div class="text-sm font-bold">Chain name:</div>
+    <div class="text-sm font-normal">{payload.chainName}</div>
   </div>
 </PayloadConfirmation>
 <Toast bind:open={showCopiedNotification} dismissable={true} position="top-right">Address copied to clipboard</Toast>
