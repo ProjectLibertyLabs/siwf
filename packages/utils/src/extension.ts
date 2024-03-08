@@ -92,7 +92,7 @@ export class ExtensionConnector {
     }
 
     try {
-      return await this.extension.accounts.get();
+      return (await this.extension.accounts.get()).filter((account: InjectedAccount) => account?.type !== 'ethereum');
     } catch (error) {
       console.error(error);
       throw new Error('Failed to request accounts', { cause: error });
