@@ -42,8 +42,8 @@ export async function createAddProviderPayload(
     .toU8a();
 }
 
-export async function getBlockNumber(): Promise<number> {
-  const api = await getApi();
+export async function getBlockNumber(apiPromise?: ApiPromise): Promise<number> {
+  const api = apiPromise || (await getApi());
   return (await api.rpc.chain.getBlock()).block.header.number.toNumber();
 }
 

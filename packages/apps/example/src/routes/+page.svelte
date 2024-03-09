@@ -34,6 +34,11 @@
 
   const CHAIN_URLS: ChainUrl[] = [
     {
+      name: 'Local dev node',
+      http: 'http://127.0.0.1:9944',
+      ws: 'ws://127.0.0.1:9944',
+    },
+    {
       name: 'Mainnet #1',
       http: 'https://0.rpc.frequency.xyz',
       ws: 'wss://0.rpc.frequency.xyz',
@@ -63,11 +68,6 @@
       http: 'https://frequency-rococo-rpc.dwellir.com',
       ws: 'wss://frequency-rococo-rpc.dwellir.com',
     },
-    {
-      name: 'Local dev node',
-      http: 'http://127.0.0.1:9944',
-      ws: 'ws://127.0.0.1:9944',
-    },
   ];
 
   type ProxyUrl = {
@@ -77,12 +77,12 @@
 
   const PROXY_URLS: ProxyUrl[] = [
     {
-      name: 'Production',
-      url: 'https://amplicalabs.github.io/frequency-control-panel/wallet-proxy',
-    },
-    {
       name: 'Localhost',
       url: 'http://localhost:5173',
+    },
+    {
+      name: 'Production',
+      url: 'https://amplicalabs.github.io/frequency-control-panel/wallet-proxy',
     },
   ];
 
@@ -177,7 +177,7 @@
         <SignInVerification payload={signInPayload} {signature} />
       {/if}
       {#if signUpPayload}
-        <AccountCreator payload={signUpPayload} chainUrl={chainUrl.ws} />
+        <AccountCreator payload={signUpPayload} chainUrl={chainUrl.ws} {providerId} />
       {/if}
     {:else}
       <p class="mt-4">Please click 'Login'</p>
