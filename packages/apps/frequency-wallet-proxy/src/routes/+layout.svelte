@@ -41,8 +41,8 @@ ${JSON.stringify(e.detail, (_, value) => value, 3)}`);
 </script>
 
 <div class="absolute left-0 top-0 h-[355px] w-[100%] bg-white bg-opacity-50" id="bgmask" />
-<div class="container mx-auto max-w-[380px]">
-  <div class="items-center justify-center">
+<div class="container mx-auto max-w-[412px]">
+  <div class="items-center justify-center px-4">
     <div class="flex items-center justify-center pb-[60px] pt-[60px]">
       <svelte:component this={FrequencyLogo} />
     </div>
