@@ -57,7 +57,7 @@ ${JSON.stringify(e.detail, (_, value) => value, 3)}`);
     </div>
   </div>
   {#await getChainName() then chainName}
-    <Footer class="absolute bottom-0 start-0 z-20 w-full pr-4 pt-4 text-right">
+    <Footer class="absolute bottom-0 start-0 z-20 w-full pr-4 text-right">
       {#await getApiUrl() then apiUrl}
         <span class="text-xs font-extralight" title={apiUrl}>{chainName}</span>
       {/await}
