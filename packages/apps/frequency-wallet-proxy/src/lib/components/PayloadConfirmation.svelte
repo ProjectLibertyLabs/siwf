@@ -23,7 +23,7 @@
     <slot name="subheading" />
   </div>
   <div class="flex items-center justify-center pb-5">
-    <div class="flex h-[470px] w-full flex-col rounded-md border bg-transparent">
+    <div class="flex h-[400px] w-full flex-col rounded-md border bg-transparent">
       <div class=" overflow-auto bg-transparent p-5">
         <slot name="payloadDescription" />
       </div>

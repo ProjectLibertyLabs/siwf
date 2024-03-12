@@ -40,7 +40,7 @@
   }
 </script>
 
-<div class="flex h-[400px] w-full flex-col overflow-auto bg-transparent">
+<div class="flex h-[380px] w-full flex-col overflow-auto bg-transparent">
   {#each msaEntries as msaInfo}
     <label class="text-base font-semibold">
       <input type="radio" name="msa" bind:group={selectedMsa} value={msaInfo.msaId} />
