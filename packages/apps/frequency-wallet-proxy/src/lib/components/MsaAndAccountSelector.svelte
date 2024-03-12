@@ -40,27 +40,25 @@
   }
 </script>
 
-<div class="flex h-[400px] w-full flex-col overflow-auto bg-transparent">
-  <ul>
-    {#each msaEntries as msaInfo}
-      <label class="text-base font-semibold">
-        <input type="radio" name="msa" bind:group={selectedMsa} value={msaInfo.msaId} />
-        <span class="text-white">{getHandleBase(msaInfo.handle)}</span><span class="text-neutral-400"
-          >.{getHandleSuffix(msaInfo.handle)}</span
-        ><span class="pl-5 text-white"> (MSA {msaInfo.msaId})</span></label
-      >
-      <div class="pl-5">
-        <WalletAddressSelector
-          active={msaInfo.msaId === selectedMsa}
-          accounts={Object.values(msaInfo.accounts)}
-          initialSelectedAddress={initialSelection?.address || Object.keys(msaInfo.accounts)[0]}
-          bind:selectedAddress
-          bind:selectedAccount
-        />
-      </div>
-      <div class="flex items-center pb-5 pt-3">
-        <hr class="flex-grow" />
-      </div>
-    {/each}
-  </ul>
+<div class="flex h-[380px] w-full flex-col overflow-auto bg-transparent">
+  {#each msaEntries as msaInfo}
+    <label class="text-base font-semibold">
+      <input type="radio" name="msa" bind:group={selectedMsa} value={msaInfo.msaId} />
+      <span class="text-white">{getHandleBase(msaInfo.handle)}</span><span class="text-neutral-400"
+        >.{getHandleSuffix(msaInfo.handle)}</span
+      ><span class="pl-5 text-white"> (MSA {msaInfo.msaId})</span></label
+    >
+    <div class="pl-5">
+      <WalletAddressSelector
+        active={msaInfo.msaId === selectedMsa}
+        accounts={Object.values(msaInfo.accounts)}
+        initialSelectedAddress={initialSelection?.address || Object.keys(msaInfo.accounts)[0]}
+        bind:selectedAddress
+        bind:selectedAccount
+      />
+    </div>
+    <div class="flex items-center pb-5 pt-3">
+      <hr class="flex-grow" />
+    </div>
+  {/each}
 </div>
