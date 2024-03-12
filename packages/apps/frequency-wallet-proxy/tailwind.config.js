@@ -20,6 +20,8 @@ export default {
         current: 'currentColor',
         disabled: '#BCBAC0',
         button: '#DCDCDC',
+        'dark-blue': '#2C333D',
+        'light-blue': '#007DA1',
         // flowbite-svelte
         primary: {
           50: '#FFF5F2',

@@ -23,13 +23,13 @@
     <slot name="subheading" />
   </div>
   <div class="flex items-center justify-center pb-5">
-    <div class="flex h-[470px] w-full flex-col rounded-md border bg-transparent">
+    <div class="flex h-[400px] w-full flex-col rounded-md border bg-transparent">
       <div class=" overflow-auto bg-transparent p-5">
         <slot name="payloadDescription" />
       </div>
       <!-- PayloadDisplay -->
-      <Modal basic big={true}>
-        <Content class="bg-bgGradient flex">
+      <Modal big={true}>
+        <Content class="bg-light-blue flex p-3">
           <div class="flex-col">
             <div class="whitespace-pre-wrap">
               The payload you will sign with your wallet should match the payload below:<br /><br />
