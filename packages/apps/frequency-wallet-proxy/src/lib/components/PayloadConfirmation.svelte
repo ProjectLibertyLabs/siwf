@@ -28,8 +28,8 @@
         <slot name="payloadDescription" />
       </div>
       <!-- PayloadDisplay -->
-      <Modal basic big={true}>
-        <Content class="bg-bgGradient flex">
+      <Modal big={true}>
+        <Content class="bg-light-blue flex p-3">
           <div class="flex-col">
             <div class="whitespace-pre-wrap">
               The payload you will sign with your wallet should match the payload below:<br /><br />
