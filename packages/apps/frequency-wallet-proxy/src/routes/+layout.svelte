@@ -40,25 +40,27 @@ ${JSON.stringify(e.detail, (_, value) => value, 3)}`);
   });
 </script>
 
-<div class="absolute left-0 top-0 h-[355px] w-[100%] bg-white bg-opacity-50" id="bgmask" />
-<div class="container mx-auto max-w-[412px]">
-  <div class="px-4">
-    <div class="flex items-center justify-center pb-[60px] pt-[60px]">
-      <svelte:component this={FrequencyLogo} />
+<div class="relative min-h-[100vh] pb-4">
+  <div class="absolute left-0 top-0 h-[355px] w-[100%] bg-white bg-opacity-50" id="bgmask" />
+  <div class="container mx-auto max-w-[412px]">
+    <div class="px-4">
+      <div class="flex items-center justify-center pb-[60px] pt-[60px]">
+        <svelte:component this={FrequencyLogo} />
+      </div>
+      {#await getApi()}
+        <Spinner />
+      {:then}
+        <slot />
+      {:catch error}
+        <p>{error.message}</p>
+      {/await}
     </div>
-    {#await getApi()}
-      <Spinner />
-    {:then}
-      <slot />
-    {:catch error}
-      <p>{error.message}</p>
-    {/await}
   </div>
+  {#await getChainName() then chainName}
+    <Footer class="absolute bottom-0 start-0 z-20 w-full pr-4 pt-4 text-right">
+      {#await getApiUrl() then apiUrl}
+        <span class="text-xs font-extralight" title={apiUrl}>{chainName}</span>
+      {/await}
+    </Footer>
+  {/await}
 </div>
-{#await getChainName() then chainName}
-  <Footer class="absolute bottom-0 start-0 z-20 w-full pr-4 pt-4 text-right">
-    {#await getApiUrl() then apiUrl}
-      <span class="text-xs font-extralight" title={apiUrl}>{chainName}</span>
-    {/await}
-  </Footer>
-{/await}
