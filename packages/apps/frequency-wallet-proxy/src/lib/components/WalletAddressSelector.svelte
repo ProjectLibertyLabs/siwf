@@ -66,7 +66,7 @@
       <span class="float-left text-sm font-semibold">{label}</span>
     </div>
     {#if active}
-      <div class=" float-right"><Icon icon={checkIcon} /></div>
+      <div class=" float-right mr-2"><Icon icon={checkIcon} /></div>
     {/if}
   </div>
 {/if}
