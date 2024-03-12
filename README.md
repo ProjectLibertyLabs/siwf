@@ -27,28 +27,32 @@ For the supported Phase I operations (Sign Up/Sign In), we will implement the em
 * [Sign-in flow](./docs/login-flow.md)
 
 ## Getting Started
+
 ### Development Setup
-Install [pnpm](https://pnpm.io/installation)
-Start-up local-chain [Frequency](https://hub.docker.com/r/dsnp/instant-seal-node-with-deployed-schemas/tags)
+
+Install [pnpm](https://pnpm.io/installation) Start-up local-chain
+[Frequency](https://hub.docker.com/r/dsnp/instant-seal-node-with-deployed-schemas/tags)
 
 ```
-pnpm build
+pnpm install
 ```
+
+#### Terminal 1
+
 ```
 cd ./packages/apps/frequency-wallet-proxy
 ```
-```
-pnpm install
-```
+
 ```
 pnpm dev
 ```
+
+#### Terminal 2
+
 ```
 cd ./packages/apps/example
 ```
-```
-pnpm install
-```
+
 ```
 pnpm dev
 ```
