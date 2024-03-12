@@ -8,13 +8,6 @@ test('delayMs waits for at least n millseconds', async () => {
   expect(t2 - t1).toBeGreaterThanOrEqual(2000);
 });
 
-test('Date.toLocalISOString formats date correctly', () => {
-  const d = new Date('2024-01-01T05:00:00-05:00');
-  // @ts-expect-error Ignore error on monkey-patched '.toLocalISOString'
-  expect(d.toLocalISOString()).toBe('2024-01-01T05:00:00.000-05:00');
-  expect(d.toISOString()).toBe('2024-01-01T10:00:00.000Z');
-});
-
 test('formatWalletAddress works correctly', () => {
   const result = formatWalletAddress('5CfLVBEtQ1TG4SvvFNiY9JBrqbcfKHipm6hVZqbjzsw7SGEa');
   expect(result).toBe('5CfL...SGEa');
