@@ -1,4 +1,3 @@
-import { objectToQueryString } from '../misc_utils';
 import { WalletProxyResponse, WalletProxyResponseEvent } from './types';
 import { Message } from './messenger/enums';
 import { getConfig } from './config';
@@ -6,12 +5,9 @@ import { SignInRequest, WindowMessenger } from './messenger';
 
 let windowMessenger: WindowMessenger;
 
-export async function renderPopup(src: string, frequencyRpcUrl: string) {
+export async function renderPopup(src: string) {
   try {
-    windowMessenger = await WindowMessenger.create(
-      `${src}/signin?${objectToQueryString({ frequencyRpcUrl })}`,
-      'width=600, height=800 screenX=400 screenY=100'
-    );
+    windowMessenger = await WindowMessenger.create(`${src}/signin`, 'width=600, height=800 screenX=400 screenY=100');
   } catch (error) {
     console.error('Error while creating window messenger', error);
     throw error;
@@ -40,8 +36,7 @@ async function doGetLoginOrRegistrationPayload(): Promise<WalletProxyResponse> {
     siwsOptions,
   };
 
-  await renderPopup(proxyUrl, frequencyRpcUrl);
-  // await new Promise((resolve) => setTimeout(resolve, 10000));
+  await renderPopup(proxyUrl);
   windowMessenger.sendEvent('signinPayload', signInRequest);
 
   return new Promise((resolve, _reject) => {
