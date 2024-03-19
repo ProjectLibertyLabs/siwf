@@ -3,16 +3,19 @@
   "files": [],
   "references": [
     {
-      "path": "packages/apps/frequency-wallet-proxy",
+      "path": "packages/apps/frequency-wallet-proxy"
     },
     {
-      "path": "packages/apps/example",
+      "path": "packages/apps/example"
     },
     {
-      "path": "packages/utils",
+      "path": "packages/utils"
     },
     {
-      "path": "setup",
+      "path": "packages/siwf"
+    },
+    {
+      "path": "setup"
     },
   ],
 }
