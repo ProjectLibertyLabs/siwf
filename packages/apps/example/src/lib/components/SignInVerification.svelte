@@ -3,11 +3,12 @@
   import { u8aToHex } from '@polkadot/util';
   import { parseJson, type SiwsMessage } from '@talismn/siws';
   import Icon from '@iconify/svelte';
-  import { doesPublicKeyControlMsa, getMsaForAddress } from '@frequency-control-panel/utils';
+  import { doesPublicKeyControlMsa } from '@frequency-control-panel/utils';
   import { onDestroy, onMount } from 'svelte';
 
   export let payload: SiwsMessage;
   export let signature: `0x${string}`;
+
   let signatureVerified: boolean = false;
   let payloadValid: boolean = false;
   let msaId: string;
@@ -39,18 +40,16 @@
   $: payloadValid = isPayloadValid(payload);
 
   $: {
-    // TODO: Need support from SIWS for the 'resources' property
-    // const resources = (payload as unknown as any)['resources'];
-    // const msaUri = resources?.[0] || '';
-    // msaId = /([0-9]*)$/.exec(msaUri)?.[1] || '';
-    getMsaForAddress(payload.address).then((value) => {
-      msaId = value;
-      if (msaId) {
-        doesPublicKeyControlMsa(msaId, payload.address).then((val) => {
-          msaOwnershipVerified = val;
-        });
-      }
-    });
+    const resources = payload.resources;
+    const msaUri = new URL(resources?.[0] || '');
+    msaId = msaUri.pathname.slice(2);
+    if (msaId) {
+      doesPublicKeyControlMsa(msaId, payload.address)
+        .then((value) => {
+          msaOwnershipVerified = value;
+        })
+        .catch((e) => console.log(e));
+    }
   }
 
   onMount(() => {

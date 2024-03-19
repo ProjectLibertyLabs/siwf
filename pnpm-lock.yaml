@@ -57,8 +57,8 @@ importers:
         specifier: ^0.5.7
         version: 0.5.7(tailwindcss@3.4.1)
       '@talismn/siws':
-        specifier: ^0.0.9
-        version: 0.0.9(@polkadot/api-contract@10.11.2)(@polkadot/api@10.11.2)(@polkadot/extension-dapp@0.46.6)(@polkadot/types@10.11.2)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
+        specifier: ^0.0.18
+        version: 0.0.18(@polkadot/api-contract@10.11.2)(@polkadot/api@10.11.2)(@polkadot/extension-dapp@0.46.6)(@polkadot/types@10.11.2)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
       frequency-scenario-template:
         specifier: link:../../../../frequency-scenario-template
         version: link:../../../../frequency-scenario-template
@@ -166,8 +166,8 @@ importers:
         specifier: ^0.5.7
         version: 0.5.7(tailwindcss@3.4.1)
       '@talismn/siws':
-        specifier: ^0.0.9
-        version: 0.0.9(@polkadot/api-contract@10.11.2)(@polkadot/api@10.11.2)(@polkadot/extension-dapp@0.46.6)(@polkadot/types@10.11.2)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
+        specifier: ^0.0.18
+        version: 0.0.18(@polkadot/api-contract@10.11.2)(@polkadot/api@10.11.2)(@polkadot/extension-dapp@0.46.6)(@polkadot/types@10.11.2)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
       autoprefixer:
         specifier: ^10.4.17
         version: 10.4.17(postcss@8.4.33)
@@ -3100,8 +3100,8 @@ packages:
       tailwindcss: 3.4.1
     dev: false
 
-  /@talismn/siws@0.0.9(@polkadot/api-contract@10.11.2)(@polkadot/api@10.11.2)(@polkadot/extension-dapp@0.46.6)(@polkadot/types@10.11.2)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2):
-    resolution: {integrity: sha512-11Dcw6hyR/mTOZK2xFZffUUf3oJeGLzc3SFNkZkRptFVNXFg8zGbQQxds0U9UULp+EnxLj3vZljLCCmTQy2aaQ==}
+  /@talismn/siws@0.0.18(@polkadot/api-contract@10.11.2)(@polkadot/api@10.11.2)(@polkadot/extension-dapp@0.46.6)(@polkadot/types@10.11.2)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2):
+    resolution: {integrity: sha512-+SvoIYAKKiLmmnBzDplTnF1LlpEkYNz+8Gi/daU7kmaMvQ4d3elVmb05OKEeHQRb/6qZd8Ij4XOCr1VpbXO3zA==}
     peerDependencies:
       '@polkadot/api': ^10.10.1
       '@polkadot/extension-dapp': ^0.46.5

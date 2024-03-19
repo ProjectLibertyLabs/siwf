@@ -2,8 +2,10 @@
   import {
     type Config,
     defaultConfig,
+    getApi,
     getLoginOrRegistrationPayload,
     type RequestedSchema,
+    setApiUrl,
     setConfig,
     type SignUpResponse,
     type WalletProxyResponse,
@@ -14,6 +16,7 @@
   import { MultiSelect, type ObjectOption, type Option } from 'svelte-multiselect';
   import { schemas } from '@dsnp/frequency-schemas/dsnp';
   import Spinner from '../lib/components/Spinner.svelte';
+  import type { ApiPromise } from '@polkadot/api';
 
   if (process.env.BUILD_TARGET === 'production') {
     setConfig({
@@ -95,13 +98,13 @@
     value: s.name,
   }));
   let options = [...schemas.keys()];
-  let providerId: number = 1;
+  let providerId: string = '1';
   let isFetchingPayload = false;
+  let api: ApiPromise;
 
   let signUpPayload: SignUpResponse;
 
-  const handleSignIn = async () => {
-    console.dir(requestedSchemas);
+  async function handleSignIn() {
     const config: Partial<Config> = {
       providerId: providerId.toString(),
       frequencyRpcUrl: chainUrl.http,
@@ -115,16 +118,17 @@
       },
     };
     setConfig(config);
+    setApiUrl(chainUrl.ws);
+    api = await getApi();
     walletProxyResponse = undefined;
     isFetchingPayload = true;
     walletProxyResponse = await getLoginOrRegistrationPayload();
     isFetchingPayload = false;
-  };
+  }
 
   $: {
     if (walletProxyResponse?.signIn?.siwsPayload?.message && walletProxyResponse?.signIn?.siwsPayload?.signature) {
       try {
-        // signInPayload = new SiwsMessage(signInResponse.siwsPayload.message as unknown as any);
         signInPayload = parseMessage(walletProxyResponse.signIn.siwsPayload.message);
         signature = walletProxyResponse.signIn.siwsPayload.signature;
       } catch (e) {
@@ -177,7 +181,7 @@
         <SignInVerification payload={signInPayload} {signature} />
       {/if}
       {#if signUpPayload}
-        <AccountCreator payload={signUpPayload} chainUrl={chainUrl.ws} {providerId} />
+        <AccountCreator payload={signUpPayload} {api} {providerId} />
       {/if}
     {:else}
       <p class="mt-4">Please click 'Login'</p>
