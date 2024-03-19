@@ -193,8 +193,72 @@ An empty payload means that a user has closed the popup window before completing
 ```
 {}
 ```
-
+### Validating Response
 It is recommended to check the validity of the encoded payload as well as to keep track of the expiration of the grant delegation. This helps with avoiding failed transactions due to expiration of signature for granting delegation. Methods for decoding a hex-encoded extrinsic can be found in the [Polkadot documentation](https://wiki.polkadot.network/docs/build-transaction-construction).
+
+
+The `validateSignupExtrinsicsParams` function performs validation on signup extrinsic parameters to ensure the integrity and correctness of the signup process. It verifies several critical aspects of the provided extrinsics, including the validity and expiration of proofs, the consistency of signing keys, the format of encoded data, and the matching of permissions with the provider's MSA ID.
+
+### Parameters
+`extrinsics`: An array of objects, each representing a signup extrinsic. Each extrinsic object includes:
+- `pallet`: The name of the pallet.
+- `extrinsicName`: The name of the extrinsic call.
+- `encodedExtrinsic`: The hex-encoded extrinsic data.
+- `providerMsaId`: The MSA ID of the provider. This ID is used to validate that permissions were granted by the correct provider.
+
+### Return Value
+The function returns a Promise that resolves to an object containing the following properties:
+
+- `expiration`: The expiration timestamp of the proof.
+- `payloads`: An object containing details of the payloads, such as addProviderPayload and claimHandlePayload, depending on the extrinsics provided.
+- `publicKey`: The public key used for signing the payloads.
+- `calls`: The list of extrinsic calls in the order that they should be submitted on-chain.
+
+### Example Usage
+```ts
+let response = {
+  "signUp": {
+    "extrinsics": [
+      {
+        "pallet": "msa",
+        "extrinsicName": "grantDelegation",
+        "encodedExtrinsic": "0xc501043c03a028a10adc58e0e85c9f604e4b7c1cfe467ea25553b1fd5f19eac25a71d46d770164d9ba24677e28555d98fad2865b069fb0d51f2f45b0e86098dec272e0a5013699d17d9c86ea2c96d0e3e7a3952db232d57b1973d41fbdffcd35bdc78e21a88e0100000000000000004e000000"
+      },
+    ]
+  }
+};
+
+  const providerMsaId = 1;
+
+  const {
+    expiration,
+    payloads: { addProviderPayload, claimHandlePayload },
+    publicKey,
+    calls,
+  } = await validateSignupExtrinsicsParams(response.signUp.extrinsics, providerMsaId)
+```
+### Errors
+The function may throw errors of type SignupError for various failure scenarios. Possible errors include:
+
+- `InvalidSignature`: The signature provided in the extrinsic is invalid.
+- `ExpiredSignature`: The signature associated with the transaction has expired.
+- `UnsupportedExtrinsic`: The extrinsic call provided is not supported.
+- `InvalidMsaId`: The MSA ID provided does not match any valid ID in the system.
+- `SignupKeysMismatch`: The keys used to sign the signup payloads do not match.
+- `InvalidHex`: The extrinsic data is not properly hex-encoded.
+- `ApiNotReady`: The API is not ready to process the request.
+
+```ts
+export enum SignupError {
+  InvalidSignature = 'Invalid signature',
+  ExpiredSignature = 'Transaction signature is expired',
+  UnsupportedExtrinsic = 'Unsupported extrinsic call',
+  InvalidMsaId = 'Invalid MSA ID',
+  SignupKeysMismatch = 'Signing keys do not match',
+  InvalidHex = 'Expected hex-encoded call',
+  ApiNotReady = 'API is not ready',
+}
+```
 
 At this point, it is up to you to create a session following best practices.
 
