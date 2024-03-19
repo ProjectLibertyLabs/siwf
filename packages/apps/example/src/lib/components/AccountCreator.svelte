@@ -4,10 +4,16 @@
   import '@frequency-chain/api-augment';
   import { onMount } from 'svelte';
   import { Keyring } from '@polkadot/api';
-  import { getApi, setApiUrl, type SignUpResponse } from '@frequency-control-panel/utils';
+  import {
+    getApi,
+    setApiUrl,
+    type SignUpResponse,
+    validateSignupExtrinsicsParams,
+  } from '@frequency-control-panel/utils';
   import type { ApiPromise } from '@polkadot/api/promise';
   import Spinner from './Spinner.svelte';
 
+  export let providerId: string;
   export let payload: SignUpResponse;
 
   export let chainUrl: string;
@@ -21,9 +27,15 @@
   const keys = keyring.addFromMnemonic(PROVIDER_MNEMONIC);
 
   onMount(async () => {
-    const transactions = payload.extrinsics?.map((e) => e.encodedExtrinsic);
+    setApiUrl(chainUrl);
+    api = await getApi();
+    console.log('payload', payload);
+    console.log("providerID", providerId);
+    const validatedPaylod = await validateSignupExtrinsicsParams(payload?.extrinsics || [], providerId, api);
+    console.log("validatedPaylod", validatedPaylod);
+
+    const transactions = validatedPaylod.calls.map((e) => e.encodedExtrinsic);
     if (transactions?.length) {
-      setApiUrl(chainUrl);
       api = await getApi();
       const txns = transactions?.map((t) => api.tx(t));
       const vec = api.registry.createType('Vec<Call>', txns);
