@@ -1,0 +1,49 @@
+{
+  "name": "@amplicalabs/siwf",
+  "private": false,
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*"
+  ],
+  "main": "./dist/siwf.umd.cjs",
+  "module": "./dist/siwf.js",
+  "types": "./dist/siwf.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/siwf.js",
+      "require": "./dist/siwf.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test": "vitest run --silent",
+    "test:loud": "vitest run",
+    "lint": "prettier --check . && eslint .",
+    "lint:fix": "prettier --write . && eslint --fix .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@frequency-control-panel/eslint-config": "workspace:*",
+    "@vitest/coverage-v8": "^1.2.0",
+    "jsdom": "^23.2.0",
+    "pathe": "^1.1.1",
+    "prettier": "^3.1.1",
+    "vite-plugin-dts": "^3.7.0",
+    "vitest": "^1.0.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10"
+  },
+  "dependencies": {
+    "@dsnp/frequency-schemas": "^1.1.0",
+    "@frequency-chain/api-augment": "^1.10.0",
+    "@polkadot/api": "^10.11.2",
+    "@polkadot/extension-dapp": "^0.46.6",
+    "@polkadot/extension-inject": "^0.46.6",
+    "@polkadot/types": "^10.11.2",
+    "@polkadot/util": "^12.6.2"
+  }
+}
