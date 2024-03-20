@@ -11,12 +11,15 @@
   export let signature: `0x${string}`;
   export let api: ApiPromise;
 
+  const baseTimeoutSecs = 3;
+
   let signatureVerified: boolean = false;
   let payloadValid: boolean = false;
   let msaId: string;
   let msaOwnershipVerified = false;
-  let interval: number;
+  let timeoutId: number;
   let siwsMessage: SiwsMessage;
+  let backoff = 0;
 
   function isValidSignature(signedMessage: string, signature: `0x${string}`, address: string): boolean {
     const publicKey = decodeAddress(address);
@@ -35,6 +38,20 @@
     return false;
   }
 
+  function isPayloadExpired(p: string): boolean {
+    try {
+      siwsMessage = parseMessage(p);
+      return false;
+    } catch (err: any) {
+      console.log('Parsing error: ', err?.cause);
+      if (err?.cause && /expired/.test(err.cause.message)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   $: try {
     signatureVerified = isValidSignature(payload, signature, siwsMessage.address);
   } catch (e) {
@@ -50,7 +67,6 @@
     // msaId = /([0-9]*)$/.exec(msaUri)?.[1] || '';
     getMsaForAddress(siwsMessage.address, api).then((value) => {
       msaId = value;
-      console.log('msaId', msaId);
       if (msaId) {
         doesPublicKeyControlMsa(msaId, siwsMessage.address, api).then((val) => {
           msaOwnershipVerified = val;
@@ -59,23 +75,26 @@
     });
   }
 
+  function checkExpiration() {
+    const isExpired = isPayloadExpired(payload);
+    console.log(`Payload is ${isExpired ? 'expired' : 'not expired'}`);
+    const timeout = Math.pow(baseTimeoutSecs, ++backoff) * 1_000;
+    if (!isExpired) {
+      timeoutId = setTimeout(checkExpiration, timeout) as unknown as number;
+    }
+  }
+
   onMount(() => {
-    interval = setInterval(() => {
-      payloadValid = isPayloadValid(payload);
-      console.log(`Payload is ${payloadValid ? 'valid' : 'invalid'}`);
-      if (!payloadValid) {
-        clearInterval(interval);
-      }
-    }, 3000) as unknown as number;
+    checkExpiration();
   });
 
   onDestroy(() => {
-    if (interval) {
-      clearInterval(interval);
+    if (timeoutId) {
+      clearTimeout(timeoutId);
     }
   });
 
-  onDestroy(() => clearInterval(interval));
+  onDestroy(() => clearInterval(timeoutId));
 </script>
 
 <div class="flex">

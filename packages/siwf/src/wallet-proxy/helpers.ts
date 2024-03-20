@@ -10,7 +10,7 @@ import type {
   ValidSignUpPayloads,
 } from './types';
 import { SignUpCall, SignupError } from './enums';
-import { signatureVerify } from '@polkadot/util-crypto';
+import { cryptoWaitReady, signatureVerify } from '@polkadot/util-crypto';
 import { assert, isHex, u8aWrapBytes } from '@polkadot/util';
 import type { HexString, U8aLike } from '@polkadot/util/types';
 import { ApiPromise } from '@polkadot/api';
@@ -38,9 +38,8 @@ export async function decodeExtrinsic(hexEncodedCall: HexString, api: ApiPromise
   return { method, section, args: tx.args };
 }
 
-export async function validateSignInPayload(message: string, api: ApiPromise): Promise<boolean> {}
-
 export async function validateSignature(publicKey: HexString, proof: HexString, payload: U8aLike): Promise<void> {
+  await cryptoWaitReady();
   const { isValid } = signatureVerify(u8aWrapBytes(payload), proof, publicKey);
   if (!isValid) {
     throw new Error(SignupError.InvalidSignature);
@@ -93,20 +92,20 @@ export async function validateClaimHandleParams(
   };
 }
 
-export async function validateCreateSponsoredAccountWithDelegationParams(
+export async function validateAddProviderPayload(
   hexExtrinsicCall: HexString,
   providerMsaId: string,
   api: ApiPromise
 ): Promise<SponsoredAccountParams> {
   const { publicKey, proof, payload, method } = await parseValidationArgs(hexExtrinsicCall, api);
-  if (method !== SignUpCall.CreateSponsoredAccountWithDelegation) {
+  if (![SignUpCall.CreateSponsoredAccountWithDelegation, SignUpCall.GrantDelegation].some((m) => m === method)) {
     throw new Error(`${SignupError.UnsupportedExtrinsic}: ${method}`);
   }
 
   const addProviderPayload = payload.toJSON() as unknown as AddProviderPayload;
   await validateSignatureAndCheckExpiration(publicKey, proof, payload, addProviderPayload.expiration, api);
 
-  if (providerMsaId !== addProviderPayload.authorizedMsaId) {
+  if (providerMsaId !== addProviderPayload.authorizedMsaId.toString()) {
     throw new Error(SignupError.InvalidMsaId);
   }
 
@@ -150,7 +149,8 @@ function validateExtrinsic(
 ): Promise<ClaimHandleParams | SponsoredAccountParams> {
   switch (extrinsic.extrinsicName) {
     case SignUpCall.CreateSponsoredAccountWithDelegation:
-      return validateCreateSponsoredAccountWithDelegationParams(extrinsic.encodedExtrinsic, providerMsaId, api);
+    case SignUpCall.GrantDelegation:
+      return validateAddProviderPayload(extrinsic.encodedExtrinsic, providerMsaId, api);
     case SignUpCall.ClaimHandle:
       return validateClaimHandleParams(extrinsic.encodedExtrinsic, api);
     default:
