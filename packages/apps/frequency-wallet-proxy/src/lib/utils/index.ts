@@ -1,4 +1,4 @@
-import { ExtensionConnector, type WalletProxyResponse } from '@frequency-control-panel/utils';
+import { ExtensionConnector } from '@frequency-control-panel/utils';
 import {
   createAddProviderPayload,
   createClaimHandlePayload,
@@ -7,7 +7,7 @@ import {
 } from '@frequency-control-panel/utils';
 import { APP_NAME } from '$lib/globals';
 import type { U8aLike } from '@polkadot/util/types';
-import { Message, WindowEndpoint } from '@frequency-control-panel/utils';
+import { Message, type WalletProxyResponse, WindowEndpoint } from '@amplicalabs/siwf';
 
 export async function checkHandleAvailability(handle: string): Promise<boolean> {
   const minAvailableHandles = 5;

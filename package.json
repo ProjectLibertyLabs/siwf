@@ -5,6 +5,7 @@
   "scripts": {
     "build": "pnpm run --stream -r build",
     "build:utils": "pnpm run --filter @frequency-control-panel/utils -r build",
+    "build:siwf": "pnpm run --filter @amplicalabs/siwf -r build",
     "dev": "pnpm --filter @frequency-control-panel/frequency-wallet-proxy run dev",
     "lint": "pnpm run --stream -r lint",
     "lint:app": "pnpm run --filter @frequency-control-panel/frequency-wallet-proxy -r lint",

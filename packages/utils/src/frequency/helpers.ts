@@ -155,18 +155,6 @@ export async function resolveSchemas(schemas: RequestedSchema[]): Promise<void> 
   });
 }
 
-export async function doesPublicKeyControlMsa(msaId: AnyNumber, publicKeyAddress: string): Promise<boolean> {
-  const api = await getApi();
-  const verifiedMsa = (await api.query.msa.publicKeyToMsaId(publicKeyAddress)).unwrapOrDefault().toString();
-  return msaId.toString() === verifiedMsa;
-}
-
-export async function getMsaForAddress(address: string): Promise<string> {
-  const api = await getApi();
-  const msaId = (await api.query.msa.publicKeyToMsaId(address)).unwrapOrDefault().toString();
-  return msaId === '0' ? '' : msaId;
-}
-
 /**
  * Check whether an MSA has a delegation to the indicated provider,
  * and whether it includes the requested delegations.

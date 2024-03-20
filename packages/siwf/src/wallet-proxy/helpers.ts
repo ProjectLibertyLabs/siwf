@@ -14,7 +14,6 @@ import { signatureVerify } from '@polkadot/util-crypto';
 import { assert, isHex, u8aWrapBytes } from '@polkadot/util';
 import type { HexString, U8aLike } from '@polkadot/util/types';
 import { ApiPromise } from '@polkadot/api';
-import { getBlockNumber } from '../frequency/helpers';
 
 export function isSponsoredAccountParams(
   payload: ClaimHandleParams | SponsoredAccountParams
@@ -39,6 +38,8 @@ export async function decodeExtrinsic(hexEncodedCall: HexString, api: ApiPromise
   return { method, section, args: tx.args };
 }
 
+export async function validateSignInPayload(message: string, api: ApiPromise): Promise<boolean> {}
+
 export async function validateSignature(publicKey: HexString, proof: HexString, payload: U8aLike): Promise<void> {
   const { isValid } = signatureVerify(u8aWrapBytes(payload), proof, publicKey);
   if (!isValid) {
@@ -54,7 +55,7 @@ export async function validateSignatureAndCheckExpiration(
   api: ApiPromise
 ): Promise<void> {
   await validateSignature(publicKey, proof, payload.toU8a());
-  const currentBlock = await getBlockNumber(api);
+  const currentBlock = (await api.rpc.chain.getBlock()).block.header.number.toNumber();
 
   if (currentBlock > expectedExpiration) throw new Error(SignupError.ExpiredSignature);
 }
@@ -142,16 +143,16 @@ export async function validateSignupExtrinsicsParams(
   return finalResponse;
 }
 
-async function validateExtrinsic(
+function validateExtrinsic(
   extrinsic: EncodedExtrinsic,
   providerMsaId: string,
   api: ApiPromise
 ): Promise<ClaimHandleParams | SponsoredAccountParams> {
   switch (extrinsic.extrinsicName) {
     case SignUpCall.CreateSponsoredAccountWithDelegation:
-      return await validateCreateSponsoredAccountWithDelegationParams(extrinsic.encodedExtrinsic, providerMsaId, api);
+      return validateCreateSponsoredAccountWithDelegationParams(extrinsic.encodedExtrinsic, providerMsaId, api);
     case SignUpCall.ClaimHandle:
-      return await validateClaimHandleParams(extrinsic.encodedExtrinsic, api);
+      return validateClaimHandleParams(extrinsic.encodedExtrinsic, api);
     default:
       throw new Error(`${SignupError.UnsupportedExtrinsic}: ${extrinsic.extrinsicName}`);
   }
@@ -192,4 +193,18 @@ function sortCallsBySubmissionOrder(encodedExtrinsics: EncodedExtrinsic[]): Enco
     const indexB = orderMap.get(b.extrinsicName as SignUpCall);
     return (indexA as number) - (indexB as number);
   });
+}
+
+export async function doesPublicKeyControlMsa(
+  msaId: string,
+  publicKeyAddress: string,
+  api: ApiPromise
+): Promise<boolean> {
+  const verifiedMsa = (await api.query.msa.publicKeyToMsaId(publicKeyAddress)).unwrapOrDefault().toString();
+  return msaId.toString() === verifiedMsa;
+}
+
+export async function getMsaForAddress(address: string, api: ApiPromise): Promise<string> {
+  const msaId = (await api.query.msa.publicKeyToMsaId(address)).unwrapOrDefault().toString();
+  return msaId === '0' ? '' : msaId;
 }

@@ -43,6 +43,7 @@
   "dependencies": {
     "@dsnp/frequency-schemas": "^1.1.0",
     "@frequency-chain/api-augment": "^1.10.0",
+    "@amplicalabs/siwf": "workspace:^",
     "@frequency-control-panel/utils": "workspace:^",
     "@iconify/icons-ic": "^1.2.13",
     "@iconify/icons-mdi": "^1.2.48",
@@ -52,7 +53,7 @@
     "@polkadot/types": "^10.11.2",
     "@polkadot/util": "^12.6.2",
     "@tailwindcss/forms": "^0.5.7",
-    "@talismn/siws": "^0.0.9",
+    "@talismn/siws": "0.0.9",
     "autoprefixer": "^10.4.17",
     "bits-ui": "^0.18.1",
     "http-status-codes": "^2.3.0",

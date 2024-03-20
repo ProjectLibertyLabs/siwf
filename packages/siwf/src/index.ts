@@ -1,1 +1,1 @@
-export * from './vite-env.d';
+export * from './wallet-proxy';

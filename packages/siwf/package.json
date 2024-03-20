@@ -28,14 +28,15 @@
   },
   "devDependencies": {
     "@frequency-control-panel/eslint-config": "workspace:*",
+    "@polkadot/util-crypto": "^12.6.2",
     "@vitest/coverage-v8": "^1.2.0",
     "jsdom": "^23.2.0",
     "pathe": "^1.1.1",
     "prettier": "^3.1.1",
-    "vite-plugin-dts": "^3.7.0",
-    "vitest": "^1.0.0",
     "typescript": "^5.3.3",
-    "vite": "^5.0.10"
+    "vite": "^5.0.10",
+    "vite-plugin-dts": "^3.7.0",
+    "vitest": "^1.0.0"
   },
   "dependencies": {
     "@dsnp/frequency-schemas": "^1.1.0",

@@ -1,18 +1,22 @@
 <script lang="ts">
   import { decodeAddress, signatureVerify } from '@polkadot/util-crypto';
   import { u8aToHex } from '@polkadot/util';
-  import { parseJson, type SiwsMessage } from '@talismn/siws';
+  import { parseMessage, type SiwsMessage } from '@talismn/siws';
   import Icon from '@iconify/svelte';
-  import { doesPublicKeyControlMsa, getMsaForAddress } from '@frequency-control-panel/utils';
+  import { doesPublicKeyControlMsa, getMsaForAddress } from '@amplicalabs/siwf';
   import { onDestroy, onMount } from 'svelte';
+  import type { ApiPromise } from '@polkadot/api';
 
-  export let payload: SiwsMessage;
+  export let payload: string;
   export let signature: `0x${string}`;
+  export let api: ApiPromise;
+
   let signatureVerified: boolean = false;
   let payloadValid: boolean = false;
   let msaId: string;
   let msaOwnershipVerified = false;
   let interval: number;
+  let siwsMessage: SiwsMessage;
 
   function isValidSignature(signedMessage: string, signature: `0x${string}`, address: string): boolean {
     const publicKey = decodeAddress(address);
@@ -21,9 +25,10 @@
     return signatureVerify(signedMessage, signature, hexPublicKey).isValid;
   }
 
-  function isPayloadValid(p: SiwsMessage): boolean {
+  function isPayloadValid(p: string): boolean {
     try {
-      return !!parseJson(p.prepareJson());
+      siwsMessage = parseMessage(p);
+      return true;
     } catch (e) {
       console.error(e);
     }
@@ -31,7 +36,7 @@
   }
 
   $: try {
-    signatureVerified = isValidSignature(payload.prepareMessage(), signature, payload.address);
+    signatureVerified = isValidSignature(payload, signature, siwsMessage.address);
   } catch (e) {
     signatureVerified = false;
   }
@@ -43,10 +48,11 @@
     // const resources = (payload as unknown as any)['resources'];
     // const msaUri = resources?.[0] || '';
     // msaId = /([0-9]*)$/.exec(msaUri)?.[1] || '';
-    getMsaForAddress(payload.address).then((value) => {
+    getMsaForAddress(siwsMessage.address, api).then((value) => {
       msaId = value;
+      console.log('msaId', msaId);
       if (msaId) {
-        doesPublicKeyControlMsa(msaId, payload.address).then((val) => {
+        doesPublicKeyControlMsa(msaId, siwsMessage.address, api).then((val) => {
           msaOwnershipVerified = val;
         });
       }
@@ -75,7 +81,7 @@
 <div class="flex">
   <div class=" flex-col items-center justify-center">
     <div class="pb-4"><span class="text-xl font-bold">Sign-in Payload</span></div>
-    <div class="pb-4"><pre>{payload.prepareMessage()}</pre></div>
+    <div class="pb-4"><pre>{payload}</pre></div>
     <div class="pb-4"><span class="text-xl font-bold">Signature:</span></div>
     <div class="pb-4"><pre>{signature}</pre></div>
     <div class="flex">
