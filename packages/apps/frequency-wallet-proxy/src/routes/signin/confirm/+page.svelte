@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SiwsMessage } from '@talismn/siws';
+  import { Siws, SiwsMessage } from '@talismn/siws';
   import { generateSIWxNonce, type SignInResponse } from '@frequency-control-panel/utils';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores/CurrentSelectedMsaAccountStore';
   import { ConnectedExtensionsDerivedStore } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
@@ -17,6 +17,7 @@
 
   const now = new Date();
   const payload: SiwsMessage = new SiwsMessage({
+    version: Siws.CURRENT_VERSION,
     domain: window.location.hostname,
     // TODO: Should use CAIP-10 conformant address here, work with Talisman to update their code
     // address: new PolkadotAddress('genesis', $CurrentSelectedMsaAccountStore.account.address).toString(),
@@ -34,24 +35,14 @@
     expirationTime: new Date(
       now.valueOf() + ($RequestResponseStore.request?.siwsOptions?.expiresInMsecs || 300000)
     ).valueOf(), // default 5 minutes
-    // notBefore: now,
-    // requestId: ? TBD pass-through from app
-    // resources: [`dsnp://${$CurrentSelectedAccountWithMsaStore.msaInfo.msaId}`],
+    notBefore: $RequestResponseStore.request?.siwsOptions?.notBefore || now.valueOf(),
+    requestId: $RequestResponseStore.request?.siwsOptions?.requestId,
+    resources: [`dsnp://${$CurrentSelectedMsaAccountStore.msaId}`],
   });
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  // Add optional fields not yet supported by siws
-  (payload as unknown as any)['version'] = '1.0';
-  (payload as unknown as any)['notBefore'] = $RequestResponseStore.request?.siwsOptions?.notBefore || now.valueOf();
-  if ($RequestResponseStore.request?.siwsOptions?.requestId) {
-    (payload as unknown as any)['requestId'] = $RequestResponseStore.request?.siwsOptions?.requestId;
-  }
-  const resources = [`dsnp://${$CurrentSelectedMsaAccountStore.msaId}`];
   if ($RequestResponseStore.request?.siwsOptions?.resources?.length) {
-    resources.push(...$RequestResponseStore.request.siwsOptions.resources);
+    payload.resources!.push(...$RequestResponseStore.request.siwsOptions.resources);
   }
-  (payload as unknown as any)['resources'] = resources;
-  /* eslint-enable @typescript-eslint/no-explicit-any */
 
   async function signPayload() {
     const extension =
