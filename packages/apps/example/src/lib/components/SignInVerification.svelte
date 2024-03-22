@@ -3,12 +3,13 @@
   import { u8aToHex } from '@polkadot/util';
   import { parseMessage, type SiwsMessage } from '@talismn/siws';
   import Icon from '@iconify/svelte';
-  import { doesPublicKeyControlMsa, getMsaForAddress } from '@amplicalabs/siwf';
+  import { doesPublicKeyControlMsa } from '@amplicalabs/siwf';
   import { onDestroy, onMount } from 'svelte';
   import type { ApiPromise } from '@polkadot/api';
 
-  export let payload: string;
+  export let payload: SiwsMessage;
   export let signature: `0x${string}`;
+
   export let api: ApiPromise;
 
   const baseTimeoutSecs = 3;
@@ -20,6 +21,7 @@
   let timeoutId: number;
   let siwsMessage: SiwsMessage;
   let backoff = 0;
+  let isExpired: boolean;
 
   function isValidSignature(signedMessage: string, signature: `0x${string}`, address: string): boolean {
     const publicKey = decodeAddress(address);
@@ -28,9 +30,9 @@
     return signatureVerify(signedMessage, signature, hexPublicKey).isValid;
   }
 
-  function isPayloadValid(p: string): boolean {
+  function isPayloadValid(p: SiwsMessage): boolean {
     try {
-      siwsMessage = parseMessage(p);
+      siwsMessage = parseMessage(p.prepareJson());
       return true;
     } catch (e) {
       console.error(e);
@@ -38,45 +40,8 @@
     return false;
   }
 
-  function isPayloadExpired(p: string): boolean {
-    try {
-      siwsMessage = parseMessage(p);
-      return false;
-    } catch (err: any) {
-      console.log('Parsing error: ', err?.cause);
-      if (err?.cause && /expired/.test(err.cause.message)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  $: try {
-    signatureVerified = isValidSignature(payload, signature, siwsMessage.address);
-  } catch (e) {
-    signatureVerified = false;
-  }
-
-  $: payloadValid = isPayloadValid(payload);
-
-  $: {
-    // TODO: Need support from SIWS for the 'resources' property
-    // const resources = (payload as unknown as any)['resources'];
-    // const msaUri = resources?.[0] || '';
-    // msaId = /([0-9]*)$/.exec(msaUri)?.[1] || '';
-    getMsaForAddress(siwsMessage.address, api).then((value) => {
-      msaId = value;
-      if (msaId) {
-        doesPublicKeyControlMsa(msaId, siwsMessage.address, api).then((val) => {
-          msaOwnershipVerified = val;
-        });
-      }
-    });
-  }
-
-  function checkExpiration() {
-    const isExpired = isPayloadExpired(payload);
+  function checkExpiration(payload: SiwsMessage) {
+    isExpired = (payload.expirationTime ?? 0) < Date.now();
     console.log(`Payload is ${isExpired ? 'expired' : 'not expired'}`);
     const timeout = Math.pow(baseTimeoutSecs, ++backoff) * 1_000;
     if (!isExpired) {
@@ -84,17 +49,34 @@
     }
   }
 
+  $: try {
+    signatureVerified = isValidSignature(payload.prepareMessage(), signature, siwsMessage.address);
+  } catch (e) {
+    signatureVerified = false;
+  }
+
+  $: payloadValid = isPayloadValid(payload);
+
+  $: {
+    const resources = payload.resources;
+    const msaUri = new URL(resources?.[0] || '');
+    msaId = msaUri.pathname.slice(2);
+    if (msaId) {
+      doesPublicKeyControlMsa(msaId, payload.address, api)
+        .then((value) => {
+          msaOwnershipVerified = value;
+        })
+        .catch((e) => console.log(e));
+    }
+  }
+
   onMount(() => {
-    checkExpiration();
+    checkExpiration(payload);
   });
 
   onDestroy(() => {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
+    timeoutId && clearTimeout(timeoutId);
   });
-
-  onDestroy(() => clearInterval(timeoutId));
 </script>
 
 <div class="flex">
@@ -115,6 +97,9 @@
         <Icon icon="openmoji:check-mark" /><span>Signature verified</span>
       {:else}
         <Icon icon="openmoji:cross-mark" /><span>Signature invalid</span>
+        {#if isExpired}
+          <Icon icon="openmoji:cross-mark" /><span>Signature expired</span>
+        {/if}
       {/if}
     </div>
     <div class="flex">

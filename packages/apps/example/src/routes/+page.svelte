@@ -98,7 +98,7 @@
   let options = [...schemas.keys()];
   let providerId: string = '1';
   let isFetchingPayload = false;
-  let chainApi: ApiPromise;
+  let api: ApiPromise;
 
   let signUpPayload: SignUpResponse;
 
@@ -118,7 +118,7 @@
     };
     setConfig(config);
     setApiUrl(chainUrl.ws);
-    chainApi = await getApi();
+    api = await getApi();
     walletProxyResponse = undefined;
     isFetchingPayload = true;
     walletProxyResponse = await getLoginOrRegistrationPayload();
@@ -177,10 +177,10 @@
   <div class="mt-12">
     {#if walletProxyResponse}
       {#if signInPayload}
-        <SignInVerification payload={signInPayload} api={chainApi} {signature} />
+        <SignInVerification payload={signInPayload} {api} {signature} />
       {/if}
       {#if signUpPayload}
-        <AccountCreator payload={signUpPayload} api={chainApi} {providerId} />
+        <AccountCreator payload={signUpPayload} {api} {providerId} />
       {/if}
     {:else}
       <p class="mt-4">Please click 'Login'</p>
