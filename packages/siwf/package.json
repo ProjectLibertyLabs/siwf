@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@frequency-control-panel/eslint-config": "workspace:*",
+    "@polkadot/rpc-provider": "^10.12.4",
     "@vitest/coverage-v8": "^1.2.0",
     "jsdom": "^23.2.0",
     "pathe": "^1.1.1",
@@ -40,11 +41,11 @@
   "dependencies": {
     "@dsnp/frequency-schemas": "^1.1.0",
     "@frequency-chain/api-augment": "^1.10.0",
-    "@polkadot/api": "^10.11.2",
+    "@polkadot/api": "^10.12.4",
     "@polkadot/extension-dapp": "^0.46.6",
     "@polkadot/extension-inject": "^0.46.6",
-    "@polkadot/types": "^10.11.2",
-    "@polkadot/util-crypto": "^12.6.2",
-    "@polkadot/util": "^12.6.2"
+    "@polkadot/types": "^10.12.4",
+    "@polkadot/util": "^12.6.2",
+    "@polkadot/util-crypto": "^12.6.2"
   }
 }

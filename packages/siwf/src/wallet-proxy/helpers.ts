@@ -1,3 +1,4 @@
+import '@frequency-chain/api-augment';
 import type {
   AddProviderPayload,
   ClaimHandleParams,
@@ -28,8 +29,10 @@ export function isClaimHandleParams(payload: ClaimHandleParams | SponsoredAccoun
 export async function decodeExtrinsic(hexEncodedCall: HexString, api: ApiPromise): Promise<ExtrinsicData> {
   assert(isHex(hexEncodedCall), SignupError.InvalidHex);
 
-  if (!(await api.isReady)) {
-    throw new Error(SignupError.ApiNotReady);
+  try {
+    await api.isReady;
+  } catch (err) {
+    throw new Error(SignupError.ApiNotReady, { cause: err });
   }
   const tx = api.tx(hexEncodedCall);
 
@@ -46,17 +49,22 @@ export async function validateSignature(publicKey: HexString, proof: HexString, 
   }
 }
 
-export async function validateSignatureAndCheckExpiration(
+export async function checkExpiration(expirationBlock: number, api: ApiPromise): Promise<void> {
+  const currentBlock = (await api.rpc.chain.getBlock()).block.header.number.toNumber();
+
+  if (currentBlock > expirationBlock) {
+    throw new Error(SignupError.ExpiredSignature);
+  }
+}
+
+async function validateSignatureAndCheckExpiration(
   publicKey: HexString,
   proof: HexString,
   payload: Codec,
   expectedExpiration: number,
   api: ApiPromise
 ): Promise<void> {
-  await validateSignature(publicKey, proof, payload.toU8a());
-  const currentBlock = (await api.rpc.chain.getBlock()).block.header.number.toNumber();
-
-  if (currentBlock > expectedExpiration) throw new Error(SignupError.ExpiredSignature);
+  await Promise.all([validateSignature(publicKey, proof, payload.toU8a()), checkExpiration(expectedExpiration, api)]);
 }
 
 export async function parseValidationArgs(hexEntrinsicCall: HexString, api: ApiPromise): Promise<ValidationArgs> {
@@ -83,7 +91,7 @@ export async function validateClaimHandleParams(
   }
 
   const claimHandlePayload = payload.toJSON() as unknown as ClaimHandlePayload;
-  validateSignatureAndCheckExpiration(publicKey, proof, payload, claimHandlePayload.expiration, api);
+  await validateSignatureAndCheckExpiration(publicKey, proof, payload, claimHandlePayload.expiration, api);
 
   return {
     msaOwnerKey: publicKey,
@@ -98,7 +106,7 @@ export async function validateAddProviderPayload(
   api: ApiPromise
 ): Promise<SponsoredAccountParams> {
   const { publicKey, proof, payload, method } = await parseValidationArgs(hexExtrinsicCall, api);
-  if (![SignUpCall.CreateSponsoredAccountWithDelegation, SignUpCall.GrantDelegation].some((m) => m === method)) {
+  if (![SignUpCall.CreateSponsoredAccountWithDelegation, SignUpCall.GrantDelegation].includes(method as SignUpCall)) {
     throw new Error(`${SignupError.UnsupportedExtrinsic}: ${method}`);
   }
 
@@ -202,9 +210,4 @@ export async function doesPublicKeyControlMsa(
 ): Promise<boolean> {
   const verifiedMsa = (await api.query.msa.publicKeyToMsaId(publicKeyAddress)).unwrapOrDefault().toString();
   return msaId.toString() === verifiedMsa;
-}
-
-export async function getMsaForAddress(address: string, api: ApiPromise): Promise<string> {
-  const msaId = (await api.query.msa.publicKeyToMsaId(address)).unwrapOrDefault().toString();
-  return msaId === '0' ? '' : msaId;
 }
