@@ -69,7 +69,7 @@
   [type='text'],
   [type='number'],
   select {
-    @apply disabled:text-disabled disabled:opacity-85 h-[30px] w-full overflow-ellipsis rounded-md border-none py-0 pl-2 text-sm text-white outline-none focus:ring-0;
+    @apply disabled:text-disabled h-[30px] w-full overflow-ellipsis rounded-md border-none py-0 pl-2 text-sm text-white outline-none focus:ring-0 disabled:opacity-85;
   }
 
   input:focus,

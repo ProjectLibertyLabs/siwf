@@ -33,7 +33,7 @@ jobs:
           BASE_PATH: '/control-panel'
         run: |
           pnpm run build
-      - name: structure 
+      - name: structure
         run: |
           mkdir control-panel
           touch control-panel/.nojekyll
