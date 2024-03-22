@@ -10,6 +10,7 @@ export enum ProxyUrl {
 
 export enum SignUpCall {
   CreateSponsoredAccountWithDelegation = 'createSponsoredAccountWithDelegation',
+  GrantDelegation = 'grantDelegation',
   ClaimHandle = 'claimHandle',
 }
 

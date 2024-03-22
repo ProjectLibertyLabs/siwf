@@ -2,21 +2,19 @@
   import {
     type Config,
     defaultConfig,
-    getApi,
     getLoginOrRegistrationPayload,
     type RequestedSchema,
-    setApiUrl,
     setConfig,
     type SignUpResponse,
     type WalletProxyResponse,
-  } from '@frequency-control-panel/utils';
+  } from '@amplicalabs/siwf';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
-  import { parseMessage, SiwsMessage } from '@talismn/siws';
   import AccountCreator from '$lib/components/AccountCreator.svelte';
   import { MultiSelect, type ObjectOption, type Option } from 'svelte-multiselect';
   import { schemas } from '@dsnp/frequency-schemas/dsnp';
   import Spinner from '../lib/components/Spinner.svelte';
   import type { ApiPromise } from '@polkadot/api';
+  import { getApi, setApiUrl } from '@frequency-control-panel/utils';
 
   if (process.env.BUILD_TARGET === 'production') {
     setConfig({
@@ -24,10 +22,6 @@
       frequencyRpcUrl: 'https://rpc.rococo.frequency.xyz',
     });
   }
-
-  let walletProxyResponse: WalletProxyResponse | undefined;
-  let signInPayload: SiwsMessage;
-  let signature: `0x${string}`;
 
   type ChainUrl = {
     name: string;
@@ -62,12 +56,17 @@
       ws: 'wss://frequency-polkadot.api.onfinality.io/public-ws',
     },
     {
-      name: 'Rococo',
+      name: 'Frequency Paseo',
+      http: 'https://0.rpc.testnet.amplica.io',
+      ws: 'wss://0.rpc.testnet.amplica.io',
+    },
+    {
+      name: 'Frequency Rococo',
       http: 'https://rpc.rococo.frequency.xyz',
       ws: 'wss://rpc.rococo.frequency.xyz',
     },
     {
-      name: 'Rococo Dwellir',
+      name: 'Frequency Rococo Dwellir',
       http: 'https://frequency-rococo-rpc.dwellir.com',
       ws: 'wss://frequency-rococo-rpc.dwellir.com',
     },
@@ -102,9 +101,9 @@
   let isFetchingPayload = false;
   let api: ApiPromise;
 
-  let signUpPayload: SignUpResponse;
+  let walletProxyResponse: WalletProxyResponse | undefined;
 
-  async function handleSignIn() {
+  const handleSignIn = async () => {
     const config: Partial<Config> = {
       providerId: providerId.toString(),
       frequencyRpcUrl: chainUrl.http,
@@ -124,21 +123,7 @@
     isFetchingPayload = true;
     walletProxyResponse = await getLoginOrRegistrationPayload();
     isFetchingPayload = false;
-  }
-
-  $: {
-    if (walletProxyResponse?.signIn?.siwsPayload?.message && walletProxyResponse?.signIn?.siwsPayload?.signature) {
-      try {
-        signInPayload = parseMessage(walletProxyResponse.signIn.siwsPayload.message);
-        signature = walletProxyResponse.signIn.siwsPayload.signature;
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    if (walletProxyResponse?.signUp) {
-      signUpPayload = walletProxyResponse.signUp;
-    }
-  }
+  };
 </script>
 
 <div class="p-12 text-violet-300">
@@ -167,7 +152,7 @@
     <MultiSelect bind:selected={requestedSchemas} {options}></MultiSelect>
   </div>
   <div class="mt-12">
-    <h1 class="text-2xl">Wallet Proxy Response Payload</h1>
+    <h1 class="text-2xl">Signup/Login Response Payload</h1>
     {#if isFetchingPayload}
       <Spinner />
     {/if}
@@ -177,11 +162,11 @@
   </div>
   <div class="mt-12">
     {#if walletProxyResponse}
-      {#if signInPayload}
-        <SignInVerification payload={signInPayload} {signature} />
+      {#if walletProxyResponse.signIn}
+        <SignInVerification response={walletProxyResponse.signIn} {api} />
       {/if}
-      {#if signUpPayload}
-        <AccountCreator payload={signUpPayload} {api} {providerId} />
+      {#if walletProxyResponse.signUp}
+        <AccountCreator response={walletProxyResponse.signUp} {api} {providerId} />
       {/if}
     {:else}
       <p class="mt-4">Please click 'Login'</p>

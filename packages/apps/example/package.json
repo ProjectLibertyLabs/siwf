@@ -40,6 +40,7 @@
 	"dependencies": {
 		"@dsnp/frequency-schemas": "^1.1.0",
 		"@frequency-chain/api-augment": "^1.10.0",
+		"@amplicalabs/siwf": "workspace:^",
 		"@frequency-control-panel/utils": "workspace:^",
 		"@iconify/icons-openmoji": "^1.2.33",
 		"@iconify/svelte": "^3.1.6",

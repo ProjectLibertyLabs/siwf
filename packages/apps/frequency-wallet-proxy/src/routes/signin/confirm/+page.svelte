@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Siws, SiwsMessage } from '@talismn/siws';
-  import { generateSIWxNonce, type SignInResponse } from '@frequency-control-panel/utils';
+  import { type SignInResponse } from '@amplicalabs/siwf';
+  import { generateSIWxNonce } from '@frequency-control-panel/utils';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores/CurrentSelectedMsaAccountStore';
   import { ConnectedExtensionsDerivedStore } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
@@ -23,7 +24,6 @@
     // address: new PolkadotAddress('genesis', $CurrentSelectedMsaAccountStore.account.address).toString(),
     address: $CurrentSelectedMsaAccountStore.account.address,
     uri: window.location.href,
-    // version: '1.0',
     chainName: 'Frequency',
     statement:
       $RequestResponseStore.request?.siwsOptions?.statement ||

@@ -5,12 +5,13 @@
   "scripts": {
     "build": "pnpm run --stream -r build",
     "build:utils": "pnpm run --filter @frequency-control-panel/utils -r build",
+    "build:siwf": "pnpm run --filter @amplicalabs/siwf -r build",
     "dev": "pnpm --filter @frequency-control-panel/frequency-wallet-proxy run dev",
     "lint": "pnpm run --stream -r lint",
     "lint:app": "pnpm run --filter @frequency-control-panel/frequency-wallet-proxy -r lint",
     "lint:utils": "pnpm run --filter @frequency-control-panel/utils -r lint",
     "format:all": "pnpm run --stream -r format",
-    "format": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
+    "format": "prettier --plugin-search-dir . --write .",
     "format:check": "prettier --plugin-search-dir . --check .",
     "test": "pnpm run --stream -r test",
     "test:unit": "pnpm run --stream -r test:unit",
@@ -22,7 +23,8 @@
     "@frequency-control-panel/eslint-config": "workspace:*",
     "eslint": "^8.56.0",
     "prettier": "^3.2.4",
-    "prettier-plugin-svelte": "^3.1.2"
+    "prettier-plugin-svelte": "^3.1.2",
+    "vitest": "^1.4.0"
   },
   "keywords": [],
   "author": "Amplica Labs",

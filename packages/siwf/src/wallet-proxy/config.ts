@@ -28,7 +28,7 @@ export interface Config {
 }
 
 export const defaultConfig: Config = {
-  providerId: '1',
+  providerId: '',
   proxyUrl: ProxyUrl.DEV,
   frequencyRpcUrl: Network.LOCALHOST,
   schemas: defaultSchemas,

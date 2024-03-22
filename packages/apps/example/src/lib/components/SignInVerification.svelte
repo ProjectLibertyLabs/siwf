@@ -1,109 +1,39 @@
 <script lang="ts">
-  import { decodeAddress, signatureVerify } from '@polkadot/util-crypto';
-  import { u8aToHex } from '@polkadot/util';
-  import { parseJson, type SiwsMessage } from '@talismn/siws';
+  import { parseMessage, type SiwsMessage } from '@talismn/siws';
   import Icon from '@iconify/svelte';
-  import { doesPublicKeyControlMsa } from '@frequency-control-panel/utils';
-  import { onDestroy, onMount } from 'svelte';
+  import type { SignInResponse, SiwsPayload } from '@amplicalabs/siwf';
+  import type { ApiPromise } from '@polkadot/api';
+  import SignInVerificationDetails from './SignInVerificationDetails.svelte';
 
-  export let payload: SiwsMessage;
-  export let signature: `0x${string}`;
+  export let response: SignInResponse;
+  export let api: ApiPromise;
+  let siwsMessage: SiwsMessage | null;
 
-  let signatureVerified: boolean = false;
-  let payloadValid: boolean = false;
-  let msaId: string;
-  let msaOwnershipVerified = false;
-  let interval: number;
-
-  function isValidSignature(signedMessage: string, signature: `0x${string}`, address: string): boolean {
-    const publicKey = decodeAddress(address);
-    const hexPublicKey = u8aToHex(publicKey);
-
-    return signatureVerify(signedMessage, signature, hexPublicKey).isValid;
-  }
-
-  function isPayloadValid(p: SiwsMessage): boolean {
+  function parsePayload(p: SiwsPayload): SiwsMessage | null {
     try {
-      return !!parseJson(p.prepareJson());
+      return parseMessage(p.message);
     } catch (e) {
       console.error(e);
     }
-    return false;
+    return null;
   }
 
-  $: try {
-    signatureVerified = isValidSignature(payload.prepareMessage(), signature, payload.address);
-  } catch (e) {
-    signatureVerified = false;
-  }
-
-  $: payloadValid = isPayloadValid(payload);
-
-  $: {
-    const resources = payload.resources;
-    const msaUri = new URL(resources?.[0] || '');
-    msaId = msaUri.pathname.slice(2);
-    if (msaId) {
-      doesPublicKeyControlMsa(msaId, payload.address)
-        .then((value) => {
-          msaOwnershipVerified = value;
-        })
-        .catch((e) => console.log(e));
-    }
-  }
-
-  onMount(() => {
-    interval = setInterval(() => {
-      payloadValid = isPayloadValid(payload);
-      console.log(`Payload is ${payloadValid ? 'valid' : 'invalid'}`);
-      if (!payloadValid) {
-        clearInterval(interval);
-      }
-    }, 3000) as unknown as number;
-  });
-
-  onDestroy(() => {
-    if (interval) {
-      clearInterval(interval);
-    }
-  });
-
-  onDestroy(() => clearInterval(interval));
+  $: siwsMessage = (response.siwsPayload && parsePayload(response.siwsPayload)) || null;
+  $: message = response.siwsPayload?.message || '';
+  $: signature = response.siwsPayload?.signature || '0x';
 </script>
 
 <div class="flex">
-  <div class=" flex-col items-center justify-center">
-    <div class="pb-4"><span class="text-xl font-bold">Sign-in Payload</span></div>
-    <div class="pb-4"><pre>{payload.prepareMessage()}</pre></div>
-    <div class="pb-4"><span class="text-xl font-bold">Signature:</span></div>
-    <div class="pb-4"><pre>{signature}</pre></div>
-    <div class="flex">
-      {#if payloadValid}
-        <Icon icon="openmoji:check-mark" /><span>Payload valid</span>
-      {:else}
+  {#if siwsMessage}
+    <SignInVerificationDetails {message} {signature} {siwsMessage} {api} />
+  {/if}
+  {#if response.error || siwsMessage === null}
+    <div class=" flex-col items-center justify-center">
+      <div class="pb-4"><span class="text-xl font-bold">Message Error</span></div>
+      <div class="pb-4"><pre>{response.error || 'Unknown error'}</pre></div>
+      <div class="flex">
         <Icon icon="openmoji:cross-mark" /><span>Payload invalid</span>
-      {/if}
+      </div>
     </div>
-    <div class="flex">
-      {#if signatureVerified}
-        <Icon icon="openmoji:check-mark" /><span>Signature verified</span>
-      {:else}
-        <Icon icon="openmoji:cross-mark" /><span>Signature invalid</span>
-      {/if}
-    </div>
-    <div class="flex">
-      {#if msaId}
-        <Icon icon="openmoji:check-mark" /><span>MSA: {msaId}</span>
-      {:else}
-        <Icon icon="openmoji:cross-mark" /><span>MSA: undetermined</span>
-      {/if}
-    </div>
-    <div class="flex">
-      {#if msaOwnershipVerified}
-        <Icon icon="openmoji:check-mark" /><span>MSA control key verified</span>
-      {:else}
-        <Icon icon="openmoji:cross-mark" /><span>MSA control key invalid</span>
-      {/if}
-    </div>
-  </div>
+  {/if}
 </div>

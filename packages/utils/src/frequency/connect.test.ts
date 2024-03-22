@@ -1,6 +1,6 @@
 import { ApiPromise } from '@polkadot/api';
 import { describe, expect, it, vi } from 'vitest';
-import { getApi } from './connect';
+import { getApi, setApiUrl } from './connect';
 
 vi.mock('@polkadot/api', async (importOriginal) => {
   const mod = await importOriginal<typeof import('@polkadot/api')>();
@@ -15,7 +15,8 @@ vi.mock('@polkadot/api', async (importOriginal) => {
 describe('getApi', () => {
   it('returns an instance of ApiPromise', async () => {
     const createSpy = vi.spyOn(ApiPromise, 'create');
-    const api = await getApi('http://127.0.0.1:9944');
+    setApiUrl('http://127.0.0.1:9944');
+    const api = await getApi();
     expect(api).toBeDefined();
     // TODO: figure out how to spy on a constructor
     // expect(httpSpy).toHaveBeenCalledWith('http://127.0.0.1:9944');
