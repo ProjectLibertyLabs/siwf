@@ -9,7 +9,7 @@
   import Spinner from './Spinner.svelte';
 
   export let providerId: string;
-  export let payload: SignUpResponse;
+  export let response: SignUpResponse;
   export let api: ApiPromise;
 
   let isWaiting = true;
@@ -21,9 +21,9 @@
   const keys = keyring.addFromMnemonic(PROVIDER_MNEMONIC);
 
   onMount(async () => {
-    console.log('payload', payload);
+    console.log('response', response);
     console.log('providerID', providerId);
-    const validatedPaylod = await validateSignupExtrinsicsParams(payload?.extrinsics || [], providerId, api);
+    const validatedPaylod = await validateSignupExtrinsicsParams(response?.extrinsics || [], providerId, api);
     console.log('validatedPaylod', validatedPaylod);
 
     const transactions = validatedPaylod.calls.map((e) => e.encodedExtrinsic);

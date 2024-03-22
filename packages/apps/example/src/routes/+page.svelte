@@ -23,10 +23,6 @@
     });
   }
 
-  let walletProxyResponse: WalletProxyResponse | undefined;
-  let signInPayload: string;
-  let signature: `0x${string}`;
-
   type ChainUrl = {
     name: string;
     http: string;
@@ -60,12 +56,17 @@
       ws: 'wss://frequency-polkadot.api.onfinality.io/public-ws',
     },
     {
-      name: 'Rococo',
+      name: 'Frequency Paseo',
+      http: 'https://0.rpc.testnet.amplica.io',
+      ws: 'wss://0.rpc.testnet.amplica.io',
+    },
+    {
+      name: 'Frequency Rococo',
       http: 'https://rpc.rococo.frequency.xyz',
       ws: 'wss://rpc.rococo.frequency.xyz',
     },
     {
-      name: 'Rococo Dwellir',
+      name: 'Frequency Rococo Dwellir',
       http: 'https://frequency-rococo-rpc.dwellir.com',
       ws: 'wss://frequency-rococo-rpc.dwellir.com',
     },
@@ -100,10 +101,9 @@
   let isFetchingPayload = false;
   let api: ApiPromise;
 
-  let signUpPayload: SignUpResponse;
+  let walletProxyResponse: WalletProxyResponse | undefined;
 
   const handleSignIn = async () => {
-    console.dir(requestedSchemas);
     const config: Partial<Config> = {
       providerId: providerId.toString(),
       frequencyRpcUrl: chainUrl.http,
@@ -124,20 +124,6 @@
     walletProxyResponse = await getLoginOrRegistrationPayload();
     isFetchingPayload = false;
   };
-
-  $: {
-    if (walletProxyResponse?.signIn?.siwsPayload?.message && walletProxyResponse?.signIn?.siwsPayload?.signature) {
-      try {
-        signInPayload = walletProxyResponse.signIn.siwsPayload.message;
-        signature = walletProxyResponse.signIn.siwsPayload.signature;
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    if (walletProxyResponse?.signUp) {
-      signUpPayload = walletProxyResponse.signUp;
-    }
-  }
 </script>
 
 <div class="p-12 text-violet-300">
@@ -166,7 +152,7 @@
     <MultiSelect bind:selected={requestedSchemas} {options}></MultiSelect>
   </div>
   <div class="mt-12">
-    <h1 class="text-2xl">Wallet Proxy Response Payload</h1>
+    <h1 class="text-2xl">Signup/Login Response Payload</h1>
     {#if isFetchingPayload}
       <Spinner />
     {/if}
@@ -176,11 +162,11 @@
   </div>
   <div class="mt-12">
     {#if walletProxyResponse}
-      {#if signInPayload}
-        <SignInVerification payload={signInPayload} {api} {signature} />
+      {#if walletProxyResponse.signIn}
+        <SignInVerification response={walletProxyResponse.signIn} {api} />
       {/if}
-      {#if signUpPayload}
-        <AccountCreator payload={signUpPayload} {api} {providerId} />
+      {#if walletProxyResponse.signUp}
+        <AccountCreator response={walletProxyResponse.signUp} {api} {providerId} />
       {/if}
     {:else}
       <p class="mt-4">Please click 'Login'</p>
