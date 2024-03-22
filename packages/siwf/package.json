@@ -20,8 +20,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "test": "vitest run --silent",
-    "test:loud": "vitest run",
+    "test:unit": "vitest run --silent",
+    "test:unit:loud": "vitest run",
     "lint": "prettier --check . && eslint .",
     "lint:fix": "prettier --write . && eslint --fix .",
     "format": "prettier --write ."
