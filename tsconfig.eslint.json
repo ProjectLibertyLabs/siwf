@@ -3,7 +3,7 @@
   "files": [],
   "references": [
     {
-      "path": "packages/apps/frequency-wallet-proxy"
+      "path": "packages/ui"
     },
     {
       "path": "packages/components"

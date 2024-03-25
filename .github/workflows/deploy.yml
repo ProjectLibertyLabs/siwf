@@ -30,23 +30,23 @@ jobs:
 
       - name: build
         env:
-          BASE_PATH: '/control-panel'
+          BASE_PATH: '/siwf'
         run: |
           pnpm run build
       - name: structure
         run: |
-          mkdir control-panel
-          touch control-panel/.nojekyll
-          mkdir control-panel/example
-          mkdir control-panel/wallet-proxy
-          mv ./packages/apps/frequency-wallet-proxy/build/* ./control-panel/wallet-proxy
-          mv ./packages/apps/example/build/* ./control-panel/example
+          mkdir siwf
+          touch siwf/.nojekyll
+          mkdir siwf/example
+          mkdir siwf/ui
+          mv ./packages/ui/build/* ./siwf/ui
+          mv ./packages/example/build/* ./siwf/example
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v1
         with:
           # this should match the `pages` option in adapter-static options
-          path: 'control-panel/'
+          path: 'siwf/'
 
   deploy:
     needs: build_site

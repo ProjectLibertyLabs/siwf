@@ -1,13 +1,9 @@
 {
-  "name": "@amplicalabs/siwf",
+  "name": "@AmplicaLabs/siwf",
   "private": false,
   "version": "0.1.0",
   "type": "module",
-  "files": [
-    "dist",
-    "!dist/**/*.test.*",
-    "!dist/**/*.spec.*"
-  ],
+  "files": ["dist", "!dist/**/*.test.*", "!dist/**/*.spec.*"],
   "main": "./dist/siwf.umd.cjs",
   "module": "./dist/siwf.js",
   "types": "./dist/siwf.d.ts",
@@ -27,7 +23,7 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@frequency-control-panel/eslint-config": "workspace:*",
+    "@AmplicaLabs/eslint-config-siwf": "workspace:*",
     "@polkadot/rpc-provider": "^10.12.4",
     "@vitest/coverage-v8": "^1.2.0",
     "jsdom": "^23.2.0",
