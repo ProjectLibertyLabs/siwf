@@ -20,7 +20,7 @@
     "chain-setup": "pnpm --filter setup run start"
   },
   "devDependencies": {
-    "@AmplicaLabs/siwf-config-eslint": "workspace:*",
+    "@AmplicaLabs/eslint-config-siwf": "workspace:*",
     "eslint": "^8.56.0",
     "prettier": "^3.2.4",
     "prettier-plugin-svelte": "^3.1.2",

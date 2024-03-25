@@ -15,7 +15,7 @@
     "test:unit": "vitest run"
   },
   "devDependencies": {
-    "@AmplicaLabs/siwf-config-eslint": "workspace:*",
+    "@AmplicaLabs/eslint-config-siwf": "workspace:*",
     "@iconify/types": "^2.0.0",
     "@playwright/test": "^1.28.1",
     "@sveltejs/adapter-static": "^3.0.1",

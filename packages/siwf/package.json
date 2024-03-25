@@ -23,7 +23,7 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@AmplicaLabs/siwf-config-eslint": "workspace:*",
+    "@AmplicaLabs/eslint-config-siwf": "workspace:*",
     "@polkadot/rpc-provider": "^10.12.4",
     "@vitest/coverage-v8": "^1.2.0",
     "jsdom": "^23.2.0",
