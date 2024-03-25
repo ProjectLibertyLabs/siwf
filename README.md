@@ -14,7 +14,7 @@ onboarding operations over Frequency.
 
 ### Description
 
-SIWF has two parts: a package `@AmplicaLabs/swif` and a deployed web application that performs the needed UI for
+SIWF has two parts: a package `@AmplicaLabs/siwf` and a deployed web application that performs the needed UI for
 assisting the user in the action of login or onboarding. The UI also assists with interfacing with various wallets is
 achieved through interaction with either a supported browser extension (web/mobile) or an installed native app (mobile
 only)

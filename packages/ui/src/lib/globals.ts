@@ -1,1 +1,1 @@
-export const APP_NAME = 'swif-ui';
+export const APP_NAME = 'siwf-ui';
