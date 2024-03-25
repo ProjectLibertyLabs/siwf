@@ -2,7 +2,7 @@
 
 ## Description
 
-The SIWF is an application that facilitates using a selected Polkadot-compatible crypto wallet to perform sign-in and
+SIWF is an application that facilitates using a selected Polkadot-compatible crypto wallet to perform sign-in and
 onboarding operations over Frequency.
 
 ### Supported Operations
@@ -56,9 +56,11 @@ onboarding. The user/data flows will look as follows:
        // The expiration for the SIWS payload.
        expiresInMsecs: 1000,
      },
-     // The Schema name that permissions are being requested.
-     // A specified version can be set using the ID attribute.
-     // If set to 0 it grabs the latest version for the schema.
+     // The Schema name for which permissions are being requested.
+     // A specific version of a named schema may be requested using the optional `version`
+    // attribute. Named schema versions are monotonically increasing integers, starting from 1. A
+    // value of `0` is the same as omitting the attribute and will resolve to the latest version of the
+    // named schema.
      schemas: [
        { name: 'public-key-key-agreement' },
        { name: 'public-follows' },
@@ -94,7 +96,7 @@ export type WalletProxyResponse = {
 
 ## Handling Responses
 
-The response from the SIWF UI during sign-in may vary slightly because it's uncertain whether the user is attempting to
+The response from the SIWF UI during sign-in may vary slightly because it's unknown at the time of invocation whether the user is attempting to
 sign in with an identity (MSA), is a returning user to the dApp, or requires permission grants.
 
 ### Brand new user
