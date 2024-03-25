@@ -14,7 +14,7 @@
     "test:unit": "echo \"example app empty test\""
   },
   "devDependencies": {
-    "@AmplicaLabs/siwf-eslint-config": "workspace:*",
+    "@AmplicaLabs/siwf-config-eslint": "workspace:*",
     "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/kit": "^2.5.4",
     "autoprefixer": "^10.4.17",

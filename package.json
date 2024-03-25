@@ -1,5 +1,5 @@
 {
-  "name": "siwf-all",
+  "name": "swif-all",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -20,7 +20,7 @@
     "chain-setup": "pnpm --filter setup run start"
   },
   "devDependencies": {
-    "@AmplicaLabs/siwf-eslint-config": "workspace:*",
+    "@AmplicaLabs/siwf-config-eslint": "workspace:*",
     "eslint": "^8.56.0",
     "prettier": "^3.2.4",
     "prettier-plugin-svelte": "^3.1.2",

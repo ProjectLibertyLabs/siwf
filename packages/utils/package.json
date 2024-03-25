@@ -22,7 +22,7 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@AmplicaLabs/siwf-eslint-config": "workspace:*",
+    "@AmplicaLabs/siwf-config-eslint": "workspace:*",
     "@AmplicaLabs/siwf": "workspace:*",
     "@vitest/coverage-v8": "^1.2.0",
     "jsdom": "^23.2.0",

@@ -1,5 +1,5 @@
 module.exports = {
   root: true,
   // This tells ESLint to load the config from the package `eslint-config-custom`
-  extends: ['@AmplicaLabs/siwf-eslint-config'],
+  extends: ['@AmplicaLabs/siwf-config-eslint'],
 };
