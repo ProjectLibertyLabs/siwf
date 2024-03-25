@@ -5,7 +5,6 @@
     getLoginOrRegistrationPayload,
     type RequestedSchema,
     setConfig,
-    type SignUpResponse,
     type WalletProxyResponse,
   } from '@AmplicaLabs/siwf';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
