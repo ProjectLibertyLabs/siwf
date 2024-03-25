@@ -50,7 +50,6 @@
     "@polkadot/util-crypto": "^12.6.2",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@tailwindcss/forms": "^0.5.7",
-    "@talismn/siws": "^0.0.18",
     "frequency-scenario-template": "file:vendor/frequency-scenario-template-1.0.0.tgz",
     "svelte-multiselect": "^10.2.0"
   }

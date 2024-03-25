@@ -5,7 +5,7 @@ import { SignInRequest, WindowMessenger } from './messenger';
 
 let windowMessenger: WindowMessenger;
 
-export async function renderPopup(src: string) {
+async function renderPopup(src: string) {
   try {
     windowMessenger = await WindowMessenger.create(`${src}/signin`, 'width=600, height=800 screenX=400 screenY=100');
   } catch (error) {

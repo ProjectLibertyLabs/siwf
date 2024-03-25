@@ -1,4 +1,5 @@
 import '@frequency-chain/api-augment';
+import { isHexString } from './types';
 import type {
   AddProviderPayload,
   ClaimHandleParams,
@@ -155,6 +156,9 @@ function validateExtrinsic(
   providerMsaId: string,
   api: ApiPromise
 ): Promise<ClaimHandleParams | SponsoredAccountParams> {
+  if (!isHexString(extrinsic.encodedExtrinsic)) {
+    throw new Error(`${SignupError.InvalidHex}: ${extrinsic.extrinsicName}`);
+  }
   switch (extrinsic.extrinsicName) {
     case SignUpCall.CreateSponsoredAccountWithDelegation:
     case SignUpCall.GrantDelegation:
@@ -191,23 +195,20 @@ function updateResponse(
 }
 
 function sortCallsBySubmissionOrder(encodedExtrinsics: EncodedExtrinsic[]): EncodedExtrinsic[] {
+  const defaultSort = 2;
   const orderMap = new Map<SignUpCall, number>([
     [SignUpCall.CreateSponsoredAccountWithDelegation, 0],
     [SignUpCall.ClaimHandle, 1],
   ]);
 
   return encodedExtrinsics.sort((a, b) => {
-    const indexA = orderMap.get(a.extrinsicName as SignUpCall);
-    const indexB = orderMap.get(b.extrinsicName as SignUpCall);
-    return (indexA as number) - (indexB as number);
+    const indexA = orderMap.get(a.extrinsicName as SignUpCall) || defaultSort;
+    const indexB = orderMap.get(b.extrinsicName as SignUpCall) || defaultSort;
+    return indexB - indexA;
   });
 }
 
-export async function doesPublicKeyControlMsa(
-  msaId: string,
-  publicKeyAddress: string,
-  api: ApiPromise
-): Promise<boolean> {
+export async function getMsaforPublicKey(api: ApiPromise, publicKeyAddress: string): Promise<string> {
   const verifiedMsa = (await api.query.msa.publicKeyToMsaId(publicKeyAddress)).unwrapOrDefault().toString();
-  return msaId.toString() === verifiedMsa;
+  return verifiedMsa;
 }

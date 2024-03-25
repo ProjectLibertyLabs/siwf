@@ -1,6 +1,7 @@
 # Example App
 
 An example app to show frequency-proxy-wallet.
+
 # Get started
 
 ```shell

@@ -10,7 +10,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'siwf',
       // the proper extensions will be added
-      fileName: 'siwf',
+      fileName: 'index',
       formats: ['es', 'umd', 'cjs'],
     },
   },

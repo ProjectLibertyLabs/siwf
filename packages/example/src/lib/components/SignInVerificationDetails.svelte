@@ -1,15 +1,12 @@
 <script lang="ts">
-  import { decodeAddress, signatureVerify } from '@polkadot/util-crypto';
-  import { u8aToHex } from '@polkadot/util';
-  import type { SiwsMessage } from '@talismn/siws';
   import Icon from '@iconify/svelte';
-  import { doesPublicKeyControlMsa } from '@amplica-labs/siwf';
+  import { isValidControlKey, isValidExpiration, isValidSignature, type SiwsMessage } from '@amplica-labs/siwf';
   import { onDestroy, onMount } from 'svelte';
   import type { ApiPromise } from '@polkadot/api';
 
   export let siwsMessage: SiwsMessage;
   export let message: string;
-  export let signature: `0x${string}`;
+  export let signature: string;
   export let api: ApiPromise;
   const baseTimeoutSecs = 3;
 
@@ -20,15 +17,8 @@
   let backoff = 0;
   let isExpired: boolean;
 
-  function isValidSignature(signedMessage: string, signature: `0x${string}`, address: string): boolean {
-    const publicKey = decodeAddress(address);
-    const hexPublicKey = u8aToHex(publicKey);
-
-    return signatureVerify(signedMessage, signature, hexPublicKey).isValid;
-  }
-
   function checkExpiration() {
-    isExpired = (siwsMessage.expirationTime ?? 0) < Date.now();
+    const isExpired = !isValidExpiration(siwsMessage);
     console.log(`Payload is ${isExpired ? 'expired' : 'not expired'}`);
     const timeout = Math.pow(baseTimeoutSecs, ++backoff) * 1_000;
     if (!isExpired) {
@@ -37,17 +27,10 @@
   }
 
   $: {
-    signatureVerified = isValidSignature(message, signature, siwsMessage.address);
-    const resources = siwsMessage.resources;
-    const msaUri = new URL(resources?.[0] || '');
-    msaId = msaUri.pathname.slice(2);
-    if (msaId) {
-      doesPublicKeyControlMsa(msaId, siwsMessage.address, api)
-        .then((value) => {
-          msaOwnershipVerified = value;
-        })
-        .catch((e) => console.log(e));
-    }
+    signatureVerified = isValidSignature({ message, signature }, siwsMessage.address);
+    isValidControlKey(api, siwsMessage).then((x) => {
+      msaOwnershipVerified = x !== null;
+    });
   }
 
   onMount(() => {

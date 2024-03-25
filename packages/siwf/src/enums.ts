@@ -1,7 +1,5 @@
 export enum Network {
-  ROCOCO = 'https://rpc.rococo.frequency.xyz',
   LOCALHOST = 'http://localhost:9944',
-  MAINNET = 'https://rpc.frequency.xyz',
 }
 
 export enum ProxyUrl {
@@ -22,4 +20,15 @@ export enum SignupError {
   SignupKeysMismatch = 'Signing keys do not match',
   InvalidHex = 'Expected hex-encoded call',
   ApiNotReady = 'API is not ready',
+  ResponseError = 'Error from response',
+}
+
+export enum SigninError {
+  InvalidMessage = 'Invalid message',
+  InvalidSignature = 'Invalid signature',
+  ExpiredSignature = 'Signature is expired',
+  InvalidMsaId = 'Invalid MSA ID',
+  InvalidHex = 'Expected hex-encoded call',
+  ApiNotReady = 'API is not ready',
+  ResponseError = 'Error from response',
 }
