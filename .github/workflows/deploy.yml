@@ -30,23 +30,23 @@ jobs:
 
       - name: build
         env:
-          BASE_PATH: '/control-panel'
+          BASE_PATH: '/swif'
         run: |
           pnpm run build
       - name: structure
         run: |
-          mkdir control-panel
-          touch control-panel/.nojekyll
-          mkdir control-panel/example
-          mkdir control-panel/wallet-proxy
-          mv ./packages/apps/frequency-wallet-proxy/build/* ./control-panel/wallet-proxy
-          mv ./packages/apps/example/build/* ./control-panel/example
+          mkdir swif
+          touch swif/.nojekyll
+          mkdir swif/example
+          mkdir swif/ui
+          mv ./packages/ui/build/* ./swif/ui
+          mv ./packages/example/build/* ./swif/example
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v1
         with:
           # this should match the `pages` option in adapter-static options
-          path: 'control-panel/'
+          path: 'swif/'
 
   deploy:
     needs: build_site

@@ -1,11 +1,7 @@
 {
-  "name": "@frequency-control-panel/utils",
+  "name": "@AmplicaLabs/siwf-utils",
   "type": "module",
-  "files": [
-    "dist",
-    "!dist/**/*.test.*",
-    "!dist/**/*.spec.*"
-  ],
+  "files": ["dist", "!dist/**/*.test.*", "!dist/**/*.spec.*"],
   "main": "./dist/fcp-utils.umd.cjs",
   "module": "./dist/fcp-utils.js",
   "exports": {
@@ -26,7 +22,8 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@frequency-control-panel/eslint-config": "workspace:*",
+    "@AmplicaLabs/siwf-eslint-config": "workspace:*",
+    "@AmplicaLabs/siwf": "workspace:*",
     "@vitest/coverage-v8": "^1.2.0",
     "jsdom": "^23.2.0",
     "pathe": "^1.1.1",
