@@ -271,23 +271,25 @@ describe('validateSignature', () => {
     if (!publicKeyArg || !signatureArg || !payloadArg) {
       throw new Error('Missing required args');
     }
-    await expect(
-      validateSignature(publicKeyArg?.toHex!() as HexString, signatureArg?.toHex!() as HexString, payloadArg?.toU8a!())
-    ).resolves.not.toThrow();
+    expect(
+      await validateSignature(
+        publicKeyArg?.toHex!() as HexString,
+        signatureArg?.toHex!() as HexString,
+        payloadArg?.toU8a!()
+      )
+    ).toBe(true);
   });
 
-  it('throws if invalid signature length', async () => {
-    await expect(validateSignature('0x0', '0x0', [])).rejects.toThrowError('Invalid signature length');
+  it('fails if invalid signature length', async () => {
+    expect(await validateSignature('0x0', '0x0', [])).toBe(false);
   });
 
-  it('throws if signature not valid', async () => {
+  it('fails if signature not valid', async () => {
     const publicKey = extrinsics[0].args[0].toHex!();
     const signature = extrinsics[0].args[1].toHex!();
     const payload = new Uint8Array();
 
-    await expect(validateSignature(publicKey as HexString, signature as HexString, payload)).rejects.toThrowError(
-      SignupError.InvalidSignature
-    );
+    expect(await validateSignature(publicKey as HexString, signature as HexString, payload)).toBe(false);
   });
 });
 

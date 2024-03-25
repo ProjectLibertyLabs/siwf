@@ -1,10 +1,10 @@
 import '@frequency-chain/api-augment';
-import { SignInResponse, SiwsPayload } from './types';
+import { SignInResponse, SiwsPayload, isHexString } from './types';
 import { type SiwsMessage, parseMessage as swisParseMessage } from '@talismn/siws';
 import { decodeAddress, signatureVerify } from '@polkadot/util-crypto';
 import { u8aToHex } from '@polkadot/util';
 import { SigninError } from './enums';
-import { getMsaforPublicKey } from './helpers';
+import { getMsaforPublicKey, validateSignature } from './helpers';
 import { ApiPromise } from '@polkadot/api';
 
 // Re-export the SiwsMessage type
@@ -31,10 +31,18 @@ export async function validateSignin(
     } catch (e) {
       throw new Error(`${SigninError.InvalidMessage}: ${e.toString() || 'Unknown Error'}`);
     }
+
     // Validate signature
-    if (!isValidSignature(signInResponse.siwsPayload, msg.address)) {
-      throw new Error(`${SigninError.InvalidSignature}: Verification failed`);
+    if (!isHexString(msg.address)) {
+      throw new Error(`${SigninError.InvalidHex}: ${msg.address}`);
     }
+    if (!isHexString(signInResponse.siwsPayload.message)) {
+      throw new Error(`${SigninError.InvalidHex}: ${signInResponse.siwsPayload.message}`);
+    }
+    if (!isValidSignature(msg.address, signInResponse.siwsPayload)) {
+      throw new Error(`${SigninError.InvalidSignature}: ${signInResponse.siwsPayload.signature}`);
+    }
+
     // Validate expiration
     if (!isValidExpiration(msg)) {
       throw new Error(`${SigninError.ExpiredSignature}: Expired at ${new Date(msg.expirationTime || 0).toISOString()}`);
@@ -67,15 +75,18 @@ export function parseMessage(message: string): SiwsMessage {
   return swisParseMessage(message);
 }
 
-export function isValidExpiration(siwfMessage: SiwsMessage): boolean {
-  return !!siwfMessage.expirationTime && siwfMessage.expirationTime > Date.now();
+export function isValidExpiration(siwsMessage: SiwsMessage): boolean {
+  return !!siwsMessage.expirationTime && siwsMessage.expirationTime > Date.now();
 }
 
-export function isValidSignature(payload: SiwsPayload, address: string): boolean {
-  const publicKey = decodeAddress(address);
-  const hexPublicKey = u8aToHex(publicKey);
-
-  return signatureVerify(payload.message, payload.signature, hexPublicKey).isValid;
+export async function isValidSignature(address: string, siwsPayload: SiwsPayload): Promise<boolean> {
+  if (!isHexString(address)) {
+    return false;
+  }
+  if (!isHexString(siwsPayload.message)) {
+    return false;
+  }
+  return await validateSignature(address, siwsPayload.message, siwsPayload.signature);
 }
 
 /**
