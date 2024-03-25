@@ -18,7 +18,7 @@
   let isExpired: boolean;
 
   function checkExpiration() {
-    const isExpired = !isValidExpiration(siwsMessage);
+    isExpired = !isValidExpiration(siwsMessage);
     console.log(`Payload is ${isExpired ? 'expired' : 'not expired'}`);
     const timeout = Math.pow(baseTimeoutSecs, ++backoff) * 1_000;
     if (!isExpired) {
@@ -30,6 +30,9 @@
     signatureVerified = isValidSignature({ message, signature }, siwsMessage.address);
     isValidControlKey(api, siwsMessage).then((x) => {
       msaOwnershipVerified = x !== null;
+      if (x !== null) {
+        msaId = x;
+      }
     });
   }
 
@@ -56,9 +59,11 @@
         <Icon icon="openmoji:check-mark" /><span>Signature verified</span>
       {:else}
         <Icon icon="openmoji:cross-mark" /><span>Signature invalid</span>
-        {#if isExpired}
+      {/if}
+      {#if !signatureVerified && isExpired}
+        <div class="flex">
           <Icon icon="openmoji:cross-mark" /><span>Signature expired</span>
-        {/if}
+        </div>
       {/if}
     </div>
     <div class="flex">
