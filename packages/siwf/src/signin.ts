@@ -68,7 +68,7 @@ export function parseMessage(message: string): SiwsMessage {
 }
 
 export function isValidExpiration(siwfMessage: SiwsMessage): boolean {
-  return (siwfMessage.expirationTime ?? 0) < Date.now();
+  return !!siwfMessage.expirationTime && siwfMessage.expirationTime > Date.now();
 }
 
 export function isValidSignature(payload: SiwsPayload, address: string): boolean {
