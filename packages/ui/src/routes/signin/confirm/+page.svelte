@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Siws, SiwsMessage } from '@talismn/siws';
-  import { type SignInResponse } from '@AmplicaLabs/siwf';
-  import { generateSIWxNonce } from '@AmplicaLabs/siwf-utils';
+  import { type SignInResponse } from '@amplica-labs/siwf';
+  import { generateSIWxNonce } from '@amplica-labs/siwf-utils';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores/CurrentSelectedMsaAccountStore';
   import { ConnectedExtensionsDerivedStore } from '$lib/stores/derived/ConnectedExtensionsDerivedStore';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';

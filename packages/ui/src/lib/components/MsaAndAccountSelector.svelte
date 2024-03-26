@@ -2,7 +2,7 @@
   import { type InjectedAccountWithExtensions } from '$lib/stores/derived/AllAccountsDerivedStore';
   import type { MsaInfoWithAccounts } from '$lib/stores/derived/MsaAccountsDerivedStore';
   import { type CurrentSelectedMsaAccount } from '$lib/stores/CurrentSelectedMsaAccountStore';
-  import { getHandleBase, getHandleSuffix } from '@AmplicaLabs/siwf-utils';
+  import { getHandleBase, getHandleSuffix } from '@amplica-labs/siwf-utils';
   import WalletAddressSelector from './WalletAddressSelector.svelte';
   import type { MsaAndAddress } from '$lib/stores/CachedLastUsedMsaAndAddressStore';
 

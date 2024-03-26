@@ -1,13 +1,13 @@
-import { ExtensionConnector } from '@AmplicaLabs/siwf-utils';
+import { ExtensionConnector } from '@amplica-labs/siwf-utils';
 import {
   createAddProviderPayload,
   createClaimHandlePayload,
   getBlockNumber,
   getHandleNextSuffixes,
-} from '@AmplicaLabs/siwf-utils';
+} from '@amplica-labs/siwf-utils';
 import { APP_NAME } from '$lib/globals';
 import type { U8aLike } from '@polkadot/util/types';
-import { Message, type WalletProxyResponse, WindowEndpoint } from '@AmplicaLabs/siwf';
+import { Message, type WalletProxyResponse, WindowEndpoint } from '@amplica-labs/siwf';
 
 export async function checkHandleAvailability(handle: string): Promise<boolean> {
   const minAvailableHandles = 5;

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { parseMessage, type SiwsMessage } from '@talismn/siws';
   import Icon from '@iconify/svelte';
-  import type { SignInResponse, SiwsPayload } from '@AmplicaLabs/siwf';
+  import type { SignInResponse, SiwsPayload } from '@amplica-labs/siwf';
   import type { ApiPromise } from '@polkadot/api';
   import SignInVerificationDetails from './SignInVerificationDetails.svelte';
 

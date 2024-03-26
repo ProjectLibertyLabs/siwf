@@ -1,5 +1,5 @@
 {
-  "name": "@AmplicaLabs/eslint-config-siwf",
+  "name": "@amplica-labs/eslint-config-siwf",
   "version": "0.0.0",
   "publishConfig": {
     "access": "public"
