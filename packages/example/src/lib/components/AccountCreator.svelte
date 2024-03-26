@@ -23,7 +23,7 @@
   onMount(async () => {
     console.log('response', response);
     console.log('providerID', providerId);
-    const validatedPaylod = await validateSignup(response, providerId, api);
+    const validatedPaylod = await validateSignup(api, response, providerId);
     console.log('validatedPaylod', validatedPaylod);
 
     const transactions = validatedPaylod.calls.map((e) => e.encodedExtrinsic);

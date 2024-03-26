@@ -27,7 +27,7 @@
   }
 
   $: {
-    signatureVerified = isValidSignature(siwsMessage.address, signature, message);
+    isValidSignature(siwsMessage.address, { signature, message }).then((x) => (signatureVerified = x));
     isValidControlKey(api, siwsMessage).then((x) => {
       msaOwnershipVerified = x !== null;
       if (x !== null) {
