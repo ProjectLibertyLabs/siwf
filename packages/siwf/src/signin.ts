@@ -91,8 +91,8 @@ export async function isValidSignature(address: string, siwsPayload: SiwsPayload
  * Returns the MSA Id if valid
  */
 export async function getMsaId(api: ApiPromise, siwsMessage: SiwsMessage): Promise<string | null> {
-  const msaUri = new URL(siwsMessage.resources?.[0] || '');
-  const msgMsaId = msaUri.pathname.slice(2);
+  const msaUri = siwsMessage.resources?.[0] || '';
+  const msgMsaId = msaUri.toLowerCase().replace('dsnp://', '');
   await api.isReady;
   const verifiedMsa = await getMsaforPublicKey(api, siwsMessage.address);
   if (msgMsaId === verifiedMsa) {
