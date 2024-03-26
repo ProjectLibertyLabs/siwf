@@ -312,7 +312,7 @@ The function may throw errors of type SignupError for various failure scenarios.
 - `InvalidSignature`: The signature provided in did not validate.
 - `ExpiredSignature`: The signature associated with the signin has expired.
 - `InvalidMsaId`: The MSA ID provided does not match any valid ID in the system.
-- `InvalidHex`: The extrinsic data is not properly hex-encoded.
+- `InvalidHex`: The signature is not properly hex-encoded.
 - `ApiNotReady`: The API is not ready to process the request.
 
 See `SigninError` in [`packages/siwf/src/enums.ts`](packages/siwf/src/enums.ts) for the full list.

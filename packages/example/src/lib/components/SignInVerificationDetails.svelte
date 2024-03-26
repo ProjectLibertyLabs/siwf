@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
-  import { isValidControlKey, isValidExpiration, isValidSignature, type SiwsMessage } from '@amplica-labs/siwf';
+  import { getMsaId, isValidExpiration, isValidSignature, type SiwsMessage } from '@amplica-labs/siwf';
   import { onDestroy, onMount } from 'svelte';
   import type { ApiPromise } from '@polkadot/api';
 
@@ -28,7 +28,7 @@
 
   $: {
     isValidSignature(siwsMessage.address, { signature, message }).then((x) => (signatureVerified = x));
-    isValidControlKey(api, siwsMessage).then((x) => {
+    getMsaId(api, siwsMessage).then((x) => {
       msaOwnershipVerified = x !== null;
       if (x !== null) {
         msaId = x;

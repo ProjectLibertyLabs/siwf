@@ -6,7 +6,7 @@
     "build": "pnpm run --stream -r build",
     "build:utils": "pnpm run --filter @amplica-labs/siwf-utils -r build",
     "build:siwf": "pnpm run --filter @amplica-labs/siwf -r build",
-    "pack:siwf": "pnpm run --filter @amplica-labs/siwf -r pack",
+    "pack:siwf": "pnpm run build:siwf && pnpm run --filter @amplica-labs/siwf -r pack",
     "dev": "pnpm --filter @amplica-labs/siwf-ui run dev",
     "lint": "pnpm run --stream -r lint",
     "lint:app": "pnpm run --filter @amplica-labs/siwf-ui -r lint",

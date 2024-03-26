@@ -28,7 +28,7 @@ export enum SigninError {
   InvalidSignature = 'Invalid signature',
   ExpiredSignature = 'Signature is expired',
   InvalidMsaId = 'Invalid MSA ID',
-  InvalidHex = 'Expected hex-encoded call',
+  InvalidHex = 'Expected hex-encoded signature',
   ApiNotReady = 'API is not ready',
   ResponseError = 'Error from response',
 }

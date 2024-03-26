@@ -52,7 +52,7 @@ export async function validateSignin(
     }
 
     // Validate MSA control
-    const msaId = await isValidControlKey(api, msg);
+    const msaId = await getMsaId(api, msg);
     if (!msaId) {
       throw new Error(
         `${SigninError.InvalidMsaId}: Signature was for ${msaId || 'NONE'}, but message had: ${msg.resources?.[0] || 'NONE'}`
@@ -90,7 +90,7 @@ export async function isValidSignature(address: string, siwsPayload: SiwsPayload
 /**
  * Returns the MSA Id if valid
  */
-export async function isValidControlKey(api: ApiPromise, siwsMessage: SiwsMessage): Promise<string | null> {
+export async function getMsaId(api: ApiPromise, siwsMessage: SiwsMessage): Promise<string | null> {
   const msaUri = new URL(siwsMessage.resources?.[0] || '');
   const msgMsaId = msaUri.pathname.slice(2);
   await api.isReady;
