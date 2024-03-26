@@ -1,5 +1,5 @@
 {
-  "name": "@AmplicaLabs/siwf-example-app",
+  "name": "@amplica-labs/siwf-example-app",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -14,7 +14,7 @@
     "test:unit": "echo \"example app empty test\""
   },
   "devDependencies": {
-    "@AmplicaLabs/eslint-config-siwf": "workspace:*",
+    "@amplica-labs/eslint-config-siwf": "workspace:*",
     "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/kit": "^2.5.4",
     "autoprefixer": "^10.4.17",
@@ -38,10 +38,10 @@
   },
   "type": "module",
   "dependencies": {
+    "@amplica-labs/siwf": "workspace:^",
+    "@amplica-labs/siwf-utils": "workspace:^",
     "@dsnp/frequency-schemas": "^1.1.0",
     "@frequency-chain/api-augment": "^1.10.0",
-    "@AmplicaLabs/siwf": "workspace:^",
-    "@AmplicaLabs/siwf-utils": "workspace:^",
     "@iconify/icons-openmoji": "^1.2.33",
     "@iconify/svelte": "^3.1.6",
     "@polkadot/api": "^10.11.2",
@@ -51,7 +51,7 @@
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@tailwindcss/forms": "^0.5.7",
     "@talismn/siws": "^0.0.18",
-    "frequency-scenario-template": "link:../../../../frequency-scenario-template",
+    "frequency-scenario-template": "file:vendor/frequency-scenario-template-1.0.0.tgz",
     "svelte-multiselect": "^10.2.0"
   }
 }

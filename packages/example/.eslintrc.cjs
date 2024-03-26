@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['@AmplicaLabs/eslint-config-siwf'],
+  extends: ['@amplica-labs/eslint-config-siwf'],
 };

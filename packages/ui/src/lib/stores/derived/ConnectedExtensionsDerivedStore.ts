@@ -5,7 +5,7 @@ import {
   ExtensionErrorEnum,
   type InjectedWeb3,
   isExtensionInstalled,
-} from '@AmplicaLabs/siwf-utils';
+} from '@amplica-labs/siwf-utils';
 import { derived } from 'svelte/store';
 import { APP_NAME } from '$lib/globals';
 import type { InjectedAccount } from '@polkadot/extension-inject/types';

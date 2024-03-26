@@ -8,7 +8,7 @@ importers:
 
   .:
     devDependencies:
-      '@AmplicaLabs/eslint-config-siwf':
+      '@amplica-labs/eslint-config-siwf':
         specifier: workspace:*
         version: link:packages/eslint-config
       eslint:
@@ -47,10 +47,10 @@ importers:
 
   packages/example:
     dependencies:
-      '@AmplicaLabs/siwf':
+      '@amplica-labs/siwf':
         specifier: workspace:^
         version: link:../siwf
-      '@AmplicaLabs/siwf-utils':
+      '@amplica-labs/siwf-utils':
         specifier: workspace:^
         version: link:../utils
       '@dsnp/frequency-schemas':
@@ -87,13 +87,13 @@ importers:
         specifier: ^0.0.18
         version: 0.0.18(@polkadot/api-contract@10.12.4)(@polkadot/api@10.12.4)(@polkadot/extension-dapp@0.46.9)(@polkadot/types@10.12.4)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
       frequency-scenario-template:
-        specifier: link:../../../../frequency-scenario-template
-        version: link:../../../../frequency-scenario-template
+        specifier: file:vendor/frequency-scenario-template-1.0.0.tgz
+        version: file:packages/example/vendor/frequency-scenario-template-1.0.0.tgz
       svelte-multiselect:
         specifier: ^10.2.0
         version: 10.2.0
     devDependencies:
-      '@AmplicaLabs/eslint-config-siwf':
+      '@amplica-labs/eslint-config-siwf':
         specifier: workspace:*
         version: link:../eslint-config
       '@sveltejs/adapter-static':
@@ -184,7 +184,7 @@ importers:
         specifier: ^12.6.2
         version: 12.6.2(@polkadot/util@12.6.2)
     devDependencies:
-      '@AmplicaLabs/eslint-config-siwf':
+      '@amplica-labs/eslint-config-siwf':
         specifier: workspace:*
         version: link:../eslint-config
       '@polkadot/rpc-provider':
@@ -215,12 +215,42 @@ importers:
         specifier: ^1.0.0
         version: 1.4.0(@types/node@20.11.30)(jsdom@23.2.0)
 
+  packages/siwf/dist:
+    dependencies:
+      '@dsnp/frequency-schemas':
+        specifier: ^1.1.0
+        version: 1.1.0(@types/node@20.11.30)
+      '@frequency-chain/api-augment':
+        specifier: ^1.10.0
+        version: 1.11.1
+      '@polkadot/api':
+        specifier: ^10.12.4
+        version: 10.12.4
+      '@polkadot/extension-dapp':
+        specifier: ^0.46.6
+        version: 0.46.9(@polkadot/api@10.12.4)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
+      '@polkadot/extension-inject':
+        specifier: ^0.46.6
+        version: 0.46.9(@polkadot/api@10.12.4)(@polkadot/util@12.6.2)
+      '@polkadot/types':
+        specifier: ^10.12.4
+        version: 10.12.4
+      '@polkadot/util':
+        specifier: ^12.6.2
+        version: 12.6.2
+      '@polkadot/util-crypto':
+        specifier: ^12.6.2
+        version: 12.6.2(@polkadot/util@12.6.2)
+      '@talismn/siws':
+        specifier: ^0.0.18
+        version: 0.0.18(@polkadot/api-contract@10.12.4)(@polkadot/api@10.12.4)(@polkadot/extension-dapp@0.46.9)(@polkadot/types@10.12.4)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
+
   packages/ui:
     dependencies:
-      '@AmplicaLabs/siwf':
+      '@amplica-labs/siwf':
         specifier: workspace:^
         version: link:../siwf
-      '@AmplicaLabs/siwf-utils':
+      '@amplica-labs/siwf-utils':
         specifier: workspace:^
         version: link:../utils
       '@dsnp/frequency-schemas':
@@ -272,7 +302,7 @@ importers:
         specifier: ^0.18.2
         version: 0.18.5
     devDependencies:
-      '@AmplicaLabs/eslint-config-siwf':
+      '@amplica-labs/eslint-config-siwf':
         specifier: workspace:*
         version: link:../eslint-config
       '@iconify/types':
@@ -372,12 +402,12 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2
     devDependencies:
-      '@AmplicaLabs/siwf':
-        specifier: workspace:*
-        version: link:../siwf
-      '@AmplicaLabs/eslint-config-siwf':
+      '@amplica-labs/eslint-config-siwf':
         specifier: workspace:*
         version: link:../eslint-config
+      '@amplica-labs/siwf':
+        specifier: workspace:*
+        version: link:../siwf
       '@vitest/coverage-v8':
         specifier: ^1.2.0
         version: 1.4.0(vitest@1.4.0)
@@ -1289,6 +1319,11 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
+    dev: false
+
+  /@dsnp/graph-sdk@1.0.3:
+    resolution: {integrity: sha512-3G1I/TuvLiBEVISoz/+wv6fKjsA516Zg3/MgqDOa1dRnKhK+6XE4qwDK+tmMIGiC3m0h6Sj5cK3mhCeH+pmnfQ==}
+    engines: {node: ^14.0.0 || ^16.0.0 || >=17.0.0}
     dev: false
 
   /@dsnp/parquetjs@1.6.2:
@@ -3429,6 +3464,10 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@types/minimist@1.2.5:
+    resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
+    dev: false
 
   /@types/node-int64@0.4.32:
     resolution: {integrity: sha512-xf/JsSlnXQ+mzvc0IpXemcrO4BrCfpgNpMco+GLcXkFk01k/gW9lGJu+Vof0ZSvHK6DsHJDPSbjFPs36QkWXqw==}
@@ -5920,7 +5959,6 @@ packages:
 
   /minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-    dev: true
 
   /minipass@7.0.4:
     resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
@@ -7944,3 +7982,31 @@ packages:
     optionalDependencies:
       commander: 9.5.0
     dev: true
+
+  file:packages/example/vendor/frequency-scenario-template-1.0.0.tgz:
+    resolution: {integrity: sha512-wnXJ0N2NWrg8ktJm13y7+hy4dze7csrhmngLT/6UUgXgpz2W/d+1NejgVnwDVFfG/2b8LRl5CLhYtilvzGyqtg==, tarball: file:packages/example/vendor/frequency-scenario-template-1.0.0.tgz}
+    name: frequency-scenario-template
+    version: 1.0.0
+    dependencies:
+      '@dsnp/frequency-schemas': 1.1.0(@types/node@20.11.30)
+      '@dsnp/graph-sdk': 1.0.3
+      '@frequency-chain/api-augment': 1.11.1
+      '@polkadot/api': 10.12.4
+      '@polkadot/keyring': 12.6.2(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
+      '@polkadot/types': 10.12.4
+      '@polkadot/util': 12.6.2
+      '@polkadot/util-crypto': 12.6.2(@polkadot/util@12.6.2)
+      '@types/minimist': 1.2.5
+      '@types/node': 20.11.30
+      loglevel: 1.9.1
+      minimist: 1.2.8
+      rxjs: 7.8.1
+    transitivePeerDependencies:
+      - '@swc/core'
+      - '@swc/wasm'
+      - aws-crt
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false

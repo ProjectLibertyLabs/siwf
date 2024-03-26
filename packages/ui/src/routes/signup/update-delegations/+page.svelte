@@ -3,7 +3,7 @@
   import { DSNPSchemas, getDelegationPayload, getPayloadSignature } from '$lib/utils';
   import { FooterButton } from '$lib/components';
   import PayloadConfirmation from '$lib/components/PayloadConfirmation.svelte';
-  import { buildGrantDelegationTx } from '@AmplicaLabs/siwf-utils';
+  import { buildGrantDelegationTx } from '@amplica-labs/siwf-utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores';
   import { goto } from '$app/navigation';

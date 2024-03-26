@@ -4,7 +4,7 @@
   import { DSNPSchemas, getDelegationPayload, getPayloadSignature } from '$lib/utils';
   import { FooterButton } from '$lib/components';
   import PayloadConfirmation from '$lib/components/PayloadConfirmation.svelte';
-  import { buildCreateSponsoredAccountTx } from '@AmplicaLabs/siwf-utils';
+  import { buildCreateSponsoredAccountTx } from '@amplica-labs/siwf-utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { sendWalletProxyResponse } from '$lib/utils';
 

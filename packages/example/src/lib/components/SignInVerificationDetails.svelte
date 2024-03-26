@@ -3,7 +3,7 @@
   import { u8aToHex } from '@polkadot/util';
   import type { SiwsMessage } from '@talismn/siws';
   import Icon from '@iconify/svelte';
-  import { doesPublicKeyControlMsa } from '@AmplicaLabs/siwf';
+  import { doesPublicKeyControlMsa } from '@amplica-labs/siwf';
   import { onDestroy, onMount } from 'svelte';
   import type { ApiPromise } from '@polkadot/api';
 

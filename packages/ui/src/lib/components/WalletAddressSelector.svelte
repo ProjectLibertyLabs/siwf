@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { InjectedAccountWithExtensions } from '$lib/stores/derived/AllAccountsDerivedStore';
-  import { formatWalletAddress } from '@AmplicaLabs/siwf-utils';
+  import { formatWalletAddress } from '@amplica-labs/siwf-utils';
   import checkIcon from '@iconify/icons-mdi/check';
   import Icon from '@iconify/svelte';
 

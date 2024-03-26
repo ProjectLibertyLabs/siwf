@@ -10,7 +10,7 @@
     resolveSchemas,
     setApiUrl,
     type SignInRequest,
-  } from '@AmplicaLabs/siwf-utils';
+  } from '@amplica-labs/siwf-utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { getWindowEndpoint } from '$lib/utils';
   import Spinner from '$lib/components/Spinner.svelte';

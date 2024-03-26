@@ -4,7 +4,7 @@
   import '@frequency-chain/api-augment';
   import { onMount } from 'svelte';
   import { Keyring } from '@polkadot/api';
-  import { type SignUpResponse, validateSignupExtrinsicsParams } from '@AmplicaLabs/siwf';
+  import { type SignUpResponse, validateSignupExtrinsicsParams } from '@amplica-labs/siwf';
   import type { ApiPromise } from '@polkadot/api/promise';
   import Spinner from './Spinner.svelte';
 

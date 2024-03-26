@@ -14,7 +14,7 @@ onboarding operations over Frequency.
 
 ### Description
 
-SIWF has two parts: a package `@AmplicaLabs/siwf` and a deployed web application that performs the needed UI for
+SIWF has two parts: a package `@amplica-labs/siwf` and a deployed web application that performs the needed UI for
 assisting the user in the action of login or onboarding. The UI also assists with interfacing with various wallets is
 achieved through interaction with either a supported browser extension (web/mobile) or an installed native app (mobile
 only)
@@ -31,7 +31,7 @@ onboarding. The user/data flows will look as follows:
 
 ### Creating a Sign-up/Sign-in Button
 
-1. Install the SIWF package `npm i @AmplicaLabs/siwf`
+1. Install the SIWF package `npm i @amplica-labs/siwf`
 
 2. Import the `setConfig` and `getLoginOrRegistrationPayload` functions.
 3. `setConfig` is used to set the URL to the current production siwf-ui. The current deployed environment is via GitHub
@@ -44,7 +44,7 @@ onboarding. The user/data flows will look as follows:
    Note: For SIWF development replace with the address the local application runs on.
 
    ```ts
-   import { type ControlPanelResponse, getLoginOrRegistrationPayload, setConfig } from '@AmplicaLabs/siwf';
+   import { type ControlPanelResponse, getLoginOrRegistrationPayload, setConfig } from '@amplica-labs/siwf';
    setConfig({
      // Your providerId
      providerId: '1',
@@ -58,9 +58,9 @@ onboarding. The user/data flows will look as follows:
      },
      // The Schema name for which permissions are being requested.
      // A specific version of a named schema may be requested using the optional `version`
-    // attribute. Named schema versions are monotonically increasing integers, starting from 1. A
-    // value of `0` is the same as omitting the attribute and will resolve to the latest version of the
-    // named schema.
+     // attribute. Named schema versions are monotonically increasing integers, starting from 1. A
+     // value of `0` is the same as omitting the attribute and will resolve to the latest version of the
+     // named schema.
      schemas: [
        { name: 'public-key-key-agreement' },
        { name: 'public-follows' },
@@ -96,8 +96,9 @@ export type WalletProxyResponse = {
 
 ## Handling Responses
 
-The response from the SIWF UI during sign-in may vary slightly because it's unknown at the time of invocation whether the user is attempting to
-sign in with an identity (MSA), is a returning user to the dApp, or requires permission grants.
+The response from the SIWF UI during sign-in may vary slightly because it's unknown at the time of invocation whether
+the user is attempting to sign in with an identity (MSA), is a returning user to the dApp, or requires permission
+grants.
 
 ### Brand new user
 
@@ -191,7 +192,7 @@ delegation. This helps with avoiding failed transactions due to expiration of si
 for decoding a hex-encoded extrinsic can be found in the
 [Polkadot documentation](https://wiki.polkadot.network/docs/build-transaction-construction).
 
-The `validateSignupExtrinsicsParams` function included in the `@AmplicaLabs/siwf` package performs validation on signup
+The `validateSignupExtrinsicsParams` function included in the `@amplica-labs/siwf` package performs validation on signup
 extrinsic parameters to ensure the integrity and correctness of the signup process. It verifies several critical aspects
 of the provided extrinsics, including the validity and expiration of proofs, the consistency of signing keys, the format
 of encoded data, and the matching of permissions with the provider's MSA ID.
@@ -199,7 +200,7 @@ of encoded data, and the matching of permissions with the provider's MSA ID.
 ### Example Usage
 
 ```ts
-import { validateSignupExtrinsicsParams } from '@AmplicaLabs/siwf';
+import { validateSignupExtrinsicsParams } from '@amplica-labs/siwf';
 let response = {
   signUp: {
     extrinsics: [
