@@ -42,7 +42,11 @@ export async function decodeExtrinsic(hexEncodedCall: HexString, api: ApiPromise
   return { method, section, args: tx.args };
 }
 
-export async function validateSignature(publicKey: HexString, proof: HexString, payload: U8aLike): Promise<boolean> {
+export async function validateSignature(
+  publicKey: string | Uint8Array,
+  proof: HexString,
+  payload: U8aLike
+): Promise<boolean> {
   try {
     await cryptoWaitReady();
     const { isValid } = signatureVerify(u8aWrapBytes(payload), proof, publicKey);

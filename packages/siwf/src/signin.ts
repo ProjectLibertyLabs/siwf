@@ -4,6 +4,7 @@ import { type SiwsMessage, parseMessage as swisParseMessage } from '@talismn/siw
 import { SigninError } from './enums';
 import { getMsaforPublicKey, validateSignature } from './helpers';
 import { ApiPromise } from '@polkadot/api';
+import { decodeAddress } from '@polkadot/util-crypto/address';
 
 // Re-export the SiwsMessage type
 export { type SiwsMessage } from '@talismn/siws';
@@ -31,9 +32,6 @@ export async function validateSignin(
     }
 
     // Validate signature
-    if (!isHexString(msg.address)) {
-      throw new Error(`${SigninError.InvalidHex}: ${msg.address}`);
-    }
     if (!isHexString(signInResponse.siwsPayload.message)) {
       throw new Error(`${SigninError.InvalidHex}: ${signInResponse.siwsPayload.message}`);
     }
@@ -78,13 +76,15 @@ export function isValidExpiration(siwsMessage: SiwsMessage): boolean {
 }
 
 export async function isValidSignature(address: string, siwsPayload: SiwsPayload): Promise<boolean> {
-  if (!isHexString(address)) {
+  try {
+    const hexAddress = decodeAddress(address);
+    if (!isHexString(siwsPayload.message)) {
+      return false;
+    }
+    return await validateSignature(hexAddress, siwsPayload.message, siwsPayload.signature);
+  } catch (_e) {
     return false;
   }
-  if (!isHexString(siwsPayload.message)) {
-    return false;
-  }
-  return await validateSignature(address, siwsPayload.message, siwsPayload.signature);
 }
 
 /**

@@ -289,7 +289,7 @@ describe('validateSignature', () => {
     const signature = extrinsics[0].args[1].toHex!();
     const payload = new Uint8Array();
 
-    expect(await validateSignature(publicKey as HexString, signature as HexString, payload)).toBe(false);
+    expect(await validateSignature(publicKey, signature as HexString, payload)).toBe(false);
   });
 });
 
