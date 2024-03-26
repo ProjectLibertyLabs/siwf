@@ -1,8 +1,6 @@
 import '@frequency-chain/api-augment';
-import { SignInResponse, SiwsPayload, isHexString } from './types';
+import { isHexString, SignInResponse, SiwsPayload } from './types';
 import { type SiwsMessage, parseMessage as swisParseMessage } from '@talismn/siws';
-import { decodeAddress, signatureVerify } from '@polkadot/util-crypto';
-import { u8aToHex } from '@polkadot/util';
 import { SigninError } from './enums';
 import { getMsaforPublicKey, validateSignature } from './helpers';
 import { ApiPromise } from '@polkadot/api';
