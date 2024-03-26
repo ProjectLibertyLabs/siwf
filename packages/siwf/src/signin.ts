@@ -32,8 +32,8 @@ export async function validateSignin(
     }
 
     // Validate signature
-    if (!isHexString(signInResponse.siwsPayload.message)) {
-      throw new Error(`${SigninError.InvalidHex}: ${signInResponse.siwsPayload.message}`);
+    if (!isHexString(signInResponse.siwsPayload.signature)) {
+      throw new Error(`${SigninError.InvalidHex}: ${signInResponse.siwsPayload.signature}`);
     }
     if (!isValidSignature(msg.address, signInResponse.siwsPayload)) {
       throw new Error(`${SigninError.InvalidSignature}: ${signInResponse.siwsPayload.signature}`);
@@ -78,10 +78,10 @@ export function isValidExpiration(siwsMessage: SiwsMessage): boolean {
 export async function isValidSignature(address: string, siwsPayload: SiwsPayload): Promise<boolean> {
   try {
     const hexAddress = decodeAddress(address);
-    if (!isHexString(siwsPayload.message)) {
+    if (!isHexString(siwsPayload.signature)) {
       return false;
     }
-    return await validateSignature(hexAddress, siwsPayload.message, siwsPayload.signature);
+    return await validateSignature(hexAddress, siwsPayload.signature, siwsPayload.message);
   } catch (_e) {
     return false;
   }
