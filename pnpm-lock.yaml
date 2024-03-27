@@ -83,12 +83,6 @@ importers:
       '@tailwindcss/forms':
         specifier: ^0.5.7
         version: 0.5.7(tailwindcss@3.4.1)
-      '@talismn/siws':
-        specifier: ^0.0.18
-        version: 0.0.18(@polkadot/api-contract@10.12.4)(@polkadot/api@10.12.4)(@polkadot/extension-dapp@0.46.9)(@polkadot/types@10.12.4)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
-      frequency-scenario-template:
-        specifier: file:vendor/frequency-scenario-template-1.0.0.tgz
-        version: file:packages/example/vendor/frequency-scenario-template-1.0.0.tgz
       svelte-multiselect:
         specifier: ^10.2.0
         version: 10.2.0
@@ -183,6 +177,9 @@ importers:
       '@polkadot/util-crypto':
         specifier: ^12.6.2
         version: 12.6.2(@polkadot/util@12.6.2)
+      '@talismn/siws':
+        specifier: ^0.0.18
+        version: 0.0.18(@polkadot/api-contract@10.12.4)(@polkadot/api@10.12.4)(@polkadot/extension-dapp@0.46.9)(@polkadot/types@10.12.4)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
     devDependencies:
       '@amplica-labs/eslint-config-siwf':
         specifier: workspace:*
@@ -451,8 +448,8 @@ importers:
         specifier: ^12.6.2
         version: 12.6.2(@polkadot/util@12.6.2)
       frequency-scenario-template:
-        specifier: link:../../frequency-scenario-template
-        version: link:../../frequency-scenario-template
+        specifier: file:../vendor/frequency-scenario-template-1.0.0.tgz
+        version: file:vendor/frequency-scenario-template-1.0.0.tgz
       typescript:
         specifier: ^5.2.2
         version: 5.4.3
@@ -7983,8 +7980,8 @@ packages:
       commander: 9.5.0
     dev: true
 
-  file:packages/example/vendor/frequency-scenario-template-1.0.0.tgz:
-    resolution: {integrity: sha512-wnXJ0N2NWrg8ktJm13y7+hy4dze7csrhmngLT/6UUgXgpz2W/d+1NejgVnwDVFfG/2b8LRl5CLhYtilvzGyqtg==, tarball: file:packages/example/vendor/frequency-scenario-template-1.0.0.tgz}
+  file:vendor/frequency-scenario-template-1.0.0.tgz:
+    resolution: {integrity: sha512-wnXJ0N2NWrg8ktJm13y7+hy4dze7csrhmngLT/6UUgXgpz2W/d+1NejgVnwDVFfG/2b8LRl5CLhYtilvzGyqtg==, tarball: file:vendor/frequency-scenario-template-1.0.0.tgz}
     name: frequency-scenario-template
     version: 1.0.0
     dependencies:

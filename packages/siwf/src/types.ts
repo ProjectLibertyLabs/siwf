@@ -2,11 +2,15 @@ import { Message } from './messenger/enums';
 import type { AnyTuple, Codec as PCodec } from '@polkadot/types/types';
 import type { HexString } from '@polkadot/util/types';
 
+export function isHexString(x: string): x is HexString {
+  return x.startsWith('0x');
+}
+
 export type Codec = PCodec;
 
 export type SiwsPayload = {
   message: string;
-  signature: `0x${string}`;
+  signature: string | HexString;
 };
 
 export type ErrorResponse = {
@@ -21,7 +25,7 @@ export type SignInResponse = {
 export type EncodedExtrinsic = {
   pallet: string;
   extrinsicName: string;
-  encodedExtrinsic: `0x${string}`;
+  encodedExtrinsic: string | HexString;
 };
 
 export type SignUpResponse = {

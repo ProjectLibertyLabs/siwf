@@ -1,13 +1,11 @@
 <script lang="ts">
   import { CurrentSelectedExtensionIdStore } from '$lib/stores/CurrentSelectedExtensionIdStore';
-  import { DSNPSchemas, getDelegationPayload, getPayloadSignature } from '$lib/utils';
+  import { DSNPSchemas, getDelegationPayload, getPayloadSignature, sendWalletProxyResponse } from '$lib/utils';
   import { FooterButton } from '$lib/components';
   import PayloadConfirmation from '$lib/components/PayloadConfirmation.svelte';
   import { buildGrantDelegationTx } from '@amplica-labs/siwf-utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores';
-  import { goto } from '$app/navigation';
-  import { base } from '$app/paths';
 
   let payloadBytes: Uint8Array;
 
@@ -51,7 +49,7 @@
         encodedExtrinsic,
       });
 
-      goto(`${base}/signin/confirm`);
+      await sendWalletProxyResponse($RequestResponseStore.response!);
     } catch (err: unknown) {
       console.error('Payload not signed', err);
     }

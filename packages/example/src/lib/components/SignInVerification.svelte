@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { parseMessage, type SiwsMessage } from '@talismn/siws';
   import Icon from '@iconify/svelte';
-  import type { SignInResponse, SiwsPayload } from '@amplica-labs/siwf';
+  import { parseMessage, type SignInResponse, type SiwsMessage } from '@amplica-labs/siwf';
   import type { ApiPromise } from '@polkadot/api';
   import SignInVerificationDetails from './SignInVerificationDetails.svelte';
 
@@ -9,16 +8,19 @@
   export let api: ApiPromise;
   let siwsMessage: SiwsMessage | null;
 
-  function parsePayload(p: SiwsPayload): SiwsMessage | null {
+  // This breaks apart the pieces of `validateSignin` to get to the details of the failures
+  function parseResponse(p: SignInResponse): SiwsMessage | null {
     try {
-      return parseMessage(p.message);
+      if (p.siwsPayload?.message) {
+        return parseMessage(p.siwsPayload.message);
+      }
     } catch (e) {
       console.error(e);
     }
     return null;
   }
 
-  $: siwsMessage = (response.siwsPayload && parsePayload(response.siwsPayload)) || null;
+  $: siwsMessage = parseResponse(response) || null;
   $: message = response.siwsPayload?.message || '';
   $: signature = response.siwsPayload?.signature || '0x';
 </script>

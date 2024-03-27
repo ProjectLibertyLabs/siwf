@@ -4,23 +4,25 @@
   "version": "0.1.0",
   "type": "module",
   "files": ["dist", "!dist/**/*.test.*", "!dist/**/*.spec.*"],
-  "main": "./dist/siwf.umd.cjs",
-  "module": "./dist/siwf.js",
-  "types": "./dist/siwf.d.ts",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/siwf.js",
-      "require": "./dist/siwf.cjs"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && node scripts/package.cjs",
+    "test": "vitest run --silent",
     "test:unit": "vitest run --silent",
     "test:unit:loud": "vitest run",
     "lint": "prettier --check . && eslint .",
     "lint:fix": "prettier --write . && eslint --fix .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "pack": "cd dist && npm pack"
   },
   "devDependencies": {
     "@amplica-labs/eslint-config-siwf": "workspace:*",
@@ -42,6 +44,7 @@
     "@polkadot/extension-inject": "^0.46.6",
     "@polkadot/types": "^10.12.4",
     "@polkadot/util": "^12.6.2",
-    "@polkadot/util-crypto": "^12.6.2"
+    "@polkadot/util-crypto": "^12.6.2",
+    "@talismn/siws": "^0.0.18"
   }
 }

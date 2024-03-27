@@ -185,6 +185,27 @@ An empty payload means that a user has closed the popup window before completing
 {}
 ```
 
+### Response Parameters
+
+One of two objects will have data: `signUp` or `signIn`.
+
+#### Signup
+
+`extrinsics`: An array of objects, each representing a signup extrinsic. Each extrinsic object includes:
+
+- `pallet`: The name of the pallet.
+- `extrinsicName`: The name of the extrinsic call.
+- `encodedExtrinsic`: The hex-encoded extrinsic data.
+- `providerMsaId`: The MSA ID of the provider. This ID is used to validate that permissions were granted by the correct
+  provider.
+
+#### SignIn
+
+`siwsPayload`: [Sign In With Substrate standard](https://siws.xyz/)
+
+- `message`: The text message the user signed
+- `signature`: The hex-encoded signature of the message
+
 ### Validating Response
 
 It is nessisary to check the validity of the encoded payload as well as to keep track of the expiration of the grant
@@ -192,15 +213,17 @@ delegation. This helps with avoiding failed transactions due to expiration of si
 for decoding a hex-encoded extrinsic can be found in the
 [Polkadot documentation](https://wiki.polkadot.network/docs/build-transaction-construction).
 
-The `validateSignupExtrinsicsParams` function included in the `@amplica-labs/siwf` package performs validation on signup
-extrinsic parameters to ensure the integrity and correctness of the signup process. It verifies several critical aspects
-of the provided extrinsics, including the validity and expiration of proofs, the consistency of signing keys, the format
-of encoded data, and the matching of permissions with the provider's MSA ID.
+The `validateSignup` and `validateSignin` functions included in the `@amplica-labs/siwf` package performs validation
+parameters to ensure the integrity and correctness of the process. It verifies several critical aspects of the provided
+extrinsics or payload, including the validity and expiration of proofs, the consistency of signing keys, the format of
+encoded data, and the matching of permissions with the provider's MSA ID.
 
-### Example Usage
+## Signup
+
+### Example
 
 ```ts
-import { validateSignupExtrinsicsParams } from '@amplica-labs/siwf';
+import { validateSignup } from '@amplica-labs/siwf';
 let response = {
   signUp: {
     extrinsics: [
@@ -216,23 +239,15 @@ let response = {
 
 const providerMsaId = 1;
 
+const api: ApiPromise = getApi();
+
 const {
   expiration,
   payloads: { addProviderPayload, claimHandlePayload },
   publicKey,
   calls,
-} = await validateSignupExtrinsicsParams(response.signUp.extrinsics, providerMsaId);
+} = await validateSignup(api, response.signUp, providerMsaId);
 ```
-
-### Parameters
-
-`extrinsics`: An array of objects, each representing a signup extrinsic. Each extrinsic object includes:
-
-- `pallet`: The name of the pallet.
-- `extrinsicName`: The name of the extrinsic call.
-- `encodedExtrinsic`: The hex-encoded extrinsic data.
-- `providerMsaId`: The MSA ID of the provider. This ID is used to validate that permissions were granted by the correct
-  provider.
 
 ### Return Value
 
@@ -256,17 +271,53 @@ The function may throw errors of type SignupError for various failure scenarios.
 - `InvalidHex`: The extrinsic data is not properly hex-encoded.
 - `ApiNotReady`: The API is not ready to process the request.
 
+See `SignupError` in [`packages/siwf/src/enums.ts`](packages/siwf/src/enums.ts) for the full list.
+
+## Signin
+
+### Example
+
 ```ts
-export enum SignupError {
-  InvalidSignature = 'Invalid signature',
-  ExpiredSignature = 'Transaction signature is expired',
-  UnsupportedExtrinsic = 'Unsupported extrinsic call',
-  InvalidMsaId = 'Invalid MSA ID',
-  SignupKeysMismatch = 'Signing keys do not match',
-  InvalidHex = 'Expected hex-encoded call',
-  ApiNotReady = 'API is not ready',
-}
+import { validateSignin } from '@amplica-labs/siwf';
+let response = {
+  signIn: {
+    siwsPayload: {
+      message:
+        'localhost wants you to sign in with your Frequency account:\n5Fghb4Wt3sg9cF6Q2Qucp5jXV5pL2U9uaYXwR9R8W8SYe9np\n\nThe domain localhost wants you to sign in with your Frequency account via localhost\n\nURI: http://localhost:5173/signin/confirm\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-03-05T23:18:03.041Z\nExpiration Time: 2024-03-05T23:23:03.041Z',
+      signature:
+        '0x38faa2fc6f59bef8ffccfc929fb966e1d53ba45e3af7a029ea1d636eaddcbe78a4be0f89eaf7ff7bbaef20a070ad65f9d0f876889686687ef623214fddddb18b',
+    },
+  },
+};
+
+const providerMsaId = 1;
+
+const api: ApiPromise = getApi();
+
+const { publicKey, msaId } = await validateSignin(api, response.signIn, signInDomain);
 ```
+
+### Return Value
+
+The function returns a Promise that resolves to an object containing the following properties:
+
+- `publicKey`: The public key of the user that signed the payload.
+- `msaId`: The MSA Id associated with the signin and the address.
+
+### Errors
+
+The function may throw errors of type SignupError for various failure scenarios. Possible errors include:
+
+- `InvalidMessage`: The message provided was malformed.
+- `InvalidSignature`: The signature provided in did not validate.
+- `ExpiredSignature`: The signature associated with the signin has expired.
+- `InvalidMsaId`: The MSA ID provided does not match any valid ID in the system.
+- `InvalidHex`: The signature is not properly hex-encoded.
+- `ApiNotReady`: The API is not ready to process the request.
+
+See `SigninError` in [`packages/siwf/src/enums.ts`](packages/siwf/src/enums.ts) for the full list.
+
+## Post Validation
 
 At this point, it is up to you to create a session following best practices.
 
