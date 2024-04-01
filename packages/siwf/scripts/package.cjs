@@ -17,7 +17,7 @@ fs.rmSync(path.join(__dirname, '../dist/vite.svg'));
 const rootPackage = require('../package.json');
 
 // Don't keep scripts
-delete rootPackage['scripts'];
+rootPackage['scripts'] = {};
 
 // Don't keep file reference
 delete rootPackage['files'];
