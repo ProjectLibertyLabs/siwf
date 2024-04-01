@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 
 name: Release
-run-name: Cut Release ${{github.event.inputs.release-version || github.ref_name}}
+run-name: Publish Release ${{github.ref_name}}
 concurrency:
   group: ${{github.workflow}}-${{github.ref}}
   cancel-in-progress: false
@@ -14,8 +14,8 @@ on:
       - 'v0.0.1-rc[0-9]+' # used for testing only
 
 env:
-  NEW_RELEASE_TAG: ${{github.event.inputs.release-version || github.ref_name}}
-  TEST_RUN: ${{startsWith(github.event.inputs.release-version || github.ref_name, 'v0.0.1')}}
+  NEW_RELEASE_TAG: ${{github.ref_name}}
+  TEST_RUN: ${{startsWith(github.ref_name, 'v0.0.1')}}
 
 jobs:
   publish-npm:
