@@ -1,5 +1,7 @@
 # Sign-In With Frequency (SIWF)
 
+Easy setup and validation for Sign-In With Frequency.
+
 ## Description
 
 SIWF is an application that facilitates using a selected Polkadot-compatible crypto wallet to perform sign-in and
