@@ -51,7 +51,7 @@ onboarding. The user/data flows will look as follows:
      // The url where SIWF UI lives
      proxyUrl: 'https://amplicalabs.github.io/siwf/ui',
      // The Frequency RPC endpoint
-     frequencyRpcUrl: 'https://rpc.rococo.frequency.xyz',
+     frequencyRpcUrl: 'https://0.rpc.testnet.amplica.io',
      siwsOptions: {
        // The expiration for the SIWS payload.
        expiresInMsecs: 1000,
