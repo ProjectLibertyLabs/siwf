@@ -12,13 +12,8 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+' # ex. v1.1.0-rc1
       - 'v0.0.1' # used for testing only
       - 'v0.0.1-rc[0-9]+' # used for testing only
-  workflow_dispatch:
-    inputs:
-      release-version:
-        description: 'Release version (v#.#.#[-rc#])'
-        required: true
+
 env:
-  NEW_RELEASE_TAG_FROM_UI: ${{github.event.inputs.release-version}}
   NEW_RELEASE_TAG: ${{github.event.inputs.release-version || github.ref_name}}
   TEST_RUN: ${{startsWith(github.event.inputs.release-version || github.ref_name, 'v0.0.1')}}
 
