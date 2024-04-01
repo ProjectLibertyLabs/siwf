@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: Release
+run-name: Cut Release ${{github.event.inputs.release-version || github.ref_name}}
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: false
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+' # ex. v1.0.0
+      - 'v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+' # ex. v1.1.0-rc1
+      - 'v0.0.1' # used for testing only
+      - 'v0.0.1-rc[0-9]+' # used for testing only
+  workflow_dispatch:
+    inputs:
+      release-version:
+        description: 'Release version (v#.#.#[-rc#])'
+        required: true
+env:
+  NEW_RELEASE_TAG_FROM_UI: ${{github.event.inputs.release-version}}
+  NEW_RELEASE_TAG: ${{github.event.inputs.release-version || github.ref_name}}
+  TEST_RUN: ${{startsWith(github.event.inputs.release-version || github.ref_name, 'v0.0.1')}}
+
+jobs:
+  publish-npm:
+    name: Publish NPM Package
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --filter @amplica-labs/siwf
+
+      - name: build
+        run: pnpm run build --filter @amplica-labs/siwf
+
+      - name: Version Package
+        if: env.TEST_RUN != 'true'
+        run: npm version --new-version "${{env.NEW_RELEASE_TAG}}" --no-git-tag-version
+        working-directory: packages/siwf/dist
+
+      - name: Release on NPM @latest
+        if: env.TEST_RUN != 'true' && steps.is-full-release.outputs.is-full-release == 'true'
+        run: npm publish --tag latest --access public
+        working-directory: packages/siwf/dist
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+
+      - name: Release Candidate on NPM
+        if: env.TEST_RUN != 'true' && steps.is-full-release.outputs.is-full-release != 'true'
+        run: npm publish --access public
+        working-directory: packages/siwf/dist
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}

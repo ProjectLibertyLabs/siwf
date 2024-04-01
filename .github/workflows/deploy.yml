@@ -44,7 +44,7 @@ jobs:
           mv ./packages/example/build/* ./siwf/example
 
       - name: Upload Artifacts
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           # this should match the `pages` option in adapter-static options
           path: 'siwf/'
@@ -64,4 +64,57 @@ jobs:
     steps:
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
+
+  publish-npm-rc:
+    name: Publish NPM Release Candidate
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --filter @amplica-labs/siwf
+
+      - name: build
+        run: pnpm run build --filter @amplica-labs/siwf
+
+      - name: Version Package
+        env:
+          FULL_SHA: ${{github.sha}}
+        working-directory: packages/siwf/dist
+        shell: bash
+        run: npm version --new-version "v0.0.0-${FULL_SHA:0:6}" --no-git-tag-version
+
+      - name: Publish on NPM @next
+        run: npm publish --tag next --access public
+        working-directory: packages/siwf/dist
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
