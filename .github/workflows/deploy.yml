@@ -113,8 +113,10 @@ jobs:
         shell: bash
         run: npm version --new-version "v0.0.0-${FULL_SHA:0:6}" --no-git-tag-version
 
+        # Required for Granular Access Tokens
+      - name: NPM Access Config
+        run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NODE_AUTH_TOKEN}}
+
       - name: Publish on NPM @next
-        run: npm publish --tag next --access public
+        run: npm publish --verbose --tag next --access public
         working-directory: packages/siwf/dist
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
