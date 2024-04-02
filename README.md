@@ -1,5 +1,7 @@
 # Sign-In With Frequency (SIWF)
 
+Easy setup and validation for Sign-In With Frequency.
+
 ## Description
 
 SIWF is an application that facilitates using a selected Polkadot-compatible crypto wallet to perform sign-in and
@@ -51,7 +53,7 @@ onboarding. The user/data flows will look as follows:
      // The url where SIWF UI lives
      proxyUrl: 'https://amplicalabs.github.io/siwf/ui',
      // The Frequency RPC endpoint
-     frequencyRpcUrl: 'https://rpc.rococo.frequency.xyz',
+     frequencyRpcUrl: 'https://0.rpc.testnet.amplica.io',
      siwsOptions: {
        // The expiration for the SIWS payload.
        expiresInMsecs: 1000,

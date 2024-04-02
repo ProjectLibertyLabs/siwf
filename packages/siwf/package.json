@@ -1,12 +1,13 @@
 {
   "name": "@amplica-labs/siwf",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.0.0",
   "type": "module",
   "files": ["dist", "!dist/**/*.test.*", "!dist/**/*.spec.*"],
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "license": "Apache-2.0",
   "exports": {
     ".": {
       "import": "./dist/index.js",
