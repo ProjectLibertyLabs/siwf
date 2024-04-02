@@ -22,7 +22,7 @@ importers:
         version: 3.2.2(prettier@3.2.5)(svelte@4.2.12)
       vitest:
         specifier: ^1.4.0
-        version: 1.4.0(@types/node@20.11.30)(jsdom@23.2.0)
+        version: 1.4.0(@types/node@20.12.2)(jsdom@23.2.0)
 
   packages/eslint-config:
     devDependencies:
@@ -49,13 +49,13 @@ importers:
     dependencies:
       '@amplica-labs/siwf':
         specifier: workspace:^
-        version: link:../siwf
+        version: link:../siwf/dist
       '@amplica-labs/siwf-utils':
         specifier: workspace:^
         version: link:../utils
       '@dsnp/frequency-schemas':
         specifier: ^1.1.0
-        version: 1.1.0(@types/node@20.11.30)
+        version: 1.1.0(@types/node@20.12.2)
       '@frequency-chain/api-augment':
         specifier: ^1.10.0
         version: 1.11.1
@@ -143,19 +143,19 @@ importers:
         version: 5.4.3
       vite:
         specifier: ^5.0.3
-        version: 5.2.6(@types/node@20.11.30)
+        version: 5.2.6(@types/node@20.12.2)
       vite-tsconfig-paths:
         specifier: ^4.2.2
         version: 4.3.2(typescript@5.4.3)(vite@5.2.6)
       vitest:
         specifier: ^1.0.0
-        version: 1.4.0(@types/node@20.11.30)(jsdom@23.2.0)
+        version: 1.4.0(@types/node@20.12.2)(jsdom@23.2.0)
 
   packages/siwf:
     dependencies:
       '@dsnp/frequency-schemas':
         specifier: ^1.1.0
-        version: 1.1.0(@types/node@20.11.30)
+        version: 1.1.0(@types/node@20.12.2)
       '@frequency-chain/api-augment':
         specifier: ^1.10.0
         version: 1.11.1
@@ -204,19 +204,19 @@ importers:
         version: 5.4.3
       vite:
         specifier: ^5.0.10
-        version: 5.2.6(@types/node@20.11.30)
+        version: 5.2.6(@types/node@20.12.2)
       vite-plugin-dts:
         specifier: ^3.7.0
-        version: 3.7.3(@types/node@20.11.30)(typescript@5.4.3)(vite@5.2.6)
+        version: 3.7.3(@types/node@20.12.2)(typescript@5.4.3)(vite@5.2.6)
       vitest:
         specifier: ^1.0.0
-        version: 1.4.0(@types/node@20.11.30)(jsdom@23.2.0)
+        version: 1.4.0(@types/node@20.12.2)(jsdom@23.2.0)
 
   packages/siwf/dist:
     dependencies:
       '@dsnp/frequency-schemas':
         specifier: ^1.1.0
-        version: 1.1.0(@types/node@20.11.30)
+        version: 1.1.0(@types/node@20.12.2)
       '@frequency-chain/api-augment':
         specifier: ^1.10.0
         version: 1.11.1
@@ -246,13 +246,13 @@ importers:
     dependencies:
       '@amplica-labs/siwf':
         specifier: workspace:^
-        version: link:../siwf
+        version: link:../siwf/dist
       '@amplica-labs/siwf-utils':
         specifier: workspace:^
         version: link:../utils
       '@dsnp/frequency-schemas':
         specifier: ^1.1.0
-        version: 1.1.0(@types/node@20.11.30)
+        version: 1.1.0(@types/node@20.12.2)
       '@frequency-chain/api-augment':
         specifier: ^1.10.0
         version: 1.11.1
@@ -361,19 +361,19 @@ importers:
         version: 5.4.3
       vite:
         specifier: ^5.0.3
-        version: 5.2.6(@types/node@20.11.30)
+        version: 5.2.6(@types/node@20.12.2)
       vite-tsconfig-paths:
         specifier: ^4.2.2
         version: 4.3.2(typescript@5.4.3)(vite@5.2.6)
       vitest:
         specifier: ^1.0.0
-        version: 1.4.0(@types/node@20.11.30)(jsdom@23.2.0)
+        version: 1.4.0(@types/node@20.12.2)(jsdom@23.2.0)
 
   packages/utils:
     dependencies:
       '@dsnp/frequency-schemas':
         specifier: ^1.1.0
-        version: 1.1.0(@types/node@20.11.30)
+        version: 1.1.0(@types/node@20.12.2)
       '@frequency-chain/api-augment':
         specifier: ^1.10.0
         version: 1.11.1
@@ -404,7 +404,7 @@ importers:
         version: link:../eslint-config
       '@amplica-labs/siwf':
         specifier: workspace:*
-        version: link:../siwf
+        version: link:../siwf/dist
       '@vitest/coverage-v8':
         specifier: ^1.2.0
         version: 1.4.0(vitest@1.4.0)
@@ -422,16 +422,19 @@ importers:
         version: 5.4.3
       vite:
         specifier: ^5.0.8
-        version: 5.2.6(@types/node@20.11.30)
+        version: 5.2.6(@types/node@20.12.2)
       vite-plugin-dts:
         specifier: ^3.7.0
-        version: 3.7.3(@types/node@20.11.30)(typescript@5.4.3)(vite@5.2.6)
+        version: 3.7.3(@types/node@20.12.2)(typescript@5.4.3)(vite@5.2.6)
       vitest:
         specifier: ^1.3.1
-        version: 1.4.0(@types/node@20.11.30)(jsdom@23.2.0)
+        version: 1.4.0(@types/node@20.12.2)(jsdom@23.2.0)
 
   setup:
     dependencies:
+      '@amplica-labs/frequency-scenario-template':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@frequency-chain/api-augment':
         specifier: ^1.10.0
         version: 1.11.1
@@ -447,9 +450,6 @@ importers:
       '@polkadot/util-crypto':
         specifier: ^12.6.2
         version: 12.6.2(@polkadot/util@12.6.2)
-      frequency-scenario-template:
-        specifier: file:../vendor/frequency-scenario-template-1.0.0.tgz
-        version: file:vendor/frequency-scenario-template-1.0.0.tgz
       typescript:
         specifier: ^5.2.2
         version: 5.4.3
@@ -468,6 +468,32 @@ packages:
   /@alloc/quick-lru@5.2.0:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
+
+  /@amplica-labs/frequency-scenario-template@1.0.0:
+    resolution: {integrity: sha512-9ECywOPALvc6+vcMNK5RviSIg8qkNmU1qVXiRdt14+DXYwLHb5AK9uMwVxaCydvVd6JSiJ3JLwkLObMBWIKrPw==}
+    dependencies:
+      '@dsnp/frequency-schemas': 1.1.0(@types/node@20.12.2)
+      '@dsnp/graph-sdk': 1.0.3
+      '@frequency-chain/api-augment': 1.11.1
+      '@polkadot/api': 10.12.4
+      '@polkadot/keyring': 12.6.2(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
+      '@polkadot/types': 10.12.4
+      '@polkadot/util': 12.6.2
+      '@polkadot/util-crypto': 12.6.2(@polkadot/util@12.6.2)
+      '@types/minimist': 1.2.5
+      '@types/node': 20.12.2
+      loglevel: 1.9.1
+      minimist: 1.2.8
+      rxjs: 7.8.1
+    transitivePeerDependencies:
+      - '@swc/core'
+      - '@swc/wasm'
+      - aws-crt
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
 
   /@ampproject/remapping@2.3.0:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
@@ -1297,13 +1323,13 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: false
 
-  /@dsnp/frequency-schemas@1.1.0(@types/node@20.11.30):
+  /@dsnp/frequency-schemas@1.1.0(@types/node@20.12.2):
     resolution: {integrity: sha512-Su7FufZRisQMxpVmVkbXwnnJDqgxAT7mJV3b2lvUDT4FRFZwqlOB5bnUBmrgZGF7Ru8RyrFOmI9K/5R4y2egHA==}
     dependencies:
       '@frequency-chain/api-augment': 1.11.1
       '@polkadot/api': 10.12.4
       json-stringify-pretty-compact: 4.0.0
-      ts-node: 10.9.2(@types/node@20.11.30)(typescript@5.4.3)
+      ts-node: 10.9.2(@types/node@20.12.2)(typescript@5.4.3)
       typescript: 5.4.3
     optionalDependencies:
       '@dsnp/parquetjs': 1.6.2
@@ -1961,24 +1987,24 @@ packages:
       svelte: 4.2.12
     dev: false
 
-  /@microsoft/api-extractor-model@7.28.3(@types/node@20.11.30):
+  /@microsoft/api-extractor-model@7.28.3(@types/node@20.12.2):
     resolution: {integrity: sha512-wT/kB2oDbdZXITyDh2SQLzaWwTOFbV326fP0pUwNW00WeliARs0qjmXBWmGWardEzp2U3/axkO3Lboqun6vrig==}
     dependencies:
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.62.0(@types/node@20.11.30)
+      '@rushstack/node-core-library': 3.62.0(@types/node@20.12.2)
     transitivePeerDependencies:
       - '@types/node'
     dev: true
 
-  /@microsoft/api-extractor@7.39.0(@types/node@20.11.30):
+  /@microsoft/api-extractor@7.39.0(@types/node@20.12.2):
     resolution: {integrity: sha512-PuXxzadgnvp+wdeZFPonssRAj/EW4Gm4s75TXzPk09h3wJ8RS3x7typf95B4vwZRrPTQBGopdUl+/vHvlPdAcg==}
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor-model': 7.28.3(@types/node@20.11.30)
+      '@microsoft/api-extractor-model': 7.28.3(@types/node@20.12.2)
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.62.0(@types/node@20.11.30)
+      '@rushstack/node-core-library': 3.62.0(@types/node@20.12.2)
       '@rushstack/rig-package': 0.5.1
       '@rushstack/ts-command-line': 4.17.1
       colors: 1.2.5
@@ -2634,7 +2660,7 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@rushstack/node-core-library@3.62.0(@types/node@20.11.30):
+  /@rushstack/node-core-library@3.62.0(@types/node@20.12.2):
     resolution: {integrity: sha512-88aJn2h8UpSvdwuDXBv1/v1heM6GnBf3RjEy6ZPP7UnzHNCqOHA2Ut+ScYUbXcqIdfew9JlTAe3g+cnX9xQ/Aw==}
     peerDependencies:
       '@types/node': '*'
@@ -2642,7 +2668,7 @@ packages:
       '@types/node':
         optional: true
     dependencies:
-      '@types/node': 20.11.30
+      '@types/node': 20.12.2
       colors: 1.2.5
       fs-extra: 7.0.1
       import-lazy: 4.0.0
@@ -3325,7 +3351,7 @@ packages:
       sirv: 2.0.4
       svelte: 4.2.12
       tiny-glob: 0.2.9
-      vite: 5.2.6(@types/node@20.11.30)
+      vite: 5.2.6(@types/node@20.12.2)
     dev: true
 
   /@sveltejs/vite-plugin-svelte-inspector@2.0.0(@sveltejs/vite-plugin-svelte@3.0.2)(svelte@4.2.12)(vite@5.2.6):
@@ -3339,7 +3365,7 @@ packages:
       '@sveltejs/vite-plugin-svelte': 3.0.2(svelte@4.2.12)(vite@5.2.6)
       debug: 4.3.4
       svelte: 4.2.12
-      vite: 5.2.6(@types/node@20.11.30)
+      vite: 5.2.6(@types/node@20.12.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -3357,7 +3383,7 @@ packages:
       magic-string: 0.30.8
       svelte: 4.2.12
       svelte-hmr: 0.15.3(svelte@4.2.12)
-      vite: 5.2.6(@types/node@20.11.30)
+      vite: 5.2.6(@types/node@20.12.2)
       vitefu: 0.2.5(vite@5.2.6)
     transitivePeerDependencies:
       - supports-color
@@ -3476,6 +3502,11 @@ packages:
 
   /@types/node@20.11.30:
     resolution: {integrity: sha512-dHM6ZxwlmuZaRmUPfv1p+KrdD1Dci04FbdEm/9wEMouFqxYoFl5aMkt0VMAUtYRQDyYvD41WJLukhq/ha3YuTw==}
+    dependencies:
+      undici-types: 5.26.5
+
+  /@types/node@20.12.2:
+    resolution: {integrity: sha512-zQ0NYO87hyN6Xrclcqp7f8ZbXNbRfoGWNcMvHTPQp9UUrwI0mI7XBz+cu7/W6/VClYo2g63B0cjull/srU7LgQ==}
     dependencies:
       undici-types: 5.26.5
 
@@ -3672,7 +3703,7 @@ packages:
       strip-literal: 2.0.0
       test-exclude: 6.0.0
       v8-to-istanbul: 9.2.0
-      vitest: 1.4.0(@types/node@20.11.30)(jsdom@23.2.0)
+      vitest: 1.4.0(@types/node@20.12.2)(jsdom@23.2.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7312,7 +7343,7 @@ packages:
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  /ts-node@10.9.2(@types/node@20.11.30)(typescript@5.4.3):
+  /ts-node@10.9.2(@types/node@20.12.2)(typescript@5.4.3):
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
     hasBin: true
     peerDependencies:
@@ -7331,7 +7362,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.11.30
+      '@types/node': 20.12.2
       acorn: 8.11.3
       acorn-walk: 8.3.2
       arg: 4.1.3
@@ -7597,7 +7628,7 @@ packages:
     dev: false
     optional: true
 
-  /vite-node@1.4.0(@types/node@20.11.30):
+  /vite-node@1.4.0(@types/node@20.12.2):
     resolution: {integrity: sha512-VZDAseqjrHgNd4Kh8icYHWzTKSCZMhia7GyHfhtzLW33fZlG9SwsB6CEhgyVOWkJfJ2pFLrp/Gj1FSfAiqH9Lw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -7606,7 +7637,7 @@ packages:
       debug: 4.3.4
       pathe: 1.1.2
       picocolors: 1.0.0
-      vite: 5.2.6(@types/node@20.11.30)
+      vite: 5.2.6(@types/node@20.12.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -7618,7 +7649,7 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-dts@3.7.3(@types/node@20.11.30)(typescript@5.4.3)(vite@5.2.6):
+  /vite-plugin-dts@3.7.3(@types/node@20.12.2)(typescript@5.4.3)(vite@5.2.6):
     resolution: {integrity: sha512-26eTlBYdpjRLWCsTJebM8vkCieE+p9gP3raf+ecDnzzK5E3FG6VE1wcy55OkRpfWWVlVvKkYFe6uvRHYWx7Nog==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -7628,13 +7659,13 @@ packages:
       vite:
         optional: true
     dependencies:
-      '@microsoft/api-extractor': 7.39.0(@types/node@20.11.30)
+      '@microsoft/api-extractor': 7.39.0(@types/node@20.12.2)
       '@rollup/pluginutils': 5.1.0
       '@vue/language-core': 1.8.27(typescript@5.4.3)
       debug: 4.3.4
       kolorist: 1.8.0
       typescript: 5.4.3
-      vite: 5.2.6(@types/node@20.11.30)
+      vite: 5.2.6(@types/node@20.12.2)
       vue-tsc: 1.8.27(typescript@5.4.3)
     transitivePeerDependencies:
       - '@types/node'
@@ -7653,13 +7684,13 @@ packages:
       debug: 4.3.4
       globrex: 0.1.2
       tsconfck: 3.0.3(typescript@5.4.3)
-      vite: 5.2.6(@types/node@20.11.30)
+      vite: 5.2.6(@types/node@20.12.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: true
 
-  /vite@5.2.6(@types/node@20.11.30):
+  /vite@5.2.6(@types/node@20.12.2):
     resolution: {integrity: sha512-FPtnxFlSIKYjZ2eosBQamz4CbyrTizbZ3hnGJlh/wMtCrlp1Hah6AzBLjGI5I2urTfNnpovpHdrL6YRuBOPnCA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -7687,7 +7718,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.11.30
+      '@types/node': 20.12.2
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.13.0
@@ -7702,9 +7733,9 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 5.2.6(@types/node@20.11.30)
+      vite: 5.2.6(@types/node@20.12.2)
 
-  /vitest@1.4.0(@types/node@20.11.30)(jsdom@23.2.0):
+  /vitest@1.4.0(@types/node@20.12.2)(jsdom@23.2.0):
     resolution: {integrity: sha512-gujzn0g7fmwf83/WzrDTnncZt2UiXP41mHuFYFrdwaLRVQ6JYQEiME2IfEjU3vcFL3VKa75XhI3lFgn+hfVsQw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -7729,7 +7760,7 @@ packages:
       jsdom:
         optional: true
     dependencies:
-      '@types/node': 20.11.30
+      '@types/node': 20.12.2
       '@vitest/expect': 1.4.0
       '@vitest/runner': 1.4.0
       '@vitest/snapshot': 1.4.0
@@ -7748,8 +7779,8 @@ packages:
       strip-literal: 2.0.0
       tinybench: 2.6.0
       tinypool: 0.8.2
-      vite: 5.2.6(@types/node@20.11.30)
-      vite-node: 1.4.0(@types/node@20.11.30)
+      vite: 5.2.6(@types/node@20.12.2)
+      vite-node: 1.4.0(@types/node@20.12.2)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
@@ -7979,31 +8010,3 @@ packages:
     optionalDependencies:
       commander: 9.5.0
     dev: true
-
-  file:vendor/frequency-scenario-template-1.0.0.tgz:
-    resolution: {integrity: sha512-wnXJ0N2NWrg8ktJm13y7+hy4dze7csrhmngLT/6UUgXgpz2W/d+1NejgVnwDVFfG/2b8LRl5CLhYtilvzGyqtg==, tarball: file:vendor/frequency-scenario-template-1.0.0.tgz}
-    name: frequency-scenario-template
-    version: 1.0.0
-    dependencies:
-      '@dsnp/frequency-schemas': 1.1.0(@types/node@20.11.30)
-      '@dsnp/graph-sdk': 1.0.3
-      '@frequency-chain/api-augment': 1.11.1
-      '@polkadot/api': 10.12.4
-      '@polkadot/keyring': 12.6.2(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
-      '@polkadot/types': 10.12.4
-      '@polkadot/util': 12.6.2
-      '@polkadot/util-crypto': 12.6.2(@polkadot/util@12.6.2)
-      '@types/minimist': 1.2.5
-      '@types/node': 20.11.30
-      loglevel: 1.9.1
-      minimist: 1.2.8
-      rxjs: 7.8.1
-    transitivePeerDependencies:
-      - '@swc/core'
-      - '@swc/wasm'
-      - aws-crt
-      - bufferutil
-      - encoding
-      - supports-color
-      - utf-8-validate
-    dev: false

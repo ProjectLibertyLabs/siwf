@@ -9,7 +9,7 @@ import {
   signPayloadSr25519,
   Sr25519Signature,
   UserBuilder,
-} from 'frequency-scenario-template';
+} from '@amplica-labs/frequency-scenario-template';
 import type { KeyringPair } from '@polkadot/keyring/types';
 import { PalletCapacityCapacityDetails } from '@polkadot/types/lookup';
 import { Option } from '@polkadot/types';
