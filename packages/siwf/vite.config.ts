@@ -11,7 +11,7 @@ export default defineConfig({
       name: 'siwf',
       // the proper extensions will be added
       fileName: 'index',
-      formats: ['es', 'umd', 'cjs'],
+      formats: ['es', 'cjs'],
     },
   },
   test: {

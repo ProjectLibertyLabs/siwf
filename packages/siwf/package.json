@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "files": ["dist", "!dist/**/*.test.*", "!dist/**/*.spec.*"],
-  "main": "./dist/index.umd.cjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "Apache-2.0",
