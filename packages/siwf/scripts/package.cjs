@@ -26,13 +26,13 @@ delete rootPackage['files'];
 delete rootPackage['devDependencies'];
 
 // Setup the main and types correctly
-rootPackage['main'] = 'index.umd.cjs';
+rootPackage['main'] = 'index.cjs';
 rootPackage['module'] = 'index.js';
 rootPackage['types'] = 'index.d.ts';
 (rootPackage['exports'] = {
   '.': {
     types: './index.d.ts',
-    require: './index.umd.cjs',
+    require: './index.cjs',
     import: './index.js',
     default: './index.js',
   },
