@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "@amplica-labs/frequency-scenario-template": "^1.0.0",
-    "@frequency-chain/api-augment": "^1.10.0",
-    "@polkadot/api": "^10.11.2",
+    "@frequency-chain/api-augment": "^1.11.0",
+    "@polkadot/api": "^10.12.4",
     "@polkadot/keyring": "^12.6.2",
-    "@polkadot/types": "^10.11.2",
+    "@polkadot/types": "^10.12.4",
     "@polkadot/util-crypto": "^12.6.2",
     "typescript": "^5.2.2"
   },
