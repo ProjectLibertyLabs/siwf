@@ -57,7 +57,7 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(@types/node@20.12.2)
       '@frequency-chain/api-augment':
-        specifier: ^1.10.0
+        specifier: ^1.11.0
         version: 1.11.1
       '@iconify/icons-openmoji':
         specifier: ^1.2.33
@@ -66,10 +66,10 @@ importers:
         specifier: ^3.1.6
         version: 3.1.6(svelte@4.2.12)
       '@polkadot/api':
-        specifier: ^10.11.2
+        specifier: ^10.12.4
         version: 10.12.4
       '@polkadot/types':
-        specifier: ^10.11.2
+        specifier: ^10.12.4
         version: 10.12.4
       '@polkadot/util':
         specifier: ^12.6.2
@@ -157,16 +157,16 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(@types/node@20.12.2)
       '@frequency-chain/api-augment':
-        specifier: ^1.10.0
+        specifier: ^1.11.0
         version: 1.11.1
       '@polkadot/api':
         specifier: ^10.12.4
         version: 10.12.4
       '@polkadot/extension-dapp':
-        specifier: ^0.46.6
+        specifier: ^0.46.9
         version: 0.46.9(@polkadot/api@10.12.4)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
       '@polkadot/extension-inject':
-        specifier: ^0.46.6
+        specifier: ^0.46.9
         version: 0.46.9(@polkadot/api@10.12.4)(@polkadot/util@12.6.2)
       '@polkadot/types':
         specifier: ^10.12.4
@@ -254,7 +254,7 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(@types/node@20.12.2)
       '@frequency-chain/api-augment':
-        specifier: ^1.10.0
+        specifier: ^1.11.0
         version: 1.11.1
       '@iconify/icons-ic':
         specifier: ^1.2.13
@@ -266,13 +266,13 @@ importers:
         specifier: ^3.1.6
         version: 3.1.6(svelte@4.2.12)
       '@polkadot/extension-dapp':
-        specifier: ^0.46.6
+        specifier: ^0.46.9
         version: 0.46.9(@polkadot/api@10.12.4)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
       '@polkadot/extension-inject':
-        specifier: ^0.46.6
+        specifier: ^0.46.9
         version: 0.46.9(@polkadot/api@10.12.4)(@polkadot/util@12.6.2)
       '@polkadot/types':
-        specifier: ^10.11.2
+        specifier: ^10.12.4
         version: 10.12.4
       '@polkadot/util':
         specifier: ^12.6.2
@@ -375,19 +375,19 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(@types/node@20.12.2)
       '@frequency-chain/api-augment':
-        specifier: ^1.10.0
+        specifier: ^1.11.0
         version: 1.11.1
       '@polkadot/api':
-        specifier: ^10.11.2
+        specifier: ^10.12.4
         version: 10.12.4
       '@polkadot/extension-dapp':
-        specifier: ^0.46.6
+        specifier: ^0.46.9
         version: 0.46.9(@polkadot/api@10.12.4)(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
       '@polkadot/extension-inject':
-        specifier: ^0.46.6
+        specifier: ^0.46.9
         version: 0.46.9(@polkadot/api@10.12.4)(@polkadot/util@12.6.2)
       '@polkadot/types':
-        specifier: ^10.11.2
+        specifier: ^10.12.4
         version: 10.12.4
       '@polkadot/util':
         specifier: ^12.6.2
@@ -436,16 +436,16 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       '@frequency-chain/api-augment':
-        specifier: ^1.10.0
+        specifier: ^1.11.0
         version: 1.11.1
       '@polkadot/api':
-        specifier: ^10.11.2
+        specifier: ^10.12.4
         version: 10.12.4
       '@polkadot/keyring':
         specifier: ^12.6.2
         version: 12.6.2(@polkadot/util-crypto@12.6.2)(@polkadot/util@12.6.2)
       '@polkadot/types':
-        specifier: ^10.11.2
+        specifier: ^10.12.4
         version: 10.12.4
       '@polkadot/util-crypto':
         specifier: ^12.6.2

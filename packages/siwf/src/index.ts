@@ -1,3 +1,6 @@
+// Make sure the types are correctly augmented FIRST
+import '@frequency-chain/api-augment';
+
 export * from './messenger';
 export * from './config.js';
 export * from './enums.js';
