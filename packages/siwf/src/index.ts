@@ -1,4 +1,4 @@
-// Make sure the types are correct augmented FIRST
+// Make sure the types are correctly augmented FIRST
 import '@frequency-chain/api-augment';
 
 export * from './messenger';
