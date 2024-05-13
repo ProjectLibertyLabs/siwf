@@ -18,7 +18,7 @@
   if (process.env.BUILD_TARGET === 'production') {
     setConfig({
       proxyUrl: 'https://amplicalabs.github.io/siwf/ui',
-      frequencyRpcUrl: 'https://rpc.rococo.frequency.xyz',
+      frequencyRpcUrl: 'https://0.rpc.frequency.xyz',
     });
   }
 
@@ -63,11 +63,6 @@
       name: 'Frequency Rococo',
       http: 'https://rpc.rococo.frequency.xyz',
       ws: 'wss://rpc.rococo.frequency.xyz',
-    },
-    {
-      name: 'Frequency Rococo Dwellir',
-      http: 'https://frequency-rococo-rpc.dwellir.com',
-      ws: 'wss://frequency-rococo-rpc.dwellir.com',
     },
   ];
 

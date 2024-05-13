@@ -17,7 +17,7 @@ fs.rmSync(path.join(__dirname, '../dist/vite.svg'));
 const rootPackage = require('../package.json');
 
 // Don't keep scripts
-delete rootPackage['scripts'];
+rootPackage['scripts'] = {};
 
 // Don't keep file reference
 delete rootPackage['files'];
@@ -26,13 +26,13 @@ delete rootPackage['files'];
 delete rootPackage['devDependencies'];
 
 // Setup the main and types correctly
-rootPackage['main'] = 'index.umd.cjs';
+rootPackage['main'] = 'index.cjs';
 rootPackage['module'] = 'index.js';
 rootPackage['types'] = 'index.d.ts';
 (rootPackage['exports'] = {
   '.': {
     types: './index.d.ts',
-    require: './index.umd.cjs',
+    require: './index.cjs',
     import: './index.js',
     default: './index.js',
   },

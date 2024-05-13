@@ -35,11 +35,11 @@
   },
   "dependencies": {
     "@dsnp/frequency-schemas": "^1.1.0",
-    "@frequency-chain/api-augment": "^1.10.0",
-    "@polkadot/api": "^10.11.2",
-    "@polkadot/extension-dapp": "^0.46.6",
-    "@polkadot/extension-inject": "^0.46.6",
-    "@polkadot/types": "^10.11.2",
+    "@frequency-chain/api-augment": "^1.11.0",
+    "@polkadot/api": "^10.12.4",
+    "@polkadot/extension-dapp": "^0.46.9",
+    "@polkadot/extension-inject": "^0.46.9",
+    "@polkadot/types": "^10.12.4",
     "@polkadot/util": "^12.6.2",
     "@polkadot/util-crypto": "^12.6.2",
     "@stablelib/random": "^1.0.2"
