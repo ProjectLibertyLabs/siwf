@@ -165,7 +165,7 @@ included in the sign-up.
 
 ### Returning User
 
-This mean that a user has an MSA account and is a returning user to an application. This user has already granted
+This means that a user has an MSA account and is a returning user to an application. This user has already granted
 delegation and schemas permissions and is simply signing in.
 
 ```json
@@ -210,7 +210,7 @@ One of two objects will have data: `signUp` or `signIn`.
 
 ### Validating Response
 
-It is nessisary to check the validity of the encoded payload as well as to keep track of the expiration of the grant
+It is necessary to check the validity of the encoded payload as well as to keep track of the expiration of the grant
 delegation. This helps with avoiding failed transactions due to expiration of signature for granting delegation. Methods
 for decoding a hex-encoded extrinsic can be found in the
 [Polkadot documentation](https://wiki.polkadot.network/docs/build-transaction-construction).
