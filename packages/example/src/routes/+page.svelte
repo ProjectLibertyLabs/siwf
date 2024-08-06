@@ -17,7 +17,7 @@
 
   if (process.env.BUILD_TARGET === 'production') {
     setConfig({
-      proxyUrl: 'https://amplicalabs.github.io/siwf/ui',
+      proxyUrl: 'https://projectlibertylabs.github.io/siwf/ui',
       frequencyRpcUrl: 'https://0.rpc.frequency.xyz',
     });
   }
@@ -78,7 +78,7 @@
     },
     {
       name: 'Production',
-      url: 'https://amplicalabs.github.io/siwf/ui',
+      url: 'https://projectlibertylabs.github.io/siwf/ui',
     },
   ];
 
