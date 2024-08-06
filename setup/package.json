@@ -7,7 +7,7 @@
     "start": "tsx src/main.ts"
   },
   "dependencies": {
-    "@amplica-labs/frequency-scenario-template": "^1.0.0",
+    "@projectlibertylabs/frequency-scenario-template": "^1.0.0",
     "@frequency-chain/api-augment": "^1.11.0",
     "@polkadot/api": "^10.12.4",
     "@polkadot/keyring": "^12.6.2",

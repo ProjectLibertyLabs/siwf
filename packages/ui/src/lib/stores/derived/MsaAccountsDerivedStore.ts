@@ -4,7 +4,7 @@ import {
   AllAccountsDerivedStore,
   type InjectedAccountWithExtensions,
 } from './AllAccountsDerivedStore';
-import { getMsaIds, getMsaInfo, type MsaInfo } from '@amplica-labs/siwf-utils';
+import { getMsaIds, getMsaInfo, type MsaInfo } from '@projectlibertylabs/siwf-utils';
 import { FilteredAccountsDerivedStore } from './FilteredAccountsDerivedStore';
 
 export interface MsaInfoWithAccounts extends MsaInfo {

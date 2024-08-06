@@ -1,5 +1,5 @@
 {
-  "name": "@amplica-labs/siwf",
+  "name": "@projectlibertylabs/siwf",
   "private": false,
   "version": "0.0.0",
   "type": "module",
@@ -26,7 +26,7 @@
     "pack": "cd dist && npm pack"
   },
   "devDependencies": {
-    "@amplica-labs/eslint-config-siwf": "workspace:*",
+    "@projectlibertylabs/eslint-config-siwf": "workspace:*",
     "@polkadot/rpc-provider": "^10.12.4",
     "@vitest/coverage-v8": "^1.2.0",
     "jsdom": "^23.2.0",

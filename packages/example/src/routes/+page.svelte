@@ -6,18 +6,18 @@
     type RequestedSchema,
     setConfig,
     type WalletProxyResponse,
-  } from '@amplica-labs/siwf';
+  } from '@projectlibertylabs/siwf';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
   import AccountCreator from '$lib/components/AccountCreator.svelte';
   import { MultiSelect, type ObjectOption, type Option } from 'svelte-multiselect';
   import { schemas } from '@dsnp/frequency-schemas/dsnp';
   import Spinner from '../lib/components/Spinner.svelte';
   import type { ApiPromise } from '@polkadot/api';
-  import { getApi, setApiUrl } from '@amplica-labs/siwf-utils';
+  import { getApi, setApiUrl } from '@projectlibertylabs/siwf-utils';
 
   if (process.env.BUILD_TARGET === 'production') {
     setConfig({
-      proxyUrl: 'https://amplicalabs.github.io/siwf/ui',
+      proxyUrl: 'https://projectlibertylabs.github.io/siwf/ui',
       frequencyRpcUrl: 'https://0.rpc.frequency.xyz',
     });
   }
@@ -78,7 +78,7 @@
     },
     {
       name: 'Production',
-      url: 'https://amplicalabs.github.io/siwf/ui',
+      url: 'https://projectlibertylabs.github.io/siwf/ui',
     },
   ];
 

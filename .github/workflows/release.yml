@@ -53,10 +53,10 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --filter @amplica-labs/siwf
+        run: pnpm install --filter @projectlibertylabs/siwf
 
       - name: build
-        run: pnpm run build --filter @amplica-labs/siwf
+        run: pnpm run build --filter @projectlibertylabs/siwf
 
       - name: Version Package
         if: env.TEST_RUN != 'true'
@@ -65,7 +65,7 @@ jobs:
 
         # Required for Granular Access Tokens
       - name: NPM Access Config
-        run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NODE_AUTH_TOKEN}}
+        run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NPM_AUTH_TOKEN}}
 
       - name: Release on NPM @latest
         if: env.TEST_RUN != 'true' && steps.is-full-release.outputs.is-full-release == 'true'

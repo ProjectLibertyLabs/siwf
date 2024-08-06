@@ -1,5 +1,5 @@
 import type { ComponentType, SvelteComponent } from 'svelte';
-import type { MsaInfo } from '@amplica-labs/siwf-utils';
+import type { MsaInfo } from '@projectlibertylabs/siwf-utils';
 import type { InjectedAccount } from '@polkadot/extension-inject/types';
 import TalismanIcon from '../icons/TalismanRedIcon.svelte';
 import PolkadotIcon from '../icons/Polkadot.svelte';

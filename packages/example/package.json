@@ -1,5 +1,5 @@
 {
-  "name": "@amplica-labs/siwf-example-app",
+  "name": "@projectlibertylabs/siwf-example-app",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -14,7 +14,7 @@
     "test:unit": "echo \"example app empty test\""
   },
   "devDependencies": {
-    "@amplica-labs/eslint-config-siwf": "workspace:*",
+    "@projectlibertylabs/eslint-config-siwf": "workspace:*",
     "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/kit": "^2.5.4",
     "autoprefixer": "^10.4.17",
@@ -38,8 +38,8 @@
   },
   "type": "module",
   "dependencies": {
-    "@amplica-labs/siwf": "workspace:^",
-    "@amplica-labs/siwf-utils": "workspace:^",
+    "@projectlibertylabs/siwf": "workspace:^",
+    "@projectlibertylabs/siwf-utils": "workspace:^",
     "@dsnp/frequency-schemas": "^1.1.0",
     "@frequency-chain/api-augment": "^1.11.0",
     "@iconify/icons-openmoji": "^1.2.33",

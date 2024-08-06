@@ -1,5 +1,5 @@
 import '@frequency-chain/api-augment';
-import type { EncodedExtrinsic, SignInRequest, SignInResponse, WalletProxyResponse } from '@amplica-labs/siwf-utils';
+import type { EncodedExtrinsic, SignInRequest, SignInResponse, WalletProxyResponse } from '@projectlibertylabs/siwf-utils';
 import { writable } from 'svelte/store';
 
 export type AugmentedSignInRequest = SignInRequest & {

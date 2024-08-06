@@ -10,7 +10,7 @@
   import { base } from '$app/paths';
   import { CachedLastUsedMsaAndAddressStore, type MsaAndAddress } from '$lib/stores/CachedLastUsedMsaAndAddressStore';
   import { onMount } from 'svelte';
-  import { getDelegatedSchemaPermissions } from '@amplica-labs/siwf-utils';
+  import { getDelegatedSchemaPermissions } from '@projectlibertylabs/siwf-utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
 
   let selectedMsaWithAccount: CurrentSelectedMsaAccount;

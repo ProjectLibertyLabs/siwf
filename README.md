@@ -16,7 +16,7 @@ onboarding operations over Frequency.
 
 ### Description
 
-SIWF has two parts: a package `@amplica-labs/siwf` and a deployed web application that performs the needed UI for
+SIWF has two parts: a package `@projectlibertylabs/siwf` and a deployed web application that performs the needed UI for
 assisting the user in the action of login or onboarding. The UI also assists with interfacing with various wallets is
 achieved through interaction with either a supported browser extension (web/mobile) or an installed native app (mobile
 only)
@@ -33,25 +33,25 @@ onboarding. The user/data flows will look as follows:
 
 ### Creating a Sign-up/Sign-in Button
 
-1. Install the SIWF package `npm i @amplica-labs/siwf`
+1. Install the SIWF package `npm i @projectlibertylabs/siwf`
 
 2. Import the `setConfig` and `getLoginOrRegistrationPayload` functions.
 3. `setConfig` is used to set the URL to the current production siwf-ui. The current deployed environment is via GitHub
    pages at:
 
    ```
-   https://amplicalabs.github.io/siwf/ui
+   https://projectlibertylabs.github.io/siwf/ui
    ```
 
    Note: For SIWF development replace with the address the local application runs on.
 
    ```ts
-   import { type ControlPanelResponse, getLoginOrRegistrationPayload, setConfig } from '@amplica-labs/siwf';
+   import { type ControlPanelResponse, getLoginOrRegistrationPayload, setConfig } from '@projectlibertylabs/siwf';
    setConfig({
      // Your providerId
      providerId: '1',
      // The url where SIWF UI lives
-     proxyUrl: 'https://amplicalabs.github.io/siwf/ui',
+     proxyUrl: 'https://projectlibertylabs.github.io/siwf/ui',
      // The Frequency RPC endpoint
      frequencyRpcUrl: 'https://0.rpc.testnet.amplica.io',
      siwsOptions: {
@@ -165,7 +165,7 @@ included in the sign-up.
 
 ### Returning User
 
-This mean that a user has an MSA account and is a returning user to an application. This user has already granted
+This means that a user has an MSA account and is a returning user to an application. This user has already granted
 delegation and schemas permissions and is simply signing in.
 
 ```json
@@ -210,12 +210,12 @@ One of two objects will have data: `signUp` or `signIn`.
 
 ### Validating Response
 
-It is nessisary to check the validity of the encoded payload as well as to keep track of the expiration of the grant
+It is necessary to check the validity of the encoded payload as well as to keep track of the expiration of the grant
 delegation. This helps with avoiding failed transactions due to expiration of signature for granting delegation. Methods
 for decoding a hex-encoded extrinsic can be found in the
 [Polkadot documentation](https://wiki.polkadot.network/docs/build-transaction-construction).
 
-The `validateSignup` and `validateSignin` functions included in the `@amplica-labs/siwf` package performs validation
+The `validateSignup` and `validateSignin` functions included in the `@projectlibertylabs/siwf` package performs validation
 parameters to ensure the integrity and correctness of the process. It verifies several critical aspects of the provided
 extrinsics or payload, including the validity and expiration of proofs, the consistency of signing keys, the format of
 encoded data, and the matching of permissions with the provider's MSA ID.
@@ -225,7 +225,7 @@ encoded data, and the matching of permissions with the provider's MSA ID.
 ### Example
 
 ```ts
-import { validateSignup } from '@amplica-labs/siwf';
+import { validateSignup } from '@projectlibertylabs/siwf';
 let response = {
   signUp: {
     extrinsics: [
@@ -280,7 +280,7 @@ See `SignupError` in [`packages/siwf/src/enums.ts`](packages/siwf/src/enums.ts) 
 ### Example
 
 ```ts
-import { validateSignin } from '@amplica-labs/siwf';
+import { validateSignin } from '@projectlibertylabs/siwf';
 let response = {
   signIn: {
     siwsPayload: {
@@ -324,7 +324,7 @@ See `SigninError` in [`packages/siwf/src/enums.ts`](packages/siwf/src/enums.ts) 
 At this point, it is up to you to create a session following best practices.
 
 References for validation are live inside
-[example-app](https://github.com/AmplicaLabs/siwf/tree/main/packages/example/src/lib/components/SignInVerification.svelte)
+[example-app](https://github.com/ProjectLibertyLabs/siwf/tree/main/packages/example/src/lib/components/SignInVerification.svelte)
 
 ## Development Setup
 

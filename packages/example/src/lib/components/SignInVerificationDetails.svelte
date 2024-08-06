@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
-  import { getMsaId, isValidExpiration, isValidSignature, type SiwsMessage } from '@amplica-labs/siwf';
+  import { getMsaId, isValidExpiration, isValidSignature, type SiwsMessage } from '@projectlibertylabs/siwf';
   import { onDestroy, onMount } from 'svelte';
   import type { ApiPromise } from '@polkadot/api';
 
