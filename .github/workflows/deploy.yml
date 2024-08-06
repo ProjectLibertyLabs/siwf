@@ -115,7 +115,7 @@ jobs:
 
         # Required for Granular Access Tokens
       - name: NPM Access Config
-        run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NODE_AUTH_TOKEN}}
+        run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NPM_AUTH_TOKEN}}
 
       - name: Publish on NPM @next
         run: npm publish --verbose --tag next --access public
