@@ -53,10 +53,10 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --filter @amplica-labs/siwf
+        run: pnpm install --filter @projectlibertylabs/siwf
 
       - name: build
-        run: pnpm run build --filter @amplica-labs/siwf
+        run: pnpm run build --filter @projectlibertylabs/siwf
 
       - name: Version Package
         if: env.TEST_RUN != 'true'
