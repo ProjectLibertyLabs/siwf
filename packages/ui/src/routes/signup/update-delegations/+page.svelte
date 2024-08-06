@@ -3,7 +3,7 @@
   import { DSNPSchemas, getDelegationPayload, getPayloadSignature, sendWalletProxyResponse } from '$lib/utils';
   import { FooterButton } from '$lib/components';
   import PayloadConfirmation from '$lib/components/PayloadConfirmation.svelte';
-  import { buildGrantDelegationTx } from '@amplica-labs/siwf-utils';
+  import { buildGrantDelegationTx } from '@projectlibertylabs/siwf-utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { CurrentSelectedMsaAccountStore } from '$lib/stores';
 

@@ -6,7 +6,7 @@ import type { AnyNumber, Codec, ISubmittableResult } from '@polkadot/types/types
 import { Bytes, Option, Text, u16 } from '@polkadot/types';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { CommonPrimitivesMsaDelegation, CommonPrimitivesMsaProviderRegistryEntry } from '@polkadot/types/lookup';
-import { RequestedSchema } from '@amplica-labs/siwf';
+import { RequestedSchema } from '@projectlibertylabs/siwf';
 import { SchemaName } from '@dsnp/frequency-schemas/dsnp';
 
 export { Codec };

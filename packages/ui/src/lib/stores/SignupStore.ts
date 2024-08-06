@@ -1,5 +1,5 @@
 import { checkHandleAvailability, getHandlePayload } from '$lib/utils';
-import { validateHandle } from '@amplica-labs/siwf-utils';
+import { validateHandle } from '@projectlibertylabs/siwf-utils';
 import { writable } from 'svelte/store';
 
 interface SignupStoreData {

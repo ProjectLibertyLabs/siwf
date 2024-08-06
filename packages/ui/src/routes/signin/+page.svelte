@@ -4,7 +4,7 @@
     ExtensionConnector,
     ExtensionErrorEnum,
     isExtensionInstalled,
-  } from '@amplica-labs/siwf-utils';
+  } from '@projectlibertylabs/siwf-utils';
   import { WalletSelector } from '$lib/components';
   import type { WalletSelectedEvent } from '$lib/types/events';
   import { APP_NAME } from '$lib/globals';

@@ -4,7 +4,7 @@
   import { SignupStore } from '$lib/stores/SignupStore';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { getHandlePayload, getPayloadSignature } from '$lib/utils';
-  import { buildHandleTx } from '@amplica-labs/siwf-utils';
+  import { buildHandleTx } from '@projectlibertylabs/siwf-utils';
   import { goto } from '$app/navigation';
   import { base } from '$app/paths';
 

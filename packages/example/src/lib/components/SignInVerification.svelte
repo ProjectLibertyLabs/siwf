@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
-  import { parseMessage, type SignInResponse, type SiwsMessage } from '@amplica-labs/siwf';
+  import { parseMessage, type SignInResponse, type SiwsMessage } from '@projectlibertylabs/siwf';
   import type { ApiPromise } from '@polkadot/api';
   import SignInVerificationDetails from './SignInVerificationDetails.svelte';
 

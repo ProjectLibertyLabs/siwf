@@ -10,7 +10,7 @@
     resolveSchemas,
     setApiUrl,
     type SignInRequest,
-  } from '@amplica-labs/siwf-utils';
+  } from '@projectlibertylabs/siwf-utils';
   import { RequestResponseStore } from '$lib/stores/RequestResponseStore';
   import { getWindowEndpoint } from '$lib/utils';
   import Spinner from '$lib/components/Spinner.svelte';
