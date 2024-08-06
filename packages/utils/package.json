@@ -1,5 +1,5 @@
 {
-  "name": "@amplica-labs/siwf-utils",
+  "name": "@projectlibertylabs/siwf-utils",
   "type": "module",
   "files": ["dist", "!dist/**/*.test.*", "!dist/**/*.spec.*"],
   "main": "./dist/fcp-utils.umd.cjs",
@@ -22,8 +22,8 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@amplica-labs/eslint-config-siwf": "workspace:*",
-    "@amplica-labs/siwf": "workspace:*",
+    "@projectlibertylabs/eslint-config-siwf": "workspace:*",
+    "@projectlibertylabs/siwf": "workspace:*",
     "@vitest/coverage-v8": "^1.2.0",
     "jsdom": "^23.2.0",
     "pathe": "^1.1.1",
