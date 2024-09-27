@@ -9,12 +9,12 @@ import {
   validateClaimHandleParams,
   validateSignature,
   validateSignupExtrinsicsParams,
-} from './helpers';
+} from './helpers.js';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { ClaimHandleParams, EncodedExtrinsic, SponsoredAccountParams } from './types';
+import { ClaimHandleParams, EncodedExtrinsic, SponsoredAccountParams } from './types.js';
 import { ApiPromise } from '@polkadot/api';
 import { HexString } from '@polkadot/util/types';
-import { SignUpCall, SignupError } from './enums';
+import { SignUpCall, SignupError } from './enums.js';
 import { AnyJson, CallFunction, ISubmittableResult } from '@polkadot/types/types';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { Call, Extrinsic, SignedBlock } from '@polkadot/types/interfaces';
@@ -37,7 +37,11 @@ type TestData = {
   args: TestCallArg[];
 };
 
-function toEncodedExtrinsic(e: TestData): EncodedExtrinsic {
+function toEncodedExtrinsic(e: TestData | undefined): EncodedExtrinsic {
+  if (!e) {
+    throw new Error('Unable to get the extrinsic!');
+  }
+
   return {
     pallet: e.section,
     extrinsicName: e.method,
@@ -312,7 +316,7 @@ describe('parseValidationArgs', async () => {
     const { section, method, publicKey, proof, payload } = parsedArgs;
     expect(section).toStrictEqual(extrinsic.section);
     expect(method).toStrictEqual(extrinsic.method);
-    expect(publicKey).toStrictEqual(extrinsic.args[0].toHex!());
+    expect(publicKey).toStrictEqual(extrinsic.args![0].toHex!());
     expect(proof).toStrictEqual(extrinsic.args[1].value);
     expect(payload.toJSON()).toStrictEqual(extrinsic.args[2].toJSON!());
   });

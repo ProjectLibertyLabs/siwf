@@ -1,8 +1,8 @@
 import '@frequency-chain/api-augment';
-import { isHexString, SignInResponse, SiwsPayload } from './types';
+import { isHexString, SignInResponse, SiwsPayload } from './types.js';
 import { type SiwsMessage, parseMessage as swisParseMessage } from '@talismn/siws';
 import { SigninError } from './enums';
-import { getMsaforPublicKey, validateSignature } from './helpers';
+import { getMsaforPublicKey, validateSignature } from './helpers.js';
 import { ApiPromise } from '@polkadot/api';
 import { decodeAddress } from '@polkadot/util-crypto/address';
 
@@ -28,7 +28,7 @@ export async function validateSignin(
     try {
       msg = parseMessage(signInResponse.siwsPayload.message);
     } catch (e) {
-      throw new Error(`${SigninError.InvalidMessage}: ${e.toString() || 'Unknown Error'}`);
+      throw new Error(`${SigninError.InvalidMessage}: ${(e as Error).toString() || 'Unknown Error'}`);
     }
 
     // Validate signature

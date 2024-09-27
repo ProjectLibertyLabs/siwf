@@ -1,4 +1,4 @@
-import { Network, ProxyUrl } from './enums';
+import { Network, ProxyUrl } from './enums.js';
 import { RequestedSchema, type SiwsOptions } from './messenger';
 
 const defaultSchemas: RequestedSchema[] = [

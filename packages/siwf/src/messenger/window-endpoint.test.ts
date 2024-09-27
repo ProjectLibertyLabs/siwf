@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { WindowEndpoint } from './window-endpoint';
+import { WindowEndpoint } from './window-endpoint.js';
 
 describe('WindowEndpoint', () => {
   const messagePortMock = {

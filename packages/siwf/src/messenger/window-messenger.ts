@@ -1,10 +1,10 @@
-import { ErrorMessage, Message } from './enums';
+import { ErrorMessage, Message } from './enums.js';
 
 export class WindowMessenger {
-  private channel: MessageChannel;
-  private eventTarget: EventTarget;
+  private channel: MessageChannel | undefined;
+  private eventTarget: EventTarget | undefined;
   private handshakeComplete: boolean = false;
-  public childWindow: Window | null;
+  public childWindow: Window | null | undefined;
 
   private constructor() {}
 
@@ -39,11 +39,11 @@ export class WindowMessenger {
       const handleMessageEvent = (event: MessageEvent) => {
         if (event.origin === new URL(url).origin && event.data === Message.Handshake) {
           clearTimeout(timeout);
-          this.childWindow!.postMessage(Message.Handshake, event.origin, [this.channel.port2]);
-          this.channel.port1.onmessage = (event: MessageEvent) => {
-            this.eventTarget.dispatchEvent(new CustomEvent(event.data.eventName, { detail: event.data.payload }));
+          this.childWindow!.postMessage(Message.Handshake, event.origin, [this.channel!.port2]);
+          this.channel!.port1.onmessage = (event: MessageEvent) => {
+            this.eventTarget!.dispatchEvent(new CustomEvent(event.data.eventName, { detail: event.data.payload }));
           };
-          this.channel.port1.start();
+          this.channel!.port1.start();
 
           window.removeEventListener('message', handleMessageEvent);
           console.log('handshake complete');
@@ -57,7 +57,7 @@ export class WindowMessenger {
   }
 
   public sendEvent(eventName: string, payload: unknown) {
-    this.channel.port1.postMessage({ eventName, payload });
+    this.channel!.port1.postMessage({ eventName, payload });
   }
 
   public on<T extends Record<string, unknown>>(
@@ -68,17 +68,17 @@ export class WindowMessenger {
     const eventListener: EventListener = (event: Event) => {
       listener(event as CustomEvent<T>);
     };
-    this.eventTarget.addEventListener(eventName, eventListener, options);
+    this.eventTarget!.addEventListener(eventName, eventListener, options);
   }
 
   public off<T extends Record<string, unknown>>(eventName: string, listener: (event: CustomEvent<T>) => void) {
     const eventListener: EventListener = (event: Event) => {
       listener(event as CustomEvent<T>);
     };
-    this.eventTarget.removeEventListener(eventName, eventListener);
+    this.eventTarget!.removeEventListener(eventName, eventListener);
   }
 
   public dispose() {
-    this.channel.port1.close();
+    this.channel!.port1.close();
   }
 }
