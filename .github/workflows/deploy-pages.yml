@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ['main', 'v1']
+env:
+  BUILD_TARGET: 'production'
+  TARGET_FOLDER: ${{ github.ref == 'refs/heads/main' && 'v2' || 'v1' }}
+jobs:
+  build_site:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: build
+        env:
+          BASE_PATH: '/siwf'
+        run: |
+          pnpm run build
+      - name: structure
+        run: |
+          mkdir siwf
+          touch siwf/.nojekyll
+          mkdir siwf/example
+          mkdir siwf/ui
+          mv ./packages/ui/build/* ./siwf/ui
+          mv ./packages/example/build/* ./siwf/example
+
+      - name: Deploy to GitHub Pages ${{ env.TARGET_FOLDER }}
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: siwf
+          target-folder: ${{ env.TARGET_FOLDER }} # This is what deploys us to a v1 or v2 directory
+          clean: false # Don't clean up the other release folders
+
+      # For now, we want to keep deploying v1 to the root
+      # Future will swap this to some basic directory page
+      - name: Deploy to GitHub Pages Root
+        if: ${{ github.ref == 'refs/heads/v1' }}
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: siwf
+          target-folder: /
+          clean: false # Don't clean up the release folders

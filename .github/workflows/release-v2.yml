@@ -1,0 +1,74 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: Release v2
+run-name: Publish Release ${{github.ref_name}}
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: false
+on:
+  push:
+    tags:
+      - 'v2.[0-9]+.[0-9]+' # ex. v2.0.0
+      - 'v2.[0-9]+.[0-9]+-rc[0-9]+' # ex. v2.1.0-rc1
+
+env:
+  NEW_RELEASE_TAG: ${{github.ref_name}}
+  # Version 1.0 should NEVER be latest anymore
+  NPM_LATEST: ${{!contains(fromJSON('["-rc", "v0.0.", "v1."]'), github.ref_name)}}
+
+jobs:
+  publish-npm:
+    name: Publish NPM Package
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --filter @projectlibertylabs/siwf
+
+      - name: build
+        run: pnpm run build --filter @projectlibertylabs/siwf
+
+      - name: Version Package
+        run: npm version --new-version "${{env.NEW_RELEASE_TAG}}" --no-git-tag-version
+        working-directory: packages/siwf/dist
+
+        # Required for Granular Access Tokens
+      - name: NPM Access Config
+        run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NPM_AUTH_TOKEN}}
+
+      - name: Release on NPM @latest
+        if: env.NPM_LATEST == 'true'
+        run: npm publish --tag latest --access public
+        working-directory: packages/siwf/dist
+
+      - name: Release Candidate on NPM
+        if: env.NPM_LATEST != 'true'
+        run: npm publish --access public
+        working-directory: packages/siwf/dist
