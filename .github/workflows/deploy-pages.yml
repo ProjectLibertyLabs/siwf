@@ -42,18 +42,20 @@ jobs:
         run: |
           mkdir siwf
           touch siwf/.nojekyll
-          mkdir siwf/example
-          mkdir siwf/ui
-          mv ./packages/ui/build/* ./siwf/ui
-          mv ./packages/example/build/* ./siwf/example
+          mkdir siwf/v1
+          mkdir siwf/v1/example
+          mkdir siwf/v1/ui
+          mv ./packages/ui/build/* ./siwf/v1/ui
+          mv ./packages/example/build/* ./siwf/v1/example
 
-      - name: Deploy to GitHub Pages ${{ env.TARGET_FOLDER }}
-        uses: JamesIves/github-pages-deploy-action@v4.6.4
-        with:
-          branch: gh-pages
-          folder: siwf
-          target-folder: ${{ env.TARGET_FOLDER }} # This is what deploys us to a v1 or v2 directory
-          clean: false # Don't clean up the other release folders
+      # Should be able to move to this once the root is different
+      # - name: Deploy to GitHub Pages ${{ env.TARGET_FOLDER }}
+      #   uses: JamesIves/github-pages-deploy-action@v4.6.4
+      #   with:
+      #     branch: gh-pages
+      #     folder: siwf
+      #     target-folder: ${{ env.TARGET_FOLDER }} # This is what deploys us to a v1 or v2 directory
+      #     clean: false # Don't clean up the other release folders
 
       - name: Build Root
         env:
@@ -63,9 +65,6 @@ jobs:
 
       - name: Structure Root
         run: |
-          rm -Rf siwf
-          mkdir siwf
-          touch siwf/.nojekyll
           mkdir siwf/example
           mkdir siwf/ui
           mv ./packages/ui/build/* ./siwf/ui
@@ -74,10 +73,10 @@ jobs:
       # For now, we want to keep deploying v1 to the root
       # Future will swap this to some basic directory page
       - name: Deploy to GitHub Pages Root
-        if: ${{ github.ref == 'refs/heads/v1' }}
+        # if: ${{ github.ref == 'refs/heads/v1' }}
         uses: JamesIves/github-pages-deploy-action@v4.6.4
         with:
           branch: gh-pages
           folder: siwf
           target-folder: /
-          clean: false # Don't clean up the release folders
+          clean: true # Future: Don't clean up the release folders
