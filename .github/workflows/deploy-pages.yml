@@ -5,7 +5,6 @@ on:
   push:
     branches: ['main', 'v1', 'chore/split-for-v1']
 env:
-  BUILD_TARGET: 'production'
   TARGET_FOLDER: ${{ github.ref == 'refs/heads/main' && 'v2' || 'v1' }}
 
 permissions:
@@ -33,10 +32,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: build
+      - name: Build v1
+        env:
+          BASE_PATH_UI: /siwf/v1/ui
+          BASE_PATH_EXAMPLE: /siwf/v1/example
         run: pnpm run build
 
-      - name: structure
+      - name: Structure v1
         run: |
           mkdir siwf
           touch siwf/.nojekyll
@@ -52,6 +54,22 @@ jobs:
           folder: siwf
           target-folder: ${{ env.TARGET_FOLDER }} # This is what deploys us to a v1 or v2 directory
           clean: false # Don't clean up the other release folders
+
+      - name: Build Root
+        env:
+          BASE_PATH_UI: /siwf/ui
+          BASE_PATH_EXAMPLE: /siwf/example
+        run: pnpm run build
+
+      - name: Structure Root
+        run: |
+          rm -Rf siwf
+          mkdir siwf
+          touch siwf/.nojekyll
+          mkdir siwf/example
+          mkdir siwf/ui
+          mv ./packages/ui/build/* ./siwf/ui
+          mv ./packages/example/build/* ./siwf/example
 
       # For now, we want to keep deploying v1 to the root
       # Future will swap this to some basic directory page

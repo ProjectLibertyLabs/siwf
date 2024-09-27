@@ -4,8 +4,7 @@ name: Deploy NPM Hash
 on:
   push:
     branches: ['main']
-env:
-  BUILD_TARGET: 'production'
+
 jobs:
   publish-npm-rc:
     name: Publish NPM Hash
