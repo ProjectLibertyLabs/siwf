@@ -1,4 +1,8 @@
-# Sign-In With Frequency (SIWF)
+# Sign-In With Frequency (SIWF) V1
+
+> [!WARNING]
+> This is the README and documentation for SIWF v1.
+> You likely want to be looking at [a newer version](https://github.com/ProjectLibertyLabs/siwf).
 
 Easy setup and validation for Sign-In With Frequency.
 
@@ -16,7 +20,7 @@ onboarding operations over Frequency.
 
 ### Description
 
-SIWF has two parts: a package `@projectlibertylabs/siwf` and a deployed web application that performs the needed UI for
+SIWF has two parts: a package `@projectlibertylabs/siwf@v1` and a deployed web application that performs the needed UI for
 assisting the user in the action of login or onboarding. The UI also assists with interfacing with various wallets is
 achieved through interaction with either a supported browser extension (web/mobile) or an installed native app (mobile
 only)
@@ -33,14 +37,14 @@ onboarding. The user/data flows will look as follows:
 
 ### Creating a Sign-up/Sign-in Button
 
-1. Install the SIWF package `npm i @projectlibertylabs/siwf`
+1. Install the SIWF package `npm i @projectlibertylabs/siwf@v1`
 
 2. Import the `setConfig` and `getLoginOrRegistrationPayload` functions.
 3. `setConfig` is used to set the URL to the current production siwf-ui. The current deployed environment is via GitHub
    pages at:
 
    ```
-   https://projectlibertylabs.github.io/siwf/ui
+   https://projectlibertylabs.github.io/siwf/v1/ui
    ```
 
    Note: For SIWF development replace with the address the local application runs on.
@@ -51,7 +55,7 @@ onboarding. The user/data flows will look as follows:
      // Your providerId
      providerId: '1',
      // The url where SIWF UI lives
-     proxyUrl: 'https://projectlibertylabs.github.io/siwf/ui',
+     proxyUrl: 'https://projectlibertylabs.github.io/siwf/v1/ui',
      // The Frequency RPC endpoint
      frequencyRpcUrl: 'https://0.rpc.testnet.amplica.io',
      siwsOptions: {

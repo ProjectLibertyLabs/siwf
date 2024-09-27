@@ -1,25 +1,14 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Deploy NPM Hash
 
-name: Release
-run-name: Publish Release ${{github.ref_name}}
-concurrency:
-  group: ${{github.workflow}}-${{github.ref}}
-  cancel-in-progress: false
 on:
   push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+' # ex. v1.0.0
-      - 'v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+' # ex. v1.1.0-rc1
-      - 'v0.0.1' # used for testing only
-      - 'v0.0.1-rc[0-9]+' # used for testing only
-
+    branches: ['main']
 env:
-  NEW_RELEASE_TAG: ${{github.ref_name}}
-  TEST_RUN: ${{startsWith(github.ref_name, 'v0.0.1')}}
-
+  BUILD_TARGET: 'production'
 jobs:
-  publish-npm:
-    name: Publish NPM Package
+  publish-npm-rc:
+    name: Publish NPM Hash
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -35,7 +24,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: 8
 
@@ -59,20 +48,16 @@ jobs:
         run: pnpm run build --filter @projectlibertylabs/siwf
 
       - name: Version Package
-        if: env.TEST_RUN != 'true'
-        run: npm version --new-version "${{env.NEW_RELEASE_TAG}}" --no-git-tag-version
+        env:
+          FULL_SHA: ${{github.sha}}
         working-directory: packages/siwf/dist
+        shell: bash
+        run: npm version --new-version "v0.0.0-${FULL_SHA:0:6}" --no-git-tag-version
 
         # Required for Granular Access Tokens
       - name: NPM Access Config
         run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NPM_AUTH_TOKEN}}
 
-      - name: Release on NPM @latest
-        if: env.TEST_RUN != 'true' && steps.is-full-release.outputs.is-full-release == 'true'
-        run: npm publish --tag latest --access public
-        working-directory: packages/siwf/dist
-
-      - name: Release Candidate on NPM
-        if: env.TEST_RUN != 'true' && steps.is-full-release.outputs.is-full-release != 'true'
-        run: npm publish --access public
+      - name: Publish on NPM
+        run: npm publish --verbose --access public
         working-directory: packages/siwf/dist
