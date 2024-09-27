@@ -3,12 +3,17 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ['main', 'v1']
+    branches: ['main', 'v1', 'chore/split-for-v1']
 env:
   BUILD_TARGET: 'production'
   TARGET_FOLDER: ${{ github.ref == 'refs/heads/main' && 'v2' || 'v1' }}
+
+permissions:
+  contents: write
+
 jobs:
   build_site:
+    concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
