@@ -1,0 +1,42 @@
+<div id="generator">
+		<link href="./_app/immutable/assets/0.B_SY1GJM.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.DHry9LrV.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.CoYeoDa0.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.B3svg8oL.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.DWOMtCi8.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/preload-helper.CmsKOCeN.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.DcCoCrnC.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.BHruzTxR.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.CGjFCcjg.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/2.cnr12_m8.js">   <div><div class="mb-4"><form><div class="mb-4"><label for="callbackUri" data-svelte-h="svelte-1i096uq">Callback URI *</label> <input type="url" id="callbackUri" required placeholder="https://localhost:3000/login" value=""></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-151ob36">Permissions</legend> <div class="checkboxes"><label><input type="checkbox" value="7,9,10"> Private Graph v1 </label><label><input type="checkbox" value="8"> Public Graph v1 </label><label><input type="checkbox" value="2,3,1,4,5"> Content v1 </label><label><input type="checkbox" value="6"> Profile v1 </label> <div><label for="additionalPermissions" data-svelte-h="svelte-1lmz6b8">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""></div> <div class="my-2 text-sm"><label for="schemaIds" data-svelte-h="svelte-1te7gk5">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""></div></div></fieldset></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-1g8jyhu">Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox">
+			Graph Key (Required for reading private graph)</label> <label><input type="checkbox">
+			Verified Email Address</label> <label><input type="checkbox">
+			Verified SMS/Phone Number</label></div></fieldset></div> </form></div> <h2 data-svelte-h="svelte-1dmlwxr">Result</h2> <dl><dt data-svelte-h="svelte-1epj4gw">Login Request Payload and Signature (
+		<code>signedRequest</code>
+		parameter )
+	</dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div> 
+			
+			<script>
+				{
+					__sveltekit_14tug9m = {
+						base: new URL(".", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [null,null];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.DHry9LrV.js"),
+						import("./_app/immutable/entry/app.DWOMtCi8.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
