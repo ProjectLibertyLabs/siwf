@@ -3,9 +3,8 @@ import { PresumptiveSuffixesResponse } from '@frequency-chain/api-augment/interf
 import { getApi } from './connect';
 import { ApiPromise } from '@polkadot/api';
 import type { AnyNumber, Codec, ISubmittableResult } from '@polkadot/types/types';
-import { Bytes, Option, Text, u16 } from '@polkadot/types';
+import { Bytes, Text, u16 } from '@polkadot/types';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
-import { CommonPrimitivesMsaDelegation, CommonPrimitivesMsaProviderRegistryEntry } from '@polkadot/types/lookup';
 import { RequestedSchema } from '@projectlibertylabs/siwf';
 import { SchemaName } from '@dsnp/frequency-schemas/dsnp';
 
@@ -53,7 +52,7 @@ export async function getMsaInfo(address: string[], apiPromise?: ApiPromise): Pr
   const handles = await getHandles(msaIds, api);
   return msaIds.map((msaId, i) => ({
     msaId: msaId.toString(),
-    handle: handles[i],
+    handle: handles[i] || '',
   }));
 }
 
@@ -106,9 +105,7 @@ export async function buildGrantDelegationTx(
 
 export async function getProviderRegistryInfo(providerId: AnyNumber) {
   const api = await getApi();
-  const providerInfo: CommonPrimitivesMsaProviderRegistryEntry = (
-    await api.query.msa.providerToRegistryEntry(providerId)
-  ).unwrapOrDefault();
+  const providerInfo = (await api.query.msa.providerToRegistryEntry(providerId)).unwrapOrDefault();
 
   return providerInfo.providerName.toUtf8();
 }
@@ -138,8 +135,7 @@ export async function resolveSchemas(schemas: RequestedSchema[]): Promise<void> 
   const response = await api.query.schemas.schemaNameToIds.multi(schemas.map((s) => ['dsnp', s.name]));
 
   schemas.forEach((schema, index) => {
-    const ids = response[index].ids
-      .toArray()
+    const ids = response[index]!.ids.toArray()
       .map((id) => (id as u16).toNumber())
       .sort();
     if (schema?.version && schema.version > 0) {
@@ -177,10 +173,7 @@ export async function getDelegatedSchemaPermissions(
     expectedSchemaPermissions: [] as number[],
   };
 
-  const response: Option<CommonPrimitivesMsaDelegation> = await api.query.msa.delegatorAndProviderToDelegation(
-    msaId,
-    providerId
-  );
+  const response = await api.query.msa.delegatorAndProviderToDelegation(msaId, providerId);
 
   if (response.isSome) {
     const delegation = response.unwrap();

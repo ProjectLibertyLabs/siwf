@@ -4,8 +4,7 @@ name: Deploy NPM Hash
 on:
   push:
     branches: ['main']
-env:
-  BUILD_TARGET: 'production'
+
 jobs:
   publish-npm-rc:
     name: Publish NPM Hash
@@ -25,8 +24,6 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 8
 
       - name: Get pnpm store directory
         shell: bash

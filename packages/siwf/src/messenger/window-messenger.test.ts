@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { WindowMessenger } from './window-messenger';
+import { WindowMessenger } from './window-messenger.js';
 
 describe('WindowMessenger', () => {
   let windowMessenger: WindowMessenger;

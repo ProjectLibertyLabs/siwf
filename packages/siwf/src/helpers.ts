@@ -1,5 +1,5 @@
 import '@frequency-chain/api-augment';
-import { isHexString } from './types';
+import { isHexString } from './types.js';
 import type {
   AddProviderPayload,
   ClaimHandleParams,
@@ -11,7 +11,7 @@ import type {
   ValidationArgs,
   ValidSignUpPayloads,
 } from './types';
-import { SignUpCall, SignupError } from './enums';
+import { SignUpCall, SignupError } from './enums.js';
 import { cryptoWaitReady, signatureVerify } from '@polkadot/util-crypto';
 import { assert, isHex, u8aWrapBytes } from '@polkadot/util';
 import type { HexString, U8aLike } from '@polkadot/util/types';
@@ -91,9 +91,9 @@ export async function parseValidationArgs(hexEntrinsicCall: HexString, api: ApiP
   }
   return {
     ...extrinsicData,
-    publicKey: extrinsicData.args[0].toHex(),
-    proof: extrinsicData.args[1].toHex(),
-    payload: extrinsicData.args[2],
+    publicKey: extrinsicData.args[0]!.toHex(),
+    proof: extrinsicData.args[1]!.toHex(),
+    payload: extrinsicData.args[2]!,
   };
 }
 

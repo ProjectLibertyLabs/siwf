@@ -1,5 +1,5 @@
-import { Message } from './enums';
-import { ErrorMessage } from './enums';
+import { Message } from './enums.js';
+import { ErrorMessage } from './enums.js';
 
 export class WindowEndpoint {
   private _messagePort?: MessagePort;

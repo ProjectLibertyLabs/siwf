@@ -1,4 +1,4 @@
-import { Message } from './messenger/enums';
+import { Message } from './messenger/enums.js';
 import type { AnyTuple, Codec as PCodec } from '@polkadot/types/types';
 import type { HexString } from '@polkadot/util/types';
 

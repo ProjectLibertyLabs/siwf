@@ -22,10 +22,10 @@
   },
   "devDependencies": {
     "@projectlibertylabs/eslint-config-siwf": "workspace:*",
-    "eslint": "^8.56.0",
-    "prettier": "^3.2.4",
-    "prettier-plugin-svelte": "^3.1.2",
-    "vitest": "^1.4.0"
+    "eslint": "^8.57.1",
+    "prettier": "^3.3.3",
+    "prettier-plugin-svelte": "^3.2.7",
+    "vitest": "^1.6.0"
   },
   "keywords": [],
   "author": "Project Liberty Labs",

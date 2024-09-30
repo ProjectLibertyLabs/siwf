@@ -1,6 +1,6 @@
-import { WalletProxyResponse, WalletProxyResponseEvent } from './types';
-import { Message } from './messenger/enums';
-import { getConfig } from './config';
+import { WalletProxyResponse, WalletProxyResponseEvent } from './types.js';
+import { Message } from './messenger/enums.js';
+import { getConfig } from './config.js';
 import { SignInRequest, WindowMessenger } from './messenger';
 
 let windowMessenger: WindowMessenger;

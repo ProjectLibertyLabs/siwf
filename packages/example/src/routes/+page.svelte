@@ -15,9 +15,9 @@
   import type { ApiPromise } from '@polkadot/api';
   import { getApi, setApiUrl } from '@projectlibertylabs/siwf-utils';
 
-  if (process.env.BUILD_TARGET === 'production') {
+  if (process.env.BASE_PATH_UI) {
     setConfig({
-      proxyUrl: 'https://projectlibertylabs.github.io/siwf/ui',
+      proxyUrl: 'https://projectlibertylabs.github.io' + process.env.BASE_PATH_UI,
       frequencyRpcUrl: 'https://0.rpc.frequency.xyz',
     });
   }
@@ -78,7 +78,7 @@
     },
     {
       name: 'Production',
-      url: 'https://projectlibertylabs.github.io/siwf/ui',
+      url: 'https://projectlibertylabs.github.io/siwf/v1/ui',
     },
   ];
 

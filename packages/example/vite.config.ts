@@ -10,5 +10,8 @@ export default defineConfig({
     environment: 'jsdom',
     mockReset: true,
   },
-  define: { 'process.env.BUILD_TARGET': JSON.stringify(process.env.BUILD_TARGET) },
+  define: {
+    'process.env.BASE_PATH_EXAMPLE': JSON.stringify(process.env.BASE_PATH_EXAMPLE),
+    'process.env.BASE_PATH_UI': JSON.stringify(process.env.BASE_PATH_UI),
+  },
 });

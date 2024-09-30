@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: CI
+name: Verify v1 PR
 
 on:
   pull_request:
-    branches: ['main']
+    branches: ['v1']
 
 jobs:
   build:
@@ -78,9 +78,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run build
-        run: pnpm run build
-
       - name: Run unit tests
         run: pnpm run test:unit
 
@@ -116,9 +113,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-
-      - name: build dependencies
-        run: pnpm run build
 
       - name: Lint packages
         run: pnpm lint

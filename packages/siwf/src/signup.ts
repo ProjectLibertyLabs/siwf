@@ -1,8 +1,8 @@
 import '@frequency-chain/api-augment';
-import type { SignUpResponse, ValidSignUpPayloads } from './types';
-import { SignupError } from './enums';
+import type { SignUpResponse, ValidSignUpPayloads } from './types.js';
+import { SignupError } from './enums.js';
 import { ApiPromise } from '@polkadot/api';
-import { validateSignupExtrinsicsParams } from './helpers';
+import { validateSignupExtrinsicsParams } from './helpers.js';
 
 /**
  * Validates the signup and throws an error if the validation fails.
