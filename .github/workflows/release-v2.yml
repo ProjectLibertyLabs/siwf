@@ -14,7 +14,7 @@ on:
 env:
   NEW_RELEASE_TAG: ${{github.ref_name}}
   # Version 1.0 should NEVER be latest anymore
-  NPM_LATEST: ${{!contains(fromJSON('["-rc", "v0.0.", "v1."]'), github.ref_name)}}
+  NPM_LATEST: ${{true != contains(fromJSON('["-rc", "v0.0.", "v1."]'), github.ref_name)}}
 
 jobs:
   publish-npm:
