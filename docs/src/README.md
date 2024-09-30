@@ -30,9 +30,11 @@ SIWF allows you to request that a user give you various delegations such as priv
 
 ## Staging & Production
 
-SIWF via Frequency Access has two deployments available: Staging-Testnet and Production-Mainnet.
+### Using Frequency Access
 
-### Production-Mainnet
+Frequency Access has two deployments: Staging-Testnet and Production-Mainnet.
+
+#### Production-Mainnet
 
 URL: `www.frequencyaccess.com`
 
@@ -41,7 +43,7 @@ URL: `www.frequencyaccess.com`
 - Bot protection via [hCaptcha](https://www.hcaptcha.com/)
 - Authorization Timeout: 30 seconds
 
-### Staging-Testnet
+#### Staging-Testnet
 
 URL: `testnet.frequencyaccess.com`
 
