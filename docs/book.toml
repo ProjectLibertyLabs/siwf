@@ -1,0 +1,24 @@
+[book]
+authors = ["Project Liberty Labs"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Sign In With Access"
+
+[preprocessor.local]
+command = "node preprocessor.mjs"
+
+
+[output.html]
+no-section-label = true
+git-repository-url = "https://github.com/ProjectLibertyLabs/siwa"
+edit-url-template = "https://github.com/ProjectLibertyLabs/siwa/blob/main/docs/src/{path}"
+preferred-dark-theme = "coal"
+additional-css = [
+  "css/extended.css",
+  "css/highlight.css",
+  "css/highlight-dark.css",
+]
+
+[output.html.fold]
+enable = true

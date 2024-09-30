@@ -1,0 +1,31 @@
+@startuml
+title "Frequency Access Integration for an Application"
+participant "Website / App" as ua
+participant "Application Backend" as p
+participant "Frequency Access" as fa
+participant "Frequency" as bc
+
+autonumber
+p->p: Generate & Sign Request Payload (once)
+p->p: Generate Authentication URL with correct callback path
+p->ua: Display Sign In With Frequency Button
+ua->fa: Click Sign In With Frequency Button (GET /siwa/login with base64url encoded SiwaRequest)
+fa->fa: User Authentication and Authorization
+fa->ua: Redirect to Callback URL from the SiwaRequest with authorizationCode parameter added
+alt Application Backend resolves payload
+    ua->p: GET against callback url with authoricationCode
+    p->fa: GET /siwa/api/payload trade authorizationCode for SiwaPayloadResponse
+    return SiwaPayloadResponse {signed payloads and credentials}
+    p->ua: Post sign-in screen
+    p->bc: If needed, submit required transactions to Frequency
+    return Transaction result
+else User Agent resolves payload
+    ua->ua: Pre-empted by OS (Universal Link)
+    ua->fa: GET /siwa/api/payload trade authorizationCode for SiwaPayloadResponse
+    return SiwaPayloadResponse {signed payloads and credentials}
+    ua->ua: Post sign-in screen
+    ua->p: Sign in result
+    p->bc: If needed, submit required transactions to Frequency
+    return Transaction result
+end
+@enduml

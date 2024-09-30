@@ -1,0 +1,26 @@
+{
+  "name": "siwa-mock",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsx main.ts"
+  },
+  "keywords": [],
+  "author": "Project Liberty LLC",
+  "license": "Apache-2.0",
+  "description": "Mock for SIWA for testing libraries and integrations",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/projectLibertyLabs/siwa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/projectLibertyLabs/siwa/issues"
+  },
+  "homepage": "https://github.com/projectLibertyLabs/siwa#readme",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "express": "^4.21.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  }
+}

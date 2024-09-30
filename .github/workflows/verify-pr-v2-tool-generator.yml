@@ -1,0 +1,67 @@
+name: Build and Test Generator
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  generator-tool:
+    strategy:
+      matrix:
+        node-version: [22.x]
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.47.1-jammy
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm" # Enabling npm caching
+          cache-dependency-path: |
+            libraries/js/package-lock.json
+            tools/signed-request-generator/package-lock.json
+
+      - name: Install Library dependencies
+        working-directory: libraries/js
+        run: npm ci
+
+      - name: Build Library
+        working-directory: libraries/js
+        run: npm run build
+
+      - name: Package Library
+        working-directory: libraries/js/dist
+        run: npm pack
+
+      - name: Install dependencies
+        working-directory: tools/signed-request-generator
+        run: npm i ../../libraries/js/dist/projectlibertylabs-siwa-0.0.0.tgz
+
+      - name: Lint
+        working-directory: tools/signed-request-generator
+        run: npm run lint
+
+      - name: Unit Test
+        working-directory: tools/signed-request-generator
+        run: npm run test
+
+      - name: Build
+        working-directory: tools/signed-request-generator
+        run: npm run build
+
+      - name: Install Playwright Browsers
+        working-directory: tools/signed-request-generator
+        run: npx playwright install chromium # does not need "--with-deps" because we are using the official image
+
+      - name: Run the tests
+        working-directory: tools/signed-request-generator
+        run: npm test

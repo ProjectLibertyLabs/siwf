@@ -1,0 +1,45 @@
+{
+	"name": "signed-request-generator",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"generate:siwa": "cd ../../libraries/js && npm i && npm run build && cd dist && npm pack",
+		"dev": "vite dev",
+		"build": "vite build",
+		"build:copy": "vite build && rm -Rf ../../docs/src/Generator && cp -a build ../../docs/src/Generator",
+		"preview": "vite preview",
+		"test": "playwright test",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write ."
+	},
+	"dependencies": {
+		"@polkadot/extension-dapp": "^0.53.1",
+		"@polkadot/extension-inject": "^0.53.1",
+		"@projectlibertylabs/siwa": "file:../../libraries/js/dist/projectlibertylabs-siwa-0.0.0.tgz"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.47.2",
+		"@sveltejs/adapter-auto": "^3.2.5",
+		"@sveltejs/adapter-static": "^3.0.5",
+		"@sveltejs/kit": "^2.6.1",
+		"@sveltejs/vite-plugin-svelte": "^3.1.2",
+		"@types/eslint": "^9.6.1",
+		"autoprefixer": "^10.4.20",
+		"eslint": "^9.11.1",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-svelte": "^2.44.1",
+		"globals": "^15.9.0",
+		"postcss": "^8.4.47",
+		"prettier": "^3.3.3",
+		"prettier-plugin-svelte": "^3.2.7",
+		"svelte": "^4.2.19",
+		"svelte-check": "^4.0.4",
+		"typescript": "^5.6.2",
+		"typescript-eslint": "^8.7.0",
+		"vite": "^5.4.8",
+		"vite-plugin-singlefile": "^2.0.2"
+	},
+	"type": "module"
+}

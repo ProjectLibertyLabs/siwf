@@ -1,0 +1,65 @@
+{
+  "name": "@projectlibertylabs/siwa",
+  "version": "0.0.0",
+  "description": "Sign In With Access Utility Library",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "npm run clean && npm run build:types && npm run build:esm && npm run build:cjs && node scripts/package.cjs",
+    "build:types": "tsc -p ./tsconfig.types.json",
+    "build:cjs": "npx tsup",
+    "build:esm": "tsc -p ./tsconfig.esm.json",
+    "clean": "rm -Rf dist",
+    "test": "vitest run",
+    "test:quiet": "vitest run --silent",
+    "format": "tsc -p ./tsconfig.eslint.json --noEmit --pretty && npm run prettier && npm run lint:fix",
+    "prettier": "npx prettier --write src",
+    "lint": "tsc -p ./tsconfig.eslint.json --noEmit --pretty && npx eslint src",
+    "lint:fix": "npx eslint --fix src",
+    "lint:ci": "npx eslint src && npx prettier --check src",
+    "generate:data-structures": "npx tsx src/mocks/generate-data-structures.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectLibertyLabs/siwa.git"
+  },
+  "author": "Project Liberty LLC",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ProjectLibertyLabs/siwa/issues"
+  },
+  "homepage": "https://github.com/ProjectLibertyLabs/siwa#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "@types/eslint__js": "^8.42.3",
+    "@vitest/coverage-v8": "^2.1.1",
+    "@vitest/ui": "^2.1.1",
+    "eslint": "^9.11.1",
+    "prettier": "3.3.3",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.7.0",
+    "vitest": "^2.1.1"
+  },
+  "dependencies": {
+    "@digitalbazaar/ed25519-multikey": "^1.2.0",
+    "@digitalbazaar/security-context": "^1.0.1",
+    "@digitalcredentials/jsonld": "^9.0.0",
+    "@digitalcredentials/jsonld-signatures": "^12.0.1",
+    "@digitalcredentials/sha256-universal": "^1.1.1",
+    "@digitalcredentials/vc": "^9.0.0",
+    "@polkadot/keyring": "^13.1.1",
+    "@polkadot/types": "^13.2.1",
+    "@polkadot/types-codec": "^13.2.1",
+    "@polkadot/util": "^13.1.1",
+    "@polkadot/util-crypto": "^13.1.1",
+    "base-x": "^5.0.0",
+    "base64url": "^3.0.1",
+    "bs58": "^6.0.0",
+    "rdf-canonize": "^4.0.1",
+    "tweetnacl": "^1.0.3"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.22.5"
+  }
+}
