@@ -269,8 +269,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="frequency-access-actions"><a class="header" href="#frequency-access-actions">Frequency Access Actions</a></h1>
-<p>Frequency Access handles three different situations for each user:</p>
+                        <h1 id="siwf-actions"><a class="header" href="#siwf-actions">SIWF Actions</a></h1>
+<p>SIWF handles three different situations for each user:</p>
 <div class="table-wrapper"><table><thead><tr><th>Action</th><th>Frequency Blockchain account (MSA)</th><th>Delegation with Your Application</th></tr></thead><tbody>
 <tr><td>Create Account</td><td><em>Required</em></td><td><em>Required</em></td></tr>
 <tr><td>Create Delegation</td><td>Existing</td><td><em>New or Updated Required</em></td></tr>
@@ -281,14 +281,14 @@
 <ol>
 <li>Generate Provider Login Request Payload and Signature (<a href="../Generate.html">Generator Tool</a>) (<a href="../SignatureGeneration.html">Documentation</a>)</li>
 <li>Build and send the user to the Authentication URL (<a href="./Start.html">See Details</a>)</li>
-<li>Receive a callback from Frequency Access</li>
-<li>Retrieve and process the login response from Frequency Access (<a href="./Response.html">See Details</a>)</li>
+<li>Receive a callback from Frequency Access or other SIWF compatible system</li>
+<li>Retrieve and process the login response (<a href="./Response.html">See Details</a>)</li>
 </ol>
 <h3 id="sequence-diagram"><a class="header" href="#sequence-diagram">Sequence Diagram</a></h3>
 <p><img src="./flow.svg" alt="General Flow Sequency Diagram" /></p>
 <h2 id="backend-requirements"><a class="header" href="#backend-requirements">Backend Requirements</a></h2>
 <ul>
-<li>Able to validate payloads from Frequency Access</li>
+<li>Able to validate payloads received from a SIWF compatible system</li>
 <li>Able to connect to a Frequency RPC Node</li>
 <li>Able to sign transactions to submit to the Frequency RPC Node</li>
 </ul>
