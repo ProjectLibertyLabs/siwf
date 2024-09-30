@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Signature Generation - Sign In With Access</title>
+        <title>Delegations - Sign In With Access</title>
 
 
         <!-- Custom HTML head -->
@@ -169,7 +169,7 @@
                 </svg>
 
               </a>
-              <ol class="chapter"><li class="chapter-item affix "><a href="Index.html">Introduction</a></li><li class="chapter-item "><a href="QuickStart.html">Quick Start</a></li><li class="chapter-item "><a href="Actions/Index.html">Actions</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Actions/Start.html">Start Login</a></li><li class="chapter-item "><a href="Actions/Response.html">Login Response</a></li></ol></li><li class="chapter-item expanded "><a href="Reference.html">Reference</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="SignatureGeneration.html" class="active">Signature Generation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Generate.html">Generator</a></li></ol></li><li class="chapter-item "><a href="Credentials.html">Credentials</a></li><li class="chapter-item "><a href="Delegations.html">Delegations</a></li><li class="chapter-item "><a href="Payloads.html">Payloads</a></li><li class="chapter-item "><a href="DataStructures/All.html">Data Structures</a></li></ol></li></ol>
+              <ol class="chapter"><li class="chapter-item affix "><a href="index.html">Introduction</a></li><li class="chapter-item "><a href="QuickStart.html">Quick Start</a></li><li class="chapter-item "><a href="Actions/Actions.html">Actions</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Actions/Start.html">Start Login</a></li><li class="chapter-item "><a href="Actions/Response.html">Login Response</a></li></ol></li><li class="chapter-item expanded "><a href="Reference.html">Reference</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="SignatureGeneration.html">Signature Generation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Generate.html">Generator</a></li></ol></li><li class="chapter-item "><a href="Credentials.html">Credentials</a></li><li class="chapter-item expanded "><a href="Delegations.html" class="active">Delegations</a></li><li class="chapter-item "><a href="Payloads.html">Payloads</a></li><li class="chapter-item "><a href="DataStructures/All.html">Data Structures</a></li></ol></li></ol>
               <ol class="chapter">
                   <li class="chapter-item">
                       <a href="https://www.frequencyaccess.com" class="nav-return">
@@ -240,7 +240,7 @@
                         <a href="https://github.com/ProjectLibertyLabs/siwf" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/ProjectLibertyLabs/siwf/blob/main/docs/src/src/SignatureGeneration.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/ProjectLibertyLabs/siwf/blob/main/docs/src/src/Delegations.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -269,188 +269,30 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="authentication-url-signature"><a class="header" href="#authentication-url-signature">Authentication URL Signature</a></h1>
-<p>Most applications skip all of this and just <a href="./Generate.html">generate the login request payload and signature</a>.</p>
-<h2 id="step-1-create-the-payload-for-signing"><a class="header" href="#step-1-create-the-payload-for-signing">Step 1: Create the Payload for Signing</a></h2>
-<h3 id="parameter-callback"><a class="header" href="#parameter-callback">Parameter: <code>callback</code></a></h3>
-<p>When the user has completed the authentication, this is the return URI that will be used.</p>
-<p>Appended to the URL will be this parameter:</p>
-<ul>
-<li><code>authorizationCode</code> Used to retrieve the full response payload</li>
-</ul>
-<p>The callback url <em>will maintain</em> any other URL parameters included.
-For example, if you wish to correlate the original unauthorized session with the authorized session, you can generate a dynamic callback url with a parameter with a random UUIDv4 identifier on each request.</p>
-<h3 id="parameter-permissions"><a class="header" href="#parameter-permissions">Parameter: <code>permissions</code></a></h3>
-<p>The list of Frequency Schema Ids permissions your application is requesting from the user.</p>
-<ul>
-<li>See a full list of <a href="./Delegations.html">Available Delegations</a></li>
-</ul>
-<h2 id="step-2-signing-the-request"><a class="header" href="#step-2-signing-the-request">Step 2: Signing the Request</a></h2>
-<p>To ensure that the correct application is requesting the authentication and that the response is only sent to the authorized party, the request is signed.
-The signature MUST be from one of the <a href="https://docs.frequency.xyz/Identity/ControlKeys.html">Control Keys</a> of the Frequency Provider.</p>
-<h3 id="2a-serialize-the-payload-using-the-scale-codec"><a class="header" href="#2a-serialize-the-payload-using-the-scale-codec">2a: Serialize the payload using the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE Codec</a></a></h3>
-<p>SCALE Type (Note: Order matters!)</p>
-<pre><code class="language-json">{
-  "callback": "String",
-  "permissions": "Vec&lt;U16&gt;"
-}
-</code></pre>
-<h3 id="2b-wrap-the-payload"><a class="header" href="#2b-wrap-the-payload">2b: Wrap the Payload</a></h3>
-<p>So that no payloads can be accidentally used on a chain, the payload is wrapped with a <code>&lt;Bytes&gt;</code> tag.</p>
-<p>Byte Arrays Concatenated: <code>[ 60, 66, 121, 116, 101, 115, 62 ] + scale_encoded_payload_bytes + [ 60, 47, 66, 121, 116, 101, 115, 62 ]</code></p>
-<h3 id="2c-sign-the-wrapped-payload-bytes"><a class="header" href="#2c-sign-the-wrapped-payload-bytes">2c: Sign the Wrapped Payload Bytes</a></h3>
-<p>Sign the serialized payload using Schnorr signatures over ECDSA.</p>
-<h3 id="2d-example"><a class="header" href="#2d-example">2d: Example</a></h3>
-<p>Remember that Sr25519 signatures are non-deterministic, so the payload and encoding will match, but the signature will be different.
-This example uses the <code>//Alice</code> seed phrase to generate the signature.</p>
-<ul>
-<li>Payload: <code>{ "callback": "https://localhost:44181", "permissions": [5, 7, 8, 9, 10] }</code></li>
-<li>SCALE Payload (Hex): <code>0x5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a00</code></li>
-<li>Wrapped Payload (Hex): <code>0x3c42797465733e5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a003c2f42797465733e</code></li>
-<li>Signing Public Key (SS58 Prefix 90): <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code></li>
-<li>Signature (Hex): <code>0x446c32dd524c1f4b06c213891e9e3a025dded43eae55d2df40a766187684ac2704434e1835573077c1abb783b98f3684488e41f8c9bdc359458f9e043ae5cd86</code></li>
-</ul>
-<h2 id="step-3-optional-request-credentials-graph-key-email-phone"><a class="header" href="#step-3-optional-request-credentials-graph-key-email-phone">Step 3 (Optional): Request Credentials (Graph Key, Email, Phone)</a></h2>
-<p>Frequency Access users can provide verified email or phone/SMS to your application when requested and approved by the user.
-This is <em>not</em> required, and best practice is to only make such a request if it is required for the functioning of the application.</p>
-<p>The request MUST be wrapped in <code>requestedCredentials</code> which is an array that requires ALL listed credential objects.
-Supported Options:</p>
-<ul>
-<li><code>anyOf</code>: Request for one or more credentials from the list (0+ may return)</li>
-</ul>
-<pre><code class="language-json">{
-  // ...
-  "requestedCredentials": [
-    {
-      "type": "VerifiedGraphKeyCredential",
-      "hash": ["bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"]
-    }
-    {
-      "anyOf": [
-        // List of contact credential requests here
-        {
-          "type": "VerifiedEmailAddressCredential",
-          "hash": ["bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi"]
-        },
-        {
-          "type": "VerifiedPhoneNumberCredential",
-          "hash": ["bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq"]
-        }
-      ]
-    }
-  ]
-}
-</code></pre>
-<ul>
-<li>See a full list of <a href="./Credentials.html">Available Credentials</a></li>
-</ul>
-<h3 id="example-using-typescriptjavascript"><a class="header" href="#example-using-typescriptjavascript">Example Using TypeScript/JavaScript</a></h3>
-<pre><code class="language-typescript">// This is the URI of a key. Usually just a seed phrase, but also supports test accounts such as `//Alice` or `//Bob`
-const providerKeyUri: string = getProviderKeyUriSecret();
-
-// The list of Frequency Schemas Ids that you are requesting the user delegate
-// See a full reference: https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html
-// This example is for Graph Only
-const permissions: number[] = [7, 8, 9, 10];
-
-// List of Credentials
-// See a full reference and examples: https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html
-const credentials = [
-  {
-    anyOf: [siwf.VerifiedEmailAddressCredential, siwf.VerifiedPhoneNumberCredential],
-  },
-  siwf.VerifiedGraphKeyCredential,
-];
-
-// This is the URI that the user should return to after authenticating with Frequency Access
-const callbackUri: string = getWebOrApplicationCallbackUri();
-
-// The Encoded Signed Request can remain static if
-// It is the same as is generated with the Signed Payload Generation Tool
-const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
-  providerKeyUri,
-  callbackUri,
-  permissions,
-  credentials,
-);
-
-// Options with endpoint selection
-// Endpoint may be tagged or specified in full
-const options = { endpoint: "production" };
-// Staging-Testnet Options
-// const options = { endpoint: 'staging' };
-
-const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new URLSearchParams({ id: getSessionId() }));
-</code></pre>
-<h3 id="full-example-request"><a class="header" href="#full-example-request">Full Example Request</a></h3>
-<pre><code class="language-json">{
-  "requestedSignatures": {
-    "publicKey": {
-      "encodedValue": "f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH",
-      "encoding": "base58",
-      "format": "ss58",
-      "type": "Sr25519"
-    },
-    "signature": {
-      "algo": "Sr25519",
-      "encoding": "base16",
-      "encodedValue": "0x0407ce814b77861df94d16b3fcb317d37a07abc2a7f9cd7c02cc22529ee7b32d56795f88bd6b4ad106b72b91b6246a783671bcd24cb01aaf0e9316db5e0cd085"
-    },
-    "payload": {
-      "callback": "http://localhost:3000",
-      "permissions": [
-        5,
-        7,
-        8,
-        9,
-        10
-      ]
-    }
-  },
-  "requestedCredentials": [
-    {
-      "type": "VerifiedGraphKeyCredential",
-      "hash": [
-        "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
-      ]
-    },
-    {
-      "anyOf": [
-        {
-          "type": "VerifiedEmailAddressCredential",
-          "hash": [
-            "bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi"
-          ]
-        },
-        {
-          "type": "VerifiedPhoneNumberCredential",
-          "hash": [
-            "bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq"
-          ]
-        }
-      ]
-    }
-  ]
-}
-</code></pre>
-<h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
-<p>See <a href="./Actions/Start.html">Start</a> for details on how to use the generated signature.</p>
-<h3 id="serialization"><a class="header" href="#serialization">Serialization</a></h3>
-<ol>
-<li>JSON Stringify the <code>SignedRequest</code> object</li>
-<li><a href="https://datatracker.ietf.org/doc/html/rfc4648#section-5"><code>base64url</code></a> encode the stringified result</li>
-</ol>
-
+                        <h1 id="available-delegations"><a class="header" href="#available-delegations">Available Delegations</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Short Name and Specification Link</th><th>Description</th><th>Schema Id Production-Mainnet</th><th>Schema Id Staging-Testnet</th></tr></thead><tbody>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Tombstone.html"><code>dsnp.tombstone</code></a></td><td>Mark content for deletion</td><td>1</td><td>1</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Broadcast.html"><code>dsnp.broadcast</code></a></td><td>Create new post content</td><td>2</td><td>2</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reply.html"><code>dsnp.reply</code></a></td><td>Reply to a content</td><td>3</td><td>3</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reaction.html"><code>dsnp.reaction</code></a></td><td>React to content</td><td>4</td><td>4</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Update.html"><code>dsnp.update</code></a></td><td>Update an existing post or reply</td><td>5</td><td>5</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Profile.html"><code>dsnp.profile</code></a></td><td>Change profile information</td><td>6</td><td>6</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-key-key-agreement</code></a></td><td>Publish new public key for the encrypted social graph</td><td>7</td><td>7</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-follows</code></a></td><td>Change public follows</td><td>8</td><td>8</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-follows</code></a></td><td>Change private follows</td><td>9</td><td>9</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-connections</code></a></td><td>Change private friendship connections</td><td>10</td><td>10</td></tr>
+</tbody></table>
+</div>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="Reference.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter: Reference" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i> Reference
+                            <a rel="prev" href="Credentials.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter: Credentials" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i> Credentials
                             </a>
 
-                            <a rel="next" href="Generate.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter: Generator" aria-keyshortcuts="Right">
-                                Generator <i class="fa fa-angle-right"></i>
+                            <a rel="next" href="Payloads.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter: Payloads" aria-keyshortcuts="Right">
+                                Payloads <i class="fa fa-angle-right"></i>
                             </a>
 
                         <div style="clear: both"></div>
