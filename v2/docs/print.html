@@ -268,10 +268,11 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="sign-in-with-frequency-developer-documentation-and-tools"><a class="header" href="#sign-in-with-frequency-developer-documentation-and-tools">Sign In With Frequency Developer Documentation and Tools</a></h1>
-<p>Sign In With Frequency (SIWF) provides documentation and tools to integrate with <a href="https://frequencyaccess.com">Frequency Access</a>, an easy to use custodial social wallet for users on Frequency and other SIWF compatible services.</p>
+<p>Sign In With Frequency (SIWF) provides documentation and tools to integrate with <a href="https://frequencyaccess.com">Frequency Access</a> and other SIWF compatible services.
+Frequency Access is an easy to use custodial social wallet for users on Frequency.</p>
 <p><a href="./QuickStart.html">JavaScript Quick Start</a></p>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>There are a few main steps to authentication using Frequency Access or other SIWF compatible systems.</p>
+<p>There are a few main steps to authentication using Frequency Access or other SIWF compatible services.</p>
 <ol>
 <li>Your application sends the user the Frequency Access Authentication URL</li>
 <li>Frequency Access verifies the user, and the user signs the requested payload(s)</li>
@@ -428,20 +429,20 @@ Note: You may start the user’s session and process the submissions in the back
 <ol>
 <li>Generate Provider Login Request Payload and Signature (<a href="Actions/../Generate.html">Generator Tool</a>) (<a href="Actions/../SignatureGeneration.html">Documentation</a>)</li>
 <li>Build and send the user to the Authentication URL (<a href="Actions/./Start.html">See Details</a>)</li>
-<li>Receive a callback from Frequency Access or other SIWF compatible system</li>
+<li>Receive a callback from Frequency Access or other SIWF compatible services</li>
 <li>Retrieve and process the login response (<a href="Actions/./Response.html">See Details</a>)</li>
 </ol>
 <h3 id="sequence-diagram"><a class="header" href="#sequence-diagram">Sequence Diagram</a></h3>
 <p><img src="Actions/./flow.svg" alt="General Flow Sequency Diagram" /></p>
 <h2 id="backend-requirements"><a class="header" href="#backend-requirements">Backend Requirements</a></h2>
 <ul>
-<li>Able to validate payloads received from a SIWF compatible system</li>
+<li>Able to validate payloads received from a SIWF compatible services</li>
 <li>Able to connect to a Frequency RPC Node</li>
 <li>Able to sign transactions to submit to the Frequency RPC Node</li>
 </ul>
 <div class="button-links"><a href="Actions/Start.html">Start Login</a>
 <a href="Actions/Response.html">Login Response</a></div>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="redirect-user-to-frequency-access-or-other-siwf-compatible-system"><a class="header" href="#redirect-user-to-frequency-access-or-other-siwf-compatible-system">Redirect User to Frequency Access (or other SIWF compatible system)</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="redirect-user-to-frequency-access-or-other-siwf-compatible-services"><a class="header" href="#redirect-user-to-frequency-access-or-other-siwf-compatible-services">Redirect User to Frequency Access (or other SIWF compatible services)</a></h1>
 <p>To start the authentication loop, your application will generate an Authentication URL for each user.</p>
 <h2 id="quick-reference"><a class="header" href="#quick-reference">Quick Reference</a></h2>
 <ul>
@@ -538,7 +539,7 @@ For example, if you wish to correlate the original unauthorized session with the
 <ul>
 <li><code>userPublicKey</code>: The key for the user signing this request</li>
 <li><code>payloads</code>: Signed payloads from the user</li>
-<li><code>credentials</code>: User approved verified credentials from Frequency Access (or other SIWF compatible system) such as email, phone, user keys, etc...</li>
+<li><code>credentials</code>: User approved verified credentials from Frequency Access (or other SIWF compatible services) such as email, phone, user keys, etc...</li>
 </ul>
 <h3 id="userpublickey"><a class="header" href="#userpublickey"><code>userPublicKey</code></a></h3>
 <p>The public key for the user identifies the user for this session.
@@ -554,7 +555,7 @@ Each credential would be matched based on the <code>type</code> field.</p>
 <li>Other <a href="https://www.w3.org/TR/vc-data-model-1.1/">W3C Verifiable Credentials</a> verifiers may also be compatable.</li>
 </ul>
 <h3 id="verify-the-credential"><a class="header" href="#verify-the-credential">Verify the Credential</a></h3>
-<p><em>Trust Model Note</em>: You may choose to just trust credentials issued by Frequency Access (or other SIWF compatible system) given that the credential is fetched directly. These will have issuer <code>did:web:testnet.frequencyaccess.com</code> or <code>did:web:frequencyaccess.com</code>.</p>
+<p><em>Trust Model Note</em>: You may choose to just trust credentials issued by Frequency Access (or other SIWF compatible services) given that the credential is fetched directly. These will have issuer <code>did:web:testnet.frequencyaccess.com</code> or <code>did:web:frequencyaccess.com</code>.</p>
 <ol>
 <li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://w3c-ccg.github.io/did-method-key/#format"><code>did:key</code> Method from the W3C</a></li>
 </ol>
@@ -691,7 +692,7 @@ These actions <em>must</em> be submitted to the chain for the correct functionin
 <p>They can be submitted to the chain in one transaction using <a href="https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics"><code>pay_with_capacity_batch_all</code></a>.</p>
 <h2 id="step-6-session-starts"><a class="header" href="#step-6-session-starts">Step 6: Session Starts</a></h2>
 <p>Once the payloads have been validated, the user's authenticated session may start.
-SIWF systems do not manage user sessions.</p>
+SIWF services do not manage user sessions.</p>
 <h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
 <h2 id="new-frequency-user-response"><a class="header" href="#new-frequency-user-response">New Frequency User Response</a></h2>
 <pre><code class="language-json">{
@@ -1198,10 +1199,10 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.B_SY1GJM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.BAX5vSpu.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.yQEK4W9y.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.C3WISZzG.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.D1MR1HlV.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/scheduler.B3svg8oL.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.DYOQJia3.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.C2jHDhpf.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/preload-helper.CmsKOCeN.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/index.DcCoCrnC.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.BHruzTxR.js">
@@ -1215,7 +1216,7 @@ parameter )
 </dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div>
 <script>
 {
-__sveltekit_h3u8aa = {
+__sveltekit_kmn1jp = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
@@ -1224,8 +1225,8 @@ const element = document.currentScript.parentElement;
 const data = [null,null];
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.BAX5vSpu.js"),
-import("./Generator/_app/immutable/entry/app.DYOQJia3.js")
+import("./Generator/_app/immutable/entry/start.C3WISZzG.js"),
+import("./Generator/_app/immutable/entry/app.C2jHDhpf.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
