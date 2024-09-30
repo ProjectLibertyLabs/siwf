@@ -1,0 +1,1956 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sign In With Access</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        <link rel="icon" href="favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+        <link rel="manifest" href="images/manifest.webmanifest" />
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" type="image/svg+xml" href="favicon.svg">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="css/highlight.css">
+        <link rel="stylesheet" href="css/highlight-dark.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="css/extended.css">
+        <link rel="stylesheet" href="css/highlight.css">
+        <link rel="stylesheet" href="css/highlight-dark.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+              <a id="logo" href="https://projectlibertylabs.github.io/siwf/v1/docs">
+                <?xml version="1.0" encoding="utf-8"?>
+                <!-- Generator: Adobe Illustrator 27.4.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                	 viewBox="0 0 484.9 136.3" style="enable-background:new 0 0 484.9 136.3;" xml:space="preserve">
+                <style type="text/css">
+               	.st0{fill:#00B6AF;}
+               	.st1{clip-path:url(#SVGID_00000092415911083059305350000007221903341907107465_);}
+               	.st2{fill:#1A1A1A;}
+                </style>
+                <g>
+               	<path class="st0" d="M0,1.5v68.9h12.1V49l24.3-10.4l-0.3-12.3L12.2,36.4V13H43V1.5H0L0,1.5z M58.8,13H75c5.3,0,9.6,2.6,9.6,8.3
+                		s-4.3,8.4-9.6,8.4H58.8C58.8,29.7,58.8,13,58.8,13z M46.6,1.5v68.9h12.2V53.5l37.9,16.9V57.2L59.8,41.3h14.9c11.8,0,22-7.6,22-19.9
+                		S86.5,1.5,74.7,1.5H46.6L46.6,1.5z M100.3,1.5v68.9h42.9V58.8h-30.8V41.6h30.8V30.1h-30.8V13h30.8V1.5H100.3L100.3,1.5z M258.8,1.5
+                		v47.1c0,7.1-5.1,11.9-12.1,11.9s-12-4.8-12-11.9V1.5h-12.1v46.9c0,13.9,10.8,23.4,24.2,23.4c13.4,0,24.2-9.6,24.2-23.4V1.5H258.8
+                		L258.8,1.5z M274.6,1.5v68.9h42.9V58.8h-30.8V41.6h30.8V30.1h-30.8V13h30.8V1.5H274.6L274.6,1.5z M359.6,1.5V48L334.4,1.5h-13.1
+                		v68.9h11.9V24l25.4,46.4h13V1.5H359.6L359.6,1.5z M472,1.5l-9.6,25.9l-10-25.9H439l29.2,68.9h12.6l-12.1-28.7l16.2-40.1h-12.8
+                		C472,1.6,472,1.5,472,1.5z M158.5,35.9c0-13.5,10.9-24.5,24.5-24.5s24.5,10.9,24.5,24.5c0,4.3-1,8.5-3.3,12.3L177,31.4v13.7
+                		l19.1,11.6c-4,2.4-8.5,3.8-13.2,3.8c-13.4,0.1-24.3-10.6-24.4-24L158.5,35.9 M182.9,0c-19.8,0.1-35.9,16.2-35.8,36
+                		s16.2,35.9,36,35.8c8.6,0,16.9-3.2,23.4-8.8l12.2,7.4V57.2l-4.8-2.9c3.2-5.6,4.8-11.9,4.8-18.3c0.2-19.7-15.7-35.8-35.3-35.9
+                		C183.2,0.1,183.1,0.1,182.9,0L182.9,0z M411.1,0c-19.8,0-36,16-36,35.9s16,36,35.9,36c11.5,0,22.2-5.4,28.9-14.6l-8.4-8.4
+                		c-4.1,7.4-12,11.9-20.4,11.7c-13.9,0-24.3-10.6-24.3-24.5s10.5-24.6,24.3-24.6c8.4-0.2,16.3,4.3,20.4,11.8l8.4-8.4
+                		C433.2,5.3,422.5-0.1,411.1,0L411.1,0z"/>
+               	<g>
+                		<g>
+               			<defs>
+                				<path id="SVGID_1_" d="M0,1.5v68.9h12.1V49l24.3-10.4l-0.3-12.3L12.2,36.4V13H43V1.5H0L0,1.5z M58.8,13H75
+               					c5.3,0,9.6,2.6,9.6,8.3s-4.3,8.4-9.6,8.4H58.8C58.8,29.7,58.8,13,58.8,13z M46.6,1.5v68.9h12.2V53.5l37.9,16.9V57.2L59.8,41.3
+               					h14.9c11.8,0,22-7.6,22-19.9S86.5,1.5,74.7,1.5H46.6L46.6,1.5z M100.3,1.5v68.9h42.9V58.8h-30.8V41.6h30.8V30.1h-30.8V13h30.8
+               					V1.5H100.3L100.3,1.5z M258.8,1.5v47.1c0,7.1-5.1,11.9-12.1,11.9s-12-4.8-12-11.9V1.5h-12.1v46.9c0,13.9,10.8,23.4,24.2,23.4
+               					c13.4,0,24.2-9.6,24.2-23.4V1.5H258.8L258.8,1.5z M274.6,1.5v68.9h42.9V58.8h-30.8V41.6h30.8V30.1h-30.8V13h30.8V1.5H274.6
+               					L274.6,1.5z M359.6,1.5V48L334.4,1.5h-13.1v68.9h11.9V24l25.4,46.4h13V1.5H359.6L359.6,1.5z M472,1.5l-9.6,25.9l-10-25.9H439
+               					l29.2,68.9h12.6l-12.1-28.7l16.2-40.1h-12.8C472,1.6,472,1.5,472,1.5z M158.5,35.9c0-13.5,10.9-24.5,24.5-24.5
+               					s24.5,10.9,24.5,24.5c0,4.3-1,8.5-3.3,12.3L177,31.4v13.7l19.1,11.6c-4,2.4-8.5,3.8-13.2,3.8c-13.4,0.1-24.3-10.6-24.4-24
+               					L158.5,35.9 M182.9,0c-19.8,0.1-35.9,16.2-35.8,36s16.2,35.9,36,35.8c8.6,0,16.9-3.2,23.4-8.8l12.2,7.4V57.2l-4.8-2.9
+               					c3.2-5.6,4.8-11.9,4.8-18.3c0.2-19.7-15.7-35.8-35.3-35.9C183.2,0.1,183.1,0.1,182.9,0L182.9,0z M411.1,0c-19.8,0-36,16-36,35.9
+               					s16,36,35.9,36c11.5,0,22.2-5.4,28.9-14.6l-8.4-8.4c-4.1,7.4-12,11.9-20.4,11.7c-13.9,0-24.3-10.6-24.3-24.5
+               					s10.5-24.6,24.3-24.6c8.4-0.2,16.3,4.3,20.4,11.8l8.4-8.4C433.2,5.3,422.5-0.1,411.1,0L411.1,0z"/>
+               			</defs>
+               			<clipPath id="SVGID_00000150803817294721043130000012871518954860092333_">
+                				<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+               			</clipPath>
+               			<g style="clip-path:url(#SVGID_00000150803817294721043130000012871518954860092333_);">
+                				<g id="Group_181">
+               					<rect id="Rectangle_137" x="4.2" y="110.1" class="st0" width="485" height="71.8"/>
+                				</g>
+               			</g>
+                		</g>
+               	</g>
+                </g>
+                <g>
+               	<path class="st2" d="M283.3,92.6c0.5-1.6,1.1-3.1,3.1-3.1s2.7,1.5,3.1,3.1l11.6,40.6c0.4,1.4-1.2,3-2.9,3c-1.9,0-2.8-1.6-3.2-3
+                		l-2.2-7.2H280l-2.3,7.2c-0.4,1.4-1.4,3-3.2,3c-1.7,0-3.3-1.6-2.9-3L283.3,92.6z M286.5,103.8h-0.1l-4.7,16.3h9.4L286.5,103.8
+                		L286.5,103.8z"/>
+               	<path class="st2" d="M323.7,136.2c-4.5,0-7.1-1.8-9-5.7l-5.5-11.2c-1-2-1.6-4-1.6-6.3c0-2.6,0.5-4.3,1.7-6.7l5.5-11.1
+                		c2-4.1,4.6-5.8,9.2-5.8h10.2c1.3,0,3,0.7,3,3c0,2.2-1.6,3-3,3h-10c-2.6,0-3,0.2-4.1,2.5l-5.2,10.4c-0.8,1.6-1.3,2.7-1.3,4.6
+                		c0,1.7,0.5,2.7,1.3,4.1l5.1,10.4c1.2,2.5,1.8,2.6,4.5,2.6h9.8c1.3,0,3,0.7,3,3c0,2.2-1.6,3-3,3h-10.6V136.2z"/>
+               	<path class="st2" d="M356.1,136.2c-4.5,0-7.1-1.8-9-5.7l-5.5-11.2c-1-2-1.6-4-1.6-6.3c0-2.6,0.5-4.3,1.7-6.7l5.5-11.1
+                		c2-4.1,4.6-5.8,9.2-5.8h10.2c1.3,0,3,0.7,3,3c0,2.2-1.6,3-3,3h-10c-2.6,0-3,0.2-4.1,2.5l-5.2,10.4c-0.8,1.6-1.3,2.7-1.3,4.6
+                		c0,1.7,0.5,2.7,1.3,4.1l5.1,10.4c1.2,2.5,1.8,2.6,4.5,2.6h9.8c1.3,0,3,0.7,3,3c0,2.2-1.6,3-3,3h-10.6V136.2z"/>
+               	<path class="st2" d="M406.2,130.2c1.6,0,3,0.8,3,3s-1.4,3-3,3h-26.6V89.6h26.6c1.6,0,3,0.8,3,3s-1.4,3-3,3h-20.6v14.3h8.8
+                		c1.6,0,3,0.8,3,3s-1.4,3-3,3h-8.8v14.3H406.2z"/>
+               	<path class="st2" d="M444.3,124.5c1.2,1.6,2.1,2.9,2.1,5c0,4.5-3.4,6.8-7.6,6.8h-13.2c-2.3,0-4.3-0.4-6.1-1.9
+                		c-1.6-1.3-2.8-3.5-2.8-5.6c0-1.9,1.1-3.6,3.2-3.6c1.7,0,2.8,1.4,2.8,3.1c0,1.8,1,2,2.6,2h13c0.5,0,2,0.2,2-0.7
+                		c0-0.5-0.8-1.4-1.1-1.7l-20.5-26.6c-1.3-1.6-2-2.8-2-4.9c0-2.4,1.1-4.4,3.2-5.8c1.7-1.1,3.1-1.1,5-1.1h12.7c2.3,0,4.2,0.5,5.9,2
+                		c1.6,1.4,2.8,3.6,2.8,5.7c0,1.9-1,3.5-3.1,3.5c-1.8,0-2.9-1.1-2.9-2.8c0-2-1-2.3-2.9-2.3h-12.7c-0.7,0-2-0.2-2,0.8
+                		c0,0.5,0.7,1.3,0.9,1.6L444.3,124.5L444.3,124.5z"/>
+               	<path class="st2" d="M481.5,124.5c1.2,1.6,2.1,2.9,2.1,5c0,4.5-3.4,6.8-7.6,6.8h-13.2c-2.3,0-4.3-0.4-6.1-1.9
+                		c-1.6-1.3-2.8-3.5-2.8-5.6c0-1.9,1.1-3.6,3.2-3.6c1.7,0,2.8,1.4,2.8,3.1c0,1.8,1,2,2.6,2h13c0.5,0,2,0.2,2-0.7
+                		c0-0.5-0.8-1.4-1.1-1.7l-20.6-26.5c-1.3-1.6-2-2.8-2-4.9c0-2.4,1.1-4.4,3.2-5.8c1.7-1.1,3.1-1.1,5-1.1h12.7c2.3,0,4.2,0.5,5.9,2
+                		c1.6,1.4,2.8,3.6,2.8,5.7c0,1.9-1,3.5-3.1,3.5c-1.8,0-2.9-1.1-2.9-2.8c0-2-1-2.3-2.9-2.3h-12.7c-0.7,0-2-0.2-2,0.8
+                		c0,0.5,0.7,1.3,0.9,1.6L481.5,124.5L481.5,124.5z"/>
+                </g>
+                </svg>
+
+              </a>
+              <ol class="chapter"><li class="chapter-item affix "><a href="Index.html">Introduction</a></li><li class="chapter-item "><a href="QuickStart.html">Quick Start</a></li><li class="chapter-item "><a href="Actions/Index.html">Actions</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Actions/Start.html">Start Login</a></li><li class="chapter-item "><a href="Actions/Response.html">Login Response</a></li></ol></li><li class="chapter-item "><a href="Reference.html">Reference</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="SignatureGeneration.html">Signature Generation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Generate.html">Generator</a></li></ol></li><li class="chapter-item "><a href="Credentials.html">Credentials</a></li><li class="chapter-item "><a href="Delegations.html">Delegations</a></li><li class="chapter-item "><a href="Payloads.html">Payloads</a></li><li class="chapter-item "><a href="DataStructures/All.html">Data Structures</a></li></ol></li></ol>
+              <ol class="chapter">
+                  <li class="chapter-item">
+                      <a href="https://www.frequencyaccess.com" class="nav-return">
+                          Frequency Access Home
+                      </a>
+                  </li>
+                  <li class="chapter-item">
+                      <a href="https://github.com/ProjectLibertyLabs/siwf" class="nav-return">
+                          Docs GitHub
+                      </a>
+                  </li>
+              </ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Dark</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/ProjectLibertyLabs/siwf" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Type to search..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="frequency-access-developer-documentation-and-tools"><a class="header" href="#frequency-access-developer-documentation-and-tools">Frequency Access Developer Documentation and Tools</a></h1>
+<p>Sign In With Frequency (SIWF) provides documentation and tools to integrate with <a href="https://frequencyaccess.com">Frequency Access</a>, an easy to use custodial social wallet for users on Frequency and other SIWF compatible services.</p>
+<p><a href="./QuickStart.html">JavaScript Quick Start</a></p>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>There are a few main steps to authentication using Frequency Access.</p>
+<ol>
+<li>Your application sends the user the Frequency Access Authentication URL</li>
+<li>Frequency Access verifies the user, and the user signs the requested payload(s)</li>
+<li>Frequency Access sends the signed user payloads back to your application</li>
+<li>If needed, your application sends the signed payloads to Frequency</li>
+<li>Your application logs in the user, and the user's session begins</li>
+</ol>
+<h3 id="actors"><a class="header" href="#actors">Actors</a></h3>
+<ul>
+<li>Your Application: Any website, mobile application, etc. for which your user needs authentication</li>
+<li>Frequency Access: Verifies the user and provides the user with access to the entire Frequency Ecosystem</li>
+<li>Frequency Blockchain: Manages user delegations and additional social operations</li>
+</ul>
+<h3 id="user-delegations-and-credentials"><a class="header" href="#user-delegations-and-credentials">User Delegations and Credentials</a></h3>
+<p>Frequency Access allows you to request that a user give you various delegations such as private graph changes, and credentials such as verified email.</p>
+<ul>
+<li>See a full list of <a href="./Credentials.html">Available Credentials</a></li>
+<li>See a full list of <a href="./Delegations.html">Available Delegations</a></li>
+</ul>
+<h2 id="staging--production"><a class="header" href="#staging--production">Staging &amp; Production</a></h2>
+<p>Frequency Access has two deployments available: Staging-Testnet and Production-Mainnet.</p>
+<h3 id="production-mainnet"><a class="header" href="#production-mainnet">Production-Mainnet</a></h3>
+<p>URL: <code>www.frequencyaccess.com</code></p>
+<ul>
+<li>Uses Frequency Mainnet</li>
+<li>Supports both SMS and Email verification</li>
+<li>Bot protection via <a href="https://www.hcaptcha.com/">hCaptcha</a></li>
+<li>Authorization Timeout: 30 seconds</li>
+</ul>
+<h3 id="staging-testnet"><a class="header" href="#staging-testnet">Staging-Testnet</a></h3>
+<p>URL: <code>testnet.frequencyaccess.com</code></p>
+<ul>
+<li>Uses Frequency Testnet on Paseo</li>
+<li>Supports ONLY Email and will not send SMS verification codes</li>
+<li>No uptime guarantees</li>
+<li>Limited bot protection</li>
+<li>May rate limit usage</li>
+<li>Authorization Timeout: 30 seconds</li>
+</ul>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<ul>
+<li>Have registered your application as a <a href="https://provider.frequency.xyz">Provider on Frequency</a></li>
+<li>Have access to a Frequency RPC Node</li>
+</ul>
+<h2 id="terms"><a class="header" href="#terms">Terms</a></h2>
+<ul>
+<li>Frequency Provider: The identity of the application registered on Frequency</li>
+<li>Staging-Testnet: The staging environment</li>
+<li>Production-Mainnet: The production environment</li>
+<li>MSA: The Frequency blockchain account for a user</li>
+<li>Sr25519: Schnorr signatures using <code>ed25519</code> over ECDSA</li>
+<li>Delegation: The user permission for an application to act on their behalf</li>
+<li>Credential: Verified data about the user provided with permission of the user</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="quick-start-with-javascript"><a class="header" href="#quick-start-with-javascript">Quick Start with JavaScript</a></h1>
+<p>This quick start uses the <code>@projectlibertylabs/siwf</code> NPM package to quickly generate the request and validate the response from Frequency Access.</p>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<p>Install the NPM package.
+This package is both CommonJS, ES Module, and TypeScript compatible.
+TypeScript will be shown for the examples.</p>
+<p><code>npm i @projectlibertylabs/siwf</code></p>
+<h2 id="prerequisites-1"><a class="header" href="#prerequisites-1">Prerequisites</a></h2>
+<ul>
+<li>Generate a <a href="./Generate.html">Login Request Payload and Signature</a></li>
+</ul>
+<h2 id="step-1-generate-the-request-url"><a class="header" href="#step-1-generate-the-request-url">Step 1: Generate the Request URL</a></h2>
+<pre><code class="language-typescript">import * as siwf from "@projectlibertylabs/siwf";
+
+async function startLogin() {
+  // Get the signed base64url encoded payload
+  const signedRequest: string = getStaticProviderSignedRequest();
+
+  // Any additional parameters that do not collide with reserved parameter names
+  // on the Authentication URL are passed through unchanged.
+  // Remember that ONLY the callback path from the Signed Payload is secured via signature.
+  const additionalCallbackUrlParams: string = getWebOrApplicationCallbackUrlParams();
+
+  // Options with endpoint selection
+  // Endpoint may be tagged or specified in full
+  const options = { endpoint: "production" };
+  // Staging-Testnet Options
+  // const options = { endpoint: 'staging' };
+
+  const authenticationUrl = siwf.generateAuthenticationUrl(signedRequest, additionalCallbackUrlParams, options);
+}
+</code></pre>
+<h2 id="step-2-web-forward-the-user-to-a-browser"><a class="header" href="#step-2-web-forward-the-user-to-a-browser">Step 2 (Web): Forward the User to a Browser</a></h2>
+<p>For website interactions, just forward the user to the returned <code>authenticationUrl</code>.</p>
+<h2 id="step-2-androidios-forward-the-user-to-an-embedded-browser"><a class="header" href="#step-2-androidios-forward-the-user-to-an-embedded-browser">Step 2 (Android/iOS): Forward the User to an Embedded Browser</a></h2>
+<p>For mobile applications, it is recommended to use an embedded browser and set the <code>callbackDomain</code> in the <code>signedRequest</code> and the <code>callbackPath</code> to your application's Universal Link. This ensures that the user remains within the application environment and does not have to leave the app.</p>
+<p>For more details, refer to the official documentation:</p>
+<ul>
+<li><a href="https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller">SafariViewController for iOS</a></li>
+<li><a href="https://developer.chrome.com/docs/android/custom-tabs/">Chrome Custom Tabs for Android</a></li>
+</ul>
+<h2 id="step-3-callback-processing"><a class="header" href="#step-3-callback-processing">Step 3: Callback Processing</a></h2>
+<pre><code class="language-typescript">import * as siwf from "@projectlibertylabs/siwf";
+
+async function handleCallback(incomingUrl: string) {
+  // Extract the `authorizationCode` from the URL
+  const url = new URL(incomingUrl);
+  const authorizationCode = url.searchParams.get("authorizationCode");
+
+  // Same options as before
+  const options = { endpoint: "production" };
+
+  // Exchange the `authorizationCode` for the result
+  const result = await siwf.getLoginResult(authorizationCode, options);
+
+  if (siwf.hasChainSubmissions(result)) {
+    // Add your own logic for handling the submission to the chain
+    await processSubmissions(result.payloads);
+  }
+
+  if (result.credentials) {
+    // Add your own logic for processing credentials
+    await processCredentials(result.credentials);
+  }
+
+  // Get the ss58 encoded key that identifies this session
+  // It is also the control key for the user's constant MSA Id
+  const userKey = result.userPublicKey.encodedValue;
+
+  // Add your own logic for session managment
+  startSession();
+}
+</code></pre>
+<h2 id="step-4-session-starts"><a class="header" href="#step-4-session-starts">Step 4: Session Starts</a></h2>
+<p>You now have a logged in user!
+Assuming the chain submissions are complete, you also have:</p>
+<ul>
+<li>A consistent identifier, i.e. the MSA Id</li>
+<li>A universal handle (If the user set one)</li>
+<li>A public delegation between the user's MSA Id and your Provider Id on chain (revokable at any time by you or the user independently)</li>
+</ul>
+<p>And if requested:</p>
+<ul>
+<li>Access to the user's private graph</li>
+<li>Permission to act on the user's behalf for delegated actions</li>
+<li>Verified email or phone/SMS number for the user</li>
+</ul>
+<div class="warning">
+Note: You may start the user’s session and process the submissions in the background, however some data such as the consistent identifier, the MSA Id or full handle with suffix may not be accessible until the processing is complete.
+</div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="frequency-access-actions"><a class="header" href="#frequency-access-actions">Frequency Access Actions</a></h1>
+<p>Frequency Access handles three different situations for each user:</p>
+<div class="table-wrapper"><table><thead><tr><th>Action</th><th>Frequency Blockchain account (MSA)</th><th>Delegation with Your Application</th></tr></thead><tbody>
+<tr><td>Create Account</td><td><em>Required</em></td><td><em>Required</em></td></tr>
+<tr><td>Create Delegation</td><td>Existing</td><td><em>New or Updated Required</em></td></tr>
+<tr><td>Login</td><td>Existing</td><td>Existing</td></tr>
+</tbody></table>
+</div>
+<h2 id="general-flow"><a class="header" href="#general-flow">General Flow</a></h2>
+<ol>
+<li>Generate Provider Login Request Payload and Signature (<a href="Actions/../Generate.html">Generator Tool</a>) (<a href="Actions/../SignatureGeneration.html">Documentation</a>)</li>
+<li>Build and send the user to the Authentication URL (<a href="Actions/./Start.html">See Details</a>)</li>
+<li>Receive a callback from Frequency Access</li>
+<li>Retrieve and process the login response from Frequency Access (<a href="Actions/./Response.html">See Details</a>)</li>
+</ol>
+<h3 id="sequence-diagram"><a class="header" href="#sequence-diagram">Sequence Diagram</a></h3>
+<p><img src="Actions/./flow.svg" alt="General Flow Sequency Diagram" /></p>
+<h2 id="backend-requirements"><a class="header" href="#backend-requirements">Backend Requirements</a></h2>
+<ul>
+<li>Able to validate payloads from Frequency Access</li>
+<li>Able to connect to a Frequency RPC Node</li>
+<li>Able to sign transactions to submit to the Frequency RPC Node</li>
+</ul>
+<div class="button-links"><a href="Actions/Start.html">Start Login</a>
+<a href="Actions/Response.html">Login Response</a></div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="redirect-user-to-frequency-access"><a class="header" href="#redirect-user-to-frequency-access">Redirect User to Frequency Access</a></h1>
+<p>To start the authentication loop, your application will generate an Authentication URL for each user.</p>
+<h2 id="quick-reference"><a class="header" href="#quick-reference">Quick Reference</a></h2>
+<ul>
+<li>Staging-Testnet: <code>https://testnet.frequencyaccess.com/siwa/start</code></li>
+<li>Production-Mainnet: <code>https://www.frequencyaccess.com/siwa/start</code></li>
+<li>Generate Login Request Payload and Signature: <a href="Actions/../Generate.html">Generator Tool</a></li>
+<li>Request Structure: <a href="Actions/../DataStructures/All.html#request"><code>SiwfRequest</code></a></li>
+<li>Signed Request Structure: <a href="Actions/../DataStructures/All.html#signed-request"><code>SiwfSignedRequest</code></a></li>
+</ul>
+<h2 id="step-1-generate-the-signed-request-payload"><a class="header" href="#step-1-generate-the-signed-request-payload">Step 1: Generate the Signed Request Payload</a></h2>
+<p>You <em>can</em> generate more than one of these to use simultaneously.
+Most applications should generate and keep their needed value(s) static.
+The generated signed request payload is secured by the signature included in it, and it is not sensitive data.</p>
+<h3 id="signed-request-payload-contents"><a class="header" href="#signed-request-payload-contents">Signed Request Payload Contents</a></h3>
+<ul>
+<li>A signature from one of the <a href="https://docs.frequency.xyz/Identity/ControlKeys.html">Control Keys</a> of the Frequency Provider</li>
+<li>The domain and path the callback will use</li>
+<li>The requested permissions</li>
+<li>The requested credentials</li>
+</ul>
+<h3 id="signed-request-payload-generator"><a class="header" href="#signed-request-payload-generator">Signed Request Payload Generator</a></h3>
+<p>Generate one or more login request payloads and signatures (<code>signedRequest</code>) using the <a href="Actions/../Generate.html">Generator Tool</a>.</p>
+<h3 id="signed-request-payload-detailed-documentation"><a class="header" href="#signed-request-payload-detailed-documentation">Signed Request Payload Detailed Documentation</a></h3>
+<p>For details on the Payload and how it is formed, see the <a href="Actions/../SignatureGeneration.html">Reference Documentation</a>.</p>
+<h2 id="step-2-build-the-authentication-url-parameters"><a class="header" href="#step-2-build-the-authentication-url-parameters">Step 2: Build the Authentication URL Parameters</a></h2>
+<h3 id="parameter-signedrequest"><a class="header" href="#parameter-signedrequest">Parameter: <code>signedRequest</code></a></h3>
+<p>The <a href="https://datatracker.ietf.org/doc/html/rfc4648#section-5">Base64url</a> encoded value from Step 1.</p>
+<p>Reminder: This includes the callback domain that will be used.</p>
+<h3 id="additional-parameters-are-forwarded"><a class="header" href="#additional-parameters-are-forwarded">Additional Parameters are Forwarded</a></h3>
+<p>Any additional parameters that do not collide with reserved parameter names on the Authentication URL are passed through unchanged.</p>
+<div class="warning">
+Note: These parameters are not protected and could be changed by malicious actors.
+Take care when using them for security-related data.
+</div>
+<h4 id="example"><a class="header" href="#example">Example</a></h4>
+<ul>
+<li><code>https://www.frequencyaccess.com/siwa/start?signedRequest=&lt;request value&gt;&amp;key1=&lt;value1&gt;&amp;key2=&lt;value2&gt;&amp;other=&lt;result&gt;</code></li>
+<li>Will result in callback URL parameters of: <code>?authorizationCode=&lt;authorization code&gt;&amp;key1=&lt;value1&gt;&amp;key2=&lt;value2&gt;&amp;other=&lt;result&gt;</code></li>
+</ul>
+<h2 id="step-3-build-the-authentication-url"><a class="header" href="#step-3-build-the-authentication-url">Step 3: Build the Authentication URL</a></h2>
+<p>Taking the parameters from the previous step, build an Authentication URL using the correct base for the SIWF path of <code>/start</code>:</p>
+<ul>
+<li>Staging-Testnet: <code>https://testnet.frequencyaccess.com/siwa/start</code></li>
+<li>Production-Mainnet: <code>https://www.frequencyaccess.com/siwa/start</code></li>
+</ul>
+<p>Frequency Access will send the user back by building the callback URL.
+The callback URL will be built with:</p>
+<ul>
+<li>The callback from the <code>signedRequest</code></li>
+<li>Appending any additional GET request parameters</li>
+<li>Appending the reserved URL parameter of <code>authorizationCode</code></li>
+</ul>
+<p>The callback URL <em>will maintain</em> all non-reserved URL parameters.
+For example, if you wish to correlate the original unauthorized session with the authorized session, you can generate a dynamic parameter with a random UUIDv4 identifier on each request.</p>
+<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
+<p>Parameters</p>
+<pre><code class="language-json">{
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTcjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDA0MDdjZTgxNGI3Nzg2MWRmOTRkMTZiM2ZjYjMxN2QzN2EwN2FiYzJhN2Y5Y2Q3YzAyY2MyMjUyOWVlN2IzMmQ1Njc5NWY4OGJkNmI0YWQxMDZiNzJiOTFiNjI0NmE3ODM2NzFiY2QyNGNiMDFhYWYwZTkzMTZkYjVlMGNkMDg1In0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0",
+  "mode": "dark"
+}
+</code></pre>
+<p>Testnet Authentication URL</p>
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTcjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDA0MDdjZTgxNGI3Nzg2MWRmOTRkMTZiM2ZjYjMxN2QzN2EwN2FiYzJhN2Y5Y2Q3YzAyY2MyMjUyOWVlN2IzMmQ1Njc5NWY4OGJkNmI0YWQxMDZiNzJiOTFiNjI0NmE3ODM2NzFiY2QyNGNiMDFhYWYwZTkzMTZkYjVlMGNkMDg1In0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0&amp;mode=dark"
+</code></pre>
+<h2 id="step-3-redirect-the-user"><a class="header" href="#step-3-redirect-the-user">Step 3: Redirect the User</a></h2>
+<ul>
+<li>Redirect the user's Browser or Embedded Browser (for mobile apps) to the Authentication URL.
+<ul>
+<li><a href="https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller">SafariViewController for iOS</a></li>
+<li><a href="https://developer.chrome.com/docs/android/custom-tabs/">Chrome Custom Tabs for Android</a></li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="getting-the-login-result-from-frequency-access"><a class="header" href="#getting-the-login-result-from-frequency-access">Getting the Login Result from Frequency Access</a></h1>
+<p>After the user completes the authentication and authorization, the user is redirected to the callback URL with one additional parameter set: <code>authorizationCode</code>.</p>
+<p>The <code>authorizationCode</code> can be used to retrieve the result of the login.</p>
+<h2 id="quick-reference-1"><a class="header" href="#quick-reference-1">Quick Reference</a></h2>
+<ul>
+<li>Staging-Testnet: <code>https://testnet.frequencyaccess.com/siwa/api/payload</code></li>
+<li>Production-Mainnet: <code>https://www.frequencyaccess.com/siwa/api/payload</code></li>
+<li>Response Structure: <a href="Actions/../DataStructures/All.html#response"><code>SiwfResponse</code></a></li>
+</ul>
+<h2 id="step-1-retrieve-the-response"><a class="header" href="#step-1-retrieve-the-response">Step 1: Retrieve the Response</a></h2>
+<ul>
+<li><code>GET</code>:
+<ul>
+<li>Staging-Testnet: <code>https://testnet.frequencyaccess.com/siwa/api/payload?authorizationCode=[Parameter from callback URL]</code></li>
+<li>Production-Mainnet: <code>https://www.frequencyaccess.com/siwa/api/payload?authorizationCode=[Parameter from callback URL]</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="step-2-parsing-the-response"><a class="header" href="#step-2-parsing-the-response">Step 2: Parsing the Response</a></h2>
+<p>Response Sections</p>
+<ul>
+<li><code>userPublicKey</code>: The key for the user signing this request</li>
+<li><code>payloads</code>: Signed payloads from the user</li>
+<li><code>credentials</code>: User approved verified credentials from Frequency Access such as email, phone, user keys, etc...</li>
+</ul>
+<h3 id="userpublickey"><a class="header" href="#userpublickey"><code>userPublicKey</code></a></h3>
+<p>The public key for the user identifies the user for this session.
+If that user has a Frequency blockchain account (MSA), the MSA Id can be retrieved from Frequency using this key.
+Or in the case when it does not, the <code>payloads</code> section will contain the payload to create said MSA Id.</p>
+<p>While the <code>userPublicKey</code> may change, the MSA Id will <em>always</em> be the same for the same user account.</p>
+<h2 id="step-3-processing-the-credentials"><a class="header" href="#step-3-processing-the-credentials">Step 3: Processing the Credentials</a></h2>
+<p>The <code>credentials</code> array will contain any <a href="Actions/../SignatureGeneration.html#step-3-optional-request-credentials-graph-key-email-phone">requested</a> and approved credentials.
+Each credential would be matched based on the <code>type</code> field.</p>
+<p>These credentials follow the <a href="https://spec.dsnp.org/VerifiableCredentials/Overview.html">DSNP Verifiable Credentials Specification</a>.</p>
+<ul>
+<li><a href="https://github.com/LibertyDSNP/dsnp-verifiable-credentials"><code>@dsnp/verifiable-credentials</code></a> TypeScript library for verifying these DSNP Credentials specifically</li>
+<li>Other <a href="https://www.w3.org/TR/vc-data-model-1.1/">W3C Verifiable Credentials</a> verifiers may also be compatable.</li>
+</ul>
+<h3 id="verify-the-credential"><a class="header" href="#verify-the-credential">Verify the Credential</a></h3>
+<p><em>Trust Model Note</em>: You may choose to just trust credentials issued by Frequency Access given that the credential is fetched directly from Frequency Access. These will have issuer <code>did:web:testnet.frequencyaccess.com</code> or <code>did:web:frequencyaccess.com</code>.</p>
+<ol>
+<li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://w3c-ccg.github.io/did-method-key/#format"><code>did:key</code> Method from the W3C</a></li>
+</ol>
+<ul>
+<li>Example: <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code> is the <a href="https://docs.substrate.io/reference/address-formats/">SS58</a> version with prefix <code>90</code> of the hex address <code>0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code>. <code>0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code> is multicodec <code>sr25519-pub</code> hex which is multiformat <code>base58-btc</code> <code>z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ</code></li>
+</ul>
+<ol start="2">
+<li>Fetch the issuer DID Document following the <a href="https://w3c-ccg.github.io/did-method-web/"><code>did:web</code> Method from the W3C</a></li>
+</ol>
+<ul>
+<li>Production-Mainnet should always be <code>did:web:frequencyaccess.com</code> which resolves to <code>https://frequencyaccess.com/.well-known/did.json</code></li>
+<li>Staging-Testnet should always be <code>did:web:testnet.frequencyaccess.com</code> which resolves to <code>https://testnet.frequencyaccess.com/.well-known/did.json</code></li>
+</ul>
+<ol start="3">
+<li>Check that the key in the <code>proof.verificationMethod</code> is in the DID Document to verify that the key is still valid</li>
+<li>Test that the <code>proof</code> validates according the to <a href="https://www.w3.org/TR/vc-data-model-1.1/#verification">W3C Verifiable Credentials Specification</a></li>
+</ol>
+<h2 id="graph-encryption-key-credential"><a class="header" href="#graph-encryption-key-credential">Graph Encryption Key Credential</a></h2>
+<p>If the user has permitted access to their private social graph per the request for <code>VerifiedGraphKeyPairCredential</code>, <code>credentials</code> will have a entry with <code>type</code> including <code>VerifiedGraphKeyPairCredential</code>.
+This is an <code>x25519</code> key pair for use with the <code>curve25519xsalsa20poly1305</code> encryption algorithm from the <a href="http://nacl.cr.yp.to">NaCl Library</a>.
+For more information on how the Graph data is structured after decryption, see the <a href="https://spec.dsnp.org/DSNP/UserData.html">DSNP Specification</a>.</p>
+<p>This key pair is PII and should be stored with care, but must be stored to read the user's private graph.</p>
+<h3 id="example-credential"><a class="header" href="#example-credential">Example Credential</a></h3>
+<pre><code class="language-json">{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/undefined-terms/v2"
+  ],
+  "type": [
+    "VerifiedPhoneNumberCredential",
+    "VerifiableCredential"
+  ],
+  "issuer": "did:web:frequencyaccess.com",
+  "validFrom": "2024-08-21T21:28:08.289+0000",
+  "credentialSchema": {
+    "type": "JsonSchema",
+    "id": "https://schemas.frequencyaccess.com/VerifiedPhoneNumberCredential/bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq.json"
+  },
+  "credentialSubject": {
+    "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+    "phoneNumber": "+01-234-867-5309",
+    "lastVerified": "2024-08-21T21:27:59.309+0000"
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
+    "cryptosuite": "eddsa-rdfc-2022",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z5sJ2CjHX1wwgzfFGoZNocxeFKd2ffpo5TVgUvdaSkYq1M6gF7UjpYfePo97QoZgmiWdgPAWPjxFvGBysaxHV8DZ4"
+  }
+}
+</code></pre>
+<h2 id="step-4-processing-the-payloads"><a class="header" href="#step-4-processing-the-payloads">Step 4: Processing the Payloads</a></h2>
+<p>The payload section has several different types that can be returned:</p>
+<ul>
+<li><code>login</code>: When the user already has a correct delegation</li>
+<li><code>addProvider</code>*: When the user does not have a delegation (a new user signup) or when the delegation was needing to be changed</li>
+<li><code>itemActions</code>*: When the user has user chain data to set or update</li>
+<li><code>claimHandle</code>*: When the user needs to claim a new handle</li>
+</ul>
+<p>* Requires submission to Frequency</p>
+<p>The payloads that require submission to Frequency should be submitted in one batch using <a href="https://docs.frequency.xyz/Tokenomics/ProviderIncentives.html#capacity-model">Capacity</a>.
+The <code>addProvider</code> <em>must</em> always be <em>first</em> in the batch to ensure the correct permissions and delegations are in place for subsequent actions in the batch.</p>
+<p>Signatures to Frequency have an expiration set to a future Frequency block number.
+If the actions are not submitted before expriation, Frequency will reject the transactions and your application will need to request new signatures from Frequency Access.</p>
+<p><a href="Actions/../Payloads.html">Payload Examples and Signature Details</a></p>
+<h3 id="login"><a class="header" href="#login"><code>login</code></a></h3>
+<p>The correct delegation for the user already exists.
+No submission to the chain is required, but the application <em>must</em> validate the signature to be sure that the user is authenticated.</p>
+<p>The message signed follows <a href="https://chainagnostic.org/CAIPs/caip-122">CAIP-122: Sign in With X</a> specification which is derived from <a href="https://eips.ethereum.org/EIPS/eip-4361">EIP-4361: Sign-In with Ethereum</a>.</p>
+<h4 id="example-message-with-placeholders"><a class="header" href="#example-message-with-placeholders">Example Message with Placeholders</a></h4>
+<pre><code>{{domain}} wants you to sign in with your Frequency account:
+frequency:{{chainReference}}:{{ss58Address}}
+
+URI: {{uri}}
+Version: {{version}}
+Nonce: {{nonce}}
+Chain ID: frequency:{{chainReference}}
+Issued At: {{issued-at}}
+</code></pre>
+<h4 id="validation-steps"><a class="header" href="#validation-steps">Validation Steps</a></h4>
+<ol>
+<li>Perform an Sr25519 signature verification using:
+<ul>
+<li><code>userPublicKey</code>: The signing key</li>
+<li><code>payload.message</code>: The signed message parsing <code>\n</code> into <code>LF</code> line breaks</li>
+<li><code>signature.encodedValue</code>: The signature</li>
+</ul>
+</li>
+<li>Verify that the <code>userPublicKey</code> matches the second line of the message for the correct chain identifier
+<ul>
+<li>Production-Mainnet: <code>frequency:mainnet:</code></li>
+<li>Staging-Testnet: <code>frequency:testnet-paseo:</code></li>
+</ul>
+</li>
+<li>Verify that the message starts with your domain based on <a href="https://www.rfc-editor.org/rfc/rfc4501.html">RFC 4501</a> <code>dnsauthority</code></li>
+<li>Verify the <code>Issued At</code> value from the message is within your acceptable time range</li>
+<li>Verify that <code>Nonce</code> value in the message is not being reused</li>
+</ol>
+<h4 id="parsing-the-message-data"><a class="header" href="#parsing-the-message-data">Parsing the Message Data</a></h4>
+<ol>
+<li>Break the lines by <code>\n</code></li>
+<li>Match based on the prefix:
+<ul>
+<li><code>Nonce: </code></li>
+<li><code>Issued At: </code></li>
+<li><code>URI: </code></li>
+</ul>
+</li>
+</ol>
+<h3 id="addprovider"><a class="header" href="#addprovider"><code>addProvider</code></a></h3>
+<p>The user either needs a new delegation or a new MSA created with the delegation.</p>
+<p>The <code>endpoint.extrinsic</code> field will distinguish between the two:</p>
+<ul>
+<li><code>createSponsoredAccountWithDelegation</code>: New MSA</li>
+<li><code>grantDelegation</code>: New/Updated Delegation</li>
+</ul>
+<p><a href="https://frequency-chain.github.io/frequency/pallet_msa/index.html#extrinsics">See Frequency Documentation</a> on forming the transaction for the extrinsics.</p>
+<h3 id="itemactions"><a class="header" href="#itemactions"><code>itemActions</code></a></h3>
+<p>Item actions will update the user's chain data for things such as their public key for the encrypted graph.
+These actions <em>must</em> be submitted to the chain for the correct functioning of private graph and other systems.</p>
+<p><a href="https://frequency-chain.github.io/frequency/pallet_stateful_storage/index.html#extrinsics">See Frequency Documentation</a> on forming the transaction for the extrinsics.</p>
+<h3 id="claimhandle"><a class="header" href="#claimhandle"><code>claimHandle</code></a></h3>
+<p>The user wishes to claim a Frequency Handle.</p>
+<p><a href="https://frequency-chain.github.io/frequency/pallet_handles/index.html#extrinsics">See Frequency Documentation</a> on forming the transaction for the extrinsics.</p>
+<h2 id="step-6-frequency-transaction-submission"><a class="header" href="#step-6-frequency-transaction-submission">Step 6: Frequency Transaction Submission</a></h2>
+<p>All payloads that are returned will be able to be processed using <a href="https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics">Capacity on Frequency</a>.</p>
+<p>Frequency submission is required for any of the following payloads:</p>
+<ul>
+<li><code>addProvider</code></li>
+<li><code>itemActions</code></li>
+<li><code>claimHandle</code></li>
+</ul>
+<p>They can be submitted to the chain in one transaction using <a href="https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics"><code>pay_with_capacity_batch_all</code></a>.</p>
+<h2 id="step-6-session-starts"><a class="header" href="#step-6-session-starts">Step 6: Session Starts</a></h2>
+<p>Once the payloads have been validated, the user's authenticated session may start.
+Frequency Access does not manage user sessions.</p>
+<h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
+<h2 id="new-frequency-user-response"><a class="header" href="#new-frequency-user-response">New Frequency User Response</a></h2>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
+    "encoding": "base58",
+    "format": "ss58",
+    "type": "Sr25519"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "Sr25519",
+        "encoding": "base16",
+        "encodedValue": "0x1a27cb6d79b508e1ffc8d6ae70af78d5b3561cdc426124a06f230d7ce70e757e1947dd1bac8f9e817c30676a5fa6b06510bae1201b698b044ff0660c60f18c8a"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "createSponsoredAccountWithDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    },
+    {
+      "signature": {
+        "algo": "Sr25519",
+        "encoding": "base16",
+        "encodedValue": "0x9eb338773b386ded2e3731ba68ba734c80408b3ad24f92ed3c60342d374a32293851fa8e41d722c72a5a4e765a9e401c68570a8c666ab678e4e5d94aa6825d85"
+      },
+      "endpoint": {
+        "pallet": "statefulStorage",
+        "extrinsic": "applyItemActionsWithSignatureV2"
+      },
+      "type": "itemActions",
+      "payload": {
+        "schemaId": 7,
+        "targetHash": 0,
+        "expiration": 20,
+        "actions": [
+          {
+            "type": "addItem",
+            "payloadHex": "0x40eea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37"
+          }
+        ]
+      }
+    },
+    {
+      "signature": {
+        "algo": "Sr25519",
+        "encoding": "base16",
+        "encodedValue": "0xb004140fd8ba3395cf5fcef49df8765d90023c293fde4eaf2e932cc24f74fc51b006c0bebcf31d85565648b4881fa22115e0051a3bdb95ab5bf7f37ac66f798f"
+      },
+      "endpoint": {
+        "pallet": "handles",
+        "extrinsic": "claimHandle"
+      },
+      "type": "claimHandle",
+      "payload": {
+        "baseHandle": "ExampleHandle",
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": [
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedEmailAddressCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:web:frequencyaccess.com",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedEmailAddressCredential/bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "emailAddress": "john.doe@example.com",
+        "lastVerified": "2024-08-21T21:27:59.309+0000"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedGraphKeyCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedGraphKeyCredential/bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "encodedPublicKeyValue": "0xb5032900293f1c9e5822fd9c120b253cb4a4dfe94c214e688e01f32db9eedf17",
+        "encodedPrivateKeyValue": "0xd0910c853563723253c4ed105c08614fc8aaaf1b0871375520d72251496e8d87",
+        "encoding": "base16",
+        "format": "bare",
+        "type": "X25519",
+        "keyType": "dsnp.public-key-key-agreement"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:key:z6MktZ15TNtrJCW2gDLFjtjmxEdhCadNCaDizWABYfneMqhA",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z2HHWwtWggZfvGqNUk4S5AAbDGqZRFXjpMYAsXXmEksGxTk4DnnkN3upCiL1mhgwHNLkxY3s8YqNyYnmpuvUke7jF"
+      }
+    }
+  ]
+}
+</code></pre>
+<h2 id="new-applicationdelegation-response"><a class="header" href="#new-applicationdelegation-response">New Application/Delegation Response</a></h2>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
+    "encoding": "base58",
+    "format": "ss58",
+    "type": "Sr25519"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "Sr25519",
+        "encoding": "base16",
+        "encodedValue": "0xbac399831b9e3ad464a16e62ad1252cc8344a2c52f80252b2aa450a06ae2362f6f4afcaca791a81f28eaa99080e2654bdbf1071a276213242fc153cca43cfa8e"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "grantDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": [
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedEmailAddressCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:web:frequencyaccess.com",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedEmailAddressCredential/bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "emailAddress": "john.doe@example.com",
+        "lastVerified": "2024-08-21T21:27:59.309+0000"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedGraphKeyCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedGraphKeyCredential/bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "encodedPublicKeyValue": "0xb5032900293f1c9e5822fd9c120b253cb4a4dfe94c214e688e01f32db9eedf17",
+        "encodedPrivateKeyValue": "0xd0910c853563723253c4ed105c08614fc8aaaf1b0871375520d72251496e8d87",
+        "encoding": "base16",
+        "format": "bare",
+        "type": "X25519",
+        "keyType": "dsnp.public-key-key-agreement"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:key:z6MktZ15TNtrJCW2gDLFjtjmxEdhCadNCaDizWABYfneMqhA",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z2HHWwtWggZfvGqNUk4S5AAbDGqZRFXjpMYAsXXmEksGxTk4DnnkN3upCiL1mhgwHNLkxY3s8YqNyYnmpuvUke7jF"
+      }
+    }
+  ]
+}
+</code></pre>
+<h2 id="login-only-response"><a class="header" href="#login-only-response">Login Only Response</a></h2>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
+    "encoding": "base58",
+    "format": "ss58",
+    "type": "Sr25519"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "Sr25519",
+        "encoding": "base16",
+        "encodedValue": "0x84a4e03344b07d64087ebdf47b2c8c679aa7de78179689988992609f1b83c34f6086c7de99ef41c5325cce64d148624e716c605d355f22d1281f6d23f546f584"
+      },
+      "type": "login",
+      "payload": {
+        "message": "localhost wants you to sign in with your Frequency account:\nf6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ\n\n\n\nURI: https://testnet.frequencyaccess.com/signin/confirm\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-03-05T23:18:03.041Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
+      }
+    }
+  ],
+  "credentials": [
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedEmailAddressCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:web:frequencyaccess.com",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedEmailAddressCredential/bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "emailAddress": "john.doe@example.com",
+        "lastVerified": "2024-08-21T21:27:59.309+0000"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedGraphKeyCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedGraphKeyCredential/bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "encodedPublicKeyValue": "0xb5032900293f1c9e5822fd9c120b253cb4a4dfe94c214e688e01f32db9eedf17",
+        "encodedPrivateKeyValue": "0xd0910c853563723253c4ed105c08614fc8aaaf1b0871375520d72251496e8d87",
+        "encoding": "base16",
+        "format": "bare",
+        "type": "X25519",
+        "keyType": "dsnp.public-key-key-agreement"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:key:z6MktZ15TNtrJCW2gDLFjtjmxEdhCadNCaDizWABYfneMqhA",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z2HHWwtWggZfvGqNUk4S5AAbDGqZRFXjpMYAsXXmEksGxTk4DnnkN3upCiL1mhgwHNLkxY3s8YqNyYnmpuvUke7jF"
+      }
+    }
+  ]
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="reference"><a class="header" href="#reference">Reference</a></h1>
+<ul>
+<li><a href="./SignatureGeneration.html">Signature Generation</a>
+<ul>
+<li><a href="./Generate.html">Signature Generator Tool</a></li>
+</ul>
+</li>
+<li><a href="./Credentials.html">Available Credentials</a></li>
+<li><a href="./Delegations.html">Available Delegations</a></li>
+<li><a href="./Payloads.html">Signed Payloads</a></li>
+<li><a href="./DataStructures/All.html">Data Structures and Examples</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="authentication-url-signature"><a class="header" href="#authentication-url-signature">Authentication URL Signature</a></h1>
+<p>Most applications skip all of this and just <a href="./Generate.html">generate the login request payload and signature</a>.</p>
+<h2 id="step-1-create-the-payload-for-signing"><a class="header" href="#step-1-create-the-payload-for-signing">Step 1: Create the Payload for Signing</a></h2>
+<h3 id="parameter-callback"><a class="header" href="#parameter-callback">Parameter: <code>callback</code></a></h3>
+<p>When the user has completed the authentication, this is the return URI that will be used.</p>
+<p>Appended to the URL will be this parameter:</p>
+<ul>
+<li><code>authorizationCode</code> Used to retrieve the full response payload</li>
+</ul>
+<p>The callback url <em>will maintain</em> any other URL parameters included.
+For example, if you wish to correlate the original unauthorized session with the authorized session, you can generate a dynamic callback url with a parameter with a random UUIDv4 identifier on each request.</p>
+<h3 id="parameter-permissions"><a class="header" href="#parameter-permissions">Parameter: <code>permissions</code></a></h3>
+<p>The list of Frequency Schema Ids permissions your application is requesting from the user.</p>
+<ul>
+<li>See a full list of <a href="./Delegations.html">Available Delegations</a></li>
+</ul>
+<h2 id="step-2-signing-the-request"><a class="header" href="#step-2-signing-the-request">Step 2: Signing the Request</a></h2>
+<p>To ensure that the correct application is requesting the authentication and that the response is only sent to the authorized party, the request is signed.
+The signature MUST be from one of the <a href="https://docs.frequency.xyz/Identity/ControlKeys.html">Control Keys</a> of the Frequency Provider.</p>
+<h3 id="2a-serialize-the-payload-using-the-scale-codec"><a class="header" href="#2a-serialize-the-payload-using-the-scale-codec">2a: Serialize the payload using the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE Codec</a></a></h3>
+<p>SCALE Type (Note: Order matters!)</p>
+<pre><code class="language-json">{
+  "callback": "String",
+  "permissions": "Vec&lt;U16&gt;"
+}
+</code></pre>
+<h3 id="2b-wrap-the-payload"><a class="header" href="#2b-wrap-the-payload">2b: Wrap the Payload</a></h3>
+<p>So that no payloads can be accidentally used on a chain, the payload is wrapped with a <code>&lt;Bytes&gt;</code> tag.</p>
+<p>Byte Arrays Concatenated: <code>[ 60, 66, 121, 116, 101, 115, 62 ] + scale_encoded_payload_bytes + [ 60, 47, 66, 121, 116, 101, 115, 62 ]</code></p>
+<h3 id="2c-sign-the-wrapped-payload-bytes"><a class="header" href="#2c-sign-the-wrapped-payload-bytes">2c: Sign the Wrapped Payload Bytes</a></h3>
+<p>Sign the serialized payload using Schnorr signatures over ECDSA.</p>
+<h3 id="2d-example"><a class="header" href="#2d-example">2d: Example</a></h3>
+<p>Remember that Sr25519 signatures are non-deterministic, so the payload and encoding will match, but the signature will be different.
+This example uses the <code>//Alice</code> seed phrase to generate the signature.</p>
+<ul>
+<li>Payload: <code>{ "callback": "https://localhost:44181", "permissions": [5, 7, 8, 9, 10] }</code></li>
+<li>SCALE Payload (Hex): <code>0x5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a00</code></li>
+<li>Wrapped Payload (Hex): <code>0x3c42797465733e5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a003c2f42797465733e</code></li>
+<li>Signing Public Key (SS58 Prefix 90): <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code></li>
+<li>Signature (Hex): <code>0x446c32dd524c1f4b06c213891e9e3a025dded43eae55d2df40a766187684ac2704434e1835573077c1abb783b98f3684488e41f8c9bdc359458f9e043ae5cd86</code></li>
+</ul>
+<h2 id="step-3-optional-request-credentials-graph-key-email-phone"><a class="header" href="#step-3-optional-request-credentials-graph-key-email-phone">Step 3 (Optional): Request Credentials (Graph Key, Email, Phone)</a></h2>
+<p>Frequency Access users can provide verified email or phone/SMS to your application when requested and approved by the user.
+This is <em>not</em> required, and best practice is to only make such a request if it is required for the functioning of the application.</p>
+<p>The request MUST be wrapped in <code>requestedCredentials</code> which is an array that requires ALL listed credential objects.
+Supported Options:</p>
+<ul>
+<li><code>anyOf</code>: Request for one or more credentials from the list (0+ may return)</li>
+</ul>
+<pre><code class="language-json">{
+  // ...
+  "requestedCredentials": [
+    {
+      "type": "VerifiedGraphKeyCredential",
+      "hash": ["bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"]
+    }
+    {
+      "anyOf": [
+        // List of contact credential requests here
+        {
+          "type": "VerifiedEmailAddressCredential",
+          "hash": ["bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi"]
+        },
+        {
+          "type": "VerifiedPhoneNumberCredential",
+          "hash": ["bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq"]
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+<ul>
+<li>See a full list of <a href="./Credentials.html">Available Credentials</a></li>
+</ul>
+<h3 id="example-using-typescriptjavascript"><a class="header" href="#example-using-typescriptjavascript">Example Using TypeScript/JavaScript</a></h3>
+<pre><code class="language-typescript">// This is the URI of a key. Usually just a seed phrase, but also supports test accounts such as `//Alice` or `//Bob`
+const providerKeyUri: string = getProviderKeyUriSecret();
+
+// The list of Frequency Schemas Ids that you are requesting the user delegate
+// See a full reference: https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html
+// This example is for Graph Only
+const permissions: number[] = [7, 8, 9, 10];
+
+// List of Credentials
+// See a full reference and examples: https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html
+const credentials = [
+  {
+    anyOf: [siwf.VerifiedEmailAddressCredential, siwf.VerifiedPhoneNumberCredential],
+  },
+  siwf.VerifiedGraphKeyCredential,
+];
+
+// This is the URI that the user should return to after authenticating with Frequency Access
+const callbackUri: string = getWebOrApplicationCallbackUri();
+
+// The Encoded Signed Request can remain static if
+// It is the same as is generated with the Signed Payload Generation Tool
+const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
+  providerKeyUri,
+  callbackUri,
+  permissions,
+  credentials,
+);
+
+// Options with endpoint selection
+// Endpoint may be tagged or specified in full
+const options = { endpoint: "production" };
+// Staging-Testnet Options
+// const options = { endpoint: 'staging' };
+
+const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new URLSearchParams({ id: getSessionId() }));
+</code></pre>
+<h3 id="full-example-request"><a class="header" href="#full-example-request">Full Example Request</a></h3>
+<pre><code class="language-json">{
+  "requestedSignatures": {
+    "publicKey": {
+      "encodedValue": "f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH",
+      "encoding": "base58",
+      "format": "ss58",
+      "type": "Sr25519"
+    },
+    "signature": {
+      "algo": "Sr25519",
+      "encoding": "base16",
+      "encodedValue": "0x0407ce814b77861df94d16b3fcb317d37a07abc2a7f9cd7c02cc22529ee7b32d56795f88bd6b4ad106b72b91b6246a783671bcd24cb01aaf0e9316db5e0cd085"
+    },
+    "payload": {
+      "callback": "http://localhost:3000",
+      "permissions": [
+        5,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  "requestedCredentials": [
+    {
+      "type": "VerifiedGraphKeyCredential",
+      "hash": [
+        "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+      ]
+    },
+    {
+      "anyOf": [
+        {
+          "type": "VerifiedEmailAddressCredential",
+          "hash": [
+            "bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi"
+          ]
+        },
+        {
+          "type": "VerifiedPhoneNumberCredential",
+          "hash": [
+            "bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq"
+          ]
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+<h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
+<p>See <a href="./Actions/Start.html">Start</a> for details on how to use the generated signature.</p>
+<h3 id="serialization"><a class="header" href="#serialization">Serialization</a></h3>
+<ol>
+<li>JSON Stringify the <code>SignedRequest</code> object</li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc4648#section-5"><code>base64url</code></a> encode the stringified result</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="signed-request-generator"><a class="header" href="#signed-request-generator">Signed Request Generator</a></h1>
+<p>Fill out the form and the signed request will be generated at the bottom.</p>
+<div id="generator">
+<link href="./Generator/_app/immutable/assets/0.B_SY1GJM.css" rel="stylesheet">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.XywlJyTQ.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.BC9ClK2A.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/scheduler.B3svg8oL.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.DleYlacf.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/preload-helper.CmsKOCeN.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/index.DcCoCrnC.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.BHruzTxR.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.CGjFCcjg.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/2.cnr12_m8.js">   <div><div class="mb-4"><form><div class="mb-4"><label for="callbackUri" data-svelte-h="svelte-1i096uq">Callback URI *</label> <input type="url" id="callbackUri" required placeholder="https://localhost:3000/login" value=""></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-151ob36">Permissions</legend> <div class="checkboxes"><label><input type="checkbox" value="7,9,10"> Private Graph v1 </label><label><input type="checkbox" value="8"> Public Graph v1 </label><label><input type="checkbox" value="2,3,1,4,5"> Content v1 </label><label><input type="checkbox" value="6"> Profile v1 </label> <div><label for="additionalPermissions" data-svelte-h="svelte-1lmz6b8">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""></div> <div class="my-2 text-sm"><label for="schemaIds" data-svelte-h="svelte-1te7gk5">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""></div></div></fieldset></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-1g8jyhu">Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox">
+Graph Key (Required for reading private graph)</label> <label><input type="checkbox">
+Verified Email Address</label> <label><input type="checkbox">
+Verified SMS/Phone Number</label></div></fieldset></div> </form></div> <h2 data-svelte-h="svelte-1dmlwxr">Result</h2> <dl><dt data-svelte-h="svelte-1epj4gw">Login Request Payload and Signature (
+<code>signedRequest</code>
+parameter )
+</dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div>
+<script>
+{
+__sveltekit_7xuvx = {
+base: new URL(".", location).pathname.slice(0, -1)
+};
+
+const element = document.currentScript.parentElement;
+
+const data = [null,null];
+
+Promise.all([
+import("./Generator/_app/immutable/entry/start.XywlJyTQ.js"),
+import("./Generator/_app/immutable/entry/app.DleYlacf.js")
+]).then(([kit, app]) => {
+kit.start(app, element, {
+node_ids: [0, 2],
+data,
+form: null,
+error: null
+});
+});
+}
+</script>
+</div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="credentials"><a class="header" href="#credentials">Credentials</a></h1>
+<h2 id="request-structure"><a class="header" href="#request-structure">Request Structure</a></h2>
+<p>The request is a an array that requires ALL listed credential objects.
+Supported Options:</p>
+<ul>
+<li><code>anyOf</code>: Request for one or more credentials from the list (0+ may return)</li>
+</ul>
+<h3 id="example-request"><a class="header" href="#example-request">Example Request</a></h3>
+<p>This is a common request: one verified contact method and access to the graph encryption key.</p>
+<pre><code class="language-json">[
+  {
+    "type": "VerifiedGraphKeyCredential",
+    "hash": ["bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"]
+  },
+  {
+    "anyOf": [
+      {
+        "type": "VerifiedEmailAddressCredential",
+        "hash": ["bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi"]
+      },
+      {
+        "type": "VerifiedPhoneNumberCredential",
+        "hash": ["bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq"]
+      }
+    ]
+  }
+]
+</code></pre>
+<h2 id="available-credentials"><a class="header" href="#available-credentials">Available Credentials</a></h2>
+<p>Each request also has a multiformat hash of the schema file to ensure the correct verification document is requested.
+Below are the official types and multihashes to use.</p>
+<h3 id="graph-key"><a class="header" href="#graph-key">Graph Key</a></h3>
+<ul>
+<li>URL: <a href="https://schemas.frequencyaccess.com/VerifiedGraphKeyCredential/bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y.json">https://schemas.frequencyaccess.com/VerifiedGraphKeyCredential/bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y.json</a></li>
+</ul>
+<pre><code class="language-json">{
+  "type": "VerifiedGraphKeyCredential",
+  "hash": ["bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"]
+}
+</code></pre>
+<h3 id="email"><a class="header" href="#email">Email</a></h3>
+<ul>
+<li>URL: <a href="https://schemas.frequencyaccess.com/VerifiedEmailAddressCredential/bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi.json">https://schemas.frequencyaccess.com/VerifiedEmailAddressCredential/bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi.json</a></li>
+</ul>
+<pre><code class="language-json">{
+  "type": "VerifiedEmailAddressCredential",
+  "hash": ["bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi"]
+}
+</code></pre>
+<h3 id="phonesms"><a class="header" href="#phonesms">Phone/SMS</a></h3>
+<ul>
+<li>URL: <a href="https://schemas.frequencyaccess.com/VerifiedPhoneNumberCredential/bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq.json">https://schemas.frequencyaccess.com/VerifiedPhoneNumberCredential/bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq.json</a></li>
+</ul>
+<pre><code class="language-json">{
+  "type": "VerifiedPhoneNumberCredential",
+  "hash": ["bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq"]
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="available-delegations"><a class="header" href="#available-delegations">Available Delegations</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Short Name and Specification Link</th><th>Description</th><th>Schema Id Production-Mainnet</th><th>Schema Id Staging-Testnet</th></tr></thead><tbody>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Tombstone.html"><code>dsnp.tombstone</code></a></td><td>Mark content for deletion</td><td>1</td><td>1</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Broadcast.html"><code>dsnp.broadcast</code></a></td><td>Create new post content</td><td>2</td><td>2</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reply.html"><code>dsnp.reply</code></a></td><td>Reply to a content</td><td>3</td><td>3</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reaction.html"><code>dsnp.reaction</code></a></td><td>React to content</td><td>4</td><td>4</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Update.html"><code>dsnp.update</code></a></td><td>Update an existing post or reply</td><td>5</td><td>5</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Profile.html"><code>dsnp.profile</code></a></td><td>Change profile information</td><td>6</td><td>6</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-key-key-agreement</code></a></td><td>Publish new public key for the encrypted social graph</td><td>7</td><td>7</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-follows</code></a></td><td>Change public follows</td><td>8</td><td>8</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-follows</code></a></td><td>Change private follows</td><td>9</td><td>9</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-connections</code></a></td><td>Change private friendship connections</td><td>10</td><td>10</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="possible-payloads"><a class="header" href="#possible-payloads">Possible Payloads</a></h1>
+<p>Each response may have one or more of the following signed payloads.</p>
+<h2 id="login-1"><a class="header" href="#login-1">Login</a></h2>
+<p>The signature is generated by signing the UTF-8 bytes of <code>payload.message</code> using <code>Sr25519</code>.</p>
+<p>See <a href="./Actions/Response.html#login">Response Payloads: Login</a> for more details.</p>
+<h3 id="example-2"><a class="header" href="#example-2">Example</a></h3>
+<p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
+<pre><code class="language-json">{
+  "signature": {
+    "algo": "Sr25519",
+    "encoding": "base16",
+    "encodedValue": "0x84a4e03344b07d64087ebdf47b2c8c679aa7de78179689988992609f1b83c34f6086c7de99ef41c5325cce64d148624e716c605d355f22d1281f6d23f546f584"
+  },
+  "type": "login",
+  "payload": {
+    "message": "localhost wants you to sign in with your Frequency account:\nf6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ\n\n\n\nURI: https://testnet.frequencyaccess.com/signin/confirm\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-03-05T23:18:03.041Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
+  }
+}
+</code></pre>
+<h2 id="add-provider"><a class="header" href="#add-provider">Add Provider</a></h2>
+<p>This payload follows the <a href="https://frequency-chain.github.io/frequency/pallet_msa/types/struct.AddProvider.html"><code>AddProvider</code></a> type from Frequency.
+It has the same payload for two different endpoint extrinsics: <code>createSponsoredAccountWithDelegation</code> used for creating a new MSA on chain and <code>grantDelegation</code> which is used to grant a new provider permissions on an existing MSA.</p>
+<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>Sr25519</code>.</p>
+<h3 id="example-3"><a class="header" href="#example-3">Example</a></h3>
+<p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
+<pre><code class="language-json">{
+  "signature": {
+    "algo": "Sr25519",
+    "encoding": "base16",
+    "encodedValue": "0x94156d570b29e9c4e3a04eefbff56439f40de7fb6bdba1ca31e9017b55e5e773f747d0ab4f0fc2b44ca903aa8fb641f227fac395e74bb1d837d07cfa70fa1e80"
+  },
+  "endpoint": {
+    "pallet": "msa",
+    "extrinsic": "grantDelegation"
+  },
+  "type": "addProvider",
+  "payload": {
+    "authorizedMsaId": 1,
+    "schemaIds": [
+      5,
+      7,
+      8,
+      9,
+      10
+    ],
+    "expiration": 24
+  }
+}
+</code></pre>
+<h3 id="scale-payload-type"><a class="header" href="#scale-payload-type">SCALE Payload Type</a></h3>
+<pre><code class="language-json">{
+  authorizedMsaId: 'u64',
+  schemaIds: 'Vec&lt;u16&gt;',
+  expiration: 'u32',
+}
+</code></pre>
+<h2 id="claim-handle"><a class="header" href="#claim-handle">Claim Handle</a></h2>
+<p>This payload follows the <a href="https://frequency-chain.github.io/frequency/common_primitives/handles/struct.ClaimHandlePayload.html"><code>ClaimHandlePayload</code></a> type from Frequency.</p>
+<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>Sr25519</code>.</p>
+<h3 id="example-4"><a class="header" href="#example-4">Example</a></h3>
+<p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
+<pre><code class="language-json">{
+  "signature": {
+    "algo": "Sr25519",
+    "encoding": "base16",
+    "encodedValue": "0xc8c7587ef80b6bd64295d63b69f97196a9a0b635bd8f1974156d7e3c7206134bb9838d29978a2f91c18a6592aff180f2314db7528b6aac796f0073d758406e81"
+  },
+  "endpoint": {
+    "pallet": "handles",
+    "extrinsic": "claimHandle"
+  },
+  "type": "claimHandle",
+  "payload": {
+    "baseHandle": "ExampleHandle",
+    "expiration": 24
+  }
+}
+</code></pre>
+<h3 id="scale-payload-type-1"><a class="header" href="#scale-payload-type-1">SCALE Payload Type</a></h3>
+<pre><code class="language-json">{
+  baseHandle: 'Bytes',
+  expiration: 'u32',
+}
+</code></pre>
+<h2 id="user-item-actions"><a class="header" href="#user-item-actions">User Item Actions</a></h2>
+<p>This payload follows the <a href="https://frequency-chain.github.io/frequency/pallet_stateful_storage/types/struct.ItemizedSignaturePayloadV2.html"><code>ItemizedSignaturePayloadV2</code></a> type from Frequency.</p>
+<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>Sr25519</code>.</p>
+<h3 id="example-5"><a class="header" href="#example-5">Example</a></h3>
+<p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
+<pre><code class="language-json">{
+  "signature": {
+    "algo": "Sr25519",
+    "encoding": "base16",
+    "encodedValue": "0x86bdd46a5f91ed3f259374f5856fdc48ee00b8eced10eecd05af8d7637c51d17df6252f617feacbce1cf91cc57ca036c69773ab9b0c31d6843344704b4fb898d"
+  },
+  "endpoint": {
+    "pallet": "statefulStorage",
+    "extrinsic": "applyItemActionsWithSignatureV2"
+  },
+  "type": "itemActions",
+  "payload": {
+    "schemaId": 7,
+    "targetHash": 0,
+    "expiration": 20,
+    "actions": [
+      {
+        "type": "addItem",
+        "payloadHex": "0x40eea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37"
+      }
+    ]
+  }
+}
+</code></pre>
+<h3 id="scale-payload-types"><a class="header" href="#scale-payload-types">SCALE Payload Types</a></h3>
+<pre><code class="language-json">{
+  PalletStatefulStorageItemActionEnumAdd: {
+    data: 'Bytes',
+  },
+  PalletStatefulStorageItemActionEnumDelete: {
+    index: 'u16',
+  },
+  PalletStatefulStorageItemAction: {
+    _enum: {
+      Add: '&lt;PalletStatefulStorageItemActionEnumAdd&gt;',
+      Delete: '&lt;PalletStatefulStorageItemActionEnumDelete&gt;',
+    },
+  },
+  PalletStatefulStorageItemizedSignaturePayloadV2: {
+    schemaId: 'Compact&lt;u16&gt;',
+    targetHash: 'Compact&lt;u32&gt;',
+    expiration: 'u32',
+    actions: 'Vec&lt;PalletStatefulStorageItemAction&gt;',
+  },
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="data-structure-reference"><a class="header" href="#data-structure-reference">Data Structure Reference</a></h1>
+<h2 id="request--response-from-siwf"><a class="header" href="#request--response-from-siwf">Request / Response from SIWF</a></h2>
+<h3 id="request"><a class="header" href="#request">Request</a></h3>
+<pre><code class="language-json">{
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTcjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDA0MDdjZTgxNGI3Nzg2MWRmOTRkMTZiM2ZjYjMxN2QzN2EwN2FiYzJhN2Y5Y2Q3YzAyY2MyMjUyOWVlN2IzMmQ1Njc5NWY4OGJkNmI0YWQxMDZiNzJiOTFiNjI0NmE3ODM2NzFiY2QyNGNiMDFhYWYwZTkzMTZkYjVlMGNkMDg1In0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0",
+  "mode": "dark"
+}
+</code></pre>
+<h3 id="request-url"><a class="header" href="#request-url">Request URL</a></h3>
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTcjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDA0MDdjZTgxNGI3Nzg2MWRmOTRkMTZiM2ZjYjMxN2QzN2EwN2FiYzJhN2Y5Y2Q3YzAyY2MyMjUyOWVlN2IzMmQ1Njc5NWY4OGJkNmI0YWQxMDZiNzJiOTFiNjI0NmE3ODM2NzFiY2QyNGNiMDFhYWYwZTkzMTZkYjVlMGNkMDg1In0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0&amp;mode=dark"
+</code></pre>
+<h3 id="signed-request"><a class="header" href="#signed-request">Signed Request</a></h3>
+<p>This is JSON stringified and then <a href="https://datatracker.ietf.org/doc/html/rfc4648#section-5"><code>base64url</code></a> encoded for the Request <code>signedRequest</code> value.</p>
+<pre><code class="language-json">{
+  "requestedSignatures": {
+    "publicKey": {
+      "encodedValue": "f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH",
+      "encoding": "base58",
+      "format": "ss58",
+      "type": "Sr25519"
+    },
+    "signature": {
+      "algo": "Sr25519",
+      "encoding": "base16",
+      "encodedValue": "0x0407ce814b77861df94d16b3fcb317d37a07abc2a7f9cd7c02cc22529ee7b32d56795f88bd6b4ad106b72b91b6246a783671bcd24cb01aaf0e9316db5e0cd085"
+    },
+    "payload": {
+      "callback": "http://localhost:3000",
+      "permissions": [
+        5,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  "requestedCredentials": [
+    {
+      "type": "VerifiedGraphKeyCredential",
+      "hash": [
+        "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+      ]
+    },
+    {
+      "anyOf": [
+        {
+          "type": "VerifiedEmailAddressCredential",
+          "hash": [
+            "bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi"
+          ]
+        },
+        {
+          "type": "VerifiedPhoneNumberCredential",
+          "hash": [
+            "bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq"
+          ]
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+<h3 id="new-frequency-user-response-1"><a class="header" href="#new-frequency-user-response-1">New Frequency User Response</a></h3>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
+    "encoding": "base58",
+    "format": "ss58",
+    "type": "Sr25519"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "Sr25519",
+        "encoding": "base16",
+        "encodedValue": "0x1a27cb6d79b508e1ffc8d6ae70af78d5b3561cdc426124a06f230d7ce70e757e1947dd1bac8f9e817c30676a5fa6b06510bae1201b698b044ff0660c60f18c8a"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "createSponsoredAccountWithDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    },
+    {
+      "signature": {
+        "algo": "Sr25519",
+        "encoding": "base16",
+        "encodedValue": "0x9eb338773b386ded2e3731ba68ba734c80408b3ad24f92ed3c60342d374a32293851fa8e41d722c72a5a4e765a9e401c68570a8c666ab678e4e5d94aa6825d85"
+      },
+      "endpoint": {
+        "pallet": "statefulStorage",
+        "extrinsic": "applyItemActionsWithSignatureV2"
+      },
+      "type": "itemActions",
+      "payload": {
+        "schemaId": 7,
+        "targetHash": 0,
+        "expiration": 20,
+        "actions": [
+          {
+            "type": "addItem",
+            "payloadHex": "0x40eea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37"
+          }
+        ]
+      }
+    },
+    {
+      "signature": {
+        "algo": "Sr25519",
+        "encoding": "base16",
+        "encodedValue": "0xb004140fd8ba3395cf5fcef49df8765d90023c293fde4eaf2e932cc24f74fc51b006c0bebcf31d85565648b4881fa22115e0051a3bdb95ab5bf7f37ac66f798f"
+      },
+      "endpoint": {
+        "pallet": "handles",
+        "extrinsic": "claimHandle"
+      },
+      "type": "claimHandle",
+      "payload": {
+        "baseHandle": "ExampleHandle",
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": [
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedEmailAddressCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:web:frequencyaccess.com",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedEmailAddressCredential/bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "emailAddress": "john.doe@example.com",
+        "lastVerified": "2024-08-21T21:27:59.309+0000"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedGraphKeyCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedGraphKeyCredential/bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "encodedPublicKeyValue": "0xb5032900293f1c9e5822fd9c120b253cb4a4dfe94c214e688e01f32db9eedf17",
+        "encodedPrivateKeyValue": "0xd0910c853563723253c4ed105c08614fc8aaaf1b0871375520d72251496e8d87",
+        "encoding": "base16",
+        "format": "bare",
+        "type": "X25519",
+        "keyType": "dsnp.public-key-key-agreement"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:key:z6MktZ15TNtrJCW2gDLFjtjmxEdhCadNCaDizWABYfneMqhA",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z2HHWwtWggZfvGqNUk4S5AAbDGqZRFXjpMYAsXXmEksGxTk4DnnkN3upCiL1mhgwHNLkxY3s8YqNyYnmpuvUke7jF"
+      }
+    }
+  ]
+}
+</code></pre>
+<h3 id="new-applicationdelegation-response-1"><a class="header" href="#new-applicationdelegation-response-1">New Application/Delegation Response</a></h3>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
+    "encoding": "base58",
+    "format": "ss58",
+    "type": "Sr25519"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "Sr25519",
+        "encoding": "base16",
+        "encodedValue": "0xbac399831b9e3ad464a16e62ad1252cc8344a2c52f80252b2aa450a06ae2362f6f4afcaca791a81f28eaa99080e2654bdbf1071a276213242fc153cca43cfa8e"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "grantDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": [
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedEmailAddressCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:web:frequencyaccess.com",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedEmailAddressCredential/bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "emailAddress": "john.doe@example.com",
+        "lastVerified": "2024-08-21T21:27:59.309+0000"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedGraphKeyCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedGraphKeyCredential/bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "encodedPublicKeyValue": "0xb5032900293f1c9e5822fd9c120b253cb4a4dfe94c214e688e01f32db9eedf17",
+        "encodedPrivateKeyValue": "0xd0910c853563723253c4ed105c08614fc8aaaf1b0871375520d72251496e8d87",
+        "encoding": "base16",
+        "format": "bare",
+        "type": "X25519",
+        "keyType": "dsnp.public-key-key-agreement"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:key:z6MktZ15TNtrJCW2gDLFjtjmxEdhCadNCaDizWABYfneMqhA",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z2HHWwtWggZfvGqNUk4S5AAbDGqZRFXjpMYAsXXmEksGxTk4DnnkN3upCiL1mhgwHNLkxY3s8YqNyYnmpuvUke7jF"
+      }
+    }
+  ]
+}
+</code></pre>
+<h3 id="login-only-response-1"><a class="header" href="#login-only-response-1">Login Only Response</a></h3>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
+    "encoding": "base58",
+    "format": "ss58",
+    "type": "Sr25519"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "Sr25519",
+        "encoding": "base16",
+        "encodedValue": "0x84a4e03344b07d64087ebdf47b2c8c679aa7de78179689988992609f1b83c34f6086c7de99ef41c5325cce64d148624e716c605d355f22d1281f6d23f546f584"
+      },
+      "type": "login",
+      "payload": {
+        "message": "localhost wants you to sign in with your Frequency account:\nf6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ\n\n\n\nURI: https://testnet.frequencyaccess.com/signin/confirm\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-03-05T23:18:03.041Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
+      }
+    }
+  ],
+  "credentials": [
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedEmailAddressCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:web:frequencyaccess.com",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedEmailAddressCredential/bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "emailAddress": "john.doe@example.com",
+        "lastVerified": "2024-08-21T21:27:59.309+0000"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedGraphKeyCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedGraphKeyCredential/bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "encodedPublicKeyValue": "0xb5032900293f1c9e5822fd9c120b253cb4a4dfe94c214e688e01f32db9eedf17",
+        "encodedPrivateKeyValue": "0xd0910c853563723253c4ed105c08614fc8aaaf1b0871375520d72251496e8d87",
+        "encoding": "base16",
+        "format": "bare",
+        "type": "X25519",
+        "keyType": "dsnp.public-key-key-agreement"
+      },
+      "proof": {
+        "type": "DataIntegrityProof",
+        "verificationMethod": "did:key:z6MktZ15TNtrJCW2gDLFjtjmxEdhCadNCaDizWABYfneMqhA",
+        "cryptosuite": "eddsa-rdfc-2022",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "z2HHWwtWggZfvGqNUk4S5AAbDGqZRFXjpMYAsXXmEksGxTk4DnnkN3upCiL1mhgwHNLkxY3s8YqNyYnmpuvUke7jF"
+      }
+    }
+  ]
+}
+</code></pre>
+<h2 id="verified-user-data"><a class="header" href="#verified-user-data">Verified User Data</a></h2>
+<h3 id="graph-key-1"><a class="header" href="#graph-key-1">Graph Key</a></h3>
+<pre><code class="language-json">{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/undefined-terms/v2"
+  ],
+  "type": [
+    "VerifiedGraphKeyCredential",
+    "VerifiableCredential"
+  ],
+  "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+  "validFrom": "2024-08-21T21:28:08.289+0000",
+  "credentialSchema": {
+    "type": "JsonSchema",
+    "id": "https://schemas.frequencyaccess.com/VerifiedGraphKeyCredential/bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y.json"
+  },
+  "credentialSubject": {
+    "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+    "encodedPublicKeyValue": "0xb5032900293f1c9e5822fd9c120b253cb4a4dfe94c214e688e01f32db9eedf17",
+    "encodedPrivateKeyValue": "0xd0910c853563723253c4ed105c08614fc8aaaf1b0871375520d72251496e8d87",
+    "encoding": "base16",
+    "format": "bare",
+    "type": "X25519",
+    "keyType": "dsnp.public-key-key-agreement"
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "verificationMethod": "did:key:z6MktZ15TNtrJCW2gDLFjtjmxEdhCadNCaDizWABYfneMqhA",
+    "cryptosuite": "eddsa-rdfc-2022",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z2HHWwtWggZfvGqNUk4S5AAbDGqZRFXjpMYAsXXmEksGxTk4DnnkN3upCiL1mhgwHNLkxY3s8YqNyYnmpuvUke7jF"
+  }
+}
+</code></pre>
+<h2 id="verified-contact-credentials"><a class="header" href="#verified-contact-credentials">Verified Contact Credentials</a></h2>
+<h3 id="email-1"><a class="header" href="#email-1">Email</a></h3>
+<pre><code class="language-json">{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/undefined-terms/v2"
+  ],
+  "type": [
+    "VerifiedEmailAddressCredential",
+    "VerifiableCredential"
+  ],
+  "issuer": "did:web:frequencyaccess.com",
+  "validFrom": "2024-08-21T21:28:08.289+0000",
+  "credentialSchema": {
+    "type": "JsonSchema",
+    "id": "https://schemas.frequencyaccess.com/VerifiedEmailAddressCredential/bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi.json"
+  },
+  "credentialSubject": {
+    "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+    "emailAddress": "john.doe@example.com",
+    "lastVerified": "2024-08-21T21:27:59.309+0000"
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
+    "cryptosuite": "eddsa-rdfc-2022",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
+  }
+}
+</code></pre>
+<h3 id="smsphone"><a class="header" href="#smsphone">SMS/Phone</a></h3>
+<pre><code class="language-json">{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/undefined-terms/v2"
+  ],
+  "type": [
+    "VerifiedPhoneNumberCredential",
+    "VerifiableCredential"
+  ],
+  "issuer": "did:web:frequencyaccess.com",
+  "validFrom": "2024-08-21T21:28:08.289+0000",
+  "credentialSchema": {
+    "type": "JsonSchema",
+    "id": "https://schemas.frequencyaccess.com/VerifiedPhoneNumberCredential/bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq.json"
+  },
+  "credentialSubject": {
+    "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+    "phoneNumber": "+01-234-867-5309",
+    "lastVerified": "2024-08-21T21:27:59.309+0000"
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
+    "cryptosuite": "eddsa-rdfc-2022",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z5sJ2CjHX1wwgzfFGoZNocxeFKd2ffpo5TVgUvdaSkYq1M6gF7UjpYfePo97QoZgmiWdgPAWPjxFvGBysaxHV8DZ4"
+  }
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
