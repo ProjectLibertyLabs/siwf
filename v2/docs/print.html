@@ -293,8 +293,9 @@ Frequency Access is an easy to use custodial social wallet for users on Frequenc
 <li>See a full list of <a href="./Delegations.html">Available Delegations</a></li>
 </ul>
 <h2 id="staging--production"><a class="header" href="#staging--production">Staging &amp; Production</a></h2>
-<p>SIWF via Frequency Access has two deployments available: Staging-Testnet and Production-Mainnet.</p>
-<h3 id="production-mainnet"><a class="header" href="#production-mainnet">Production-Mainnet</a></h3>
+<h3 id="using-frequency-access"><a class="header" href="#using-frequency-access">Using Frequency Access</a></h3>
+<p>Frequency Access has two deployments: Staging-Testnet and Production-Mainnet.</p>
+<h4 id="production-mainnet"><a class="header" href="#production-mainnet">Production-Mainnet</a></h4>
 <p>URL: <code>www.frequencyaccess.com</code></p>
 <ul>
 <li>Uses Frequency Mainnet</li>
@@ -302,7 +303,7 @@ Frequency Access is an easy to use custodial social wallet for users on Frequenc
 <li>Bot protection via <a href="https://www.hcaptcha.com/">hCaptcha</a></li>
 <li>Authorization Timeout: 30 seconds</li>
 </ul>
-<h3 id="staging-testnet"><a class="header" href="#staging-testnet">Staging-Testnet</a></h3>
+<h4 id="staging-testnet"><a class="header" href="#staging-testnet">Staging-Testnet</a></h4>
 <p>URL: <code>testnet.frequencyaccess.com</code></p>
 <ul>
 <li>Uses Frequency Testnet on Paseo</li>
@@ -1199,10 +1200,10 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.B_SY1GJM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.D7FLR7tE.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.D6L6VlhP.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.BkC7-Wrw.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.BiLOgHCv.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/scheduler.B3svg8oL.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.Djf1Zqsz.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.CIw9YuVC.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/preload-helper.CmsKOCeN.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/index.DcCoCrnC.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.BHruzTxR.js">
@@ -1216,7 +1217,7 @@ parameter )
 </dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div>
 <script>
 {
-__sveltekit_1b5tl3v = {
+__sveltekit_17r5wcc = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
@@ -1225,8 +1226,8 @@ const element = document.currentScript.parentElement;
 const data = [null,null];
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.D7FLR7tE.js"),
-import("./Generator/_app/immutable/entry/app.Djf1Zqsz.js")
+import("./Generator/_app/immutable/entry/start.BkC7-Wrw.js"),
+import("./Generator/_app/immutable/entry/app.CIw9YuVC.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
@@ -1297,17 +1298,24 @@ Below are the official types and multihashes to use.</p>
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="available-delegations"><a class="header" href="#available-delegations">Available Delegations</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Short Name and Specification Link</th><th>Description</th><th>Schema Id Production-Mainnet</th><th>Schema Id Staging-Testnet</th></tr></thead><tbody>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Tombstone.html"><code>dsnp.tombstone</code></a></td><td>Mark content for deletion</td><td>1</td><td>1</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Broadcast.html"><code>dsnp.broadcast</code></a></td><td>Create new post content</td><td>2</td><td>2</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reply.html"><code>dsnp.reply</code></a></td><td>Reply to a content</td><td>3</td><td>3</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reaction.html"><code>dsnp.reaction</code></a></td><td>React to content</td><td>4</td><td>4</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Update.html"><code>dsnp.update</code></a></td><td>Update an existing post or reply</td><td>5</td><td>5</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Profile.html"><code>dsnp.profile</code></a></td><td>Change profile information</td><td>6</td><td>6</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-key-key-agreement</code></a></td><td>Publish new public key for the encrypted social graph</td><td>7</td><td>7</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-follows</code></a></td><td>Change public follows</td><td>8</td><td>8</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-follows</code></a></td><td>Change private follows</td><td>9</td><td>9</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-connections</code></a></td><td>Change private friendship connections</td><td>10</td><td>10</td></tr>
+<p>Staging-Testnet and Production-Mainnet have the same delegation Schema Ids available.</p>
+<div class="table-wrapper"><table><thead><tr><th>Short Name and Specification Link</th><th>Description</th><th>Schema Id</th></tr></thead><tbody>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Broadcast.html"><code>dsnp.broadcast@v2</code></a></td><td>Create new post content</td><td>17</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/DSNPContentAttributeSet.html"><code>dsnp.dsnp-content-attribute-set@v1</code></a></td><td>Create an authenticated attribute set for DSNP content</td><td>12</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/ExternalContentAttributeSet.html"><code>dsnp.dsnp.ext-content-attribute-set@v1</code></a></td><td>Create an authenticated attribute set for content external to DSNP</td><td>13</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-connections@v1</code></a></td><td>Change private friendship connections</td><td>10</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-follows@v1</code></a></td><td>Change private follows</td><td>9</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.profile-resources@v1</code></a></td><td>User Profile Information</td><td>15</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Profile.html"><code>dsnp.profile@v1</code></a>(Deprecated)</td><td>Change profile information</td><td>6</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-follows@v1</code></a></td><td>Change public follows</td><td>8</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-key-assertion-method@v1</code></a></td><td>Used to verify generic cryptographic signatures</td><td>14</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-key-key-agreement@v1</code></a></td><td>Publish new public key for the encrypted social graph</td><td>7</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reaction.html"><code>dsnp.reaction</code></a></td><td>React to content</td><td>4</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reply.html"><code>dsnp.reply@v2</code></a></td><td>Reply to a content</td><td>18</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Tombstone.html"><code>dsnp.tombstone@v2</code></a></td><td>Mark content for deletion</td><td>16</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Update.html"><code>dsnp.update@v2</code></a></td><td>Update an existing post or reply</td><td>19</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/UserAttributeSet.html"><code>dsnp.user-attribute-set@v1</code></a></td><td>Create an authenticated attribute set for a DSNP User</td><td>13</td></tr>
+<tr><td><a href="https://github.com/frequency-chain/schemas"><code>frequency.default-token-address@v1</code></a></td><td>List one or more default token receiving addresses</td><td>21</td></tr>
 </tbody></table>
 </div><div style="break-before: page; page-break-before: always;"></div><h1 id="possible-payloads"><a class="header" href="#possible-payloads">Possible Payloads</a></h1>
 <p>Each response may have one or more of the following signed payloads.</p>
