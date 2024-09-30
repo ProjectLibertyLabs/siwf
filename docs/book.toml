@@ -12,7 +12,7 @@ command = "node preprocessor.mjs"
 [output.html]
 no-section-label = true
 git-repository-url = "https://github.com/ProjectLibertyLabs/siwf"
-edit-url-template = "https://github.com/ProjectLibertyLabs/siwf/blob/main/docs/src/{path}"
+edit-url-template = "https://github.com/ProjectLibertyLabs/siwf/blob/main/docs/{path}"
 preferred-dark-theme = "coal"
 additional-css = [
   "css/extended.css",
