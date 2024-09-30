@@ -1,4 +1,4 @@
-# Redirect User to Frequency Access
+# Redirect User to Frequency Access (or other SIWF compatible system)
 
 To start the authentication loop, your application will generate an Authentication URL for each user.
 
@@ -60,7 +60,7 @@ Taking the parameters from the previous step, build an Authentication URL using 
 - Staging-Testnet: `https://testnet.frequencyaccess.com/siwa/start`
 - Production-Mainnet: `https://www.frequencyaccess.com/siwa/start`
 
-Frequency Access will send the user back by building the callback URL.
+The SIWF System will send the user back by building the callback URL.
 The callback URL will be built with:
 
 - The callback from the `signedRequest`

@@ -1,11 +1,11 @@
-# Sign In With Access TypeScript/JavaScript Integration Library
+# Sign In With Frequency (SIWF) V2 JavaScript Library
 
-The NPM package `@projectlibertylabs/siwf` offers both CommonJS and ESM exports.
+The NPM package `@projectlibertylabs/siwf@v2` offers both CommonJS and ESM exports.
 
 ## Install
 
-- NPM: `npm i @projectlibertylabs/siwf`
-- Yarn: `yarn add @projectlibertylabs/siwf`
+- NPM: `npm i @projectlibertylabs/siwf@v2`
+- Yarn: `yarn add @projectlibertylabs/siwf@v2`
 
 ## Documentation
 
@@ -14,17 +14,17 @@ See [Markdown/GitHub Docs](../../docs/src/QuickStart.md) or
 
 ### JS API Functions
 
-| Function                       | Description                                                                                                    |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------- |
-| `generateAuthenticationUrl`          | Generates the signed request for the authentication flow with Frequency Access                                 |
-| `getLoginResult`               | Fetch and extract the Result of the Login from Frequency Access                                                |
-| `hasChainSubmissions`          | Checks to see if there are any chain submissions in the given result                                           |
-| `generateSignedRequest`        | Generates the signed payload for the authentication flow with Frequency Access using a keypair                 |
-| `buildSignedRequest`           | Builds the signed request for the authentication flow with Frequency Access using the signature and public key |
-| `generateEncodedSignedRequest` | Generates the encoded signed payload for the authentication flow with Frequency Access using a keypair         |
-| `encodeSignedRequest`          | Encodes a signed request for the authentication flow as a base64url string                                     |
-| `decodeSignedRequest`          | Decodes a base64url encoded signed request for the authentication flow with Frequency Access                   |
-| `generateRequestSigningData`   | Generates the hex of the payload for signing                                                                   |
+| Function                       | Description                                                                              |
+| ------------------------------ | ---------------------------------------------------------------------------------------- |
+| `generateAuthenticationUrl`    | Generates the signed request for the authentication flow                                 |
+| `getLoginResult`               | Fetch and extract the Result of the Login                                                |
+| `hasChainSubmissions`          | Checks to see if there are any chain submissions in the given result                     |
+| `generateSignedRequest`        | Generates the signed payload for the authentication flow using a keypair                 |
+| `buildSignedRequest`           | Builds the signed request for the authentication flow using the signature and public key |
+| `generateEncodedSignedRequest` | Generates the encoded signed payload for the authentication flow using a keypair         |
+| `encodeSignedRequest`          | Encodes a signed request for the authentication flow as a base64url string               |
+| `decodeSignedRequest`          | Decodes a base64url encoded signed request for the authentication flow                   |
+| `generateRequestSigningData`   | Generates the hex of the payload for signing                                             |
 
 ### JS API Constants
 

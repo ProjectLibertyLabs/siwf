@@ -32,11 +32,11 @@ export const VerifiedGraphKeyCredential = VerifiedGraphKey.credential;
 /**
  * Generates the hex of the payload for signing.
  *
- * @param {string} callbackUri - The URI that the user should return to after authenticating with Frequency Access.
+ * @param {string} callbackUri - The URI that the user should return to after authenticating.
  * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
- * @param {boolean} isBytesWrapped - Generate it with (default) or without the `<Bytes>` wrapping
+ * @param {boolean} isBytesWrapped - Generate it with (default) or without the `<Bytes>` wrapping.
  *
- * @returns {string} The generated Authentication URL that can be used for authentication with Frequency Access.
+ * @returns {string} The generated Authentication URL that can be used for authentication.
  */
 export function generateRequestSigningData(
   callbackUri: string,
@@ -53,14 +53,14 @@ export function generateRequestSigningData(
 }
 
 /**
- * Generates the signed request for the authentication flow with Frequency Access.
+ * Generates the signed request for the authentication flow start.
  *
  * @param {string} providerKeyUri - The URI of a key, usually a seed phrase, but may also include test accounts such as `//Alice` or `//Bob`.
- * @param {string} callbackUri - The URI that the user should return to after authenticating with Frequency Access.
+ * @param {string} callbackUri - The URI that the user should return to after authenticating.
  * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
- * @returns {Promise<string>} The generated Authentication URL that can be used for authentication with Frequency Access.
+ * @returns {Promise<string>} The generated Authentication URL that can be used for authentication.
  */
 export async function generateSignedRequest(
   providerKeyUri: string,
@@ -77,15 +77,15 @@ export async function generateSignedRequest(
 }
 
 /**
- * Builds the signed request for the authentication flow with Frequency Access.
+ * Builds the signed request for the authentication flow.
  *
  * @param {string} signature - The hex string of the signed data.
  * @param {string} signerPublicKey - The hex or SS58 public key of the signer.
- * @param {string} callbackUri - The URI that the user should return to after authenticating with Frequency Access.
+ * @param {string} callbackUri - The URI that the user should return to after authenticating.
  * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
- * @returns {string} The generated Authentication URL that can be used for authentication with Frequency Access.
+ * @returns {string} The generated Authentication URL that can be used for authentication.
  */
 export function buildSignedRequest(
   signature: string,
@@ -124,14 +124,14 @@ export function buildSignedRequest(
 }
 
 /**
- * Generates the encoded signed payload for the authentication flow with Frequency Access.
+ * Generates the encoded signed payload for the authentication flow.
  *
  * @param {string} providerKeyUri - The URI of a key, usually a seed phrase, but may also include test accounts such as `//Alice` or `//Bob`.
- * @param {string} callbackUri - The URI that the user should return to after authenticating with Frequency Access.
+ * @param {string} callbackUri - The URI that the user should return to after authenticating.
  * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
- * @returns {Promise<string>} The generated base64url encoded signed payload that can be that can be used for authentication with Frequency Access.
+ * @returns {Promise<string>} The generated base64url encoded signed payload that can be that can be used for authentication.
  */
 export async function generateEncodedSignedRequest(
   providerKeyUri: string,
@@ -148,7 +148,7 @@ export async function generateEncodedSignedRequest(
  *
  * @param {SiwfSignedRequest} signedRequest - A signed request.
  *
- * @returns {string} The generated base64url encoded signed payload that can be that can be used for authentication with Frequency Access.
+ * @returns {string} The generated base64url encoded signed payload that can be that can be used for authentication.
  */
 export function encodeSignedRequest(signedRequest: SiwfSignedRequest): string {
   const serialized = JSON.stringify(signedRequest);
@@ -156,11 +156,11 @@ export function encodeSignedRequest(signedRequest: SiwfSignedRequest): string {
 }
 
 /**
- * Decodes a base64url encoded signed request for the authentication flow with Frequency Access.
+ * Decodes a base64url encoded signed request for the authentication flow.
  *
  * @param {string} encodedSignedRequest - A signed request.
  *
- * @returns {SiwfSignedRequest} The generated base64url encoded signed payload that can be that can be used for authentication with Frequency Access.
+ * @returns {SiwfSignedRequest} The generated base64url encoded signed payload that can be that can be used for authentication.
  */
 export function decodeSignedRequest(encodedSignedRequest: string): SiwfSignedRequest {
   const serialized = stringFromBase64URL(encodedSignedRequest);

@@ -1,4 +1,4 @@
-# Sign In With Access Documentation & Tools
+# Sign In With Frequency Documentation & Tools
 
 <!-- TABLE OF CONTENTS -->
 
@@ -28,7 +28,7 @@ Looking for SIWF v1 resources? [Go to the `v1` branch](https://github.com/Projec
 - [Frequency Documentation](https://docs.frequency.xyz)
 - [Frequency on GitHub](https://github.com/frequency-chain/frequency)
 - [Frequency Provider Dashboard](https://provider.frequency.xyz)
-- [Sign In With Frequency](https://github.com/ProjectLibertyLabs/siwf) (Onboarding tool that supports both Frequency Access and other wallets)
+- [Sign In With Frequency UI V2](https://github.com/ProjectLibertyLabs/siwf) (Onboarding tool that supports both Frequency Access and other wallets)
 
 <p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 

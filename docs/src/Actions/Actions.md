@@ -1,6 +1,6 @@
-# Frequency Access Actions
+# SIWF Actions
 
-Frequency Access handles three different situations for each user:
+SIWF handles three different situations for each user:
 
 | Action            | Frequency Blockchain account (MSA) | Delegation with Your Application |
 | ----------------- | ---------------------------------- | -------------------------------- |
@@ -12,8 +12,8 @@ Frequency Access handles three different situations for each user:
 
 1. Generate Provider Login Request Payload and Signature ([Generator Tool](../Generate.md)) ([Documentation](../SignatureGeneration.md))
 2. Build and send the user to the Authentication URL ([See Details](./Start.md))
-3. Receive a callback from Frequency Access
-4. Retrieve and process the login response from Frequency Access ([See Details](./Response.md))
+3. Receive a callback from Frequency Access or other SIWF compatible system
+4. Retrieve and process the login response ([See Details](./Response.md))
 
 ### Sequence Diagram
 
@@ -21,7 +21,7 @@ Frequency Access handles three different situations for each user:
 
 ## Backend Requirements
 
-- Able to validate payloads from Frequency Access
+- Able to validate payloads received from a SIWF compatible system
 - Able to connect to a Frequency RPC Node
 - Able to sign transactions to submit to the Frequency RPC Node
 

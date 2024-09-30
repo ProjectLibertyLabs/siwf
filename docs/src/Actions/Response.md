@@ -1,4 +1,4 @@
-# Getting the Login Result from Frequency Access
+# Getting the Login Result from SIWF
 
 After the user completes the authentication and authorization, the user is redirected to the callback URL with one additional parameter set: `authorizationCode`.
 
@@ -22,7 +22,7 @@ Response Sections
 
 - `userPublicKey`: The key for the user signing this request
 - `payloads`: Signed payloads from the user
-- `credentials`: User approved verified credentials from Frequency Access such as email, phone, user keys, etc...
+- `credentials`: User approved verified credentials from Frequency Access (or other SIWF compatible system) such as email, phone, user keys, etc...
 
 ### `userPublicKey`
 
@@ -44,7 +44,7 @@ These credentials follow the [DSNP Verifiable Credentials Specification](https:/
 
 ### Verify the Credential
 
-_Trust Model Note_: You may choose to just trust credentials issued by Frequency Access given that the credential is fetched directly from Frequency Access. These will have issuer `did:web:testnet.frequencyaccess.com` or `did:web:frequencyaccess.com`.
+_Trust Model Note_: You may choose to just trust credentials issued by Frequency Access (or other SIWF compatible system) given that the credential is fetched directly. These will have issuer `did:web:testnet.frequencyaccess.com` or `did:web:frequencyaccess.com`.
 
 1. Check that the `credentialSubject.id` matches the `userPublicKey` following the [`did:key` Method from the W3C](https://w3c-ccg.github.io/did-method-key/#format)
   - Example: `f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH` is the [SS58](https://docs.substrate.io/reference/address-formats/) version with prefix `90` of the hex address `0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d`. `0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d` is multicodec `sr25519-pub` hex which is multiformat `base58-btc` `z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ`
@@ -82,7 +82,7 @@ The payloads that require submission to Frequency should be submitted in one bat
 The `addProvider` *must* always be *first* in the batch to ensure the correct permissions and delegations are in place for subsequent actions in the batch.
 
 Signatures to Frequency have an expiration set to a future Frequency block number.
-If the actions are not submitted before expriation, Frequency will reject the transactions and your application will need to request new signatures from Frequency Access.
+If the actions are not submitted before expriation, Frequency will reject the transactions and your application will need to request new signatures.
 
 [Payload Examples and Signature Details](../Payloads.md)
 
@@ -163,7 +163,7 @@ They can be submitted to the chain in one transaction using [`pay_with_capacity_
 ## Step 6: Session Starts
 
 Once the payloads have been validated, the user's authenticated session may start.
-Frequency Access does not manage user sessions.
+SIWF systems do not manage user sessions.
 
 ### Examples
 
