@@ -3,7 +3,7 @@ name: Deploy v1 to GitHub Pages
 
 on:
   push:
-    branches: ['v1', 'chore/split-for-v1']
+    branches: ['v1']
 
 permissions:
   contents: write
