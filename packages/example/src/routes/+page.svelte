@@ -78,7 +78,7 @@
     },
     {
       name: 'Production',
-      url: 'https://projectlibertylabs.github.io/siwf/ui',
+      url: 'https://projectlibertylabs.github.io/siwf/v1/ui',
     },
   ];
 
