@@ -1,9 +1,9 @@
 # Summary
 
-[Introduction](Index.md)
+[Introduction](README.md)
 
 - [Quick Start](QuickStart.md)
-- [Actions](Actions/Index.md)
+- [Actions](Actions/Actions.md)
     - [Start Login](Actions/Start.md)
     - [Login Response](Actions/Response.md)
 - [Reference](Reference.md)

@@ -64,14 +64,14 @@ jobs:
 
       - name: Structure v2
         run: |
-          mkdir -p siwf/v2
-          mv ./docs/book ./siwf/v2/docs
+          mkdir -p ./siwf-v2
+          mv ./docs/book ./siwf-v2/docs
 
       - name: Deploy to GitHub Pages v2
         uses: JamesIves/github-pages-deploy-action@v4.6.4
         with:
           branch: gh-pages
-          folder: siwf
+          folder: siwf-v2
           target-folder: v2
           clean: true
           # Exclude v1 stuff
