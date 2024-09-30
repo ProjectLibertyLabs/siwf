@@ -73,10 +73,4 @@ jobs:
           branch: gh-pages
           folder: siwf-v2
           target-folder: v2
-          clean: true
-          # Exclude v1 stuff
-          clean-exclude: |
-            v1
-            ui
-            example
-            index.html
+          clean: true # By using the target folder, this will NOT remove anything outside of that folder!
