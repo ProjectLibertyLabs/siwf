@@ -64,9 +64,8 @@ jobs:
 
       - name: Structure v2
         run: |
-          mkdir siwf/v2
-          mkdir siwf/v2
-          mv ./book ./siwf/v2/docs
+          mkdir -p siwf/v2
+          mv ./docs/book ./siwf/v2/docs
 
       - name: Deploy to GitHub Pages v2
         uses: JamesIves/github-pages-deploy-action@v4.6.4
