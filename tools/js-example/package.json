@@ -1,7 +1,7 @@
 {
   "name": "js-example",
   "version": "1.0.0",
-  "description": "Example usage for SIWA JS Library",
+  "description": "Example usage for SIWF JS Library",
   "main": "index.ts",
   "scripts": {
     "lint": "tsc --noEmit --pretty",
@@ -11,7 +11,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "dependencies": {
-    "@projectlibertylabs/siwa": "file:../../libraries/js/dist/projectlibertylabs-siwa-0.0.0.tgz",
+    "@projectlibertylabs/siwf": "file:../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz",
     "typescript": "^5.6.2",
     "vitest": "^2.1.1"
   }

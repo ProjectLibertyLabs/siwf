@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as siwa from '@projectlibertylabs/siwa';
+	import * as siwf from '@projectlibertylabs/siwf';
 	export let credentials = [];
 
 	let selectedCredentials = {
@@ -12,20 +12,20 @@
 	$: credentials = buildCredentialsRequest(selectedCredentials);
 
 	function buildCredentialsRequest(selected: typeof selectedCredentials) {
-		const request: siwa.SiwaCredentialRequest[] = [];
+		const request: siwf.SiwfCredentialRequest[] = [];
 
 		// Add VerifiedGraphKeyCredential if selected
 		if (selected.VerifiedGraphKeyCredential) {
-			request.push(siwa.VerifiedGraphKeyCredential);
+			request.push(siwf.VerifiedGraphKeyCredential);
 		}
 
 		// Add anyOf block for contact methods
 		const anyOfCredentials = [];
 		if (selected.VerifiedEmailAddressCredential) {
-			anyOfCredentials.push(siwa.VerifiedEmailAddressCredential);
+			anyOfCredentials.push(siwf.VerifiedEmailAddressCredential);
 		}
 		if (selected.VerifiedPhoneNumberCredential) {
-			anyOfCredentials.push(siwa.VerifiedPhoneNumberCredential);
+			anyOfCredentials.push(siwf.VerifiedPhoneNumberCredential);
 		}
 
 		if (anyOfCredentials.length > 0) {

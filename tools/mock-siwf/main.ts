@@ -41,5 +41,5 @@ app.get("/api/payload", (req: Request, res: Response) => {
 
 // Start the server on port 3000
 app.listen(3000, () => {
-  console.log("Mock SIWA server running on http://localhost:3000");
+  console.log("Mock Frequency Access server running on http://localhost:3000");
 });

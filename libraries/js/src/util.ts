@@ -1,12 +1,12 @@
 import { Struct, Text } from '@polkadot/types-codec';
 import { TypeRegistry } from '@polkadot/types';
 import type { RegistryTypes } from '@polkadot/types/types';
-import { SiwaSignedRequest } from './types/request.js';
+import { SiwfSignedRequest } from './types/request.js';
 import { u8aToHex, u8aWrapBytes } from '@polkadot/util';
 import {
-  SiwaResponsePayloadAddProvider,
-  SiwaResponsePayloadClaimHandle,
-  SiwaResponsePayloadItemActions,
+  SiwfResponsePayloadAddProvider,
+  SiwfResponsePayloadClaimHandle,
+  SiwfResponsePayloadItemActions,
 } from './types/payload.js';
 const registry = new TypeRegistry();
 
@@ -42,7 +42,7 @@ const frequencyTypes: RegistryTypes = {
 
 registry.register(frequencyTypes);
 
-export function requestPayloadBytes(payload: SiwaSignedRequest['requestedSignatures']['payload']): Uint8Array {
+export function requestPayloadBytes(payload: SiwfSignedRequest['requestedSignatures']['payload']): Uint8Array {
   return new Struct(
     registry,
     {
@@ -53,15 +53,15 @@ export function requestPayloadBytes(payload: SiwaSignedRequest['requestedSignatu
   ).toU8a();
 }
 
-export function serializeLoginPayloadHex(payload: SiwaSignedRequest['requestedSignatures']['payload']): string {
+export function serializeLoginPayloadHex(payload: SiwfSignedRequest['requestedSignatures']['payload']): string {
   return u8aToHex(u8aWrapBytes(requestPayloadBytes(payload)));
 }
 
-export function serializeAddProviderPayloadHex(payload: SiwaResponsePayloadAddProvider['payload']): string {
+export function serializeAddProviderPayloadHex(payload: SiwfResponsePayloadAddProvider['payload']): string {
   return u8aToHex(u8aWrapBytes(registry.createType('PalletMsaAddProvider', payload).toU8a()));
 }
 
-export function serializeItemActionsPayloadHex(payload: SiwaResponsePayloadItemActions['payload']): string {
+export function serializeItemActionsPayloadHex(payload: SiwfResponsePayloadItemActions['payload']): string {
   return u8aToHex(
     u8aWrapBytes(
       registry
@@ -82,7 +82,7 @@ export function serializeItemActionsPayloadHex(payload: SiwaResponsePayloadItemA
   );
 }
 
-export function serializeClaimHandlePayloadHex(payload: SiwaResponsePayloadClaimHandle['payload']): string {
+export function serializeClaimHandlePayloadHex(payload: SiwfResponsePayloadClaimHandle['payload']): string {
   return u8aToHex(u8aWrapBytes(registry.createType('CommonPrimitivesHandlesClaimHandlePayload', payload).toU8a()));
 }
 

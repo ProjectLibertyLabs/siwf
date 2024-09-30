@@ -1,18 +1,18 @@
 # Signed Request Generator
 
-A simple site that generates signed requests for SIWA.
+A simple site that generates signed requests for SIWF.
 
 ## Developing
 
-1. Build the `siwa` package
+1. Build the `siwf` package
    - `cd ../../libraries/js`
    - `npm install`
    - `npm run build`
    - `cd dist`
    - `npm pack`
-2. Install the build `siwa` package
+2. Install the build `siwf` package
 
-   - `npm install ../../libraries/js/dist/projectlibertylabs-siwa-0.0.0.tgz`
+   - `npm install ../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz`
 
 3. Start a development server:
 
@@ -33,4 +33,4 @@ npm run build && rm -Rf ../../docs/src/Generator && cp -a build ../../docs/src/G
 
 ## Deployment
 
-The Generator is deployed as a part of the SIWA docs.
+The Generator is deployed as a part of the SIWF docs.

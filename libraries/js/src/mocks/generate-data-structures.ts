@@ -6,13 +6,13 @@ import { ExampleEmailCredential, ExamplePhoneCredential, ExampleUserGraphCredent
 import { ExampleLogin, ExampleNewProvider, ExampleNewUser } from './index.js';
 import { serializeLoginPayloadHex } from '../util.js';
 import { encodeSignedRequest } from '../request.js';
-import { SiwaSignedRequest } from '../types/request.js';
+import { SiwfSignedRequest } from '../types/request.js';
 
 function output(obj: unknown, file: string) {
   writeFileSync(file, '```json\n' + JSON.stringify(obj, null, 2) + '\n```\n');
 }
 
-function exampleSignedRequest(): SiwaSignedRequest {
+function exampleSignedRequest(): SiwfSignedRequest {
   const keyring = new Keyring({ type: 'sr25519' });
   const payload = {
     callback: 'http://localhost:3000',
@@ -59,7 +59,7 @@ function exampleSignedRequest(): SiwaSignedRequest {
   };
 }
 
-function exampleRequest(incomingSignedRequest: SiwaSignedRequest) {
+function exampleRequest(incomingSignedRequest: SiwfSignedRequest) {
   const signedRequest = encodeSignedRequest(incomingSignedRequest);
   return {
     signedRequest,

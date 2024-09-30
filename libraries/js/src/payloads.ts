@@ -4,15 +4,15 @@ import {
   isPayloadClaimHandle,
   isPayloadItemActions,
   isPayloadLogin,
-  SiwaResponsePayloadLogin,
+  SiwfResponsePayloadLogin,
 } from './types/payload.js';
-import { SiwaResponse } from './types/response.js';
+import { SiwfResponse } from './types/response.js';
 import {
   serializeAddProviderPayloadHex,
   serializeClaimHandlePayloadHex,
   serializeItemActionsPayloadHex,
 } from './util.js';
-import { SiwaPublicKey } from './types/general.js';
+import { SiwfPublicKey } from './types/general.js';
 
 interface SiwxMessage {
   domain: string;
@@ -58,7 +58,7 @@ function expect(test: boolean, errorMessage: string) {
   if (!test) throw new Error(errorMessage);
 }
 
-function validateLoginPayload(payload: SiwaResponsePayloadLogin, userPublicKey: SiwaPublicKey): void {
+function validateLoginPayload(payload: SiwfResponsePayloadLogin, userPublicKey: SiwfPublicKey): void {
   // Check that the userPublicKey signed the message
   const signedMessage = payload.payload.message;
   const verifyResult = signatureVerify(signedMessage, payload.signature.encodedValue, userPublicKey.encodedValue);
@@ -85,7 +85,7 @@ function validateSignature(key: string, signature: string, message: string) {
   expect(verifyResult.isValid, 'Payload signature failed');
 }
 
-export async function validatePayloads(response: SiwaResponse): Promise<void> {
+export async function validatePayloads(response: SiwfResponse): Promise<void> {
   // Wait for the WASM to load
   await cryptoWaitReady();
   response.payloads.every((payload) => {

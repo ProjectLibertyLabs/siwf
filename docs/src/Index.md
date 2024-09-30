@@ -1,6 +1,6 @@
 # Frequency Access Developer Documentation and Tools
 
-Sign In With Access (SIWA) provides documentation and tools to integrate with [Frequency Access](https://frequencyaccess.com), an easy to use custodial social wallet for users on Frequency.
+Sign In With Frequency (SIWF) provides documentation and tools to integrate with [Frequency Access](https://frequencyaccess.com), an easy to use custodial social wallet for users on Frequency and other SIWF compatible services.
 
 [JavaScript Quick Start](./QuickStart.md)
 

@@ -1,5 +1,5 @@
 {
-  "name": "siwa-mock",
+  "name": "mock-siwf",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -8,15 +8,16 @@
   "keywords": [],
   "author": "Project Liberty LLC",
   "license": "Apache-2.0",
-  "description": "Mock for SIWA for testing libraries and integrations",
+  "description": "Mock for SIWF for testing libraries and integrations",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/projectLibertyLabs/siwa.git"
+    "url": "git+https://github.com/projectLibertyLabs/siwf.git",
+    "path": "/tools/mock-siwf"
   },
   "bugs": {
-    "url": "https://github.com/projectLibertyLabs/siwa/issues"
+    "url": "https://github.com/projectLibertyLabs/siwf/issues"
   },
-  "homepage": "https://github.com/projectLibertyLabs/siwa#readme",
+  "homepage": "https://github.com/projectLibertyLabs/siwf#readme",
   "dependencies": {
     "@types/express": "^5.0.0",
     "express": "^4.21.0",

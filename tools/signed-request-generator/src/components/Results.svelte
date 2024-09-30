@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { generateAuthenticationUrl } from '@projectlibertylabs/siwa';
+	import { generateAuthenticationUrl } from '@projectlibertylabs/siwf';
 	export let encodedRequest = '';
 	export let requestJson = '';
 

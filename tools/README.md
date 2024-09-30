@@ -1,6 +1,6 @@
 # Examples, Tooling, & Tests
 
-## SIWA Mock Server
+## Mock SIWF Server
 
 This is a very simple mock server to mock the endpoints.
 It has both endpoints, but always returns the same thing.
@@ -14,20 +14,20 @@ It has both endpoints, but always returns the same thing.
 
 ## JS-Example
 
-This is a set of tests that use a locally build version of `@projectlibertylabs/siwa` to test the library as built against the SIWA Mock Server.
+This is a set of tests that use a locally build version of `@projectlibertylabs/siwf` to test the library as built against the Mock SIWF Server.
 
-1. Locally build `@projectlibertylabs/siwa`
+1. Locally build `@projectlibertylabs/siwf`
     - `cd libraries/js`
     - `npm i`
     - `npm run build`
     - `cd dist && npm pack`
 2. Start the Mock Server
-    - `cd tools/siwa-mock`
+    - `cd tools/mock-siwf`
     - `npm i`
     - `npm run start`
 3. Install the local build in the Example
     - `cd tools/js-example`
-    - `npm i ../../libraries/js/dist/projectlibertylabs-siwa-0.0.0.tgz`
+    - `npm i ../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz`
 4. Run the Example Tests
     - `cd tools/js-example`
     - `npm test`

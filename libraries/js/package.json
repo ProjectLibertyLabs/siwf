@@ -1,5 +1,5 @@
 {
-  "name": "@projectlibertylabs/siwa",
+  "name": "@projectlibertylabs/siwf",
   "version": "0.0.0",
   "description": "Sign In With Access Utility Library",
   "main": "src/index.ts",
@@ -21,14 +21,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ProjectLibertyLabs/siwa.git"
+    "url": "git+https://github.com/ProjectLibertyLabs/siwf.git",
+    "path": "/libraries/js"
   },
   "author": "Project Liberty LLC",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ProjectLibertyLabs/siwa/issues"
+    "url": "https://github.com/ProjectLibertyLabs/siwf/issues"
   },
-  "homepage": "https://github.com/ProjectLibertyLabs/siwa#readme",
+  "homepage": "https://github.com/ProjectLibertyLabs/siwf#readme",
   "devDependencies": {
     "@eslint/js": "^9.11.1",
     "@types/eslint__js": "^8.42.3",

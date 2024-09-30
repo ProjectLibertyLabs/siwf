@@ -6,8 +6,8 @@
 	import {
 		buildSignedRequest,
 		encodeSignedRequest,
-		type SiwaCredential
-	} from '@projectlibertylabs/siwa';
+		type SiwfCredential
+	} from '@projectlibertylabs/siwf';
 
 	export let encodedRequest = '';
 	export let requestJson = '';
@@ -19,7 +19,7 @@
 	let signature = '';
 	let isManualSign = false;
 	let permissions: number[] = [];
-	let credentials: SiwaCredential[] = [];
+	let credentials: SiwfCredential[] = [];
 	let isRequiredComplete = false;
 
 	let manualSignature = '';

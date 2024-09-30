@@ -1,7 +1,7 @@
 import { VerifiedEmailAddress, VerifiedGraphKey, VerifiedPhoneNumber } from '../constants.js';
 import { isArrayOf, isObj, isStr } from './general.js';
 
-interface SiwaResponseCredentialBase {
+interface SiwfResponseCredentialBase {
   '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/undefined-terms/v2'];
   type: string[];
   issuer: string;
@@ -23,17 +23,17 @@ interface SiwaResponseCredentialBase {
   };
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isCredentialSchema(obj: any): obj is SiwaResponseCredentialBase['credentialSchema'] {
+function isCredentialSchema(obj: any): obj is SiwfResponseCredentialBase['credentialSchema'] {
   return isObj(obj) && obj.type === 'JsonSchema' && typeof obj.id === 'string';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isCredentialSubject(obj: any): obj is SiwaResponseCredentialBase['credentialSubject'] {
+function isCredentialSubject(obj: any): obj is SiwfResponseCredentialBase['credentialSubject'] {
   return isObj(obj);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isCredentialProof(obj: any): obj is SiwaResponseCredentialBase['proof'] {
+function isCredentialProof(obj: any): obj is SiwfResponseCredentialBase['proof'] {
   return (
     isObj(obj) &&
     obj.type === 'DataIntegrityProof' &&
@@ -45,7 +45,7 @@ function isCredentialProof(obj: any): obj is SiwaResponseCredentialBase['proof']
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isCredentialBase(obj: any): obj is SiwaResponseCredentialBase {
+function isCredentialBase(obj: any): obj is SiwfResponseCredentialBase {
   return (
     isObj(obj) &&
     (isStr(obj['@context']) || isArrayOf(obj['@context'], isStr)) &&
@@ -57,7 +57,7 @@ function isCredentialBase(obj: any): obj is SiwaResponseCredentialBase {
   );
 }
 
-export interface SiwaResponseCredentialEmail extends SiwaResponseCredentialBase {
+export interface SiwfResponseCredentialEmail extends SiwfResponseCredentialBase {
   type: ['VerifiedEmailAddressCredential', 'VerifiableCredential'];
   credentialSubject: {
     id: string;
@@ -67,7 +67,7 @@ export interface SiwaResponseCredentialEmail extends SiwaResponseCredentialBase 
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isCredentialEmail(obj: any): obj is SiwaResponseCredentialEmail {
+export function isCredentialEmail(obj: any): obj is SiwfResponseCredentialEmail {
   return (
     isCredentialBase(obj) &&
     obj.type.includes(VerifiedEmailAddress.credential.type) &&
@@ -78,7 +78,7 @@ export function isCredentialEmail(obj: any): obj is SiwaResponseCredentialEmail 
   );
 }
 
-export interface SiwaResponseCredentialPhone extends SiwaResponseCredentialBase {
+export interface SiwfResponseCredentialPhone extends SiwfResponseCredentialBase {
   type: ['VerifiedPhoneNumberCredential', 'VerifiableCredential'];
   credentialSubject: {
     id: string;
@@ -88,7 +88,7 @@ export interface SiwaResponseCredentialPhone extends SiwaResponseCredentialBase 
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isCredentialPhone(obj: any): obj is SiwaResponseCredentialPhone {
+export function isCredentialPhone(obj: any): obj is SiwfResponseCredentialPhone {
   return (
     isCredentialBase(obj) &&
     obj.type.includes(VerifiedPhoneNumber.credential.type) &&
@@ -99,7 +99,7 @@ export function isCredentialPhone(obj: any): obj is SiwaResponseCredentialPhone 
   );
 }
 
-export interface SiwaResponseCredentialGraph extends SiwaResponseCredentialBase {
+export interface SiwfResponseCredentialGraph extends SiwfResponseCredentialBase {
   type: ['VerifiedGraphKeyCredential', 'VerifiableCredential'];
   credentialSubject: {
     id: string;
@@ -113,7 +113,7 @@ export interface SiwaResponseCredentialGraph extends SiwaResponseCredentialBase 
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isCredentialGraph(obj: any): obj is SiwaResponseCredentialGraph {
+export function isCredentialGraph(obj: any): obj is SiwfResponseCredentialGraph {
   return (
     isCredentialBase(obj) &&
     obj.type.includes(VerifiedGraphKey.credential.type) &&
@@ -128,17 +128,17 @@ export function isCredentialGraph(obj: any): obj is SiwaResponseCredentialGraph 
   );
 }
 
-export type SiwaResponseCredential =
-  | SiwaResponseCredentialEmail
-  | SiwaResponseCredentialPhone
-  | SiwaResponseCredentialGraph;
+export type SiwfResponseCredential =
+  | SiwfResponseCredentialEmail
+  | SiwfResponseCredentialPhone
+  | SiwfResponseCredentialGraph;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isCredential(obj: any): obj is SiwaResponseCredential {
+function isCredential(obj: any): obj is SiwfResponseCredential {
   return isCredentialEmail(obj) || isCredentialPhone(obj) || isCredentialGraph(obj);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isCredentials(obj: any): obj is SiwaResponseCredential[] {
+export function isCredentials(obj: any): obj is SiwfResponseCredential[] {
   return isArrayOf(obj, isCredential);
 }

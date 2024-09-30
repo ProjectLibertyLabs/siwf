@@ -1,6 +1,6 @@
 # Data Structure Reference
 
-## Request / Response from SIWA
+## Request / Response from SIWF
 
 ### Request
 

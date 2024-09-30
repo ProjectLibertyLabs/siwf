@@ -1,4 +1,4 @@
-import { isSiwaCredentialsRequest } from './request.js';
+import { isSiwfCredentialsRequest } from './request.js';
 import { describe, expect, it } from 'vitest';
 import {
   VerifiedEmailAddressCredential,
@@ -6,18 +6,18 @@ import {
   VerifiedPhoneNumberCredential,
 } from '../request.js';
 
-describe('isSiwaCredentialsRequest', () => {
+describe('isSiwfCredentialsRequest', () => {
   it('is successful with an empty array', async () => {
-    expect(isSiwaCredentialsRequest([])).toBe(true);
+    expect(isSiwfCredentialsRequest([])).toBe(true);
   });
 
   it('is successful with array of requests', async () => {
-    expect(isSiwaCredentialsRequest([VerifiedGraphKeyCredential, VerifiedPhoneNumberCredential])).toBe(true);
+    expect(isSiwfCredentialsRequest([VerifiedGraphKeyCredential, VerifiedPhoneNumberCredential])).toBe(true);
   });
 
   it('is success with an AnyOf', async () => {
     expect(
-      isSiwaCredentialsRequest([
+      isSiwfCredentialsRequest([
         VerifiedGraphKeyCredential,
         {
           anyOf: [VerifiedPhoneNumberCredential, VerifiedEmailAddressCredential],
@@ -28,7 +28,7 @@ describe('isSiwaCredentialsRequest', () => {
 
   it('is failure with an AllOf', async () => {
     expect(
-      isSiwaCredentialsRequest([
+      isSiwfCredentialsRequest([
         VerifiedGraphKeyCredential,
         {
           allOf: [VerifiedPhoneNumberCredential, VerifiedEmailAddressCredential],
@@ -39,7 +39,7 @@ describe('isSiwaCredentialsRequest', () => {
 
   it('is failure with an OneOf', async () => {
     expect(
-      isSiwaCredentialsRequest([
+      isSiwfCredentialsRequest([
         VerifiedGraphKeyCredential,
         {
           oneOf: [VerifiedPhoneNumberCredential, VerifiedEmailAddressCredential],
@@ -50,7 +50,7 @@ describe('isSiwaCredentialsRequest', () => {
 
   it('is failure with nested', async () => {
     expect(
-      isSiwaCredentialsRequest([
+      isSiwfCredentialsRequest([
         VerifiedGraphKeyCredential,
         {
           oneOf: [
@@ -71,7 +71,7 @@ describe('isSiwaCredentialsRequest', () => {
 
   it('is can fail', async () => {
     expect(
-      isSiwaCredentialsRequest([
+      isSiwfCredentialsRequest([
         VerifiedGraphKeyCredential,
         {
           oneOf: [{ foo: 'bar' }],

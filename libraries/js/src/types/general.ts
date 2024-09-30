@@ -1,10 +1,10 @@
 import { validateAddress } from '@polkadot/util-crypto/address/validate';
 
-export interface SiwaOptions {
+export interface SiwfOptions {
   endpoint: string;
 }
 
-export interface SiwaPublicKey {
+export interface SiwfPublicKey {
   encodedValue: string;
   encoding: 'base58';
   format: 'ss58';
@@ -12,7 +12,7 @@ export interface SiwaPublicKey {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isPublicKey(obj: any): obj is SiwaPublicKey {
+export function isPublicKey(obj: any): obj is SiwfPublicKey {
   return (
     isObj(obj) &&
     validateAddress(obj.encodedValue) &&

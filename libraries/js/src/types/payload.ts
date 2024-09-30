@@ -1,40 +1,40 @@
 import { isArrayOf, isNum, isObj, isStr } from './general.js';
-import { SiwaResponse } from './response.js';
+import { SiwfResponse } from './response.js';
 
-interface SiwaResponsePayloadEndpoint {
+interface SiwfResponsePayloadEndpoint {
   pallet: string;
   extrinsic: string;
 }
 
-interface SiwaResponsePayloadBase {
+interface SiwfResponsePayloadBase {
   signature: {
     algo: 'Sr25519';
     encoding: 'base16';
     encodedValue: string;
   };
-  endpoint?: SiwaResponsePayloadEndpoint;
+  endpoint?: SiwfResponsePayloadEndpoint;
   type: string;
   payload: Record<string, unknown>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isPayloadSignature(obj: any): obj is SiwaResponsePayloadBase['signature'] {
+function isPayloadSignature(obj: any): obj is SiwfResponsePayloadBase['signature'] {
   return isObj(obj) && obj.algo === 'Sr25519' && obj.encoding == 'base16' && isStr(obj.encodedValue);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isPayloadEndpoint(obj: any): obj is SiwaResponsePayloadEndpoint {
+function isPayloadEndpoint(obj: any): obj is SiwfResponsePayloadEndpoint {
   return isObj(obj) && isStr(obj.pallet) && isStr(obj.extrinsic);
 }
 
-export interface SiwaResponsePayloadLogin extends SiwaResponsePayloadBase {
+export interface SiwfResponsePayloadLogin extends SiwfResponsePayloadBase {
   type: 'login';
   payload: {
     message: string;
   };
 }
 
-export interface SiwaResponsePayloadAddProvider extends SiwaResponsePayloadBase {
+export interface SiwfResponsePayloadAddProvider extends SiwfResponsePayloadBase {
   endpoint: {
     pallet: 'msa';
     extrinsic: 'createSponsoredAccountWithDelegation' | 'grantDelegation';
@@ -47,7 +47,7 @@ export interface SiwaResponsePayloadAddProvider extends SiwaResponsePayloadBase 
   };
 }
 
-export interface SiwaResponsePayloadItemActions extends SiwaResponsePayloadBase {
+export interface SiwfResponsePayloadItemActions extends SiwfResponsePayloadBase {
   endpoint: {
     pallet: 'statefulStorage';
     extrinsic: 'applyItemActionsWithSignatureV2';
@@ -65,12 +65,12 @@ export interface SiwaResponsePayloadItemActions extends SiwaResponsePayloadBase 
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isPayloadItemActionsPayloadAction(obj: any): obj is SiwaResponsePayloadItemActions['payload']['actions'] {
+function isPayloadItemActionsPayloadAction(obj: any): obj is SiwfResponsePayloadItemActions['payload']['actions'] {
   return isObj(obj) && obj.type === 'addItem' && isStr(obj.payloadHex);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isPayloadItemActionsPayload(obj: any): obj is SiwaResponsePayloadItemActions['payload'] {
+function isPayloadItemActionsPayload(obj: any): obj is SiwfResponsePayloadItemActions['payload'] {
   return (
     isObj(obj) &&
     isNum(obj.schemaId) &&
@@ -80,7 +80,7 @@ function isPayloadItemActionsPayload(obj: any): obj is SiwaResponsePayloadItemAc
   );
 }
 
-export interface SiwaResponsePayloadClaimHandle extends SiwaResponsePayloadBase {
+export interface SiwfResponsePayloadClaimHandle extends SiwfResponsePayloadBase {
   endpoint: {
     pallet: 'handles';
     extrinsic: 'claimHandle';
@@ -92,24 +92,24 @@ export interface SiwaResponsePayloadClaimHandle extends SiwaResponsePayloadBase 
   };
 }
 
-export type SiwaResponsePayload =
-  | SiwaResponsePayloadAddProvider
-  | SiwaResponsePayloadItemActions
-  | SiwaResponsePayloadClaimHandle
-  | SiwaResponsePayloadBase;
+export type SiwfResponsePayload =
+  | SiwfResponsePayloadAddProvider
+  | SiwfResponsePayloadItemActions
+  | SiwfResponsePayloadClaimHandle
+  | SiwfResponsePayloadBase;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isPayloadBase(obj: any): obj is SiwaResponsePayloadBase {
+function isPayloadBase(obj: any): obj is SiwfResponsePayloadBase {
   return isObj(obj) && isStr(obj.type) && isPayloadSignature(obj.signature) && isObj(obj.payload);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isPayloadLogin(obj: any): obj is SiwaResponsePayloadLogin {
+export function isPayloadLogin(obj: any): obj is SiwfResponsePayloadLogin {
   return isPayloadBase(obj) && obj.type === 'login' && isStr(obj.payload.message);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isPayloadClaimHandle(obj: any): obj is SiwaResponsePayloadClaimHandle {
+export function isPayloadClaimHandle(obj: any): obj is SiwfResponsePayloadClaimHandle {
   return (
     isPayloadBase(obj) &&
     obj.type === 'claimHandle' &&
@@ -122,7 +122,7 @@ export function isPayloadClaimHandle(obj: any): obj is SiwaResponsePayloadClaimH
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isPayloadItemActions(obj: any): obj is SiwaResponsePayloadItemActions {
+export function isPayloadItemActions(obj: any): obj is SiwfResponsePayloadItemActions {
   return (
     isPayloadBase(obj) &&
     obj.type === 'itemActions' &&
@@ -134,7 +134,7 @@ export function isPayloadItemActions(obj: any): obj is SiwaResponsePayloadItemAc
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isPayloadAddProvider(obj: any): obj is SiwaResponsePayloadAddProvider {
+export function isPayloadAddProvider(obj: any): obj is SiwfResponsePayloadAddProvider {
   return (
     isPayloadBase(obj) &&
     obj.type === 'addProvider' &&
@@ -147,11 +147,11 @@ export function isPayloadAddProvider(obj: any): obj is SiwaResponsePayloadAddPro
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isPayloadItem(obj: any): obj is SiwaResponsePayload {
+function isPayloadItem(obj: any): obj is SiwfResponsePayload {
   return isPayloadLogin(obj) || isPayloadClaimHandle(obj) || isPayloadItemActions(obj) || isPayloadAddProvider(obj);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isPayloads(obj: any): obj is SiwaResponse['payloads'] {
+export function isPayloads(obj: any): obj is SiwfResponse['payloads'] {
   return isArrayOf(obj, isPayloadItem);
 }

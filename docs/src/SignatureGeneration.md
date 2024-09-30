@@ -102,17 +102,17 @@ Supported Options:
 const providerKeyUri: string = getProviderKeyUriSecret();
 
 // The list of Frequency Schemas Ids that you are requesting the user delegate
-// See a full reference: https://projectlibertylabs.github.io/siwa/Delegations.html
+// See a full reference: https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html
 // This example is for Graph Only
 const permissions: number[] = [7, 8, 9, 10];
 
 // List of Credentials
-// See a full reference and examples: https://projectlibertylabs.github.io/siwa/Credentials.html
+// See a full reference and examples: https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html
 const credentials = [
   {
-    anyOf: [siwa.VerifiedEmailAddressCredential, siwa.VerifiedPhoneNumberCredential],
+    anyOf: [siwf.VerifiedEmailAddressCredential, siwf.VerifiedPhoneNumberCredential],
   },
-  siwa.VerifiedGraphKeyCredential,
+  siwf.VerifiedGraphKeyCredential,
 ];
 
 // This is the URI that the user should return to after authenticating with Frequency Access
@@ -120,7 +120,7 @@ const callbackUri: string = getWebOrApplicationCallbackUri();
 
 // The Encoded Signed Request can remain static if
 // It is the same as is generated with the Signed Payload Generation Tool
-const encodedSignedRequest = await siwa.generateEncodedSignedRequest(
+const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
   providerKeyUri,
   callbackUri,
   permissions,

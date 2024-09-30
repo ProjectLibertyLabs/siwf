@@ -1,20 +1,20 @@
-import { isArrayOf, isHexStr, isNum, isObj, isPublicKey, isStr, SiwaPublicKey } from './general.js';
+import { isArrayOf, isHexStr, isNum, isObj, isPublicKey, isStr, SiwfPublicKey } from './general.js';
 
 interface AnyOfRequired {
-  anyOf: SiwaCredential[];
+  anyOf: SiwfCredential[];
 }
 
-export interface SiwaCredential {
+export interface SiwfCredential {
   type: string;
   hash: string[];
 }
 
 // Union of the different interfaces
-export type SiwaCredentialRequest = AnyOfRequired | SiwaCredential;
+export type SiwfCredentialRequest = AnyOfRequired | SiwfCredential;
 
-export interface SiwaSignedRequest {
+export interface SiwfSignedRequest {
   requestedSignatures: {
-    publicKey: SiwaPublicKey;
+    publicKey: SiwfPublicKey;
     signature: {
       algo: 'Sr25519';
       encoding: 'base16';
@@ -25,38 +25,38 @@ export interface SiwaSignedRequest {
       permissions: number[];
     };
   };
-  requestedCredentials?: SiwaCredentialRequest[];
+  requestedCredentials?: SiwfCredentialRequest[];
 }
 
-function isSiwaCredential(input: unknown): input is SiwaCredential {
+function isSiwfCredential(input: unknown): input is SiwfCredential {
   return isObj(input) && isStr(input.type) && isArrayOf(input.hash, isStr);
 }
 
 function isAnyOf(input: unknown): input is AnyOfRequired {
-  return isObj(input) && 'anyOf' in input && (input.anyOf || []).every(isSiwaCredential);
+  return isObj(input) && 'anyOf' in input && (input.anyOf || []).every(isSiwfCredential);
 }
 
-function isSiwaCredentialRequest(input: unknown): input is SiwaCredentialRequest {
-  if (isSiwaCredential(input)) return true;
+function isSiwfCredentialRequest(input: unknown): input is SiwfCredentialRequest {
+  if (isSiwfCredential(input)) return true;
   return isAnyOf(input);
 }
 
-export function isSiwaCredentialsRequest(input: unknown): input is SiwaCredentialRequest[] {
+export function isSiwfCredentialsRequest(input: unknown): input is SiwfCredentialRequest[] {
   if (Array.isArray(input)) {
-    return input.every(isSiwaCredentialRequest);
+    return input.every(isSiwfCredentialRequest);
   }
   return false;
 }
 
-function isRequestedSignaturePayload(input: unknown): input is SiwaSignedRequest['requestedSignatures']['payload'] {
+function isRequestedSignaturePayload(input: unknown): input is SiwfSignedRequest['requestedSignatures']['payload'] {
   return isObj(input) && isStr(input.callback) && isArrayOf(input.permissions, isNum);
 }
 
-function isRequestedSignature(input: unknown): input is SiwaSignedRequest['requestedSignatures'] {
+function isRequestedSignature(input: unknown): input is SiwfSignedRequest['requestedSignatures'] {
   return isObj(input) && input.algo === 'Sr25519' && input.encoding === 'base16' && isHexStr(input.encodedValue);
 }
 
-function isRequestedSignatures(input: unknown): input is SiwaSignedRequest['requestedSignatures'] {
+function isRequestedSignatures(input: unknown): input is SiwfSignedRequest['requestedSignatures'] {
   return (
     isObj(input) &&
     isPublicKey(input.publicKey) &&
@@ -65,10 +65,10 @@ function isRequestedSignatures(input: unknown): input is SiwaSignedRequest['requ
   );
 }
 
-export function isSiwaSignedRequest(input: unknown): input is SiwaSignedRequest {
+export function isSiwfSignedRequest(input: unknown): input is SiwfSignedRequest {
   return (
     isObj(input) &&
     isRequestedSignatures(input.requestedSignatures) &&
-    isSiwaCredentialsRequest(input.requestedCredentials)
+    isSiwfCredentialsRequest(input.requestedCredentials)
   );
 }

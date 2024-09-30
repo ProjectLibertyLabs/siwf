@@ -1,18 +1,18 @@
 import { verifyCredential } from '@digitalcredentials/vc';
 import { cryptosuite as eddsaRdfc2022CryptoSuite } from './vc/cryptosuite-eddsa/index.js';
 import { DataIntegrityProof } from './vc/data-integrity/index.js';
-import { SiwaResponse } from './types/response.js';
+import { SiwfResponse } from './types/response.js';
 import {
   isCredentialEmail,
   isCredentialGraph,
   isCredentialPhone,
-  SiwaResponseCredential,
-  SiwaResponseCredentialGraph,
+  SiwfResponseCredential,
+  SiwfResponseCredentialGraph,
 } from './types/credential.js';
 import { isValidX25519PrivateKey } from './x25519.js';
 import { documentLoaderGenerator } from './documents/loader.js';
 
-async function validateGraph(credential: SiwaResponseCredentialGraph): Promise<void> {
+async function validateGraph(credential: SiwfResponseCredentialGraph): Promise<void> {
   // Make sure that the key is good.
   if (
     !isValidX25519PrivateKey(
@@ -25,7 +25,7 @@ async function validateGraph(credential: SiwaResponseCredentialGraph): Promise<v
 }
 
 export async function validateGeneralCredential(
-  credential: SiwaResponseCredential,
+  credential: SiwfResponseCredential,
   trustedIssuers: string[]
 ): Promise<void> {
   // Make sure we can validate
@@ -61,7 +61,7 @@ export async function validateGeneralCredential(
   }
 }
 
-export async function validateCredential(credential: SiwaResponseCredential, trustedIssuers: string[]): Promise<void> {
+export async function validateCredential(credential: SiwfResponseCredential, trustedIssuers: string[]): Promise<void> {
   switch (true) {
     case isCredentialEmail(credential):
       await validateGeneralCredential(credential, trustedIssuers);
@@ -76,7 +76,7 @@ export async function validateCredential(credential: SiwaResponseCredential, tru
 }
 
 export async function validateCredentials(
-  credentials: SiwaResponse['credentials'],
+  credentials: SiwfResponse['credentials'],
   trustedIssuers: string[] = []
 ): Promise<void> {
   // Only validate if there are any

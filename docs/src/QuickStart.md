@@ -1,6 +1,6 @@
 # Quick Start with JavaScript
 
-This quick start uses the `@projectlibertylabs/siwa` NPM package to quickly generate the request and validate the response from Frequency Access.
+This quick start uses the `@projectlibertylabs/siwf` NPM package to quickly generate the request and validate the response from Frequency Access.
 
 ## Installation
 
@@ -8,7 +8,7 @@ Install the NPM package.
 This package is both CommonJS, ES Module, and TypeScript compatible.
 TypeScript will be shown for the examples.
 
-`npm i @projectlibertylabs/siwa`
+`npm i @projectlibertylabs/siwf`
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ TypeScript will be shown for the examples.
 ## Step 1: Generate the Request URL
 
 ```typescript
-import * as siwa from "@projectlibertylabs/siwa";
+import * as siwf from "@projectlibertylabs/siwf";
 
 async function startLogin() {
   // Get the signed base64url encoded payload
@@ -34,7 +34,7 @@ async function startLogin() {
   // Staging-Testnet Options
   // const options = { endpoint: 'staging' };
 
-  const authenticationUrl = siwa.generateAuthenticationUrl(signedRequest, additionalCallbackUrlParams, options);
+  const authenticationUrl = siwf.generateAuthenticationUrl(signedRequest, additionalCallbackUrlParams, options);
 }
 ```
 
@@ -54,7 +54,7 @@ For more details, refer to the official documentation:
 ## Step 3: Callback Processing
 
 ```typescript
-import * as siwa from "@projectlibertylabs/siwa";
+import * as siwf from "@projectlibertylabs/siwf";
 
 async function handleCallback(incomingUrl: string) {
   // Extract the `authorizationCode` from the URL
@@ -65,9 +65,9 @@ async function handleCallback(incomingUrl: string) {
   const options = { endpoint: "production" };
 
   // Exchange the `authorizationCode` for the result
-  const result = await siwa.getLoginResult(authorizationCode, options);
+  const result = await siwf.getLoginResult(authorizationCode, options);
 
-  if (siwa.hasChainSubmissions(result)) {
+  if (siwf.hasChainSubmissions(result)) {
     // Add your own logic for handling the submission to the chain
     await processSubmissions(result.payloads);
   }

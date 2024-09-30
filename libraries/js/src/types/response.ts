@@ -1,15 +1,15 @@
-import { isObj, SiwaPublicKey, isPublicKey } from './general.js';
-import { isCredentials, SiwaResponseCredential } from './credential.js';
-import { isPayloads, SiwaResponsePayload } from './payload.js';
+import { isObj, SiwfPublicKey, isPublicKey } from './general.js';
+import { isCredentials, SiwfResponseCredential } from './credential.js';
+import { isPayloads, SiwfResponsePayload } from './payload.js';
 
-export interface SiwaResponse {
-  userPublicKey: SiwaPublicKey;
-  payloads: SiwaResponsePayload[];
-  credentials?: SiwaResponseCredential[];
+export interface SiwfResponse {
+  userPublicKey: SiwfPublicKey;
+  payloads: SiwfResponsePayload[];
+  credentials?: SiwfResponseCredential[];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isSiwaResponse(obj: any): obj is SiwaResponse {
+export function isSiwfResponse(obj: any): obj is SiwfResponse {
   return (
     isObj(obj) &&
     isPublicKey(obj.userPublicKey) &&

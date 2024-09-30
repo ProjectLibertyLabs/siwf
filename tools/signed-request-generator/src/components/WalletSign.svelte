@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { SignerPayloadRaw } from '@polkadot/types/types';
-	import { generateRequestSigningData } from '@projectlibertylabs/siwa';
+	import { generateRequestSigningData } from '@projectlibertylabs/siwf';
 	import type { web3Enable, web3Accounts, web3FromAddress } from '@polkadot/extension-dapp';
 
 	export let callbackUri = '';

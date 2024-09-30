@@ -7,8 +7,8 @@ To start the authentication loop, your application will generate an Authenticati
 - Staging-Testnet: `https://testnet.frequencyaccess.com/siwa/start`
 - Production-Mainnet: `https://www.frequencyaccess.com/siwa/start`
 - Generate Login Request Payload and Signature: [Generator Tool](../Generate.md)
-- Request Structure: [`SiwaRequest`](../DataStructures/All.md#request)
-- Signed Request Structure: [`SiwaSignedRequest`](../DataStructures/All.md#signed-request)
+- Request Structure: [`SiwfRequest`](../DataStructures/All.md#request)
+- Signed Request Structure: [`SiwfSignedRequest`](../DataStructures/All.md#signed-request)
 
 ## Step 1: Generate the Signed Request Payload
 
@@ -55,7 +55,7 @@ Take care when using them for security-related data.
 
 ## Step 3: Build the Authentication URL
 
-Taking the parameters from the previous step, build an Authentication URL using the correct base:
+Taking the parameters from the previous step, build an Authentication URL using the correct base for the SIWF path of `/start`:
 
 - Staging-Testnet: `https://testnet.frequencyaccess.com/siwa/start`
 - Production-Mainnet: `https://www.frequencyaccess.com/siwa/start`

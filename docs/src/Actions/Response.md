@@ -4,6 +4,12 @@ After the user completes the authentication and authorization, the user is redir
 
 The `authorizationCode` can be used to retrieve the result of the login.
 
+## Quick Reference
+
+- Staging-Testnet: `https://testnet.frequencyaccess.com/siwa/api/payload`
+- Production-Mainnet: `https://www.frequencyaccess.com/siwa/api/payload`
+- Response Structure: [`SiwfResponse`](../DataStructures/All.md#response)
+
 ## Step 1: Retrieve the Response
 
 - `GET`:

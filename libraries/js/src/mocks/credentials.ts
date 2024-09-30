@@ -3,9 +3,9 @@ import { cryptosuite as eddsaRdfc2022CryptoSuite } from '../vc/cryptosuite-eddsa
 import * as vc from '@digitalcredentials/vc';
 
 import {
-  SiwaResponseCredentialEmail,
-  SiwaResponseCredentialGraph,
-  SiwaResponseCredentialPhone,
+  SiwfResponseCredentialEmail,
+  SiwfResponseCredentialGraph,
+  SiwfResponseCredentialPhone,
 } from '../types/credential.js';
 import { ExampleProviderKey, ExampleUserKey, multibaseEd25519, multibaseSr25519 } from './keys.js';
 import { documentLoaderGenerator } from '../documents/loader.js';
@@ -55,7 +55,7 @@ const exampleX25519 = {
   secretKey: '0xd0910c853563723253c4ed105c08614fc8aaaf1b0871375520d72251496e8d87',
 };
 
-export const ExampleUserGraphCredential = (): Promise<SiwaResponseCredentialGraph> =>
+export const ExampleUserGraphCredential = (): Promise<SiwfResponseCredentialGraph> =>
   signCredential(ExampleUserKey.keyPairEd(), {
     '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/undefined-terms/v2'],
     type: ['VerifiedGraphKeyCredential', 'VerifiableCredential'],
@@ -76,7 +76,7 @@ export const ExampleUserGraphCredential = (): Promise<SiwaResponseCredentialGrap
     },
   });
 
-export const ExampleEmailCredential = (): Promise<SiwaResponseCredentialEmail> =>
+export const ExampleEmailCredential = (): Promise<SiwfResponseCredentialEmail> =>
   signCredential(ExampleProviderKey.keyPairEd(), {
     '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/undefined-terms/v2'],
     type: ['VerifiedEmailAddressCredential', 'VerifiableCredential'],
@@ -93,7 +93,7 @@ export const ExampleEmailCredential = (): Promise<SiwaResponseCredentialEmail> =
     },
   });
 
-export const ExamplePhoneCredential = (): Promise<SiwaResponseCredentialPhone> =>
+export const ExamplePhoneCredential = (): Promise<SiwfResponseCredentialPhone> =>
   signCredential(ExampleProviderKey.keyPairEd(), {
     '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/undefined-terms/v2'],
     type: ['VerifiedPhoneNumberCredential', 'VerifiableCredential'],

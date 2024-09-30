@@ -1,16 +1,16 @@
 # Sign In With Access TypeScript/JavaScript Integration Library
 
-The NPM package `@projectlibertylabs/siwa` offers both CommonJS and ESM exports.
+The NPM package `@projectlibertylabs/siwf` offers both CommonJS and ESM exports.
 
 ## Install
 
-- NPM: `npm i @projectlibertylabs/siwa`
-- Yarn: `yarn add @projectlibertylabs/siwa`
+- NPM: `npm i @projectlibertylabs/siwf`
+- Yarn: `yarn add @projectlibertylabs/siwf`
 
 ## Documentation
 
 See [Markdown/GitHub Docs](../../docs/src/QuickStart.md) or
-[Live Docs](https://projectlibertylabs.github.io/siwa/QuickStart.html).
+[Live Docs](https://projectlibertylabs.github.io/siwf/v2/docs/QuickStart.html).
 
 ### JS API Functions
 

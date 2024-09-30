@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { generateRequestSigningData } from '@projectlibertylabs/siwa';
+	import { generateRequestSigningData } from '@projectlibertylabs/siwf';
 
 	export let callbackUri = '';
 	export let permissions: number[] = [];

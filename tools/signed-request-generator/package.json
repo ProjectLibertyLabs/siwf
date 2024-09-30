@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"generate:siwa": "cd ../../libraries/js && npm i && npm run build && cd dist && npm pack",
+		"generate:siwf": "cd ../../libraries/js && npm i && npm run build && cd dist && npm pack",
 		"dev": "vite dev",
 		"build": "vite build",
 		"build:copy": "vite build && rm -Rf ../../docs/src/Generator && cp -a build ../../docs/src/Generator",
@@ -17,7 +17,7 @@
 	"dependencies": {
 		"@polkadot/extension-dapp": "^0.53.1",
 		"@polkadot/extension-inject": "^0.53.1",
-		"@projectlibertylabs/siwa": "file:../../libraries/js/dist/projectlibertylabs-siwa-0.0.0.tgz"
+		"@projectlibertylabs/siwf": "file:../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.47.2",

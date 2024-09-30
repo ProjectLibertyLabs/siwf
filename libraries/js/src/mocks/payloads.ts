@@ -1,9 +1,9 @@
 import { u8aToHex } from '@polkadot/util';
 import {
-  SiwaResponsePayloadAddProvider,
-  SiwaResponsePayloadClaimHandle,
-  SiwaResponsePayloadItemActions,
-  SiwaResponsePayloadLogin,
+  SiwfResponsePayloadAddProvider,
+  SiwfResponsePayloadClaimHandle,
+  SiwfResponsePayloadItemActions,
+  SiwfResponsePayloadLogin,
 } from '../types/payload.js';
 import { ExampleUserKey } from './keys.js';
 import {
@@ -29,7 +29,7 @@ const loginMessageExpired = () =>
     new Date(now - 24 * 60 * 60 * 1000)
   );
 
-export const ExamplePayloadLoginGood = (): SiwaResponsePayloadLogin => ({
+export const ExamplePayloadLoginGood = (): SiwfResponsePayloadLogin => ({
   signature: {
     algo: 'Sr25519',
     encoding: 'base16',
@@ -41,7 +41,7 @@ export const ExamplePayloadLoginGood = (): SiwaResponsePayloadLogin => ({
   },
 });
 
-export const ExamplePayloadLoginExpired = (): SiwaResponsePayloadLogin => ({
+export const ExamplePayloadLoginExpired = (): SiwfResponsePayloadLogin => ({
   signature: {
     algo: 'Sr25519',
     encoding: 'base16',
@@ -53,7 +53,7 @@ export const ExamplePayloadLoginExpired = (): SiwaResponsePayloadLogin => ({
   },
 });
 
-export const ExamplePayloadLoginStatic: SiwaResponsePayloadLogin = {
+export const ExamplePayloadLoginStatic: SiwfResponsePayloadLogin = {
   signature: {
     algo: 'Sr25519',
     encoding: 'base16',
@@ -68,7 +68,7 @@ export const ExamplePayloadLoginStatic: SiwaResponsePayloadLogin = {
 };
 
 // Signed by ExampleUserKey
-export const ExamplePayloadCreateSponsoredAccount = (): SiwaResponsePayloadAddProvider => ({
+export const ExamplePayloadCreateSponsoredAccount = (): SiwfResponsePayloadAddProvider => ({
   signature: {
     algo: 'Sr25519',
     encoding: 'base16',
@@ -95,7 +95,7 @@ export const ExamplePayloadCreateSponsoredAccount = (): SiwaResponsePayloadAddPr
 });
 
 // Signed by ExampleUserKey
-export const ExamplePayloadGrantDelegation = (): SiwaResponsePayloadAddProvider => ({
+export const ExamplePayloadGrantDelegation = (): SiwfResponsePayloadAddProvider => ({
   signature: {
     algo: 'Sr25519',
     encoding: 'base16',
@@ -122,7 +122,7 @@ export const ExamplePayloadGrantDelegation = (): SiwaResponsePayloadAddProvider 
 });
 
 // Signed by ExampleUserKey
-export const ExamplePayloadPublicGraphKey = (): SiwaResponsePayloadItemActions => ({
+export const ExamplePayloadPublicGraphKey = (): SiwfResponsePayloadItemActions => ({
   signature: {
     algo: 'Sr25519',
     encoding: 'base16',
@@ -161,7 +161,7 @@ export const ExamplePayloadPublicGraphKey = (): SiwaResponsePayloadItemActions =
 });
 
 // Signed by ExampleUserKey
-export const ExamplePayloadClaimHandle = (): SiwaResponsePayloadClaimHandle => ({
+export const ExamplePayloadClaimHandle = (): SiwfResponsePayloadClaimHandle => ({
   signature: {
     algo: 'Sr25519',
     encoding: 'base16',

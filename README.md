@@ -15,9 +15,11 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 Sign In With Access<a name="about-project"></a>
+# 📖 Sign In With Frequency V2<a name="about-project"></a>
 
-Sign In With Access (SIWA) is the developer documentation and toolset to integrate with [Frequency Access](https://frequencyaccess.com), an easy to use custodial social wallet for users on Frequency.
+Sign In With Frequency (SIWF) is the developer documentation and toolset to integrate with [Frequency Access](https://frequencyaccess.com), an easy to use custodial social wallet for users on Frequency.
+
+Looking for SIWF v1 resources? [Go to the `v1` branch](https://github.com/ProjectLibertyLabs/siwf/tree/v1).
 
 ## 🚀 Quick Resources<a name="-quick"></a>
 
@@ -41,19 +43,19 @@ Using Sign In With Access requires:
 
 ## 🛠 Libraries<a name="-libraries"></a>
 
-These libraries can help make integrating with SIWA easier, but are not required.
+These libraries can help make integrating with SIWF easier, but are not required.
 
 ### TypeScript/JavaScript
 
-The NPM package `@projectlibertylabs/siwa` offers both CommonJS and ESM exports.
+The NPM package `@projectlibertylabs/siwf` offers both CommonJS and ESM exports.
 
 ### Install
-- NPM: `npm i @projectlibertylabs/siwa`
-- Yarn: `yarn add @projectlibertylabs/siwa`
+- NPM: `npm i @projectlibertylabs/siwf`
+- Yarn: `yarn add @projectlibertylabs/siwf`
 
 ### Documentation
 
-See [Markdown/GitHub Docs](./docs/src/QuickStart.md) or [Live Docs](https://projectlibertylabs.github.io/siwa/QuickStart.html).
+See [Markdown/GitHub Docs](./docs/src/QuickStart.md) or [Live Docs](https://projectlibertylabs.github.io/siwF/v2/docs/QuickStart.html).
 
 <p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 
@@ -93,7 +95,7 @@ Releases are made via GitHub Releases with tags in the style: `vX.Y.Z`.
 Contributions, issues, and feature requests are welcome!
 
 - [Contributing Guidelines](./CONTRIBUTING.md)
-- [Open Issues](https://github.com/ProjectLibertyLabs/siwa/issues)
+- [Open Issues](https://github.com/ProjectLibertyLabs/siwf/issues)
 
 <p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 

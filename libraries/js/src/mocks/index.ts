@@ -1,4 +1,4 @@
-import { SiwaResponse } from '../types/response.js';
+import { SiwfResponse } from '../types/response.js';
 import {
   ExamplePayloadClaimHandle,
   ExamplePayloadCreateSponsoredAccount,
@@ -8,9 +8,9 @@ import {
 } from './payloads.js';
 import { ExampleEmailCredential, ExampleUserGraphCredential } from './credentials.js';
 import { ExampleProviderKey, ExampleUserKey, multibaseEd25519 } from './keys.js';
-import { SiwaPublicKey } from '../types/general.js';
+import { SiwfPublicKey } from '../types/general.js';
 
-export const ExampleUserPublicKey: SiwaPublicKey = {
+export const ExampleUserPublicKey: SiwfPublicKey = {
   encodedValue: ExampleUserKey.public,
   encoding: 'base58',
   format: 'ss58',
@@ -32,19 +32,19 @@ export const ExampleFrequencyAccessDidDocument = () => ({
   ],
 });
 
-export const ExampleLogin = async (): Promise<SiwaResponse> => ({
+export const ExampleLogin = async (): Promise<SiwfResponse> => ({
   userPublicKey: ExampleUserPublicKey,
   payloads: [ExamplePayloadLoginStatic],
   credentials: [await ExampleEmailCredential(), await ExampleUserGraphCredential()],
 });
 
-export const ExampleNewUser = async (): Promise<SiwaResponse> => ({
+export const ExampleNewUser = async (): Promise<SiwfResponse> => ({
   userPublicKey: ExampleUserPublicKey,
   payloads: [ExamplePayloadCreateSponsoredAccount(), ExamplePayloadPublicGraphKey(), ExamplePayloadClaimHandle()],
   credentials: [await ExampleEmailCredential(), await ExampleUserGraphCredential()],
 });
 
-export const ExampleNewProvider = async (): Promise<SiwaResponse> => ({
+export const ExampleNewProvider = async (): Promise<SiwfResponse> => ({
   userPublicKey: ExampleUserPublicKey,
   payloads: [ExamplePayloadGrantDelegation()],
   credentials: [await ExampleEmailCredential(), await ExampleUserGraphCredential()],
