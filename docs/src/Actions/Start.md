@@ -1,4 +1,4 @@
-# Redirect User to Frequency Access (or other SIWF compatible system)
+# Redirect User to Frequency Access (or other SIWF compatible services)
 
 To start the authentication loop, your application will generate an Authentication URL for each user.
 

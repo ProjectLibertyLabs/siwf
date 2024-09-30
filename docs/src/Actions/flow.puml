@@ -2,7 +2,7 @@
 title "SIWF Integration for an Application"
 participant "Website / App" as ua
 participant "Application Backend" as p
-participant "SIWF Compatible System" as fa
+participant "SIWF Authentication Service" as fa
 participant "Frequency" as bc
 
 autonumber
