@@ -67,6 +67,7 @@ jobs:
         run: |
           mkdir siwf/example
           mkdir siwf/ui
+          cp index.html ./siwf/
           mv ./packages/ui/build/* ./siwf/ui
           mv ./packages/example/build/* ./siwf/example
 
