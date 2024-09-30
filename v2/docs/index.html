@@ -276,16 +276,16 @@ Frequency Access is an easy to use custodial social wallet for users on Frequenc
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>There are a few main steps to authentication using Frequency Access or other SIWF compatible services.</p>
 <ol>
-<li>Your application sends the user the Frequency Access Authentication URL</li>
-<li>Frequency Access verifies the user, and the user signs the requested payload(s)</li>
-<li>Frequency Access sends the signed user payloads back to your application</li>
+<li>Your application sends the user the Authentication URL</li>
+<li>Authentication service verifies the user, and the user signs the requested payload(s)</li>
+<li>Authentication service sends the signed user payloads back to your application</li>
 <li>If needed, your application sends the signed payloads to Frequency</li>
 <li>Your application logs in the user, and the user's session begins</li>
 </ol>
 <h3 id="actors"><a class="header" href="#actors">Actors</a></h3>
 <ul>
 <li>Your Application: Any website, mobile application, etc. for which your user needs authentication</li>
-<li>Frequency Access (SIWF System): Verifies the user and provides the user with access to the entire Frequency Ecosystem</li>
+<li>Authentication service: Verifies the user and provides the user with access to the entire Frequency Ecosystem such as Frequency Access</li>
 <li>Frequency Blockchain: Manages user delegations and additional social operations</li>
 </ul>
 <h3 id="user-delegations-and-credentials"><a class="header" href="#user-delegations-and-credentials">User Delegations and Credentials</a></h3>

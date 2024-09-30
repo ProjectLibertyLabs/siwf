@@ -274,16 +274,16 @@ Frequency Access is an easy to use custodial social wallet for users on Frequenc
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>There are a few main steps to authentication using Frequency Access or other SIWF compatible services.</p>
 <ol>
-<li>Your application sends the user the Frequency Access Authentication URL</li>
-<li>Frequency Access verifies the user, and the user signs the requested payload(s)</li>
-<li>Frequency Access sends the signed user payloads back to your application</li>
+<li>Your application sends the user the Authentication URL</li>
+<li>Authentication service verifies the user, and the user signs the requested payload(s)</li>
+<li>Authentication service sends the signed user payloads back to your application</li>
 <li>If needed, your application sends the signed payloads to Frequency</li>
 <li>Your application logs in the user, and the user's session begins</li>
 </ol>
 <h3 id="actors"><a class="header" href="#actors">Actors</a></h3>
 <ul>
 <li>Your Application: Any website, mobile application, etc. for which your user needs authentication</li>
-<li>Frequency Access (SIWF System): Verifies the user and provides the user with access to the entire Frequency Ecosystem</li>
+<li>Authentication service: Verifies the user and provides the user with access to the entire Frequency Ecosystem such as Frequency Access</li>
 <li>Frequency Blockchain: Manages user delegations and additional social operations</li>
 </ul>
 <h3 id="user-delegations-and-credentials"><a class="header" href="#user-delegations-and-credentials">User Delegations and Credentials</a></h3>
@@ -1199,10 +1199,10 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.B_SY1GJM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.C3WISZzG.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.D1MR1HlV.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.D7FLR7tE.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.D6L6VlhP.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/scheduler.B3svg8oL.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.C2jHDhpf.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.Djf1Zqsz.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/preload-helper.CmsKOCeN.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/index.DcCoCrnC.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.BHruzTxR.js">
@@ -1216,7 +1216,7 @@ parameter )
 </dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div>
 <script>
 {
-__sveltekit_kmn1jp = {
+__sveltekit_1b5tl3v = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
@@ -1225,8 +1225,8 @@ const element = document.currentScript.parentElement;
 const data = [null,null];
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.C3WISZzG.js"),
-import("./Generator/_app/immutable/entry/app.C2jHDhpf.js")
+import("./Generator/_app/immutable/entry/start.D7FLR7tE.js"),
+import("./Generator/_app/immutable/entry/app.Djf1Zqsz.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
