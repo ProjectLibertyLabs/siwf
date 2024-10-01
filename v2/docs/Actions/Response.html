@@ -272,6 +272,7 @@
                         <h1 id="getting-the-login-result-from-siwf"><a class="header" href="#getting-the-login-result-from-siwf">Getting the Login Result from SIWF</a></h1>
 <p>After the user completes the authentication and authorization, the user is redirected to the callback URL with one additional parameter set: <code>authorizationCode</code>.</p>
 <p>The <code>authorizationCode</code> can be used to retrieve the result of the login.</p>
+<p>Note: The following instruction examples are based on Frequency Access.</p>
 <h2 id="quick-reference"><a class="header" href="#quick-reference">Quick Reference</a></h2>
 <ul>
 <li>Staging-Testnet: <code>https://testnet.frequencyaccess.com/siwa/api/payload</code></li>
@@ -292,7 +293,7 @@
 <ul>
 <li><code>userPublicKey</code>: The key for the user signing this request</li>
 <li><code>payloads</code>: Signed payloads from the user</li>
-<li><code>credentials</code>: User approved verified credentials from Frequency Access (or other SIWF compatible services) such as email, phone, user keys, etc...</li>
+<li><code>credentials</code>: User approved verified credentials from Frequency Access (or other SIWF-compatible services) such as email, phone, user keys, etc...</li>
 </ul>
 <h3 id="userpublickey"><a class="header" href="#userpublickey"><code>userPublicKey</code></a></h3>
 <p>The public key for the user identifies the user for this session.
@@ -308,7 +309,7 @@ Each credential would be matched based on the <code>type</code> field.</p>
 <li>Other <a href="https://www.w3.org/TR/vc-data-model-1.1/">W3C Verifiable Credentials</a> verifiers may also be compatable.</li>
 </ul>
 <h3 id="verify-the-credential"><a class="header" href="#verify-the-credential">Verify the Credential</a></h3>
-<p><em>Trust Model Note</em>: You may choose to just trust credentials issued by Frequency Access (or other SIWF compatible services) given that the credential is fetched directly. These will have issuer <code>did:web:testnet.frequencyaccess.com</code> or <code>did:web:frequencyaccess.com</code>.</p>
+<p><em>Trust Model Note</em>: You may choose to just trust credentials issued by Frequency Access (or other SIWF-compatible services) given that the credential is fetched directly. These will have issuer <code>did:web:testnet.frequencyaccess.com</code> or <code>did:web:frequencyaccess.com</code>.</p>
 <ol>
 <li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://w3c-ccg.github.io/did-method-key/#format"><code>did:key</code> Method from the W3C</a></li>
 </ol>

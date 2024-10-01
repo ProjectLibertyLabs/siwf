@@ -270,22 +270,22 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="sign-in-with-frequency-developer-documentation-and-tools"><a class="header" href="#sign-in-with-frequency-developer-documentation-and-tools">Sign In With Frequency Developer Documentation and Tools</a></h1>
-<p>Sign In With Frequency (SIWF) provides documentation and tools to integrate with <a href="https://frequencyaccess.com">Frequency Access</a> and other SIWF compatible services.
-Frequency Access is an easy to use custodial social wallet for users on Frequency.</p>
+<p>Sign In With Frequency (SIWF) provides documentation and tools to use with SIWF-compatible services such as <a href="https://frequencyaccess.com">Frequency Access</a> (an easy-to-use custodial social wallet for users on Frequency).</p>
 <p><a href="./QuickStart.html">JavaScript Quick Start</a></p>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
-<p>There are a few main steps to authentication using Frequency Access or other SIWF compatible services.</p>
+<p>There are a few main steps to authenticating using SIWF-compatible systems.</p>
+<p>For example, when using Frequency Access:</p>
 <ol>
-<li>Your application sends the user the Authentication URL</li>
-<li>Authentication service verifies the user, and the user signs the requested payload(s)</li>
-<li>Authentication service sends the signed user payloads back to your application</li>
+<li>Your application sends the user the Frequency Access Authentication URL</li>
+<li>Frequency Access verifies the user, and the user signs the requested payload(s)</li>
+<li>Frequency Access sends the signed user payloads back to your application</li>
 <li>If needed, your application sends the signed payloads to Frequency</li>
 <li>Your application logs in the user, and the user's session begins</li>
 </ol>
 <h3 id="actors"><a class="header" href="#actors">Actors</a></h3>
 <ul>
 <li>Your Application: Any website, mobile application, etc. for which your user needs authentication</li>
-<li>Authentication service: Verifies the user and provides the user with access to the entire Frequency Ecosystem such as Frequency Access</li>
+<li>SIWF service (e.g. Frequency Access): Verifies the user and provides the user with access to the entire Frequency Ecosystem</li>
 <li>Frequency Blockchain: Manages user delegations and additional social operations</li>
 </ul>
 <h3 id="user-delegations-and-credentials"><a class="header" href="#user-delegations-and-credentials">User Delegations and Credentials</a></h3>
