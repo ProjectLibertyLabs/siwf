@@ -3,14 +3,16 @@ name: Deploy v2 to GitHub Pages
 
 on:
   push:
-    branches: ['main']
+    branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  build_site:
-    concurrency: ci-${{ github.ref }}
+  # Build mdbook
+  build-mdbook:
+    concurrency: v2-docs-${{ github.ref }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,28 +21,56 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js ${{ matrix.node-version }}
+      - name: Set up mdBook 📚
+        uses: ./.github/workflows/common/set-up-mdbook
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Generator Tool - Install Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "22.x"
+          cache: "npm" # Enabling npm caching
+          cache-dependency-path: |
+            libraries/js/package-lock.json
+            tools/signed-request-generator/package-lock.json
 
-      # - name: Install pnpm
-      #   uses: pnpm/action-setup@v4
+      - name: Generator Tool - Install Library dependencies
+        working-directory: libraries/js
+        run: npm ci
 
-      # - name: Install dependencies
-      #   run: pnpm install
+      - name: Generator Tool - Build Library
+        working-directory: libraries/js
+        run: npm run build
 
-      # - name: Deploy to GitHub Pages v2
-      #   if: ${{ env.TARGET_FOLDER == 'v2' }}
-      #   uses: JamesIves/github-pages-deploy-action@v4.6.4
-      #   with:
-      #     branch: gh-pages
-      #     folder: siwf
-      #     target-folder: v2
-      #     clean: true
-      #     # Exclude v1 stuff
-      #     clean-exclude: |
-      #       v1
-      #       ui
-      #       example
-      #       index.html
+      - name: Generator Tool - Package Library
+        working-directory: libraries/js/dist
+        run: npm pack
+
+      - name: Generator Tool - Install dependencies
+        working-directory: tools/signed-request-generator
+        run: npm i ../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz
+
+      - name: Generator Tool - Build
+        working-directory: tools/signed-request-generator
+        run: npm run build
+
+      - name: Generator Tool - Copy Build
+        run: cp -a tools/signed-request-generator/build docs/src/Generator
+
+      - name: Build with mdBook
+        working-directory: docs
+        run: mdbook build && ls book
+
+      - name: Structure v2
+        run: |
+          mkdir -p ./siwf-v2
+          mv ./docs/book ./siwf-v2/docs
+
+      - name: Deploy to GitHub Pages v2
+        uses: JamesIves/github-pages-deploy-action@v4.6.4
+        with:
+          branch: gh-pages
+          folder: siwf-v2
+          target-folder: v2
+          clean: true # By using the target folder, this will NOT remove anything outside of that folder!

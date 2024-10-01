@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Verify PR Docs
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Set up mdBook 📚
+        uses: ./.github/workflows/common/set-up-mdbook
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Generator Tool - Install Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          cache: "npm" # Enabling npm caching
+          cache-dependency-path: |
+            libraries/js/package-lock.json
+            tools/signed-request-generator/package-lock.json
+
+      - name: Generator Tool - Install Library dependencies
+        working-directory: libraries/js
+        run: npm ci
+
+      - name: Generator Tool - Build Library
+        working-directory: libraries/js
+        run: npm run build
+
+      - name: Generator Tool - Package Library
+        working-directory: libraries/js/dist
+        run: npm pack
+
+      - name: Generator Tool - Install dependencies
+        working-directory: tools/signed-request-generator
+        run: npm i ../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz
+
+      - name: Generator Tool - Build
+        working-directory: tools/signed-request-generator
+        run: npm run build
+
+      - name: Generator Tool - Copy Build
+        run: cp -a tools/signed-request-generator/build docs/src/Generator
+
+      - name: Build mdBook 📚
+        working-directory: docs
+        run: mdbook build && ls book

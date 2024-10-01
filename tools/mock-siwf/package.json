@@ -1,0 +1,27 @@
+{
+  "name": "mock-siwf",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsx main.ts"
+  },
+  "keywords": [],
+  "author": "Project Liberty LLC",
+  "license": "Apache-2.0",
+  "description": "Mock for SIWF for testing libraries and integrations",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/projectLibertyLabs/siwf.git",
+    "path": "/tools/mock-siwf"
+  },
+  "bugs": {
+    "url": "https://github.com/projectLibertyLabs/siwf/issues"
+  },
+  "homepage": "https://github.com/projectLibertyLabs/siwf#readme",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "express": "^4.21.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  }
+}

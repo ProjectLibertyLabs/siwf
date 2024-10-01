@@ -3,7 +3,7 @@ name: Deploy NPM Hash
 
 on:
   push:
-    branches: ['main']
+    branches: ["main", "chore/v2"]
 
 jobs:
   publish-npm-rc:
@@ -21,33 +21,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          cache-dependency-path: libraries/js/package-lock.json
 
       - name: Install dependencies
-        run: pnpm install --filter @projectlibertylabs/siwf
+        working-directory: libraries/js
+        run: npm i
 
       - name: build
-        run: pnpm run build --filter @projectlibertylabs/siwf
+        working-directory: libraries/js
+        run: npm run build
 
       - name: Version Package
         env:
           FULL_SHA: ${{github.sha}}
-        working-directory: packages/siwf/dist
+        working-directory: libraries/js/dist
         shell: bash
         run: npm version --new-version "v0.0.0-${FULL_SHA:0:6}" --no-git-tag-version
 
@@ -55,6 +42,6 @@ jobs:
       - name: NPM Access Config
         run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NPM_AUTH_TOKEN}}
 
-      - name: Publish on NPM
+      - name: Publish 0.0.0-<SHA:6> on NPM
+        working-directory: libraries/js/dist
         run: npm publish --verbose --access public
-        working-directory: packages/siwf/dist

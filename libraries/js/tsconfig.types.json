@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "es2022",
+    "outDir": "dist",
+    "lib": ["ES2022"],
+    "emitDeclarationOnly": true,
+    "declaration": true
+  }
+}

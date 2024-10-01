@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 
-name: Release v2
+name: Release JS Library v2
 run-name: Publish Release ${{github.ref_name}}
 concurrency:
   group: ${{github.workflow}}-${{github.ref}}
@@ -8,13 +8,13 @@ concurrency:
 on:
   push:
     tags:
-      - 'v2.[0-9]+.[0-9]+' # ex. v2.0.0
-      - 'v2.[0-9]+.[0-9]+-rc[0-9]+' # ex. v2.1.0-rc1
+      - "v2.[0-9]+.[0-9]+" # ex. v2.0.0
+      - "v2.[0-9]+.[0-9]+-rc[0-9]+" # ex. v2.1.0-rc1
 
 env:
   NEW_RELEASE_TAG: ${{github.ref_name}}
   # Version 1.0 should NEVER be latest anymore
-  NPM_LATEST: ${{!contains(fromJSON('["-rc", "v0.0.", "v1."]'), github.ref_name)}}
+  NPM_LATEST: ${{true != contains(fromJSON('["-rc", "v0.0.", "v1."]'), github.ref_name)}}
 
 jobs:
   publish-npm:
@@ -32,32 +32,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          cache-dependency-path: libraries/js/package-lock.json
 
       - name: Install dependencies
-        run: pnpm install --filter @projectlibertylabs/siwf
+        working-directory: libraries/js
+        run: npm ci
 
       - name: build
-        run: pnpm run build --filter @projectlibertylabs/siwf
+        working-directory: libraries/js
+        run: npm run build
 
       - name: Version Package
+        working-directory: libraries/js/dist
         run: npm version --new-version "${{env.NEW_RELEASE_TAG}}" --no-git-tag-version
-        working-directory: packages/siwf/dist
 
         # Required for Granular Access Tokens
       - name: NPM Access Config
@@ -65,10 +52,10 @@ jobs:
 
       - name: Release on NPM @latest
         if: env.NPM_LATEST == 'true'
+        working-directory: libraries/js/dist
         run: npm publish --tag latest --access public
-        working-directory: packages/siwf/dist
 
-      - name: Release Candidate on NPM
+      - name: Release on NPM without @latest
         if: env.NPM_LATEST != 'true'
+        working-directory: libraries/js/dist
         run: npm publish --access public
-        working-directory: packages/siwf/dist

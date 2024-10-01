@@ -1,0 +1,70 @@
+name: Build and Test Library [JS]
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  build-lib-js:
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm" # Enabling npm caching
+          cache-dependency-path: |
+            libraries/js/package-lock.json
+            tools/mock-siwf/package-lock.json
+            tools/js-example/package-lock.json
+
+      - name: Install dependencies
+        working-directory: libraries/js
+        run: npm ci
+
+      - name: Lint
+        working-directory: libraries/js
+        run: npm run lint:ci
+
+      - name: Unit Test
+        working-directory: libraries/js
+        run: npm run test
+
+      - name: Build
+        working-directory: libraries/js
+        run: npm run build
+
+      - name: Package dry run
+        working-directory: libraries/js/dist
+        run: npm pack
+
+      # Start up the mock server
+      - name: Mock server install
+        working-directory: tools/mock-siwf
+        run: npm ci
+
+      - name: Start mock server
+        working-directory: tools/mock-siwf
+        run: |
+          npm run start &
+          sleep 1
+
+      # Run the example tests
+      - name: JS-Example install
+        working-directory: tools/js-example
+        run: npm i ../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz
+
+      - name: Run the example tests
+        working-directory: tools/js-example
+        run: npm test

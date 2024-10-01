@@ -1,0 +1,7 @@
+With the exception of `All.md` these files are generated from the mocks from the `libraries/js`
+
+To re-generate:
+
+1. `cd libraries/js`
+2. `npm i`
+3. `npm run generate:data-structures`

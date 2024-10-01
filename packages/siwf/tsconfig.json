@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig.base.json",
-  "references": [],
-  "exclude": ["**/*.test.ts", "vite.config.ts"],
-  "compilerOptions": {
-    "composite": true
-  }
-}
