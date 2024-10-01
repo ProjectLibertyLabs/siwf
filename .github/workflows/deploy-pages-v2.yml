@@ -3,7 +3,7 @@ name: Deploy v2 to GitHub Pages
 
 on:
   push:
-    branches: ["main", "chore/v2"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
