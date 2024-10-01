@@ -1,24 +1,25 @@
 # Sign In With Frequency Developer Documentation and Tools
 
-Sign In With Frequency (SIWF) provides documentation and tools to integrate with [Frequency Access](https://frequencyaccess.com) and other SIWF compatible services.
-Frequency Access is an easy to use custodial social wallet for users on Frequency.
+Sign In With Frequency (SIWF) provides documentation and tools to use with SIWF-compatible services such as [Frequency Access](https://frequencyaccess.com) (an easy-to-use custodial social wallet for users on Frequency).
 
 [JavaScript Quick Start](./QuickStart.md)
 
 ## Overview
 
-There are a few main steps to authentication using Frequency Access or other SIWF compatible services.
+There are a few main steps to authenticating using SIWF-compatible systems.
 
-1. Your application sends the user the Authentication URL
-2. Authentication service verifies the user, and the user signs the requested payload(s)
-3. Authentication service sends the signed user payloads back to your application
+For example, when using Frequency Access:
+
+1. Your application sends the user the Frequency Access Authentication URL
+2. Frequency Access verifies the user, and the user signs the requested payload(s)
+3. Frequency Access sends the signed user payloads back to your application
 4. If needed, your application sends the signed payloads to Frequency
 5. Your application logs in the user, and the user's session begins
 
 ### Actors
 
 - Your Application: Any website, mobile application, etc. for which your user needs authentication
-- Authentication service: Verifies the user and provides the user with access to the entire Frequency Ecosystem such as Frequency Access
+- SIWF service (e.g. Frequency Access): Verifies the user and provides the user with access to the entire Frequency Ecosystem
 - Frequency Blockchain: Manages user delegations and additional social operations
 
 ### User Delegations and Credentials

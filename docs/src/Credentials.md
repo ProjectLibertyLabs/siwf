@@ -2,7 +2,7 @@
 
 ## Request Structure
 
-The request is a an array that requires ALL listed credential objects.
+The request is an array that requires ALL listed credential objects.
 Supported Options:
 
 - `anyOf`: Request for one or more credentials from the list (0+ may return)
