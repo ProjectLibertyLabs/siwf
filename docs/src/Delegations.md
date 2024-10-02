@@ -18,5 +18,5 @@ Staging-Testnet and Production-Mainnet have the same delegation Schema Ids avail
 | [`dsnp.reply@v2`](https://spec.dsnp.org/DSNP/Types/Reply.html)                                                | Reply to a content                                                 | 18        |
 | [`dsnp.tombstone@v2`](https://spec.dsnp.org/DSNP/Types/Tombstone.html)                                        | Mark content for deletion                                          | 16        |
 | [`dsnp.update@v2`](https://spec.dsnp.org/DSNP/Types/Update.html)                                              | Update an existing post or reply                                   | 19        |
-| [`dsnp.user-attribute-set@v1`](https://spec.dsnp.org/DSNP/Types/UserAttributeSet.html)                        | Create an authenticated attribute set for a DSNP User              | 13        |
+| [`dsnp.user-attribute-set@v2`](https://spec.dsnp.org/DSNP/Types/UserAttributeSet.html)                        | Create an authenticated attribute set for a DSNP User              | 20        |
 | [`frequency.default-token-address@v1`](https://github.com/frequency-chain/schemas)                            | List one or more default token receiving addresses                 | 21        |
