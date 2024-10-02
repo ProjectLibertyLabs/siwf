@@ -19,6 +19,7 @@ See [Markdown/GitHub Docs](../../docs/src/QuickStart.md) or
 | `generateAuthenticationUrl`    | Generates the signed request for the authentication flow                                 |
 | `getLoginResult`               | Fetch and extract the Result of the Login                                                |
 | `hasChainSubmissions`          | Checks to see if there are any chain submissions in the given result                     |
+| `validateSiwfResponse`         | Takes a response payload and validates it                                                |
 | `generateSignedRequest`        | Generates the signed payload for the authentication flow using a keypair                 |
 | `buildSignedRequest`           | Builds the signed request for the authentication flow using the signature and public key |
 | `generateEncodedSignedRequest` | Generates the encoded signed payload for the authentication flow using a keypair         |

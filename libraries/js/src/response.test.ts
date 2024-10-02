@@ -1,7 +1,8 @@
 import { describe, it, vi, expect, beforeAll } from 'vitest';
-import { ExampleLogin, ExampleNewProvider, ExampleNewUser } from './mocks/index.js';
-import { getLoginResult, hasChainSubmissions } from './response.js';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
+import base64url from 'base64url';
+import { ExampleLogin, ExampleNewProvider, ExampleNewUser } from './mocks/index.js';
+import { getLoginResult, hasChainSubmissions, validateSiwfResponse } from './response.js';
 
 global.fetch = vi.fn();
 
@@ -55,5 +56,30 @@ describe('hasChainSubmissions', () => {
     expect(hasChainSubmissions(loginResponse)).toBe(false);
     loginResponse.payloads = [];
     expect(hasChainSubmissions(loginResponse)).toBe(false);
+  });
+});
+
+describe('validateSiwfResponse', () => {
+  it('can handle a JSON strigified base64url encoded value', async () => {
+    const example = await ExampleLogin();
+    await expect(validateSiwfResponse(base64url(JSON.stringify(example)))).to.resolves.toMatchObject(example);
+  });
+
+  it('can handle an object value', async () => {
+    const example = await ExampleLogin();
+    await expect(validateSiwfResponse(example)).to.resolves.toMatchObject(example);
+  });
+
+  it('throws on a null value', async () => {
+    await expect(validateSiwfResponse(null)).to.rejects.toThrowError(
+      'Response failed to correctly parse or invalid content: null'
+    );
+  });
+
+  it('throws on a bad string value', async () => {
+    const value = base64url(JSON.stringify({ foo: 'bad' }));
+    await expect(validateSiwfResponse(value)).to.rejects.toThrowError(
+      'Response failed to correctly parse or invalid content: {"foo":"bad"}'
+    );
   });
 });

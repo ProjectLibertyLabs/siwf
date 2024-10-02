@@ -1,4 +1,5 @@
 import { cryptoWaitReady } from '@polkadot/util-crypto';
+import base64url from 'base64url';
 import { SiwfOptions } from './types/general.js';
 import { isSiwfResponse, SiwfResponse } from './types/response.js';
 import { parseEndpoint } from './util.js';
@@ -18,6 +19,39 @@ export function hasChainSubmissions(result: SiwfResponse): boolean {
 }
 
 /**
+ * Validate a possible SIWF Response
+ *
+ * @param {unknown} response - A possible SIWF Response.
+ *
+ * @returns {Promise<SiwfResponse>} The validated response
+ */
+export async function validateSiwfResponse(response: unknown): Promise<SiwfResponse> {
+  await cryptoWaitReady();
+
+  let body = response;
+  if (typeof response === 'string') {
+    try {
+      body = JSON.parse(base64url.decode(response));
+    } catch (_e) {
+      throw new Error(`Response failed to correctly parse: ${response}`);
+    }
+  }
+
+  // This also validates that userPublicKey is a valid address
+  if (!isSiwfResponse(body)) {
+    throw new Error(`Response failed to correctly parse or invalid content: ${JSON.stringify(body)}`);
+  }
+
+  // Validate Payloads
+  await validatePayloads(body);
+
+  // Validate Credentials (if any), but trust DIDs from frequencyAccess
+  await validateCredentials(body.credentials, ['did:web:frequencyaccess.com', 'did:web:testnet.frequencyaccess.com']);
+
+  return body;
+}
+
+/**
  * Fetch and extract the Result of the Login from Frequency Access
  *
  * @param {string} authorizationCode - The code from the callback URI parameters.
@@ -27,7 +61,6 @@ export function hasChainSubmissions(result: SiwfResponse): boolean {
  * @returns {Promise<SiwfResponse>} The parsed and validated response
  */
 export async function getLoginResult(authorizationCode: string, options?: SiwfOptions): Promise<SiwfResponse> {
-  await cryptoWaitReady();
   const endpoint = new URL(
     `${parseEndpoint(options?.endpoint, '/api/payload')}?authorizationCode=${authorizationCode}`
   );
@@ -39,16 +72,5 @@ export async function getLoginResult(authorizationCode: string, options?: SiwfOp
 
   const body = await response.json();
 
-  // This also validates that userPublicKey is a valid address
-  if (!isSiwfResponse(body)) {
-    throw new Error(`Response failed to correctly parse or invalid content: ${await response.text()}`);
-  }
-
-  // Validate Payloads
-  await validatePayloads(body);
-
-  // Validate Credentials (if any), but trust DIDs from frequencyAccess
-  await validateCredentials(body.credentials, ['did:web:frequencyaccess.com', 'did:web:testnet.frequencyaccess.com']);
-
-  return body;
+  return validateSiwfResponse(body);
 }
