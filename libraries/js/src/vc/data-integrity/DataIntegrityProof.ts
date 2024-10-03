@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2022-2024 Digital Bazaar, Inc. All rights reserved.
  */
-import base58btc from 'bs58';
+import bs58 from 'bs58';
 import base64url from 'base64url';
 import jsigs from '@digitalcredentials/jsonld-signatures';
 import * as util from './util.js';
@@ -22,6 +22,23 @@ const PROOF_TYPE = 'DataIntegrityProof';
 const VC_2_0_CONTEXT = 'https://www.w3.org/ns/credentials/v2';
 
 export class DataIntegrityProof extends LinkedDataProof {
+  contextUrl: string;
+  canonize: any;
+  createVerifier: any;
+  cryptosuite: any;
+  private _cryptosuite: any;
+  requiredAlgorithm: any;
+  date: Date | string | null = null;
+  verificationMethod: any;
+  signer: any;
+  proof: any;
+  private _hashCache?: {
+    document: any;
+    // canonize and hash document
+    hash: any;
+  };
+  type: string | string[] = PROOF_TYPE;
+
   /**
    * The constructor for the DataIntegrityProof Class.
    *
@@ -32,8 +49,8 @@ export class DataIntegrityProof extends LinkedDataProof {
    * @param {boolean} [options.legacyContext = false] - Toggles between
    *   the current DI context and a legacy DI context.
    */
-  constructor({ signer, date, cryptosuite, legacyContext = false } = {}) {
-    super({ type: PROOF_TYPE });
+  constructor({ signer, date, cryptosuite, type = PROOF_TYPE, legacyContext = false }: any = {}) {
+    super({ type });
     const { canonize, createVerifier, name, requiredAlgorithm, derive, createProofValue, createVerifyData } =
       cryptosuite;
     // `createVerifier` is required
@@ -62,7 +79,7 @@ export class DataIntegrityProof extends LinkedDataProof {
     this.requiredAlgorithm = requiredAlgorithm;
     if (date) {
       this.date = new Date(date);
-      if (isNaN(this.date)) {
+      if (isNaN(+this.date)) {
         throw TypeError(`"date" "${date}" is not a valid date.`);
       }
     } else if (date === null) {
@@ -87,13 +104,13 @@ export class DataIntegrityProof extends LinkedDataProof {
    * @returns {Promise<object>} Resolves with the proof containing the signature
    *   value.
    */
-  async sign({ verifyData, proof }) {
+  async sign({ verifyData, proof }: any): Promise<any> {
     if (!(this.signer && typeof this.signer.sign === 'function')) {
       throw new Error('A signer API has not been specified.');
     }
 
     const signatureBytes = await this.signer.sign({ data: verifyData });
-    proof.proofValue = MULTIBASE_BASE58BTC_HEADER + base58btc.encode(signatureBytes);
+    proof.proofValue = MULTIBASE_BASE58BTC_HEADER + bs58.encode(signatureBytes);
 
     return proof;
   }
@@ -109,7 +126,7 @@ export class DataIntegrityProof extends LinkedDataProof {
    *
    * @returns {Promise<boolean>} Resolves with the verification result.
    */
-  async verifySignature({ verifyData, verificationMethod, proof }) {
+  async verifySignature({ verifyData, verificationMethod, proof }: any): Promise<boolean> {
     const verifier = await this.createVerifier({ verificationMethod });
     const isSupportedAlgorithm = Array.isArray(this.requiredAlgorithm)
       ? this.requiredAlgorithm.includes(verifier.algorithm)
@@ -134,9 +151,9 @@ export class DataIntegrityProof extends LinkedDataProof {
     const multibaseHeader = proofValue[0];
     let signature;
     if (multibaseHeader === MULTIBASE_BASE58BTC_HEADER) {
-      signature = base58btc.decode(proofValue.slice(1));
+      signature = bs58.decode(proofValue.slice(1));
     } else if (multibaseHeader === MULTIBASE_BASE64URL_HEADER) {
-      signature = base64url(proofValue.slice(1));
+      signature = base64url.decode(proofValue.slice(1));
     } else {
       throw new Error('Only base58btc or base64url multibase encoding is supported.');
     }
@@ -152,7 +169,7 @@ export class DataIntegrityProof extends LinkedDataProof {
    *
    * @returns {Promise<object>} Resolves with the created proof object.
    */
-  async createProof({ document, purpose, proofSet, documentLoader }) {
+  async createProof({ document, purpose, proofSet, documentLoader }: any): Promise<any> {
     // build proof (currently known as `signature options` in spec)
     let proof;
     if (this.proof) {
@@ -242,7 +259,7 @@ export class DataIntegrityProof extends LinkedDataProof {
    * @returns {Promise<object>} Resolves with the new document with a new
    *   `proof` field.
    */
-  async derive({ document, purpose, proofSet, documentLoader }) {
+  async derive({ document, purpose, proofSet, documentLoader }: any): Promise<any> {
     // delegate entirely to cryptosuite instance
     if (!this._cryptosuite.derive) {
       throw new Error('"cryptosuite.derive" not provided.');
@@ -263,7 +280,7 @@ export class DataIntegrityProof extends LinkedDataProof {
    *
    * @returns {Promise<object>} Resolves with the created proof object.
    */
-  async updateProof({ proof }) {
+  async updateProof({ proof }: any): Promise<any> {
     return proof;
   }
 
@@ -276,7 +293,7 @@ export class DataIntegrityProof extends LinkedDataProof {
    *
    * @returns {Promise<{object}>} Resolves with the verification result.
    */
-  async verifyProof({ proof, proofSet, document, documentLoader }) {
+  async verifyProof({ proof, proofSet, document, documentLoader }: any): Promise<any> {
     try {
       // fetch verification method
       const verificationMethod = await this.getVerificationMethod({
@@ -341,7 +358,7 @@ export class DataIntegrityProof extends LinkedDataProof {
    * @returns {Promise<Uint8Array|object>} Resolves to the verify data to
    *   be passed to `sign` or `verifySignature`.
    */
-  async createVerifyData({ document, proof, documentLoader }) {
+  async createVerifyData({ document, proof, documentLoader }: any): Promise<any> {
     // get cached document hash
     let cachedDocHash;
     const { _hashCache } = this;
@@ -352,7 +369,7 @@ export class DataIntegrityProof extends LinkedDataProof {
         document,
         // canonize and hash document
         hash: (cachedDocHash = this.canonize(document, { documentLoader, base: null, safe: true }).then(
-          (c14nDocument) => sha256digest({ string: c14nDocument })
+          (c14nDocument: string) => sha256digest({ string: c14nDocument })
         )),
       };
     }
@@ -360,7 +377,7 @@ export class DataIntegrityProof extends LinkedDataProof {
     // await both c14n proof hash and c14n document hash
     const [proofHash, docHash] = await Promise.all([
       // canonize and hash proof
-      this.canonizeProof(proof, { document, documentLoader }).then((c14nProofOptions) =>
+      this.canonizeProof(proof, { document, documentLoader }).then((c14nProofOptions: string) =>
         sha256digest({ string: c14nProofOptions })
       ),
       cachedDocHash,
@@ -377,7 +394,7 @@ export class DataIntegrityProof extends LinkedDataProof {
    *
    * @returns {object} - The verificationMethod.
    */
-  async getVerificationMethod({ proof, documentLoader }) {
+  async getVerificationMethod({ proof, documentLoader }: any): Promise<any> {
     let { verificationMethod } = proof;
 
     if (typeof verificationMethod === 'object') {
@@ -398,7 +415,7 @@ export class DataIntegrityProof extends LinkedDataProof {
     return verificationMethod;
   }
 
-  async canonizeProof(proof, { documentLoader, document }) {
+  async canonizeProof(proof: any, { documentLoader, document }: any): Promise<any> {
     // `proofValue` must not be included in the proof options
     proof = {
       '@context': document['@context'],
@@ -422,7 +439,7 @@ export class DataIntegrityProof extends LinkedDataProof {
    *
    * @returns {Promise<boolean>} Whether a match for the proof was found.
    */
-  async matchProof({ proof /*, document, purpose, documentLoader, expansionMap */ }) {
+  async matchProof({ proof /*, document, purpose, documentLoader, expansionMap */ }: any): Promise<boolean> {
     const { type, cryptosuite } = proof;
     return type === this.type && cryptosuite === this.cryptosuite;
   }
@@ -436,7 +453,7 @@ export class DataIntegrityProof extends LinkedDataProof {
    * @param {object} options.document - JSON-LD document to be signed.
    * @param {boolean} options.addSuiteContext - Add suite context?
    */
-  ensureSuiteContext({ document, addSuiteContext }) {
+  ensureSuiteContext({ document, addSuiteContext }: any): void {
     const { contextUrl } = this;
 
     if (_includesContext({ document, contextUrl }) || _includesContext({ document, contextUrl: VC_2_0_CONTEXT })) {
@@ -467,7 +484,7 @@ export class DataIntegrityProof extends LinkedDataProof {
  *
  * @returns {boolean} Returns true if document includes context.
  */
-function _includesContext({ document, contextUrl }) {
+function _includesContext({ document, contextUrl }: any): boolean {
   const context = document['@context'];
   return context === contextUrl || (Array.isArray(context) && context.includes(contextUrl));
 }
@@ -482,8 +499,8 @@ function _includesContext({ document, contextUrl }) {
  *   signer: {sign: Function, id: string, algorithm: string}}}} - Validated and
  *   initialized signature-related parameters.
  */
-function _processSignatureParams({ signer, requiredAlgorithm }) {
-  const vm = {
+function _processSignatureParams({ signer, requiredAlgorithm }: any): any {
+  const vm: any = {
     verificationMethod: undefined,
     signer: undefined,
   };

@@ -9,7 +9,7 @@
  *
  * @returns {string} The date in W3C datetime format.
  */
-export const w3cDate = (date) => {
+export const w3cDate = (date?: Date | number | string): string => {
   if (date === undefined || date === null) {
     date = new Date();
   } else if (typeof date === 'number' || typeof date === 'string') {
@@ -31,9 +31,9 @@ export const XMLDateTimeRegExp = new RegExp(
     'T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](.[0-9]+)?|(24:00:00(.0+)?))' +
     '(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?'
 );
-export const isW3cDate = (timeStamp) => XMLDateTimeRegExp.test(timeStamp);
+export const isW3cDate = (timeStamp: string): boolean => XMLDateTimeRegExp.test(timeStamp);
 
-export const convertTimeStamp = (timestamp) => {
+export const convertTimeStamp = (timestamp: string): Date => {
   if (!timestamp) {
     throw new Error(`Unexpected timestamp ("${timestamp}") received.`);
   }
@@ -51,7 +51,8 @@ export const convertTimeStamp = (timestamp) => {
  *
  * @returns {Uint8Array} The result.
  */
-export const concat = (b1, b2) => {
+
+export const concat = (b1: Uint8Array, b2: Uint8Array): Uint8Array => {
   const rval = new Uint8Array(b1.length + b2.length);
   rval.set(b1, 0);
   rval.set(b2, b1.length);
