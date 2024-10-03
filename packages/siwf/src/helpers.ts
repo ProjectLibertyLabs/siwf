@@ -225,6 +225,6 @@ function sortCallsBySubmissionOrder(encodedExtrinsics: EncodedExtrinsic[]): Enco
 }
 
 export async function getMsaforPublicKey(api: ApiPromise, publicKeyAddress: string): Promise<string> {
-  const verifiedMsa = await api.query.msa.publicKeyToMsaId!(publicKeyAddress);
-  return verifiedMsa.isNone ? '' : verifiedMsa.value.toString();
+  const verifiedMsa = (await api.query.msa.publicKeyToMsaId(publicKeyAddress)).unwrapOrDefault().toString();
+  return verifiedMsa;
 }
