@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any  */
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
+declare module '@digitalcredentials/jsonld-signatures';
+
 declare module '@digitalcredentials/vc' {
   /**
    * Creates a proof purpose that will validate whether or not the verification
