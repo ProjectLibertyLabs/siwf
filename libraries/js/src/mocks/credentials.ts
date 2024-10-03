@@ -39,7 +39,7 @@ export async function signCredential<T>(keypair: KeyringPair, credential: Omit<T
     return signedCredential;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
-    console.error(e.details ? e.details : e);
+    console.error('Error signing the credential', e.details ? e.details : e);
   }
   throw new Error('Unable to sign message. See `signCredentialAsAccess`');
 }

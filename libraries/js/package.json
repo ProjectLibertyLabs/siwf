@@ -7,7 +7,7 @@
   "scripts": {
     "build": "npm run clean && npm run build:types && npm run build:esm && npm run build:cjs && node scripts/package.cjs",
     "build:types": "tsc -p ./tsconfig.types.json",
-    "build:cjs": "npx tsup",
+    "build:cjs": "npx tsup-node",
     "build:esm": "tsc -p ./tsconfig.esm.json",
     "clean": "rm -Rf dist",
     "test": "vitest run",
