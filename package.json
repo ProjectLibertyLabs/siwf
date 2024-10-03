@@ -30,5 +30,5 @@
   "keywords": [],
   "author": "Project Liberty Labs",
   "license": "Apache-2.0",
-  "packageManager": "pnpm@8.14.1+sha1.d039b38e0b20ad012ed548e44267b8d4c88b447a"
+  "packageManager": "pnpm@9.12.0"
 }
