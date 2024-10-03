@@ -15,7 +15,7 @@ import { SignUpCall, SignupError } from './enums.js';
 import { cryptoWaitReady, signatureVerify } from '@polkadot/util-crypto';
 import { assert, isHex, u8aWrapBytes } from '@polkadot/util';
 import type { HexString, U8aLike } from '@polkadot/util/types';
-import { ApiPromise } from '@polkadot/api';
+import type { ApiPromise } from '@polkadot/api';
 
 export function isSponsoredAccountParams(
   payload: ClaimHandleParams | SponsoredAccountParams
@@ -225,6 +225,6 @@ function sortCallsBySubmissionOrder(encodedExtrinsics: EncodedExtrinsic[]): Enco
 }
 
 export async function getMsaforPublicKey(api: ApiPromise, publicKeyAddress: string): Promise<string> {
-  const verifiedMsa = (await api.query.msa.publicKeyToMsaId(publicKeyAddress)).unwrapOrDefault().toString();
-  return verifiedMsa;
+  const verifiedMsa = await api.query.msa.publicKeyToMsaId!(publicKeyAddress);
+  return verifiedMsa.isNone ? '' : verifiedMsa.value.toString();
 }

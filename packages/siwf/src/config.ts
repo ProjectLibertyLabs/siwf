@@ -3,7 +3,7 @@ import { RequestedSchema, type SiwsOptions } from './messenger';
 
 const defaultSchemas: RequestedSchema[] = [
   {
-    name: 'profile',
+    name: 'profile-resources',
   },
   {
     name: 'public-key-key-agreement',
