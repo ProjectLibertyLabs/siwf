@@ -15,7 +15,7 @@ import { SignUpCall, SignupError } from './enums.js';
 import { cryptoWaitReady, signatureVerify } from '@polkadot/util-crypto';
 import { assert, isHex, u8aWrapBytes } from '@polkadot/util';
 import type { HexString, U8aLike } from '@polkadot/util/types';
-import { ApiPromise } from '@polkadot/api';
+import type { ApiPromise } from '@polkadot/api';
 
 export function isSponsoredAccountParams(
   payload: ClaimHandleParams | SponsoredAccountParams

@@ -25,10 +25,10 @@
     "eslint": "^8.57.1",
     "prettier": "^3.3.3",
     "prettier-plugin-svelte": "^3.2.7",
-    "vitest": "^1.6.0"
+    "vitest": "^2.1.2"
   },
   "keywords": [],
   "author": "Project Liberty Labs",
   "license": "Apache-2.0",
-  "packageManager": "pnpm@8.14.1+sha1.d039b38e0b20ad012ed548e44267b8d4c88b447a"
+  "packageManager": "pnpm@9.12.0"
 }

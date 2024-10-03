@@ -25,7 +25,7 @@ export const DSNPSchemas: SchemaData[] = [
     description: 'Publish emoji reactions to a Broadcast',
   },
   {
-    name: 'profile',
+    name: 'profile-resources',
     description: 'Publish profile updates',
   },
   {

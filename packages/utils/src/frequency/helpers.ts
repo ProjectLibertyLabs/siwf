@@ -120,7 +120,7 @@ export async function resolveSchemas(schemas: RequestedSchema[]): Promise<void> 
       'broadcast',
       'reply',
       'reaction',
-      'profile',
+      'profile-resources',
       'update',
       'public-key-key-agreement',
       'public-follows',
