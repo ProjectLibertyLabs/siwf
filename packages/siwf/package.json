@@ -20,7 +20,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && node scripts/package.cjs",
+    "build": "tsc --noEmit && vite build && node scripts/package.cjs",
     "test": "vitest run --silent",
     "test:unit": "vitest run --silent",
     "test:unit:loud": "vitest run",
