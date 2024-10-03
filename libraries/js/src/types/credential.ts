@@ -13,7 +13,7 @@ interface SiwfResponseCredentialBase {
   credentialSubject: Record<string, unknown>;
   proof: {
     type: 'DataIntegrityProof';
-    created: string;
+    created?: string;
     verificationMethod: string;
     cryptosuite: 'eddsa-rdfc-2022';
     proofPurpose: 'assertionMethod';
