@@ -4,7 +4,7 @@ import * as siwf from "@projectlibertylabs/siwf";
 describe("SIWF new provider test", () => {
   it("should retrieve a valid new provider result from the real SIWF server", async () => {
     const authorizationCode = "newProviderAuthCode456"; // Ensure this matches the mock server response
-    const options = { endpoint: "http://localhost:3000" };
+    const options = { endpoint: "http://localhost:3000", loginMsgDomain: "localhost" };
 
     try {
       const result = await siwf.getLoginResult(authorizationCode, options);
