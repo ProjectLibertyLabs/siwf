@@ -6,6 +6,8 @@ import { parseEndpoint } from './util.js';
 import { validateCredentials } from './credentials.js';
 import { validatePayloads } from './payloads.js';
 
+type MakePropertyRequired<T, K extends keyof T> = Partial<T> & Pick<Required<T>, K>;
+
 /**
  * Checks to see if there are any chain submissions in the result
  *
@@ -22,10 +24,12 @@ export function hasChainSubmissions(result: SiwfResponse): boolean {
  * Validate a possible SIWF Response
  *
  * @param {unknown} response - A possible SIWF Response.
+ * @param {SiwfOptions} options - Options for endpoint selection and domain checks.
+ *                 options.loginMsgDomain - The login message signed by the user should match this domain. (Default: localhost)
  *
  * @returns {Promise<SiwfResponse>} The validated response
  */
-export async function validateSiwfResponse(response: unknown): Promise<SiwfResponse> {
+export async function validateSiwfResponse(response: unknown, loginMsgDomain: string): Promise<SiwfResponse> {
   await cryptoWaitReady();
 
   let body = response;
@@ -43,7 +47,7 @@ export async function validateSiwfResponse(response: unknown): Promise<SiwfRespo
   }
 
   // Validate Payloads
-  await validatePayloads(body);
+  await validatePayloads(body, loginMsgDomain);
 
   // Validate Credentials (if any), but trust DIDs from frequencyAccess
   await validateCredentials(body.credentials, ['did:web:frequencyaccess.com', 'did:web:testnet.frequencyaccess.com']);
@@ -55,12 +59,16 @@ export async function validateSiwfResponse(response: unknown): Promise<SiwfRespo
  * Fetch and extract the Result of the Login from Frequency Access
  *
  * @param {string} authorizationCode - The code from the callback URI parameters.
- * @param {SiwfOptions} options - Options for endpoint selection.
+ * @param {SiwfOptions} options - Options for endpoint selection and domain checks.
  *                 options.endpoint - The endpoint to use. Can be specified as 'production' for production environment or 'staging' for test environments.
+ *                 options.loginMsgDomain - The login message signed by the user should match this domain. (Default: localhost)
  *
  * @returns {Promise<SiwfResponse>} The parsed and validated response
  */
-export async function getLoginResult(authorizationCode: string, options?: SiwfOptions): Promise<SiwfResponse> {
+export async function getLoginResult(
+  authorizationCode: string,
+  options: MakePropertyRequired<SiwfOptions, 'loginMsgDomain'>
+): Promise<SiwfResponse> {
   const endpoint = new URL(
     `${parseEndpoint(options?.endpoint, '/api/payload')}?authorizationCode=${authorizationCode}`
   );
@@ -72,5 +80,5 @@ export async function getLoginResult(authorizationCode: string, options?: SiwfOp
 
   const body = await response.json();
 
-  return validateSiwfResponse(body);
+  return validateSiwfResponse(body, options.loginMsgDomain);
 }

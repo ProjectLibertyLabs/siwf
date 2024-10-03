@@ -22,29 +22,60 @@ describe('validatePayloads', () => {
   describe('Login Related Payloads', () => {
     it('Can verify a Generated Login Payload', async () => {
       await expect(
-        validatePayloads({
-          userPublicKey: ExampleUserPublicKey,
-          payloads: [ExamplePayloadLoginGood()],
-        })
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginGood('localhost')],
+          },
+          'localhost'
+        )
       ).resolves.toBeUndefined();
+    });
+
+    it('Will fail to verify a Login Payload with the wrong domain', async () => {
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginGood('badhost')],
+          },
+          'localhost'
+        )
+      ).rejects.toThrowError('Message does not match expected domain. Message: badhost Expected: localhost');
+
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginGood('localhost')],
+          },
+          'betterhost'
+        )
+      ).rejects.toThrowError('Message does not match expected domain. Message: localhost Expected: betterhost');
     });
 
     it('Can verify a Static Login Payload', async () => {
       await expect(
-        validatePayloads({
-          userPublicKey: ExampleUserPublicKey,
-          payloads: [ExamplePayloadLoginStatic],
-        })
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginStatic],
+          },
+          'localhost'
+        )
       ).resolves.toBeUndefined();
     });
   });
 
   it('Can verify a ClaimHandle', async () => {
     await expect(
-      validatePayloads({
-        userPublicKey: ExampleUserPublicKey,
-        payloads: [ExamplePayloadClaimHandle()],
-      })
+      validatePayloads(
+        {
+          userPublicKey: ExampleUserPublicKey,
+          payloads: [ExamplePayloadClaimHandle()],
+        },
+        'localhost'
+      )
     ).resolves.toBeUndefined();
   });
 
@@ -52,19 +83,25 @@ describe('validatePayloads', () => {
     const upk = { ...ExampleUserPublicKey };
     upk.encodedValue = ExampleProviderKey.public;
     await expect(
-      validatePayloads({
-        userPublicKey: upk,
-        payloads: [ExamplePayloadClaimHandle()],
-      })
+      validatePayloads(
+        {
+          userPublicKey: upk,
+          payloads: [ExamplePayloadClaimHandle()],
+        },
+        'localhost'
+      )
     ).rejects.toThrowError('Payload signature failed');
   });
 
   it('Can verify a Create MSA', async () => {
     await expect(
-      validatePayloads({
-        userPublicKey: ExampleUserPublicKey,
-        payloads: [ExamplePayloadCreateSponsoredAccount()],
-      })
+      validatePayloads(
+        {
+          userPublicKey: ExampleUserPublicKey,
+          payloads: [ExamplePayloadCreateSponsoredAccount()],
+        },
+        'localhost'
+      )
     ).resolves.toBeUndefined();
   });
 
@@ -72,19 +109,25 @@ describe('validatePayloads', () => {
     const payload = ExamplePayloadCreateSponsoredAccount();
     payload.signature.encodedValue += 'ff';
     await expect(
-      validatePayloads({
-        userPublicKey: ExampleUserPublicKey,
-        payloads: [payload],
-      })
+      validatePayloads(
+        {
+          userPublicKey: ExampleUserPublicKey,
+          payloads: [payload],
+        },
+        'localhost'
+      )
     ).rejects.toThrowError('Payload signature failed');
   });
 
   it('Can verify a Add Delegation', async () => {
     await expect(
-      validatePayloads({
-        userPublicKey: ExampleUserPublicKey,
-        payloads: [ExamplePayloadGrantDelegation()],
-      })
+      validatePayloads(
+        {
+          userPublicKey: ExampleUserPublicKey,
+          payloads: [ExamplePayloadGrantDelegation()],
+        },
+        'localhost'
+      )
     ).resolves.toBeUndefined();
   });
 
@@ -92,19 +135,25 @@ describe('validatePayloads', () => {
     const payload = ExamplePayloadGrantDelegation();
     payload.payload.authorizedMsaId = 100000;
     await expect(
-      validatePayloads({
-        userPublicKey: ExampleUserPublicKey,
-        payloads: [payload],
-      })
+      validatePayloads(
+        {
+          userPublicKey: ExampleUserPublicKey,
+          payloads: [payload],
+        },
+        'localhost'
+      )
     ).rejects.toThrowError('Payload signature failed');
   });
 
   it('Can verify an Add Items', async () => {
     await expect(
-      validatePayloads({
-        userPublicKey: ExampleUserPublicKey,
-        payloads: [ExamplePayloadPublicGraphKey()],
-      })
+      validatePayloads(
+        {
+          userPublicKey: ExampleUserPublicKey,
+          payloads: [ExamplePayloadPublicGraphKey()],
+        },
+        'localhost'
+      )
     ).resolves.toBeUndefined();
   });
 
@@ -112,10 +161,13 @@ describe('validatePayloads', () => {
     const payload = ExamplePayloadPublicGraphKey();
     payload.payload.schemaId = 1111;
     await expect(
-      validatePayloads({
-        userPublicKey: ExampleUserPublicKey,
-        payloads: [payload],
-      })
+      validatePayloads(
+        {
+          userPublicKey: ExampleUserPublicKey,
+          payloads: [payload],
+        },
+        'localhost'
+      )
     ).rejects.toThrowError('Payload signature failed');
   });
 
@@ -123,10 +175,13 @@ describe('validatePayloads', () => {
     const payload = ExamplePayloadPublicGraphKey();
     (payload.payload as any) = {};
     await expect(
-      validatePayloads({
-        userPublicKey: ExampleUserPublicKey,
-        payloads: [payload],
-      })
+      validatePayloads(
+        {
+          userPublicKey: ExampleUserPublicKey,
+          payloads: [payload],
+        },
+        'localhost'
+      )
     ).rejects.toThrowError('Unknown or Bad Payload: itemActions');
   });
 });

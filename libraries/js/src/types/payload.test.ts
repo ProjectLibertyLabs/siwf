@@ -15,8 +15,8 @@ describe('Payload Types and Type Predicates', () => {
 
   describe('isPayloads Single', () => {
     it('is successful with ExamplePayloadLoginGood', () => {
-      expect(isPayloadLogin(ExamplePayloadLoginGood())).toBe(true);
-      expect(isPayloads([ExamplePayloadLoginGood()])).toBe(true);
+      expect(isPayloadLogin(ExamplePayloadLoginGood('localhost'))).toBe(true);
+      expect(isPayloads([ExamplePayloadLoginGood('localhost')])).toBe(true);
     });
 
     it('is successful with ExamplePayloadCreateSponsoredAccount', () => {
@@ -39,7 +39,7 @@ describe('Payload Types and Type Predicates', () => {
     it('is successful with all types', () => {
       expect(
         isPayloads([
-          ExamplePayloadLoginGood(),
+          ExamplePayloadLoginGood('localhost'),
           ExamplePayloadCreateSponsoredAccount(),
           ExamplePayloadGrantDelegation(),
           ExamplePayloadPublicGraphKey(),
@@ -50,7 +50,7 @@ describe('Payload Types and Type Predicates', () => {
     it('will fail with one bad one', () => {
       expect(
         isPayloads([
-          ExamplePayloadLoginGood(),
+          ExamplePayloadLoginGood('localhost'),
           ExamplePayloadCreateSponsoredAccount(),
           ExamplePayloadGrantDelegation(),
           ExamplePayloadPublicGraphKey(),
