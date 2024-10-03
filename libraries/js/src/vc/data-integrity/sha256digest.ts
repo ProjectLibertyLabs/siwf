@@ -10,6 +10,6 @@ import crypto from 'node:crypto';
  *
  * @returns {Uint8Array} The hash digest.
  */
- export async function sha256digest({ string }: { string: string }): Promise<Uint8Array> {
-   return new Uint8Array(crypto.createHash('sha256').update(string).digest());
- }
+export async function sha256digest({ string }: { string: string }): Promise<Uint8Array> {
+  return new Uint8Array(crypto.createHash('sha256').update(string).digest());
+}
