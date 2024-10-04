@@ -37,7 +37,7 @@ const loginMessageExpired = () =>
 
 export const ExamplePayloadLoginGood = (domain: string): SiwfResponsePayloadLogin => ({
   signature: {
-    algo: 'Sr25519',
+    algo: 'SR25519',
     encoding: 'base16',
     encodedValue: u8aToHex(ExampleUserKey.keyPair().sign(loginMessageGood(domain))),
   },
@@ -49,7 +49,7 @@ export const ExamplePayloadLoginGood = (domain: string): SiwfResponsePayloadLogi
 
 export const ExamplePayloadLoginExpired = (): SiwfResponsePayloadLogin => ({
   signature: {
-    algo: 'Sr25519',
+    algo: 'SR25519',
     encoding: 'base16',
     encodedValue: u8aToHex(ExampleUserKey.keyPair().sign(loginMessageExpired())),
   },
@@ -61,7 +61,7 @@ export const ExamplePayloadLoginExpired = (): SiwfResponsePayloadLogin => ({
 
 export const ExamplePayloadLoginStatic: SiwfResponsePayloadLogin = {
   signature: {
-    algo: 'Sr25519',
+    algo: 'SR25519',
     encoding: 'base16',
     encodedValue:
       '0x84a4e03344b07d64087ebdf47b2c8c679aa7de78179689988992609f1b83c34f6086c7de99ef41c5325cce64d148624e716c605d355f22d1281f6d23f546f584',
@@ -76,7 +76,7 @@ export const ExamplePayloadLoginStatic: SiwfResponsePayloadLogin = {
 // Signed by ExampleUserKey
 export const ExamplePayloadCreateSponsoredAccount = (): SiwfResponsePayloadAddProvider => ({
   signature: {
-    algo: 'Sr25519',
+    algo: 'SR25519',
     encoding: 'base16',
     encodedValue: u8aToHex(
       ExampleUserKey.keyPair().sign(
@@ -103,7 +103,7 @@ export const ExamplePayloadCreateSponsoredAccount = (): SiwfResponsePayloadAddPr
 // Signed by ExampleUserKey
 export const ExamplePayloadGrantDelegation = (): SiwfResponsePayloadAddProvider => ({
   signature: {
-    algo: 'Sr25519',
+    algo: 'SR25519',
     encoding: 'base16',
     encodedValue: u8aToHex(
       ExampleUserKey.keyPair().sign(
@@ -130,7 +130,7 @@ export const ExamplePayloadGrantDelegation = (): SiwfResponsePayloadAddProvider 
 // Signed by ExampleUserKey
 export const ExamplePayloadPublicGraphKey = (): SiwfResponsePayloadItemActions => ({
   signature: {
-    algo: 'Sr25519',
+    algo: 'SR25519',
     encoding: 'base16',
     encodedValue: u8aToHex(
       ExampleUserKey.keyPair().sign(
@@ -169,7 +169,7 @@ export const ExamplePayloadPublicGraphKey = (): SiwfResponsePayloadItemActions =
 // Signed by ExampleUserKey
 export const ExamplePayloadClaimHandle = (): SiwfResponsePayloadClaimHandle => ({
   signature: {
-    algo: 'Sr25519',
+    algo: 'SR25519',
     encoding: 'base16',
     encodedValue: u8aToHex(
       ExampleUserKey.keyPair().sign(

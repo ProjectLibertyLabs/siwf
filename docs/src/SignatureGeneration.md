@@ -49,7 +49,7 @@ Sign the serialized payload using Schnorr signatures over ECDSA.
 
 ### 2d: Example
 
-Remember that Sr25519 signatures are non-deterministic, so the payload and encoding will match, but the signature will be different.
+Remember that SR25519 signatures are non-deterministic, so the payload and encoding will match, but the signature will be different.
 This example uses the `//Alice` seed phrase to generate the signature.
 
 - Payload: `{ "callback": "https://localhost:44181", "permissions": [5, 7, 8, 9, 10] }`

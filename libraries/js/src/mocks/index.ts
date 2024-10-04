@@ -14,7 +14,7 @@ export const ExampleUserPublicKey: SiwfPublicKey = {
   encodedValue: ExampleUserKey.public,
   encoding: 'base58',
   format: 'ss58',
-  type: 'Sr25519',
+  type: 'SR25519',
 };
 
 // NOTICE: These mocks ALSO generate the `docs/DataStructure/[].md` files. Take care changing them

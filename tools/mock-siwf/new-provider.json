@@ -3,12 +3,12 @@
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
     "encoding": "base58",
     "format": "ss58",
-    "type": "Sr25519"
+    "type": "SR25519"
   },
   "payloads": [
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0xda92707ba01de26377fdcc00401dc8817bfc73a7df1c33a278723df7ccbc7657fa6ffb7bff2cb695fa81b22bd079601be9a4ccc5047b03ee8a5eb62829b3d78e"
       },
