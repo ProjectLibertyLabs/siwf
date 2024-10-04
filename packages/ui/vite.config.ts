@@ -11,4 +11,9 @@ export default defineConfig({
     environment: 'jsdom',
     mockReset: true,
   },
+  resolve: {
+    alias: {
+      '@dsnp/parquetjs': '../../node_modules/@dsnp/parquetjs/dist/browser/parquet.js',
+    },
+  },
 });

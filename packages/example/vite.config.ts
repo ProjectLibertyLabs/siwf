@@ -14,4 +14,9 @@ export default defineConfig({
     'process.env.BASE_PATH_EXAMPLE': JSON.stringify(process.env.BASE_PATH_EXAMPLE),
     'process.env.BASE_PATH_UI': JSON.stringify(process.env.BASE_PATH_UI),
   },
+  resolve: {
+    alias: {
+      '@dsnp/parquetjs': '../../node_modules/@dsnp/parquetjs/dist/browser/parquet.js',
+    },
+  },
 });
