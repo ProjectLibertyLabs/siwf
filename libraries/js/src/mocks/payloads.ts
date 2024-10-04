@@ -12,32 +12,38 @@ import {
   serializeItemActionsPayloadHex,
 } from '../util.js';
 
-function generateLoginMessage(account: string, issued: Date, expires: Date) {
-  return `localhost wants you to sign in with your Frequency account:\n${account}\n\n\n\nURI: https://testnet.frequencyaccess.com/signin/confirm\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: ${issued.toISOString()}\nExpiration Time: ${expires.toISOString()}`;
+function generateLoginMessage(account: string, issued: Date, expires: Date, domain: string) {
+  return `${domain} wants you to sign in with your Frequency account:\n${account}\n\n\n\nURI: https://testnet.frequencyaccess.com/signin/confirm\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: ${issued.toISOString()}\nExpiration Time: ${expires.toISOString()}`;
 }
 
 // Setup now so that it is consistent for the entire test run
 const now = Date.now();
 
-const loginMessageGood = () =>
-  generateLoginMessage(ExampleUserKey.public, new Date(now - 24 * 60 * 60 * 1000), new Date(now + 24 * 60 * 60 * 1000));
+const loginMessageGood = (domain: string) =>
+  generateLoginMessage(
+    ExampleUserKey.public,
+    new Date(now - 24 * 60 * 60 * 1000),
+    new Date(now + 24 * 60 * 60 * 1000),
+    domain
+  );
 
 const loginMessageExpired = () =>
   generateLoginMessage(
     ExampleUserKey.public,
     new Date(now - 2 * 24 * 60 * 60 * 1000),
-    new Date(now - 24 * 60 * 60 * 1000)
+    new Date(now - 24 * 60 * 60 * 1000),
+    'localhost'
   );
 
-export const ExamplePayloadLoginGood = (): SiwfResponsePayloadLogin => ({
+export const ExamplePayloadLoginGood = (domain: string): SiwfResponsePayloadLogin => ({
   signature: {
     algo: 'Sr25519',
     encoding: 'base16',
-    encodedValue: u8aToHex(ExampleUserKey.keyPair().sign(loginMessageGood())),
+    encodedValue: u8aToHex(ExampleUserKey.keyPair().sign(loginMessageGood(domain))),
   },
   type: 'login',
   payload: {
-    message: loginMessageGood(),
+    message: loginMessageGood(domain),
   },
 });
 

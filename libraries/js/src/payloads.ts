@@ -58,7 +58,11 @@ function expect(test: boolean, errorMessage: string) {
   if (!test) throw new Error(errorMessage);
 }
 
-function validateLoginPayload(payload: SiwfResponsePayloadLogin, userPublicKey: SiwfPublicKey): void {
+function validateLoginPayload(
+  payload: SiwfResponsePayloadLogin,
+  userPublicKey: SiwfPublicKey,
+  loginMsgDomain: string
+): void {
   // Check that the userPublicKey signed the message
   const signedMessage = payload.payload.message;
   const verifyResult = signatureVerify(signedMessage, payload.signature.encodedValue, userPublicKey.encodedValue);
@@ -67,8 +71,10 @@ function validateLoginPayload(payload: SiwfResponsePayloadLogin, userPublicKey: 
 
   // Validate the message contents
   const msg = parseMessage(signedMessage);
-  // TODO: Get the domain of the callback URL and get it passed through
-  //expect(msg.domain === domain, `Message does not match expected domain. Message: ${msg.domain} Expected: ${domain}`);
+  expect(
+    msg.domain === loginMsgDomain,
+    `Message does not match expected domain. Message: ${msg.domain} Expected: ${loginMsgDomain}`
+  );
   expect(
     msg.address === userPublicKey.encodedValue,
     `Message does not match expected user public key value. Message: ${msg.address}`
@@ -85,13 +91,13 @@ function validateSignature(key: string, signature: string, message: string) {
   expect(verifyResult.isValid, 'Payload signature failed');
 }
 
-export async function validatePayloads(response: SiwfResponse): Promise<void> {
+export async function validatePayloads(response: SiwfResponse, loginMsgDomain: string): Promise<void> {
   // Wait for the WASM to load
   await cryptoWaitReady();
   response.payloads.every((payload) => {
     switch (true) {
       case isPayloadLogin(payload):
-        return validateLoginPayload(payload, response.userPublicKey);
+        return validateLoginPayload(payload, response.userPublicKey, loginMsgDomain);
       case isPayloadAddProvider(payload):
         return validateSignature(
           response.userPublicKey.encodedValue,
