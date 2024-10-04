@@ -48,10 +48,10 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --filter @projectlibertylabs/siwf
+        run: pnpm install
 
       - name: build
-        run: pnpm run build --filter @projectlibertylabs/siwf
+        run: pnpm run build
 
       - name: Version Package
         run: npm version --new-version "${{env.NEW_RELEASE_TAG}}" --no-git-tag-version
