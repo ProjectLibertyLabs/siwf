@@ -1,31 +1,21 @@
 <script lang="ts">
+	import { SCHEMA_NAME_TO_ID } from '../lib/schemas.js';
 	export let permissions: number[] = [];
 
-	// Assumes mainnet schema ids
-	const schemas = {
-		Tombstone: 1,
-		Broadcast: 2,
-		Reply: 3,
-		Reaction: 4,
-		Update: 5,
-		Profile: 6,
-		PublicKey: 7,
-		PublicFollows: 8,
-		PrivateFollows: 9,
-		PrivateConnections: 10
-	};
-
 	const knownPermissions = {
-		'Private Graph v1': [schemas.PublicKey, schemas.PrivateFollows, schemas.PrivateConnections],
-		'Public Graph v1': [schemas.PublicFollows],
-		'Content v1': [
-			schemas.Broadcast,
-			schemas.Reply,
-			schemas.Tombstone,
-			schemas.Reaction,
-			schemas.Update
+		'Bundle: Private Graph': [
+			SCHEMA_NAME_TO_ID.get('dsnp.private-connections@v1'),
+			SCHEMA_NAME_TO_ID.get('dsnp.private-follows@v1'),
+			SCHEMA_NAME_TO_ID.get('dsnp.public-key-key-agreement@v1')
 		],
-		'Profile v1': [schemas.Profile]
+		'Bundle: Content': [
+			SCHEMA_NAME_TO_ID.get('dsnp.broadcast@v2'),
+			SCHEMA_NAME_TO_ID.get('dsnp.reply@v2'),
+			SCHEMA_NAME_TO_ID.get('dsnp.tombstone@v2'),
+			SCHEMA_NAME_TO_ID.get('dsnp.reaction@v1'),
+			SCHEMA_NAME_TO_ID.get('dsnp.update@v2')
+		],
+		...Object.fromEntries([...SCHEMA_NAME_TO_ID.entries()].map(([n, v]) => [n, [v]]))
 	};
 
 	let selectedGroups: number[][] = [];
