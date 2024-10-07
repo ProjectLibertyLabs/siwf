@@ -1,9 +1,7 @@
-import { SchemaName } from '@dsnp/frequency-schemas/dsnp';
-
 /// Data type for a schema requested in a provider delegation
 export type RequestedSchema = {
   /// Schema name registered on-chain
-  name: SchemaName;
+  name: string;
 
   /// Optional version of the named schema
   /// (versions are monotonically increasing integers for each registered schema name)

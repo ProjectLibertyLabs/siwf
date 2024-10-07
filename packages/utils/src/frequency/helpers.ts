@@ -6,7 +6,7 @@ import type { AnyNumber, Codec, ISubmittableResult } from '@polkadot/types/types
 import { Bytes, Text, u16 } from '@polkadot/types';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { RequestedSchema } from '@projectlibertylabs/siwf';
-import { SchemaName } from '@dsnp/frequency-schemas/dsnp';
+import type { SchemaName } from '../schemas';
 
 export { Codec };
 export interface MsaInfo {

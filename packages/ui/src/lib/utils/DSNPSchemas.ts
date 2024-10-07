@@ -1,4 +1,4 @@
-import { type SchemaName } from '@dsnp/frequency-schemas/dsnp';
+import type { SchemaName } from '@projectlibertylabs/siwf-utils';
 export interface SchemaData {
   name: SchemaName;
   version?: number;
