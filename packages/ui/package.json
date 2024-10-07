@@ -41,7 +41,6 @@
   },
   "type": "module",
   "dependencies": {
-    "@dsnp/frequency-schemas": "^1.3.2",
     "@frequency-chain/api-augment": "^1.13.2",
     "@projectlibertylabs/siwf": "workspace:^",
     "@projectlibertylabs/siwf-utils": "workspace:^",

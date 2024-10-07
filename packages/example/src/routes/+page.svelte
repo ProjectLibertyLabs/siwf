@@ -10,10 +10,9 @@
   import SignInVerification from '$lib/components/SignInVerification.svelte';
   import AccountCreator from '$lib/components/AccountCreator.svelte';
   import { MultiSelect, type ObjectOption, type Option } from 'svelte-multiselect';
-  import { schemas } from '@dsnp/frequency-schemas/dsnp';
   import Spinner from '../lib/components/Spinner.svelte';
   import type { ApiPromise } from '@polkadot/api';
-  import { getApi, setApiUrl } from '@projectlibertylabs/siwf-utils';
+  import { getApi, SCHEMA_NAME_TO_ID, setApiUrl } from '@projectlibertylabs/siwf-utils';
 
   if (process.env.BASE_PATH_UI) {
     setConfig({
@@ -90,7 +89,7 @@
     label: s.name,
     value: s.name,
   }));
-  let options = [...schemas.keys()];
+  let options = [...SCHEMA_NAME_TO_ID.keys()];
   let providerId: string = '1';
   let isFetchingPayload = false;
   let api: ApiPromise;
