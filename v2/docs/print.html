@@ -324,7 +324,7 @@
 <li>Staging-Testnet: The staging environment</li>
 <li>Production-Mainnet: The production environment</li>
 <li>MSA: The Frequency blockchain account for a user</li>
-<li>Sr25519: Schnorr signatures using <code>ed25519</code> over ECDSA</li>
+<li>SR25519: Schnorr signatures using <code>ed25519</code> over ECDSA</li>
 <li>Delegation: The user permission for an application to act on their behalf</li>
 <li>Credential: Verified data about the user provided with permission of the user</li>
 </ul>
@@ -703,12 +703,12 @@ SIWF services do not manage user sessions.</p>
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
     "encoding": "base58",
     "format": "ss58",
-    "type": "Sr25519"
+    "type": "SR25519"
   },
   "payloads": [
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0x1a27cb6d79b508e1ffc8d6ae70af78d5b3561cdc426124a06f230d7ce70e757e1947dd1bac8f9e817c30676a5fa6b06510bae1201b698b044ff0660c60f18c8a"
       },
@@ -731,7 +731,7 @@ SIWF services do not manage user sessions.</p>
     },
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0x9eb338773b386ded2e3731ba68ba734c80408b3ad24f92ed3c60342d374a32293851fa8e41d722c72a5a4e765a9e401c68570a8c666ab678e4e5d94aa6825d85"
       },
@@ -754,7 +754,7 @@ SIWF services do not manage user sessions.</p>
     },
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0xb004140fd8ba3395cf5fcef49df8765d90023c293fde4eaf2e932cc24f74fc51b006c0bebcf31d85565648b4881fa22115e0051a3bdb95ab5bf7f37ac66f798f"
       },
@@ -839,12 +839,12 @@ SIWF services do not manage user sessions.</p>
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
     "encoding": "base58",
     "format": "ss58",
-    "type": "Sr25519"
+    "type": "SR25519"
   },
   "payloads": [
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0xbac399831b9e3ad464a16e62ad1252cc8344a2c52f80252b2aa450a06ae2362f6f4afcaca791a81f28eaa99080e2654bdbf1071a276213242fc153cca43cfa8e"
       },
@@ -936,12 +936,12 @@ SIWF services do not manage user sessions.</p>
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
     "encoding": "base58",
     "format": "ss58",
-    "type": "Sr25519"
+    "type": "SR25519"
   },
   "payloads": [
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0x84a4e03344b07d64087ebdf47b2c8c679aa7de78179689988992609f1b83c34f6086c7de99ef41c5325cce64d148624e716c605d355f22d1281f6d23f546f584"
       },
@@ -1059,7 +1059,7 @@ The signature MUST be from one of the <a href="https://docs.frequency.xyz/Identi
 <h3 id="2c-sign-the-wrapped-payload-bytes"><a class="header" href="#2c-sign-the-wrapped-payload-bytes">2c: Sign the Wrapped Payload Bytes</a></h3>
 <p>Sign the serialized payload using Schnorr signatures over ECDSA.</p>
 <h3 id="2d-example"><a class="header" href="#2d-example">2d: Example</a></h3>
-<p>Remember that Sr25519 signatures are non-deterministic, so the payload and encoding will match, but the signature will be different.
+<p>Remember that SR25519 signatures are non-deterministic, so the payload and encoding will match, but the signature will be different.
 This example uses the <code>//Alice</code> seed phrase to generate the signature.</p>
 <ul>
 <li>Payload: <code>{ "callback": "https://localhost:44181", "permissions": [5, 7, 8, 9, 10] }</code></li>
@@ -1147,10 +1147,10 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
       "encodedValue": "f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH",
       "encoding": "base58",
       "format": "ss58",
-      "type": "Sr25519"
+      "type": "SR25519"
     },
     "signature": {
-      "algo": "Sr25519",
+      "algo": "SR25519",
       "encoding": "base16",
       "encodedValue": "0x0407ce814b77861df94d16b3fcb317d37a07abc2a7f9cd7c02cc22529ee7b32d56795f88bd6b4ad106b72b91b6246a783671bcd24cb01aaf0e9316db5e0cd085"
     },
@@ -1202,15 +1202,16 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.B_SY1GJM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.joIlXDEZ.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.BGe7FgcC.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.DNt2ZGly.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.B1sC1lgU.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/scheduler.B3svg8oL.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.Bb7KoBu6.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/environment.CZLhA_4V.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.CRFOJrrM.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/preload-helper.CmsKOCeN.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/index.DcCoCrnC.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.BHruzTxR.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.CJaiLC9D.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/2.DlS3Km58.js">   <div><div class="mb-4"><form><div class="mb-4"><label for="callbackUri" data-svelte-h="svelte-1i096uq">Callback URI *</label> <input type="url" id="callbackUri" required placeholder="https://localhost:3000/login" value=""></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-151ob36">Permissions</legend> <div class="checkboxes"><label><input type="checkbox" value="7,9,10"> Private Graph v1 </label><label><input type="checkbox" value="8"> Public Graph v1 </label><label><input type="checkbox" value="2,3,1,4,5"> Content v1 </label><label><input type="checkbox" value="6"> Profile v1 </label> <div><label for="additionalPermissions" data-svelte-h="svelte-1lmz6b8">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""></div> <div class="my-2 text-sm"><label for="schemaIds" data-svelte-h="svelte-1te7gk5">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""></div></div></fieldset></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-1g8jyhu">Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox">
+<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.Bh7ECLKi.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/2.BjaHF74I.js">   <div><div class="mb-4"><form><div class="mb-4"><label for="callbackUri" data-svelte-h="svelte-1i096uq">Callback URI *</label> <input type="url" id="callbackUri" required placeholder="https://localhost:3000/login" value=""></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-151ob36">Permissions</legend> <div class="checkboxes"><label><input type="checkbox" value="10,9,7"> Bundle: Private Graph </label><label><input type="checkbox" value="17,18,16,4,19"> Bundle: Content </label><label><input type="checkbox" value="2"> dsnp.broadcast@v1 </label><label><input type="checkbox" value="17"> dsnp.broadcast@v2 </label><label><input type="checkbox" value="12"> dsnp.dsnp-content-attribute-set@v1 </label><label><input type="checkbox" value="13"> dsnp.ext-content-attribute-set@v1 </label><label><input type="checkbox" value="10"> dsnp.private-connections@v1 </label><label><input type="checkbox" value="9"> dsnp.private-follows@v1 </label><label><input type="checkbox" value="15"> dsnp.profile-resources@v1 </label><label><input type="checkbox" value="6"> dsnp.profile@v1 </label><label><input type="checkbox" value="8"> dsnp.public-follows@v1 </label><label><input type="checkbox" value="14"> dsnp.public-key-assertion-method@v1 </label><label><input type="checkbox" value="7"> dsnp.public-key-key-agreement@v1 </label><label><input type="checkbox" value="4"> dsnp.reaction@v1 </label><label><input type="checkbox" value="3"> dsnp.reply@v1 </label><label><input type="checkbox" value="18"> dsnp.reply@v2 </label><label><input type="checkbox" value="1"> dsnp.tombstone@v1 </label><label><input type="checkbox" value="16"> dsnp.tombstone@v2 </label><label><input type="checkbox" value="5"> dsnp.update@v1 </label><label><input type="checkbox" value="19"> dsnp.update@v2 </label><label><input type="checkbox" value="11"> dsnp.user-attribute-set@v1 </label><label><input type="checkbox" value="20"> dsnp.user-attribute-set@v2 </label><label><input type="checkbox" value="21"> frequency.default-token-address@v1 </label> <div><label for="additionalPermissions" data-svelte-h="svelte-1lmz6b8">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""></div> <div class="my-2 text-sm"><label for="schemaIds" data-svelte-h="svelte-1te7gk5">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""></div></div></fieldset></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-1g8jyhu">Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox">
 Graph Key (Required for reading private graph)</label> <label><input type="checkbox">
 Verified Email Address</label> <label><input type="checkbox">
 Verified SMS/Phone Number</label></div></fieldset></div> </form></div> <h2 data-svelte-h="svelte-1dmlwxr">Result</h2> <dl><dt data-svelte-h="svelte-1epj4gw">Login Request Payload and Signature (
@@ -1219,7 +1220,7 @@ parameter )
 </dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div>
 <script>
 {
-__sveltekit_1wem86t = {
+__sveltekit_mck908 = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
@@ -1228,8 +1229,8 @@ const element = document.currentScript.parentElement;
 const data = [null,null];
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.joIlXDEZ.js"),
-import("./Generator/_app/immutable/entry/app.Bb7KoBu6.js")
+import("./Generator/_app/immutable/entry/start.DNt2ZGly.js"),
+import("./Generator/_app/immutable/entry/app.CRFOJrrM.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
@@ -1322,13 +1323,13 @@ Below are the official types and multihashes to use.</p>
 </div><div style="break-before: page; page-break-before: always;"></div><h1 id="possible-payloads"><a class="header" href="#possible-payloads">Possible Payloads</a></h1>
 <p>Each response may have one or more of the following signed payloads.</p>
 <h2 id="login-1"><a class="header" href="#login-1">Login</a></h2>
-<p>The signature is generated by signing the UTF-8 bytes of <code>payload.message</code> using <code>Sr25519</code>.</p>
+<p>The signature is generated by signing the UTF-8 bytes of <code>payload.message</code> using <code>SR25519</code>.</p>
 <p>See <a href="./Actions/Response.html#login">Response Payloads: Login</a> for more details.</p>
 <h3 id="example-2"><a class="header" href="#example-2">Example</a></h3>
 <p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
 <pre><code class="language-json">{
   "signature": {
-    "algo": "Sr25519",
+    "algo": "SR25519",
     "encoding": "base16",
     "encodedValue": "0x84a4e03344b07d64087ebdf47b2c8c679aa7de78179689988992609f1b83c34f6086c7de99ef41c5325cce64d148624e716c605d355f22d1281f6d23f546f584"
   },
@@ -1341,12 +1342,12 @@ Below are the official types and multihashes to use.</p>
 <h2 id="add-provider"><a class="header" href="#add-provider">Add Provider</a></h2>
 <p>This payload follows the <a href="https://frequency-chain.github.io/frequency/pallet_msa/types/struct.AddProvider.html"><code>AddProvider</code></a> type from Frequency.
 It has the same payload for two different endpoint extrinsics: <code>createSponsoredAccountWithDelegation</code> used for creating a new MSA on chain and <code>grantDelegation</code> which is used to grant a new provider permissions on an existing MSA.</p>
-<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>Sr25519</code>.</p>
+<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.</p>
 <h3 id="example-3"><a class="header" href="#example-3">Example</a></h3>
 <p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
 <pre><code class="language-json">{
   "signature": {
-    "algo": "Sr25519",
+    "algo": "SR25519",
     "encoding": "base16",
     "encodedValue": "0x94156d570b29e9c4e3a04eefbff56439f40de7fb6bdba1ca31e9017b55e5e773f747d0ab4f0fc2b44ca903aa8fb641f227fac395e74bb1d837d07cfa70fa1e80"
   },
@@ -1377,12 +1378,12 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
 </code></pre>
 <h2 id="claim-handle"><a class="header" href="#claim-handle">Claim Handle</a></h2>
 <p>This payload follows the <a href="https://frequency-chain.github.io/frequency/common_primitives/handles/struct.ClaimHandlePayload.html"><code>ClaimHandlePayload</code></a> type from Frequency.</p>
-<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>Sr25519</code>.</p>
+<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.</p>
 <h3 id="example-4"><a class="header" href="#example-4">Example</a></h3>
 <p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
 <pre><code class="language-json">{
   "signature": {
-    "algo": "Sr25519",
+    "algo": "SR25519",
     "encoding": "base16",
     "encodedValue": "0xc8c7587ef80b6bd64295d63b69f97196a9a0b635bd8f1974156d7e3c7206134bb9838d29978a2f91c18a6592aff180f2314db7528b6aac796f0073d758406e81"
   },
@@ -1405,12 +1406,12 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
 </code></pre>
 <h2 id="user-item-actions"><a class="header" href="#user-item-actions">User Item Actions</a></h2>
 <p>This payload follows the <a href="https://frequency-chain.github.io/frequency/pallet_stateful_storage/types/struct.ItemizedSignaturePayloadV2.html"><code>ItemizedSignaturePayloadV2</code></a> type from Frequency.</p>
-<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>Sr25519</code>.</p>
+<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.</p>
 <h3 id="example-5"><a class="header" href="#example-5">Example</a></h3>
 <p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
 <pre><code class="language-json">{
   "signature": {
-    "algo": "Sr25519",
+    "algo": "SR25519",
     "encoding": "base16",
     "encodedValue": "0x86bdd46a5f91ed3f259374f5856fdc48ee00b8eced10eecd05af8d7637c51d17df6252f617feacbce1cf91cc57ca036c69773ab9b0c31d6843344704b4fb898d"
   },
@@ -1473,10 +1474,10 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
       "encodedValue": "f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH",
       "encoding": "base58",
       "format": "ss58",
-      "type": "Sr25519"
+      "type": "SR25519"
     },
     "signature": {
-      "algo": "Sr25519",
+      "algo": "SR25519",
       "encoding": "base16",
       "encodedValue": "0x0407ce814b77861df94d16b3fcb317d37a07abc2a7f9cd7c02cc22529ee7b32d56795f88bd6b4ad106b72b91b6246a783671bcd24cb01aaf0e9316db5e0cd085"
     },
@@ -1523,12 +1524,12 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
     "encoding": "base58",
     "format": "ss58",
-    "type": "Sr25519"
+    "type": "SR25519"
   },
   "payloads": [
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0x1a27cb6d79b508e1ffc8d6ae70af78d5b3561cdc426124a06f230d7ce70e757e1947dd1bac8f9e817c30676a5fa6b06510bae1201b698b044ff0660c60f18c8a"
       },
@@ -1551,7 +1552,7 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
     },
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0x9eb338773b386ded2e3731ba68ba734c80408b3ad24f92ed3c60342d374a32293851fa8e41d722c72a5a4e765a9e401c68570a8c666ab678e4e5d94aa6825d85"
       },
@@ -1574,7 +1575,7 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
     },
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0xb004140fd8ba3395cf5fcef49df8765d90023c293fde4eaf2e932cc24f74fc51b006c0bebcf31d85565648b4881fa22115e0051a3bdb95ab5bf7f37ac66f798f"
       },
@@ -1659,12 +1660,12 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
     "encoding": "base58",
     "format": "ss58",
-    "type": "Sr25519"
+    "type": "SR25519"
   },
   "payloads": [
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0xbac399831b9e3ad464a16e62ad1252cc8344a2c52f80252b2aa450a06ae2362f6f4afcaca791a81f28eaa99080e2654bdbf1071a276213242fc153cca43cfa8e"
       },
@@ -1756,12 +1757,12 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
     "encoding": "base58",
     "format": "ss58",
-    "type": "Sr25519"
+    "type": "SR25519"
   },
   "payloads": [
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0x84a4e03344b07d64087ebdf47b2c8c679aa7de78179689988992609f1b83c34f6086c7de99ef41c5325cce64d148624e716c605d355f22d1281f6d23f546f584"
       },
