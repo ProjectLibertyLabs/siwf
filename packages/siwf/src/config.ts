@@ -3,19 +3,19 @@ import { RequestedSchema, type SiwsOptions } from './messenger';
 
 const defaultSchemas: RequestedSchema[] = [
   {
-    name: 'profile-resources',
+    name: 'dsnp.profile-resources@v1',
   },
   {
-    name: 'public-key-key-agreement',
+    name: 'dsnp.public-key-key-agreement@v1',
   },
   {
-    name: 'public-follows',
+    name: 'dsnp.public-follows@v1',
   },
   {
-    name: 'private-follows',
+    name: 'dsnp.private-follows@v1',
   },
   {
-    name: 'private-connections',
+    name: 'dsnp.private-connections@v1',
   },
 ];
 
