@@ -5,10 +5,10 @@
       "encodedValue": "f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH",
       "encoding": "base58",
       "format": "ss58",
-      "type": "Sr25519"
+      "type": "SR25519"
     },
     "signature": {
-      "algo": "Sr25519",
+      "algo": "SR25519",
       "encoding": "base16",
       "encodedValue": "0x0407ce814b77861df94d16b3fcb317d37a07abc2a7f9cd7c02cc22529ee7b32d56795f88bd6b4ad106b72b91b6246a783671bcd24cb01aaf0e9316db5e0cd085"
     },

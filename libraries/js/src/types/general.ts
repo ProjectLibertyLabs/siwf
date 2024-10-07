@@ -9,7 +9,7 @@ export interface SiwfPublicKey {
   encodedValue: string;
   encoding: 'base58';
   format: 'ss58';
-  type: 'Sr25519';
+  type: 'SR25519';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,7 +19,7 @@ export function isPublicKey(obj: any): obj is SiwfPublicKey {
     validateAddress(obj.encodedValue) &&
     obj.encoding === 'base58' &&
     obj.format === 'ss58' &&
-    obj.type === 'Sr25519'
+    obj.type?.toUpperCase() === 'SR25519'
   );
 }
 

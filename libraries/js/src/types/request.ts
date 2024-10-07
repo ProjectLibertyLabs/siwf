@@ -16,7 +16,7 @@ export interface SiwfSignedRequest {
   requestedSignatures: {
     publicKey: SiwfPublicKey;
     signature: {
-      algo: 'Sr25519';
+      algo: 'SR25519';
       encoding: 'base16';
       encodedValue: string;
     };
@@ -53,7 +53,12 @@ function isRequestedSignaturePayload(input: unknown): input is SiwfSignedRequest
 }
 
 function isRequestedSignature(input: unknown): input is SiwfSignedRequest['requestedSignatures'] {
-  return isObj(input) && input.algo === 'Sr25519' && input.encoding === 'base16' && isHexStr(input.encodedValue);
+  return (
+    isObj(input) &&
+    input.algo?.toUpperCase() === 'SR25519' &&
+    input.encoding === 'base16' &&
+    isHexStr(input.encodedValue)
+  );
 }
 
 function isRequestedSignatures(input: unknown): input is SiwfSignedRequest['requestedSignatures'] {

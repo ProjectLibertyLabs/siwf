@@ -66,6 +66,6 @@ URL: `testnet.frequencyaccess.com`
 - Staging-Testnet: The staging environment
 - Production-Mainnet: The production environment
 - MSA: The Frequency blockchain account for a user
-- Sr25519: Schnorr signatures using `ed25519` over ECDSA
+- SR25519: Schnorr signatures using `ed25519` over ECDSA
 - Delegation: The user permission for an application to act on their behalf
 - Credential: Verified data about the user provided with permission of the user

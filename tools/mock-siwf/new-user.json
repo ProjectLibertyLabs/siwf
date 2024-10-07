@@ -3,12 +3,12 @@
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
     "encoding": "base58",
     "format": "ss58",
-    "type": "Sr25519"
+    "type": "SR25519"
   },
   "payloads": [
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0x04df9ec55d150c563d2a75fd71401d53e788b72e3e158a00459081f244d13234dddaf23f28bf7d7e2a1d7d8c4d83a2d286afdf3067e1ef393123340af05fbd8d"
       },
@@ -25,7 +25,7 @@
     },
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0x0c17f1959de2ae30e07daddb91a78a7b9aee4023342888e541ba10a9a394ac59b6613c81fbcd23264c64a22bdc1e4bb576b9cc6b2f7a22054df400c6eed46c84"
       },
@@ -48,7 +48,7 @@
     },
     {
       "signature": {
-        "algo": "Sr25519",
+        "algo": "SR25519",
         "encoding": "base16",
         "encodedValue": "0xf2a29d0e25900400ef50edeae02434fdd5dab903f9674040ebe9ea9859fdc25c7c8f0a1de203fe6d1e8e92180906160b9b97db98bdc6e16bbf9f59328aef2784"
       },
