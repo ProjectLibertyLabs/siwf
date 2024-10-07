@@ -11,7 +11,9 @@
   let payloadBytes: Uint8Array;
 
   let schemas = $RequestResponseStore.request.requiredSchemas.map((schema) => {
-    const d = DSNPSchemas.find((ds) => ds.name === schema.name);
+    const d = DSNPSchemas.find(
+      (ds) => ds.name === schema.name && ds.namespace === schema.namespace && ds.version === schema.version
+    );
     return {
       ...schema,
       description: d?.description || `Update data associated with the ${schema.name} schema`,

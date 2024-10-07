@@ -6,7 +6,6 @@ import type { AnyNumber, Codec, ISubmittableResult } from '@polkadot/types/types
 import { Bytes, Text, u16 } from '@polkadot/types';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { RequestedSchema } from '@projectlibertylabs/siwf';
-import type { SchemaName } from '../schemas';
 
 export { Codec };
 export interface MsaInfo {
@@ -113,37 +112,14 @@ export async function getProviderRegistryInfo(providerId: AnyNumber) {
 export async function resolveSchemas(schemas: RequestedSchema[]): Promise<void> {
   const api = await getApi();
 
-  // hack to suppress errors on mainnet until schema names are deployed
-  if (!api.query.schemas.schemaNameToIds) {
-    const mainnetSchemas: SchemaName[] = [
-      'tombstone',
-      'broadcast',
-      'reply',
-      'reaction',
-      'profile-resources',
-      'update',
-      'public-key-key-agreement',
-      'public-follows',
-      'private-follows',
-      'private-connections',
-    ];
-    schemas.forEach((schema) => {
-      schema.id = (mainnetSchemas.findIndex((name) => name === schema.name) || -1) + 1;
-    });
-    return;
-  }
-  const response = await api.query.schemas.schemaNameToIds.multi(schemas.map((s) => ['dsnp', s.name]));
+  const response = await api.query.schemas.schemaNameToIds.multi(schemas.map((s) => [s.namespace || 'dsnp', s.name]));
 
   schemas.forEach((schema, index) => {
-    const ids = response[index]!.ids.toArray()
-      .map((id) => (id as u16).toNumber())
-      .sort();
+    const ids = response[index]!.ids.toArray().map((id) => (id as u16).toNumber());
     if (schema?.version && schema.version > 0) {
-      if (schema.version > ids.length) {
-        throw new Error(`Unable to find version ${schema.version} of schema ${schema.name}`);
+      if (schema.version <= ids.length) {
+        schema.id = ids[schema.version - 1];
       }
-
-      schema.id = ids[schema.version - 1];
     } else {
       ids.reverse();
       schema.id = ids[0];
