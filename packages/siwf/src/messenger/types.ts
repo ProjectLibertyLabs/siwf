@@ -3,6 +3,9 @@ export type RequestedSchema = {
   /// Schema name registered on-chain
   name: string;
 
+  /// Optional Schema namespace registered on-chain
+  namespace?: string;
+
   /// Optional version of the named schema
   /// (versions are monotonically increasing integers for each registered schema name)
   version?: number;

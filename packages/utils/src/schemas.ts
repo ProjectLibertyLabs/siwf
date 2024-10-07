@@ -27,3 +27,15 @@ export const SCHEMA_NAME_TO_ID = new Map<string, number>([
 const SCHEMA_NAME_TO_ID_OBJECT = Object.fromEntries(SCHEMA_NAME_TO_ID);
 
 export type SchemaName = keyof typeof SCHEMA_NAME_TO_ID_OBJECT;
+
+export const parseName = (full: string): { namespace: string; name: string; version?: number } | null => {
+  const match = full.match(/(\w+)\.([^@]+)@v(\d+)/);
+  if (match && match[1] && match[2]) {
+    return {
+      namespace: match[1],
+      name: match[2],
+      version: match[3] ? parseInt(match[3]) : undefined,
+    };
+  }
+  return null;
+};

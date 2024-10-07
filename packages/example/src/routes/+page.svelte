@@ -3,16 +3,15 @@
     type Config,
     defaultConfig,
     getLoginOrRegistrationPayload,
-    type RequestedSchema,
     setConfig,
     type WalletProxyResponse,
   } from '@projectlibertylabs/siwf';
   import SignInVerification from '$lib/components/SignInVerification.svelte';
   import AccountCreator from '$lib/components/AccountCreator.svelte';
-  import { MultiSelect, type ObjectOption, type Option } from 'svelte-multiselect';
+  import { MultiSelect } from 'svelte-multiselect';
   import Spinner from '../lib/components/Spinner.svelte';
   import type { ApiPromise } from '@polkadot/api';
-  import { getApi, SCHEMA_NAME_TO_ID, setApiUrl } from '@projectlibertylabs/siwf-utils';
+  import { getApi, SCHEMA_NAME_TO_ID, setApiUrl, parseName } from '@projectlibertylabs/siwf-utils';
 
   if (process.env.BASE_PATH_UI) {
     setConfig({
@@ -58,11 +57,6 @@
       http: 'https://0.rpc.testnet.amplica.io',
       ws: 'wss://0.rpc.testnet.amplica.io',
     },
-    {
-      name: 'Frequency Rococo',
-      http: 'https://rpc.rococo.frequency.xyz',
-      ws: 'wss://rpc.rococo.frequency.xyz',
-    },
   ];
 
   type ProxyUrl = {
@@ -84,11 +78,7 @@
   let chainUrl: ChainUrl;
   let loginUrl: ProxyUrl;
   let expirationSeconds: number = 300;
-  let requestedSchemas: Option[] = defaultConfig.schemas.map((s) => ({
-    ...s,
-    label: s.name,
-    value: s.name,
-  }));
+  let requestedSchemas: string[] = defaultConfig.schemas.map((s) => s.name);
   let options = [...SCHEMA_NAME_TO_ID.keys()];
   let providerId: string = '1';
   let isFetchingPayload = false;
@@ -102,8 +92,8 @@
       frequencyRpcUrl: chainUrl.http,
       proxyUrl: loginUrl.url,
       schemas: requestedSchemas.map((option) => {
-        const { label: _label, value: _value, ...s } = option as unknown as ObjectOption;
-        return { ...s } as RequestedSchema;
+        const parsedOption = parseName(option);
+        return parsedOption;
       }),
       siwsOptions: {
         expiresInMsecs: expirationSeconds * 1_000,

@@ -1,6 +1,7 @@
 import type { SchemaName } from '@projectlibertylabs/siwf-utils';
 export interface SchemaData {
   name: SchemaName;
+  namespace?: string;
   version?: number;
   description: string;
   id?: number;
@@ -8,89 +9,131 @@ export interface SchemaData {
 
 export const DSNPSchemas: SchemaData[] = [
   {
-    name: 'dsnp.broadcast@v1',
+    namespace: 'dsnp',
+    name: 'broadcast',
+    version: 1,
     description: 'Post a public message',
   },
   {
-    name: 'dsnp.broadcast@v2',
+    namespace: 'dsnp',
+    name: 'broadcast',
+    version: 2,
     description: 'Post a public message',
   },
   {
-    name: 'dsnp.dsnp-content-attribute-set@v1',
+    namespace: 'dsnp',
+    name: 'dsnp-content-attribute-set',
+    version: 1,
     description: 'Create DSNP content attributes',
   },
   {
-    name: 'dsnp.ext-content-attribute-set@v1',
+    namespace: 'dsnp',
+    name: 'ext-content-attribute-set',
+    version: 1,
     description: 'Create external content attributes',
   },
   {
-    name: 'dsnp.private-connections@v1',
+    namespace: 'dsnp',
+    name: 'private-connections',
+    version: 1,
     description: 'Establish private, mutual connections between two identities',
   },
   {
-    name: 'dsnp.private-follows@v1',
+    namespace: 'dsnp',
+    name: 'private-follows',
+    version: 1,
     description: 'Privately follow another identity',
   },
   {
-    name: 'dsnp.profile-resources@v1',
+    namespace: 'dsnp',
+    name: 'profile-resources',
+    version: 1,
     description: 'Publish public profile',
   },
   {
-    name: 'dsnp.profile@v1',
+    namespace: 'dsnp',
+    name: 'profile',
+    version: 1,
     description: '(Deprecated) Publish profile updates',
   },
   {
-    name: 'dsnp.public-follows@v1',
+    namespace: 'dsnp',
+    name: 'public-follows',
+    version: 1,
     description: 'Publicly follow another identity',
   },
   {
-    name: 'dsnp.public-key-assertion-method@v1',
+    namespace: 'dsnp',
+    name: 'public-key-assertion-method',
+    version: 1,
     description: 'Announce that a new cryptographic key has been added for assertation validation',
   },
   {
-    name: 'dsnp.public-key-key-agreement@v1',
+    namespace: 'dsnp',
+    name: 'public-key-key-agreement',
+    version: 1,
     description: 'Announce that a new cryptographic key has been added for graph privacy',
   },
   {
-    name: 'dsnp.reaction@v1',
+    namespace: 'dsnp',
+    name: 'reaction',
+    version: 1,
     description: 'Publish emoji reactions to a Broadcast',
   },
   {
-    name: 'dsnp.reply@v1',
+    namespace: 'dsnp',
+    name: 'reply',
+    version: 1,
     description: 'Post a public reply to a Broadcast',
   },
   {
-    name: 'dsnp.reply@v2',
+    namespace: 'dsnp',
+    name: 'reply',
+    version: 2,
     description: 'Post a public reply to a Broadcast',
   },
   {
-    name: 'dsnp.tombstone@v1',
+    namespace: 'dsnp',
+    name: 'tombstone',
+    version: 1,
     description:
       'Publish a notice that previously announced content is invalid and the related Announcement should be considered reverted',
   },
   {
-    name: 'dsnp.tombstone@v2',
+    namespace: 'dsnp',
+    name: 'tombstone',
+    version: 2,
     description:
       'Publish a notice that previously announced content is invalid and the related Announcement should be considered reverted',
   },
   {
-    name: 'dsnp.update@v1',
+    namespace: 'dsnp',
+    name: 'update',
+    version: 1,
     description: 'Update previously announced content',
   },
   {
-    name: 'dsnp.update@v2',
+    namespace: 'dsnp',
+    name: 'update',
+    version: 2,
     description: 'Update previously announced content',
   },
   {
-    name: 'dsnp.user-attribute-set@v1',
+    namespace: 'dsnp',
+    name: 'user-attribute-set',
+    version: 1,
     description: '(Deprecated) Create attributes',
   },
   {
-    name: 'dsnp.user-attribute-set@v2',
+    namespace: 'dsnp',
+    name: 'user-attribute-set',
+    version: 2,
     description: 'Create attributes',
   },
   {
-    name: 'frequency.default-token-address@v1',
+    namespace: 'freq',
+    name: 'ency.default-token-address',
+    version: 1,
     description: 'Set default token address',
   },
 ];
