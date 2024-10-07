@@ -11,7 +11,7 @@
   import { MultiSelect } from 'svelte-multiselect';
   import Spinner from '../lib/components/Spinner.svelte';
   import type { ApiPromise } from '@polkadot/api';
-  import { getApi, SCHEMA_NAME_TO_ID, setApiUrl, parseName } from '@projectlibertylabs/siwf-utils';
+  import { getApi, parseName, SCHEMA_NAME_TO_ID, setApiUrl } from '@projectlibertylabs/siwf-utils';
 
   if (process.env.BASE_PATH_UI) {
     setConfig({
