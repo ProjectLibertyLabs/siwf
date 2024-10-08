@@ -23,6 +23,7 @@ export interface SiwfSignedRequest {
     payload: {
       callback: string;
       permissions: number[];
+      userIdentifierAdminUrl?: string;
     };
   };
   requestedCredentials?: SiwfCredentialRequest[];

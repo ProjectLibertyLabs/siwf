@@ -103,7 +103,7 @@ export function buildSignedRequest(
   return {
     requestedSignatures: {
       publicKey: {
-        // TODO: Should this always be encoded as mainnet 90 or check if mainnet?
+        // Should always be encoded as mainnet prefix 90
         encodedValue: encodeAddress(signerPublicKey, 90),
         encoding: 'base58',
         format: 'ss58',
