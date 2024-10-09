@@ -24,8 +24,7 @@ export function hasChainSubmissions(result: SiwfResponse): boolean {
  * Validate a possible SIWF Response
  *
  * @param {unknown} response - A possible SIWF Response.
- * @param {SiwfOptions} options - Options for endpoint selection and domain checks.
- *                 options.loginMsgDomain - The login message signed by the user should match this domain. (Default: localhost)
+ * @param {string} loginMsgDomain - The login message signed by the user should match this domain. (Default: localhost)
  *
  * @returns {Promise<SiwfResponse>} The validated response
  */

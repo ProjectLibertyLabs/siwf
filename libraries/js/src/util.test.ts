@@ -10,7 +10,21 @@ import {
 describe('SCALE serializations', () => {
   it('serializeLoginPayloadHex serializes correctly', () => {
     expect(serializeLoginPayloadHex({ callback: 'https://localhost:44181', permissions: [5, 7, 8, 9, 10] })).toEqual(
-      '0x3c42797465733e5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a003c2f42797465733e'
+      '0x3c42797465733e5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a00003c2f42797465733e'
+    );
+
+    expect(
+      serializeLoginPayloadHex({
+        callback: 'https://localhost:44181',
+        permissions: [5, 7, 8, 9, 10],
+        userIdentifierAdminUrl: 'https://localhost:101010',
+      })
+    ).toEqual(
+      '0x3c42797465733e5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a00016068747470733a2f2f6c6f63616c686f73743a3130313031303c2f42797465733e'
+    );
+
+    expect(serializeLoginPayloadHex({ callback: 'https://localhost:44181', permissions: [5, 7, 8, 9, 10] })).toEqual(
+      '0x3c42797465733e5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a00003c2f42797465733e'
     );
   });
 

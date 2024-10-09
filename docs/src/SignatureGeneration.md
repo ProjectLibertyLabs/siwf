@@ -21,6 +21,10 @@ The list of Frequency Schema Ids permissions your application is requesting from
 
 - See a full list of [Available Delegations](./Delegations.md)
 
+### Parameter: `userIdentifierAdminUrl`
+
+Only used for custom integration situations.
+
 ## Step 2: Signing the Request
 
 To ensure that the correct application is requesting the authentication and that the response is only sent to the authorized party, the request is signed.
@@ -33,7 +37,8 @@ SCALE Type (Note: Order matters!)
 ```json
 {
   "callback": "String",
-  "permissions": "Vec<U16>"
+  "permissions": "Vec<U16>",
+  "userIdentifierAdminUrl": "Option<String>",
 }
 ```
 
@@ -53,10 +58,10 @@ Remember that SR25519 signatures are non-deterministic, so the payload and encod
 This example uses the `//Alice` seed phrase to generate the signature.
 
 - Payload: `{ "callback": "https://localhost:44181", "permissions": [5, 7, 8, 9, 10] }`
-- SCALE Payload (Hex): `0x5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a00`
-- Wrapped Payload (Hex): `0x3c42797465733e5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a003c2f42797465733e`
+- SCALE Payload (Hex): `0x5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a0000`
+- Wrapped Payload (Hex): `0x3c42797465733e5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a00003c2f42797465733e`
 - Signing Public Key (SS58 Prefix 90): `f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH`
-- Signature (Hex): `0x446c32dd524c1f4b06c213891e9e3a025dded43eae55d2df40a766187684ac2704434e1835573077c1abb783b98f3684488e41f8c9bdc359458f9e043ae5cd86`
+- Signature (Hex): `0x9abd3c54e7164e8385627dc692724b9467386acd7b02a13d6187e2c58fd91440d9134781c0410a45812f5532b71f4a34b4a5443ef8d68b5a1956f7f0f81d4286`
 
 ## Step 3 (Optional): Request Credentials (Graph Key, Email, Phone)
 

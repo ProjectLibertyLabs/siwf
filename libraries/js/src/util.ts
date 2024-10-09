@@ -48,8 +48,10 @@ export function requestPayloadBytes(payload: SiwfSignedRequest['requestedSignatu
     {
       callback: Text,
       permissions: 'Vec<U16>',
+      userIdentifierAdminUrl: 'Option<Text>',
     },
-    payload
+    // Ensure that the userIdentifierAdminUrl is null if it doesn't exist
+    { userIdentifierAdminUrl: null, ...payload }
   ).toU8a();
 }
 
