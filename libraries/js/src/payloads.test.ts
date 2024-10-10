@@ -20,6 +20,43 @@ beforeAll(async () => {
 
 describe('validatePayloads', () => {
   describe('Login Related Payloads', () => {
+    it('Can verify Login Payload generated from FA using hash', async () => {
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: {
+              encodedValue: '5HYHZ8e8kyLEBuEbsFa2bwKYbVSMgaUhymfRVgH7CuM4VCHv',
+              encoding: 'base58',
+              format: 'ss58',
+              type: 'Sr25519',
+            },
+            payloads: [
+              {
+                signature: {
+                  algo: 'SR25519',
+                  encoding: 'base16',
+                  encodedValue:
+                    '0xa6da6fa47076fbf7b0aac57a246041a777c867d15571dad1fdd014f4f0477a7ca5a92f5c952a740791b4e360b2320e94a3f20e733e821ac4242b1de72fbc6a80',
+                },
+                type: 'login',
+                payload: {
+                  message: `localhost wants you to sign in with your Frequency account:
+frequency:dev:5HYHZ8e8kyLEBuEbsFa2bwKYbVSMgaUhymfRVgH7CuM4VCHv
+
+URI: http://localhost:3030/login/callback
+Version: 1
+Nonce: d83eba8e-05a3-4c9a-9901-a976e67278b6
+Chain ID: frequency:dev
+Issued At: 2024-10-10T18:40:37.344099626Z`,
+                },
+              },
+            ],
+          },
+          'localhost'
+        )
+      ).resolves.toBeUndefined();
+    });
+
     it('Can verify a Generated Login Payload', async () => {
       await expect(
         validatePayloads(

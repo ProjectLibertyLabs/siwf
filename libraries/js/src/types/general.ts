@@ -9,7 +9,7 @@ export interface SiwfPublicKey {
   encodedValue: string;
   encoding: 'base58';
   format: 'ss58';
-  type: 'SR25519';
+  type: 'Sr25519';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

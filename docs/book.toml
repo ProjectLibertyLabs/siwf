@@ -3,7 +3,7 @@ authors = ["Project Liberty Labs"]
 language = "en"
 multilingual = false
 src = "src"
-title = "Sign In With Access"
+title = "Sign In With Frequency"
 
 [preprocessor.local]
 command = "node preprocessor.mjs"

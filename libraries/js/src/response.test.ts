@@ -84,4 +84,11 @@ describe('validateSiwfResponse', () => {
       'Response failed to correctly parse or invalid content: {"foo":"bad"}'
     );
   });
+
+  it('throws on a bad domain', async () => {
+    const example = await ExampleLogin();
+    await expect(validateSiwfResponse(base64url(JSON.stringify(example)), 'bad.example.xyz')).to.rejects.toThrowError(
+      'Message does not match expected domain. Message: localhost Expected: bad.example.xyz'
+    );
+  });
 });
