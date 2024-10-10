@@ -1,5 +1,5 @@
-import { signatureVerify, cryptoWaitReady, decodeAddress } from '@polkadot/util-crypto';
-import { stringToU8a, u8aToHex, u8aWrapBytes } from '@polkadot/util';
+import { signatureVerify, cryptoWaitReady, decodeAddress, blake2AsU8a } from '@polkadot/util-crypto';
+import { hexToU8a, stringToU8a, u8aToHex, u8aWrapBytes } from '@polkadot/util';
 import {
   isPayloadAddProvider,
   isPayloadClaimHandle,
@@ -21,14 +21,17 @@ interface SiwxMessage {
   nonce: string;
   expired: boolean;
   issuedAt: Date;
-  expirationTime: Date;
+  expirationTime?: Date;
   uri: string;
 }
 
 function parseMessage(message: string): SiwxMessage {
   const msgSplit = message.split('\n');
   const domain = (msgSplit[0] || '').split(' ')[0] || '';
-  const address = msgSplit[1] || '';
+
+  const addressLines = (msgSplit[1] || '').split(':');
+  const address = addressLines[addressLines.length - 1] || '';
+
   const nonceLine = msgSplit.find((x) => x.startsWith('Nonce: '));
   const nonce = nonceLine ? nonceLine.replace('Nonce: ', '') : '';
 
@@ -37,8 +40,8 @@ function parseMessage(message: string): SiwxMessage {
 
   const expiredLine = msgSplit.find((x) => x.startsWith('Expiration Time: '));
   const expiredString = expiredLine ? expiredLine.replace('Expiration Time: ', '') : '';
-  const expirationTime = new Date(expiredString);
-  const expired = +expirationTime < Date.now();
+  const expirationTime = expiredString ? new Date(expiredString) : undefined;
+  const expired = expirationTime ? +expirationTime < Date.now() : false;
 
   const issuedLine = msgSplit.find((x) => x.startsWith('Issued At: '));
   const issuedString = issuedLine ? issuedLine.replace('Issued At: ', '') : '';
@@ -55,6 +58,36 @@ function parseMessage(message: string): SiwxMessage {
   };
 }
 
+// SIWA is switching away from this, but we should still support it for now
+function verifySignatureHashMaybeWrapped(publicKey: string, signature: string, message: Uint8Array): boolean {
+  const unwrappedSigned = message.length > 256 ? blake2AsU8a(message) : message;
+
+  const unwrappedVerifyResult = signatureVerify(unwrappedSigned, signature, publicKey);
+  if (unwrappedVerifyResult.isValid) {
+    return true;
+  }
+
+  // Support both wrapped and unwrapped signatures
+  const wrappedSignedBytes = u8aWrapBytes(message);
+  const wrappedSigned = wrappedSignedBytes.length > 256 ? blake2AsU8a(wrappedSignedBytes) : wrappedSignedBytes;
+  const wrappedVerifyResult = signatureVerify(wrappedSigned, signature, publicKey);
+
+  return wrappedVerifyResult.isValid;
+}
+
+function verifySignatureMaybeWrapped(publicKey: string, signature: string, message: Uint8Array): boolean {
+  const unwrappedVerifyResult = signatureVerify(message, signature, publicKey);
+  if (unwrappedVerifyResult.isValid) {
+    return true;
+  }
+
+  // Support both wrapped and unwrapped signatures
+  const wrappedSignedBytes = u8aWrapBytes(message);
+  const wrappedVerifyResult = signatureVerify(wrappedSignedBytes, signature, publicKey);
+
+  return wrappedVerifyResult.isValid || verifySignatureHashMaybeWrapped(publicKey, signature, message);
+}
+
 function expect(test: boolean, errorMessage: string) {
   if (!test) throw new Error(errorMessage);
 }
@@ -65,24 +98,14 @@ function validateLoginPayload(
   loginMsgDomain: string
 ): void {
   // Check that the userPublicKey signed the message
-
-  const unwrappedSignedMessage = stringToU8a(payload.payload.message);
-  const unwrappedVerifyResult = signatureVerify(
-    unwrappedSignedMessage,
-    payload.signature.encodedValue,
-    userPublicKey.encodedValue
-  );
-  // Support both wrapped and unwrapped signatures
-  if (!unwrappedVerifyResult.isValid) {
-    const wrappedSignedMessage = u8aWrapBytes(unwrappedSignedMessage);
-    const wrappedVerifyResult = signatureVerify(
-      wrappedSignedMessage,
+  expect(
+    verifySignatureMaybeWrapped(
+      userPublicKey.encodedValue,
       payload.signature.encodedValue,
-      userPublicKey.encodedValue
-    );
-
-    expect(wrappedVerifyResult.isValid, 'Login message signature failed');
-  }
+      stringToU8a(payload.payload.message)
+    ),
+    'Login message signature failed'
+  );
 
   // Validate the message contents
   const msg = parseMessage(payload.payload.message);
@@ -103,15 +126,13 @@ function validateLoginPayload(
     );
   }
 
-  expect(
-    !msg.expired,
-    `Message does not match expected user public key value. Message: ${msg.expirationTime.toISOString()}`
-  );
+  if (msg.expirationTime) {
+    expect(!msg.expired, `Message has expired. Message: ${msg.expirationTime.toISOString()}`);
+  }
 }
 
-function validateSignature(key: string, signature: string, message: string) {
-  const verifyResult = signatureVerify(message, signature, key);
-  expect(verifyResult.isValid, 'Payload signature failed');
+function validateExtrinsicPayloadSignature(key: string, signature: string, message: string) {
+  expect(verifySignatureMaybeWrapped(key, signature, hexToU8a(message)), 'Payload signature failed');
 }
 
 export async function validatePayloads(response: SiwfResponse, loginMsgDomain: string): Promise<void> {
@@ -122,19 +143,19 @@ export async function validatePayloads(response: SiwfResponse, loginMsgDomain: s
       case isPayloadLogin(payload):
         return validateLoginPayload(payload, response.userPublicKey, loginMsgDomain);
       case isPayloadAddProvider(payload):
-        return validateSignature(
+        return validateExtrinsicPayloadSignature(
           response.userPublicKey.encodedValue,
           payload.signature.encodedValue,
           serializeAddProviderPayloadHex(payload.payload)
         );
       case isPayloadClaimHandle(payload):
-        return validateSignature(
+        return validateExtrinsicPayloadSignature(
           response.userPublicKey.encodedValue,
           payload.signature.encodedValue,
           serializeClaimHandlePayloadHex(payload.payload)
         );
       case isPayloadItemActions(payload):
-        return validateSignature(
+        return validateExtrinsicPayloadSignature(
           response.userPublicKey.encodedValue,
           payload.signature.encodedValue,
           serializeItemActionsPayloadHex(payload.payload)

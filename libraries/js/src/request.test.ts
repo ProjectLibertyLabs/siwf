@@ -27,7 +27,7 @@ describe('request', () => {
           encodedValue: 'f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH',
           encoding: 'base58',
           format: 'ss58',
-          type: 'SR25519',
+          type: 'Sr25519',
         },
         signature: {
           algo: 'SR25519',
@@ -96,7 +96,7 @@ describe('request', () => {
           encodedValue: 'f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH',
           encoding: 'base58',
           format: 'ss58',
-          type: 'SR25519',
+          type: 'Sr25519',
         },
       },
     });

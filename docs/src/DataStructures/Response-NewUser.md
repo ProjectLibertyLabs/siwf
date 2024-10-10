@@ -4,7 +4,7 @@
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
     "encoding": "base58",
     "format": "ss58",
-    "type": "SR25519"
+    "type": "Sr25519"
   },
   "payloads": [
     {

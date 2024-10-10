@@ -107,7 +107,7 @@ export function buildSignedRequest(
         encodedValue: encodeAddress(signerPublicKey, 90),
         encoding: 'base58',
         format: 'ss58',
-        type: 'SR25519',
+        type: 'Sr25519',
       },
       signature: {
         algo: 'SR25519',
