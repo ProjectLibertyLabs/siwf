@@ -1,4 +1,5 @@
-import { signatureVerify, cryptoWaitReady } from '@polkadot/util-crypto';
+import { signatureVerify, cryptoWaitReady, decodeAddress } from '@polkadot/util-crypto';
+import { stringToU8a, u8aToHex, u8aWrapBytes } from '@polkadot/util';
 import {
   isPayloadAddProvider,
   isPayloadClaimHandle,
@@ -64,21 +65,43 @@ function validateLoginPayload(
   loginMsgDomain: string
 ): void {
   // Check that the userPublicKey signed the message
-  const signedMessage = payload.payload.message;
-  const verifyResult = signatureVerify(signedMessage, payload.signature.encodedValue, userPublicKey.encodedValue);
 
-  expect(verifyResult.isValid, 'Login message signature failed');
+  const unwrappedSignedMessage = stringToU8a(payload.payload.message);
+  const unwrappedVerifyResult = signatureVerify(
+    unwrappedSignedMessage,
+    payload.signature.encodedValue,
+    userPublicKey.encodedValue
+  );
+  // Support both wrapped and unwrapped signatures
+  if (!unwrappedVerifyResult.isValid) {
+    const wrappedSignedMessage = u8aWrapBytes(unwrappedSignedMessage);
+    const wrappedVerifyResult = signatureVerify(
+      wrappedSignedMessage,
+      payload.signature.encodedValue,
+      userPublicKey.encodedValue
+    );
+
+    expect(wrappedVerifyResult.isValid, 'Login message signature failed');
+  }
 
   // Validate the message contents
-  const msg = parseMessage(signedMessage);
+  const msg = parseMessage(payload.payload.message);
   expect(
     msg.domain === loginMsgDomain,
     `Message does not match expected domain. Message: ${msg.domain} Expected: ${loginMsgDomain}`
   );
-  expect(
-    msg.address === userPublicKey.encodedValue,
-    `Message does not match expected user public key value. Message: ${msg.address}`
-  );
+  // Match address encoding before comparing
+  // decodeAddress will throw if it cannot decode meaning bad address
+  try {
+    const msgAddr = decodeAddress(msg.address);
+    const userAddr = decodeAddress(userPublicKey.encodedValue);
+    // Hex for easy comparison
+    expect(u8aToHex(msgAddr) === u8aToHex(userAddr), 'Address mismatch');
+  } catch (_e) {
+    throw new Error(
+      `Invalid address or message does not match bytes of expected user public key value. Message: ${msg.address} User: ${userPublicKey.encodedValue}`
+    );
+  }
 
   expect(
     !msg.expired,
