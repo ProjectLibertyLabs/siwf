@@ -1,7 +1,7 @@
 {
   "name": "@projectlibertylabs/siwf",
   "version": "0.0.0",
-  "description": "Sign In With Access Utility Library",
+  "description": "Sign In With Frequency Utility Library",
   "main": "src/index.ts",
   "type": "module",
   "scripts": {

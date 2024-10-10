@@ -34,7 +34,7 @@ Looking for SIWF v1 resources? [Go to the `v1` branch](https://github.com/Projec
 
 ## 💻 Prerequisites<a name="-prerequisites"></a>
 
-Using Sign In With Access requires:
+Using Sign In With Frequency requires:
 
 - Frequency Provider setup
 - Frequency Node RPC access
