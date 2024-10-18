@@ -55,7 +55,7 @@ The NPM package `@projectlibertylabs/siwf` offers both CommonJS and ESM exports.
 
 ### Documentation
 
-See [Markdown/GitHub Docs](./docs/src/QuickStart.md) or [Live Docs](https://projectlibertylabs.github.io/siwF/v2/docs/QuickStart.html).
+See [Markdown/GitHub Docs](./docs/src/QuickStart.md) or [Live Docs](https://projectlibertylabs.github.io/siwf/v2/docs/QuickStart.html).
 
 <p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 
