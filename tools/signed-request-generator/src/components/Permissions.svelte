@@ -24,14 +24,14 @@
 			'dsnp.private-follows@v1',
 			'dsnp.public-key-key-agreement@v1'
 		]),
-		genBundle('Bundle: DSNP Content v2', [
+		genBundle('Bundle: DSNP v1.3 Content', [
 			'dsnp.broadcast@v2',
 			'dsnp.reply@v2',
 			'dsnp.tombstone@v2',
 			'dsnp.reaction@v1',
 			'dsnp.update@v2'
 		]),
-		genBundle('(Deprecated) Bundle: DSNP Content v1', [
+		genBundle('(Deprecated) Bundle: DSNP v1.0 Content', [
 			'dsnp.broadcast@v1',
 			'dsnp.reply@v1',
 			'dsnp.tombstone@v1',
