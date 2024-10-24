@@ -19,8 +19,8 @@ npx tsx tools/signed-request-generator/generate-available-delegations.ts
 | [`dsnp.profile@v1`](https://spec.dsnp.org/DSNP/Types/Profile.html)                                   | (Deprecated) Update profile information                            | 6         |
 | [`dsnp.public-follows@v1`](https://spec.dsnp.org/DSNP/UserData.html)                                 | Update public follow list                                          | 8         |
 | [`dsnp.reaction@v1`](https://spec.dsnp.org/DSNP/Types/Reaction.html)                                 | Public reaction to content                                         | 4         |
-| [`dsnp.reply@v1`](https://spec.dsnp.org/DSNP/Types/Reply.html)                                       | (Deprecated) Public reply to a content                             | 3         |
-| [`dsnp.reply@v2`](https://spec.dsnp.org/DSNP/Types/Reply.html)                                       | Public reply to a content                                          | 18        |
+| [`dsnp.reply@v1`](https://spec.dsnp.org/DSNP/Types/Reply.html)                                       | (Deprecated) Public reply to content                               | 3         |
+| [`dsnp.reply@v2`](https://spec.dsnp.org/DSNP/Types/Reply.html)                                       | Public reply to content                                            | 18        |
 | [`dsnp.tombstone@v1`](https://spec.dsnp.org/DSNP/Types/Tombstone.html)                               | (Deprecated) Mark content for deletion                             | 1         |
 | [`dsnp.tombstone@v2`](https://spec.dsnp.org/DSNP/Types/Tombstone.html)                               | Mark content for deletion                                          | 16        |
 | [`dsnp.update@v1`](https://spec.dsnp.org/DSNP/Types/Update.html)                                     | (Deprecated) Update an existing post or reply                      | 5         |

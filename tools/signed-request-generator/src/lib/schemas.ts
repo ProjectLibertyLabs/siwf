@@ -138,7 +138,7 @@ export const SCHEMA_INFOS: Map<string, SchemaInfo> = new Map(
 			specUrl: 'https://spec.dsnp.org/DSNP/Types/Reaction.html'
 		},
 		{
-			description: 'Public reply to a content',
+			description: 'Public reply to content',
 			id: 3,
 			name: 'reply',
 			namespace: 'dsnp',
@@ -148,7 +148,7 @@ export const SCHEMA_INFOS: Map<string, SchemaInfo> = new Map(
 			specUrl: 'https://spec.dsnp.org/DSNP/Types/Reply.html'
 		},
 		{
-			description: 'Public reply to a content',
+			description: 'Public reply to content',
 			id: 18,
 			name: 'reply',
 			namespace: 'dsnp',
