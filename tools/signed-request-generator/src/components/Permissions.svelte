@@ -1,22 +1,45 @@
 <script lang="ts">
-	import { SCHEMA_NAME_TO_ID } from '../lib/schemas.js';
+	import { SCHEMA_INFOS } from '../lib/schemas.js';
 	export let permissions: number[] = [];
 
-	const knownPermissions = {
-		'Bundle: Private Graph': [
-			SCHEMA_NAME_TO_ID.get('dsnp.private-connections@v1'),
-			SCHEMA_NAME_TO_ID.get('dsnp.private-follows@v1'),
-			SCHEMA_NAME_TO_ID.get('dsnp.public-key-key-agreement@v1')
-		],
-		'Bundle: Content': [
-			SCHEMA_NAME_TO_ID.get('dsnp.broadcast@v2'),
-			SCHEMA_NAME_TO_ID.get('dsnp.reply@v2'),
-			SCHEMA_NAME_TO_ID.get('dsnp.tombstone@v2'),
-			SCHEMA_NAME_TO_ID.get('dsnp.reaction@v1'),
-			SCHEMA_NAME_TO_ID.get('dsnp.update@v2')
-		],
-		...Object.fromEntries([...SCHEMA_NAME_TO_ID.entries()].map(([n, v]) => [n, [v]]))
+	const genBundle = (name: string, fullNames: string[]): [string, number[]] => {
+		const bundleName = `${name} <span title="${fullNames.join(', ')}">ⓘ</span>`;
+
+		return [bundleName, fullNames.map((n) => SCHEMA_INFOS.get(n)!.id)];
 	};
+
+	const individualSchemas: [string, number[]][] = [...SCHEMA_INFOS.entries()]
+		// Don't show things that are signature required
+		.filter(([_n, v]) => !v.signatureRequired)
+		.map(([_n, v]): [string, number[]] => [
+			`${v.deprecated ? '(Deprecated) ' : ''}${v.namespace}.${v.name}: ${v.description} (v${v.version})`,
+			[v.id]
+		])
+		.toSorted((a, b) => a[0].localeCompare(b[0]));
+
+	const knownPermissions = Object.fromEntries([
+		genBundle('Bundle: Public & Private Graph', [
+			'dsnp.public-follows@v1',
+			'dsnp.private-connections@v1',
+			'dsnp.private-follows@v1',
+			'dsnp.public-key-key-agreement@v1'
+		]),
+		genBundle('Bundle: DSNP v1.3 Content', [
+			'dsnp.broadcast@v2',
+			'dsnp.reply@v2',
+			'dsnp.tombstone@v2',
+			'dsnp.reaction@v1',
+			'dsnp.update@v2'
+		]),
+		genBundle('(Deprecated) Bundle: DSNP v1.0 Content', [
+			'dsnp.broadcast@v1',
+			'dsnp.reply@v1',
+			'dsnp.tombstone@v1',
+			'dsnp.reaction@v1',
+			'dsnp.update@v1'
+		]),
+		...individualSchemas
+	]);
 
 	let selectedGroups: number[][] = [];
 	let additionalPermissions = '';
@@ -40,7 +63,8 @@
 		{#each Object.entries(knownPermissions) as [name, ids]}
 			<label>
 				<input type="checkbox" bind:group={selectedGroups} value={ids} />
-				{name}
+				<!-- eslint-disable eslint-disable-next-line svelte/no-at-html-tags -->
+				{@html name}
 			</label>
 		{/each}
 
