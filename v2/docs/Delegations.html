@@ -271,23 +271,28 @@
                     <main>
                         <h1 id="available-delegations"><a class="header" href="#available-delegations">Available Delegations</a></h1>
 <p>Staging-Testnet and Production-Mainnet have the same delegation Schema Ids available.</p>
+<!---
+Generate this table via root with:
+npx tsx tools/signed-request-generator/generate-available-delegations.ts
+-->
 <div class="table-wrapper"><table><thead><tr><th>Short Name and Specification Link</th><th>Description</th><th>Schema Id</th></tr></thead><tbody>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Broadcast.html"><code>dsnp.broadcast@v2</code></a></td><td>Create new post content</td><td>17</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/DSNPContentAttributeSet.html"><code>dsnp.dsnp-content-attribute-set@v1</code></a></td><td>Create an authenticated attribute set for DSNP content</td><td>12</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/ExternalContentAttributeSet.html"><code>dsnp.dsnp.ext-content-attribute-set@v1</code></a></td><td>Create an authenticated attribute set for content external to DSNP</td><td>13</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-connections@v1</code></a></td><td>Change private friendship connections</td><td>10</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-follows@v1</code></a></td><td>Change private follows</td><td>9</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.profile-resources@v1</code></a></td><td>User Profile Information</td><td>15</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Profile.html"><code>dsnp.profile@v1</code></a>(Deprecated)</td><td>Change profile information</td><td>6</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-follows@v1</code></a></td><td>Change public follows</td><td>8</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-key-assertion-method@v1</code></a></td><td>Used to verify generic cryptographic signatures</td><td>14</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-key-key-agreement@v1</code></a></td><td>Publish new public key for the encrypted social graph</td><td>7</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reaction.html"><code>dsnp.reaction</code></a></td><td>React to content</td><td>4</td></tr>
-<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reply.html"><code>dsnp.reply@v2</code></a></td><td>Reply to a content</td><td>18</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Broadcast.html"><code>dsnp.broadcast@v1</code></a></td><td>(Deprecated) Create new public content</td><td>2</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Broadcast.html"><code>dsnp.broadcast@v2</code></a></td><td>Create new public content</td><td>17</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/DSNPContentAttributeSet.html"><code>dsnp.dsnp-content-attribute@v1</code></a></td><td>Create an authenticated attribute set for DSNP content</td><td>12</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/ExternalContentAttributeSet.html"><code>dsnp.ext-content-attribute@v1</code></a></td><td>Create an authenticated attribute set for content external to DSNP</td><td>13</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-connections@v1</code></a></td><td>Update private friendship connections</td><td>10</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.private-follows@v1</code></a></td><td>Update private follow list</td><td>9</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.profile-resources@v1</code></a></td><td>Update user profile information</td><td>15</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Profile.html"><code>dsnp.profile@v1</code></a></td><td>(Deprecated) Update profile information</td><td>6</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/UserData.html"><code>dsnp.public-follows@v1</code></a></td><td>Update public follow list</td><td>8</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reaction.html"><code>dsnp.reaction@v1</code></a></td><td>Public reaction to content</td><td>4</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reply.html"><code>dsnp.reply@v1</code></a></td><td>(Deprecated) Public reply to content</td><td>3</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Reply.html"><code>dsnp.reply@v2</code></a></td><td>Public reply to content</td><td>18</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Tombstone.html"><code>dsnp.tombstone@v1</code></a></td><td>(Deprecated) Mark content for deletion</td><td>1</td></tr>
 <tr><td><a href="https://spec.dsnp.org/DSNP/Types/Tombstone.html"><code>dsnp.tombstone@v2</code></a></td><td>Mark content for deletion</td><td>16</td></tr>
+<tr><td><a href="https://spec.dsnp.org/DSNP/Types/Update.html"><code>dsnp.update@v1</code></a></td><td>(Deprecated) Update an existing post or reply</td><td>5</td></tr>
 <tr><td><a href="https://spec.dsnp.org/DSNP/Types/Update.html"><code>dsnp.update@v2</code></a></td><td>Update an existing post or reply</td><td>19</td></tr>
 <tr><td><a href="https://spec.dsnp.org/DSNP/Types/UserAttributeSet.html"><code>dsnp.user-attribute-set@v2</code></a></td><td>Create an authenticated attribute set for a DSNP User</td><td>20</td></tr>
-<tr><td><a href="https://github.com/frequency-chain/schemas"><code>frequency.default-token-address@v1</code></a></td><td>List one or more default token receiving addresses</td><td>21</td></tr>
 </tbody></table>
 </div>
                     </main>
