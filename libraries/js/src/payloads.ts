@@ -116,15 +116,15 @@ function expect(test: boolean, errorMessage: string) {
 
 /**
  * Validates that the provided message domain matches the expected domain.
- * 
+ *
  * This function checks the following:
  * 1. If the domains have schemes (e.g., `https://`), the schemes must match.
  * 2. The paths within the domains must match.
  * 3. The domains themselves must match.
- * 
+ *
  * @param msgDomain - The domain from the message to be validated. This can include an optional scheme and path.
  * @param expectedDomain - The expected domain to validate against. This can include an optional scheme and path.
- * 
+ *
  * @throws Will throw an error if the schemes, paths, or domains do not match.
  */
 function validateDomain(msgDomain: string, expectedDomain: string) {
@@ -139,13 +139,11 @@ function validateDomain(msgDomain: string, expectedDomain: string) {
   // Parse out the optional scheme from the domain
   // SIWF_V2_DOMAIN may be configured with or without a scheme that accommodates app-specific needs.
   // e.g. `example://login`, `https://www.example.com/login` or `example.com/login` are all valid.
-  [msgParsedScheme, msgParsedDomain] = msgDomain.includes('://')
-  ? msgDomain.split('://', 2)
-  : [null, msgDomain];
+  [msgParsedScheme, msgParsedDomain] = msgDomain.includes('://') ? msgDomain.split('://', 2) : [null, msgDomain];
 
   [expectedParsedScheme, expectedParsedDomain] = expectedDomain.includes('://')
-  ? expectedDomain.split('://', 2)
-  : [null, expectedDomain];
+    ? expectedDomain.split('://', 2)
+    : [null, expectedDomain];
 
   // If the domain or expected domain has a scheme, the scheme must match
   expect(
@@ -176,7 +174,7 @@ function validateDomain(msgDomain: string, expectedDomain: string) {
  * @param payload - The login payload to validate.
  * @param userPublicKey - The public key of the user.
  * @param loginMsgDomain - The expected domain of the login message.
- * 
+ *
  * @throws Will throw an error if the signature verification fails.
  * @throws Will throw an error if the domain validation fails.
  * @throws Will throw an error if the address decoding or comparison fails.

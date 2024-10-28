@@ -148,7 +148,6 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           },
           'example://login'
         )
-      // ).resolves.toBeUndefined();
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain scheme mismatch. Scheme: not_example Expected: example'
       );
@@ -164,7 +163,6 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           },
           'https://example.com/login'
         )
-      // ).resolves.toBeUndefined();
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain scheme mismatch. Scheme: http Expected: https'
       );
@@ -178,7 +176,6 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           },
           'https://www.example.com/login'
         )
-      // ).resolves.toBeUndefined();
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain: www.examples.com Expected: www.example.com'
       );
@@ -192,7 +189,6 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           },
           'https://www.example.com/login'
         )
-      // ).resolves.toBeUndefined();
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain path mismatch. Path: logins Expected: login'
       );
