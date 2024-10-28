@@ -12,8 +12,8 @@ import {
   serializeItemActionsPayloadHex,
 } from '../util.js';
 
-function generateLoginMessage(account: string, issued: Date, expires: Date, domain: string) {
-  return `${domain} wants you to sign in with your Frequency account:\n${account}\n\n\n\nURI: https://testnet.frequencyaccess.com/signin/confirm\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: ${issued.toISOString()}\nExpiration Time: ${expires.toISOString()}`;
+function generateLoginMessage(account: string, issued: Date, expires: Date, uri: URL, domain: string) {
+  return `${domain} wants you to sign in with your Frequency account:\n${account}\n\n\n\nURI: ${uri}\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: ${issued.toISOString()}\nExpiration Time: ${expires.toISOString()}`;
 }
 
 // Setup now so that it is consistent for the entire test run
@@ -24,6 +24,7 @@ const loginMessageGood = (domain: string) =>
     ExampleUserKey.public,
     new Date(now - 24 * 60 * 60 * 1000),
     new Date(now + 24 * 60 * 60 * 1000),
+    new URL('https://testnet.frequencyaccess.com/signin/confirm'),
     domain
   );
 
@@ -32,6 +33,7 @@ const loginMessageExpired = () =>
     ExampleUserKey.public,
     new Date(now - 2 * 24 * 60 * 60 * 1000),
     new Date(now - 24 * 60 * 60 * 1000),
+    new URL('https://testnet.frequencyaccess.com/signin/confirm'),
     'localhost'
   );
 

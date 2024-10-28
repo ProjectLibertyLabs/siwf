@@ -88,7 +88,19 @@ describe('validateSiwfResponse', () => {
   it('throws on a bad domain', async () => {
     const example = await ExampleLogin();
     await expect(validateSiwfResponse(base64url(JSON.stringify(example)), 'bad.example.xyz')).to.rejects.toThrowError(
-      'Message does not match expected domain. Message: localhost Expected: bad.example.xyz'
+      'Message does not match expected domain. Domain: localhost Expected: bad.example.xyz'
     );
+  });
+
+  it('throws on a bad scheme in domain', async () => {
+    const example = await ExampleLogin();
+    await expect(validateSiwfResponse(base64url(JSON.stringify(example)), 'example://login')).to.rejects.toThrowError(
+      'Message does not match expected domain. Domain scheme mismatch. Scheme: null Expected: example'
+    );
+
+    // const badSchemeExample = await ExamplePayloadLoginGood('not_example://login');
+    // await expect(validateSiwfResponse(base64url(JSON.stringify(badSchemeExample)), 'example://login')).to.rejects.toThrowError(
+    //   'Message does not match expected domain. Domain scheme mismatch. Scheme: local Expected: example'
+    // );
   });
 });

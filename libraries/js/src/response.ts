@@ -74,7 +74,7 @@ export async function getLoginResult(
   const response = await fetch(endpoint);
 
   if (!response.ok) {
-    throw new Error(`Response failed: ${response.status} ${response.statusText}`);
+    throw new Error(`Response failed: ${response.status} ${response.statusText} (${endpoint})`);
   }
 
   const body = await response.json();
