@@ -40,7 +40,6 @@ interface SiwxMessage {
  */
 function parseMessage(message: string): SiwxMessage {
   const msgSplit = message.split('\n');
-  // TODO: Does this need to be updated for app-specific needs?
   const domain = (msgSplit[0] || '').split(' ')[0] || '';
 
   const addressLines = (msgSplit[1] || '').split(':');
@@ -122,12 +121,12 @@ function expect(test: boolean, errorMessage: string) {
  * 2. The paths within the domains must match.
  * 3. The domains themselves must match.
  *
- * @param msgDomain - The domain from the message to be validated. This can include an optional scheme and path.
- * @param expectedDomain - The expected domain to validate against. This can include an optional scheme and path.
+ * @param msgUri - The uri from the message to be validated. This can include an optional scheme and path.
+ * @param expectedUri - The expected uri to validate against. This can include an optional scheme and path.
  *
  * @throws Will throw an error if the schemes, paths, or domains do not match.
  */
-function validateDomain(msgDomain: string, expectedDomain: string) {
+function validateDomainAndUri(msgUri: string, msgDomain: string, expectedUri: string) {
   /* eslint-disable prefer-const */
   let msgParsedScheme: string | null;
   let expectedParsedScheme: string | null;
@@ -137,30 +136,37 @@ function validateDomain(msgDomain: string, expectedDomain: string) {
   let expectedParsedPath: string | undefined;
 
   // Parse out the optional scheme from the domain
-  // SIWF_V2_DOMAIN may be configured with or without a scheme that accommodates app-specific needs.
+  // expectedUri may be configured with or without a scheme that accommodates app-specific needs.
   // e.g. `example://login`, `https://www.example.com/login` or `example.com/login` are all valid.
-  [msgParsedScheme, msgParsedDomain] = msgDomain.includes('://') ? msgDomain.split('://', 2) : [null, msgDomain];
+  [msgParsedScheme, msgParsedDomain] = msgUri.includes('://') ? msgUri.split('://', 2) : [null, msgUri];
 
-  [expectedParsedScheme, expectedParsedDomain] = expectedDomain.includes('://')
-    ? expectedDomain.split('://', 2)
-    : [null, expectedDomain];
+  [expectedParsedScheme, expectedParsedDomain] = expectedUri.includes('://')
+    ? expectedUri.split('://', 2)
+    : [null, expectedUri];
 
-  // If the domain or expected domain has a scheme, the scheme must match
-  expect(
-    msgParsedScheme === expectedParsedScheme,
-    `Message does not match expected domain. Domain scheme mismatch. Scheme: ${msgParsedScheme} Expected: ${expectedParsedScheme}`
-  );
+  // If the expected uri has a scheme, the scheme must match
+  if (expectedParsedScheme) {
+    expect(
+      msgParsedScheme === expectedParsedScheme,
+      `Message does not match expected domain. Domain scheme mismatch. Scheme: ${msgParsedScheme} Expected: ${expectedParsedScheme}`
+    );
+  }
 
   // Parse the path from the domain
   // e.g. 'example.com/path' -> 'path'
   // e.g. 'example/path' -> 'path'
   [msgParsedDomain, msgParsedPath] = msgParsedDomain?.split('/', 2) ?? [msgParsedDomain, ''];
   [expectedParsedDomain, expectedParsedPath] = expectedParsedDomain?.split('/', 2) ?? [expectedParsedDomain, ''];
-  expect(
-    msgParsedPath === expectedParsedPath,
-    `Message does not match expected domain. Domain path mismatch. Path: ${msgParsedPath} Expected: ${expectedParsedPath}`
-  );
+  if (expectedParsedPath) {
+    expect(
+      msgParsedPath === expectedParsedPath,
+      `Message does not match expected domain. Domain path mismatch. Path: ${msgParsedPath} Expected: ${expectedParsedPath}`
+    );
+  }
 
+  // Ignore ports in validation
+  msgParsedDomain = msgParsedDomain?.split(':')[0];
+  expectedParsedDomain = expectedParsedDomain?.split(':')[0];
   expect(
     msgParsedDomain === expectedParsedDomain,
     `Message does not match expected domain. Domain: ${msgParsedDomain} Expected: ${expectedParsedDomain}`
@@ -173,7 +179,7 @@ function validateDomain(msgDomain: string, expectedDomain: string) {
  *
  * @param payload - The login payload to validate.
  * @param userPublicKey - The public key of the user.
- * @param loginMsgDomain - The expected domain of the login message.
+ * @param loginMsgUri - The expected domain of the login message.
  *
  * @throws Will throw an error if the signature verification fails.
  * @throws Will throw an error if the domain validation fails.
@@ -183,7 +189,7 @@ function validateDomain(msgDomain: string, expectedDomain: string) {
 function validateLoginPayload(
   payload: SiwfResponsePayloadLogin,
   userPublicKey: SiwfPublicKey,
-  loginMsgDomain: string
+  loginMsgUri: string
 ): void {
   // Check that the userPublicKey signed the message
   expect(
@@ -199,7 +205,7 @@ function validateLoginPayload(
   const msg = parseMessage(payload.payload.message);
 
   // Validate the domain
-  validateDomain(msg.domain, loginMsgDomain);
+  validateDomainAndUri(msg.uri, msg.domain, loginMsgUri);
 
   // Match address encoding before comparing
   // decodeAddress will throw if it cannot decode meaning bad address
@@ -223,13 +229,13 @@ function validateExtrinsicPayloadSignature(key: string, signature: string, messa
   expect(verifySignatureMaybeWrapped(key, signature, hexToU8a(message)), 'Payload signature failed');
 }
 
-export async function validatePayloads(response: SiwfResponse, loginMsgDomain: string): Promise<void> {
+export async function validatePayloads(response: SiwfResponse, loginMsgUri: string): Promise<void> {
   // Wait for the WASM to load
   await cryptoWaitReady();
   response.payloads.every((payload) => {
     switch (true) {
       case isPayloadLogin(payload):
-        return validateLoginPayload(payload, response.userPublicKey, loginMsgDomain);
+        return validateLoginPayload(payload, response.userPublicKey, loginMsgUri);
       case isPayloadAddProvider(payload):
         return validateExtrinsicPayloadSignature(
           response.userPublicKey.encodedValue,

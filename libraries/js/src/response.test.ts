@@ -19,7 +19,7 @@ describe('getLoginResult', () => {
       text: () => Promise.resolve('MOCK'),
     } as any);
 
-    await expect(getLoginResult('fakeAuthCode', { loginMsgDomain: 'localhost' })).to.resolves.toMatchObject(example);
+    await expect(getLoginResult('fakeAuthCode', { loginMsgUri: 'testnet.frequencyaccess.com' })).to.resolves.toMatchObject(example);
   });
 
   it('Can get and validate a New User', async () => {
@@ -30,7 +30,7 @@ describe('getLoginResult', () => {
       text: () => Promise.resolve('MOCK'),
     } as any);
 
-    await expect(getLoginResult('fakeAuthCode', { loginMsgDomain: 'localhost' })).to.resolves.toMatchObject(example);
+    await expect(getLoginResult('fakeAuthCode', { loginMsgUri: 'localhost' })).to.resolves.toMatchObject(example);
   });
 
   it('Can get and validate a New Provider', async () => {
@@ -41,7 +41,7 @@ describe('getLoginResult', () => {
       text: () => Promise.resolve('MOCK'),
     } as any);
 
-    await expect(getLoginResult('fakeAuthCode', { loginMsgDomain: 'localhost' })).to.resolves.toMatchObject(example);
+    await expect(getLoginResult('fakeAuthCode', { loginMsgUri: 'localhost' })).to.resolves.toMatchObject(example);
   });
 });
 
@@ -62,14 +62,14 @@ describe('hasChainSubmissions', () => {
 describe('validateSiwfResponse', () => {
   it('can handle a JSON strigified base64url encoded value', async () => {
     const example = await ExampleLogin();
-    await expect(validateSiwfResponse(base64url(JSON.stringify(example)), 'localhost')).to.resolves.toMatchObject(
+    await expect(validateSiwfResponse(base64url(JSON.stringify(example)), 'testnet.frequencyaccess.com')).to.resolves.toMatchObject(
       example
     );
   });
 
   it('can handle an object value', async () => {
     const example = await ExampleLogin();
-    await expect(validateSiwfResponse(example, 'localhost')).to.resolves.toMatchObject(example);
+    await expect(validateSiwfResponse(example, 'testnet.frequencyaccess.com')).to.resolves.toMatchObject(example);
   });
 
   it('throws on a null value', async () => {
@@ -88,14 +88,14 @@ describe('validateSiwfResponse', () => {
   it('throws on a bad domain', async () => {
     const example = await ExampleLogin();
     await expect(validateSiwfResponse(base64url(JSON.stringify(example)), 'bad.example.xyz')).to.rejects.toThrowError(
-      'Message does not match expected domain. Domain: localhost Expected: bad.example.xyz'
+      'Message does not match expected domain. Domain: testnet.frequencyaccess.com Expected: bad.example.xyz'
     );
   });
 
   it('throws on a bad scheme in domain', async () => {
     const example = await ExampleLogin();
     await expect(validateSiwfResponse(base64url(JSON.stringify(example)), 'example://login')).to.rejects.toThrowError(
-      'Message does not match expected domain. Domain scheme mismatch. Scheme: null Expected: example'
+      'Message does not match expected domain. Domain scheme mismatch. Scheme: https Expected: example'
     );
 
     // const badSchemeExample = await ExamplePayloadLoginGood('not_example://login');

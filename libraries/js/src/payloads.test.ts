@@ -7,6 +7,7 @@ import {
   ExamplePayloadGrantDelegation,
   ExamplePayloadLoginGood,
   ExamplePayloadLoginStatic,
+  ExamplePayloadLoginUrl,
   ExamplePayloadPublicGraphKey,
 } from './mocks/payloads.js';
 import { ExampleUserPublicKey } from './mocks/index.js';
@@ -62,9 +63,9 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('localhost')],
+            payloads: [ExamplePayloadLoginGood()],
           },
-          'localhost'
+          'your-app.com'
         )
       ).resolves.toBeUndefined();
     });
@@ -74,7 +75,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('example://login')],
+            payloads: [ExamplePayloadLoginUrl('example://login')],
           },
           'example://login'
         )
@@ -86,7 +87,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('https://example.com/login')],
+            payloads: [ExamplePayloadLoginUrl('https://example.com/login')],
           },
           'https://example.com/login'
         )
@@ -98,7 +99,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('www.example.com/login')],
+            payloads: [ExamplePayloadLoginUrl('http://www.example.com/login')],
           },
           'www.example.com/login'
         )
@@ -110,7 +111,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('localhost:3030/login/path')],
+            payloads: [ExamplePayloadLoginUrl('localhost:3030/login/path')],
           },
           'localhost:3030/login/path'
         )
@@ -122,7 +123,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('badhost')],
+            payloads: [ExamplePayloadLoginUrl('http://badhost')],
           },
           'localhost'
         )
@@ -132,11 +133,11 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('localhost')],
+            payloads: [ExamplePayloadLoginGood()],
           },
           'betterhost'
         )
-      ).rejects.toThrowError('Message does not match expected domain. Domain: localhost Expected: betterhost');
+      ).rejects.toThrowError('Message does not match expected domain. Domain: your-app.com Expected: betterhost');
     });
 
     it('Will fail to verify a Generated Login Payload with an incorrect app scheme', async () => {
@@ -144,12 +145,12 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('not_example://login')],
+            payloads: [ExamplePayloadLoginUrl('notexample://login')],
           },
           'example://login'
         )
       ).rejects.toThrowError(
-        'Message does not match expected domain. Domain scheme mismatch. Scheme: not_example Expected: example'
+        'Message does not match expected domain. Domain scheme mismatch. Scheme: notexample Expected: example'
       );
     });
 
@@ -159,7 +160,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('http://example.com/login')],
+            payloads: [ExamplePayloadLoginUrl('http://example.com/login')],
           },
           'https://example.com/login'
         )
@@ -172,7 +173,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('https://www.examples.com/login')],
+            payloads: [ExamplePayloadLoginUrl('https://www.examples.com/login')],
           },
           'https://www.example.com/login'
         )
@@ -185,7 +186,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('https://www.example.com/logins')],
+            payloads: [ExamplePayloadLoginUrl('https://www.example.com/logins')],
           },
           'https://www.example.com/login'
         )
@@ -199,7 +200,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('www.examples.com/login')],
+            payloads: [ExamplePayloadLoginUrl('http://www.examples.com/login')],
           },
           'www.example.com/login'
         )
@@ -215,7 +216,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKey,
             payloads: [ExamplePayloadLoginStatic],
           },
-          'localhost'
+          'testnet.frequencyaccess.com'
         )
       ).resolves.toBeUndefined();
     });

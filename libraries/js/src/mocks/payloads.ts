@@ -12,40 +12,52 @@ import {
   serializeItemActionsPayloadHex,
 } from '../util.js';
 
-function generateLoginMessage(account: string, issued: Date, expires: Date, uri: URL, domain: string) {
-  return `${domain} wants you to sign in with your Frequency account:\n${account}\n\n\n\nURI: ${uri}\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: ${issued.toISOString()}\nExpiration Time: ${expires.toISOString()}`;
+function generateLoginMessage(account: string, issued: Date, expires: Date, uri: URL) {
+  return `${uri.hostname} wants you to sign in with your Frequency account:\n${account}\n\n\n\nURI: ${uri}\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: ${issued.toISOString()}\nExpiration Time: ${expires.toISOString()}`;
 }
 
 // Setup now so that it is consistent for the entire test run
 const now = Date.now();
 
-const loginMessageGood = (domain: string) =>
+const loginMessageUrl = (url: string) =>
   generateLoginMessage(
     ExampleUserKey.public,
     new Date(now - 24 * 60 * 60 * 1000),
     new Date(now + 24 * 60 * 60 * 1000),
-    new URL('https://testnet.frequencyaccess.com/signin/confirm'),
-    domain
+    new URL(url),
   );
+
+const loginMessageGood = () => loginMessageUrl('https://your-app.com/signin/callback');
 
 const loginMessageExpired = () =>
   generateLoginMessage(
     ExampleUserKey.public,
     new Date(now - 2 * 24 * 60 * 60 * 1000),
     new Date(now - 24 * 60 * 60 * 1000),
-    new URL('https://testnet.frequencyaccess.com/signin/confirm'),
-    'localhost'
+    new URL('https://your-app.com/signin/callback'),
   );
 
-export const ExamplePayloadLoginGood = (domain: string): SiwfResponsePayloadLogin => ({
+export const ExamplePayloadLoginUrl = (url: string): SiwfResponsePayloadLogin => ({
   signature: {
     algo: 'SR25519',
     encoding: 'base16',
-    encodedValue: u8aToHex(ExampleUserKey.keyPair().sign(loginMessageGood(domain))),
+    encodedValue: u8aToHex(ExampleUserKey.keyPair().sign(loginMessageUrl(url))),
   },
   type: 'login',
   payload: {
-    message: loginMessageGood(domain),
+    message: loginMessageUrl(url),
+  },
+});
+
+export const ExamplePayloadLoginGood = (): SiwfResponsePayloadLogin => ({
+  signature: {
+    algo: 'SR25519',
+    encoding: 'base16',
+    encodedValue: u8aToHex(ExampleUserKey.keyPair().sign(loginMessageGood())),
+  },
+  type: 'login',
+  payload: {
+    message: loginMessageGood(),
   },
 });
 
@@ -61,6 +73,7 @@ export const ExamplePayloadLoginExpired = (): SiwfResponsePayloadLogin => ({
   },
 });
 
+// TODO: This test case is broken because now the domain is extracted from the URL, so isn't localhost
 export const ExamplePayloadLoginStatic: SiwfResponsePayloadLogin = {
   signature: {
     algo: 'SR25519',

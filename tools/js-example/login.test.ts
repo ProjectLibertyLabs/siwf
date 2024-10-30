@@ -4,7 +4,7 @@ import * as siwf from "@projectlibertylabs/siwf";
 describe("SIWF login test", () => {
   it("should retrieve a valid login result from the Mock SIWF server", async () => {
     const authorizationCode = "loginAuthCode123"; // Ensure this matches the mock server response
-    const options = { endpoint: "http://localhost:3000", loginMsgDomain: "localhost" };
+    const options = { endpoint: "http://localhost:3000", loginMsgUri: "localhost" };
 
     try {
       const result = await siwf.getLoginResult(authorizationCode, options);
