@@ -19,7 +19,9 @@ describe('getLoginResult', () => {
       text: () => Promise.resolve('MOCK'),
     } as any);
 
-    await expect(getLoginResult('fakeAuthCode', { loginMsgUri: 'testnet.frequencyaccess.com' })).to.resolves.toMatchObject(example);
+    await expect(
+      getLoginResult('fakeAuthCode', { loginMsgUri: 'testnet.frequencyaccess.com' })
+    ).to.resolves.toMatchObject(example);
   });
 
   it('Can get and validate a New User', async () => {
@@ -62,9 +64,9 @@ describe('hasChainSubmissions', () => {
 describe('validateSiwfResponse', () => {
   it('can handle a JSON strigified base64url encoded value', async () => {
     const example = await ExampleLogin();
-    await expect(validateSiwfResponse(base64url(JSON.stringify(example)), 'testnet.frequencyaccess.com')).to.resolves.toMatchObject(
-      example
-    );
+    await expect(
+      validateSiwfResponse(base64url(JSON.stringify(example)), 'testnet.frequencyaccess.com')
+    ).to.resolves.toMatchObject(example);
   });
 
   it('can handle an object value', async () => {

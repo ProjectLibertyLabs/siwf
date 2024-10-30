@@ -24,7 +24,7 @@ const loginMessageUrl = (url: string) =>
     ExampleUserKey.public,
     new Date(now - 24 * 60 * 60 * 1000),
     new Date(now + 24 * 60 * 60 * 1000),
-    new URL(url),
+    new URL(url)
   );
 
 const loginMessageGood = () => loginMessageUrl('https://your-app.com/signin/callback');
@@ -34,7 +34,7 @@ const loginMessageExpired = () =>
     ExampleUserKey.public,
     new Date(now - 2 * 24 * 60 * 60 * 1000),
     new Date(now - 24 * 60 * 60 * 1000),
-    new URL('https://your-app.com/signin/callback'),
+    new URL('https://your-app.com/signin/callback')
   );
 
 export const ExamplePayloadLoginUrl = (url: string): SiwfResponsePayloadLogin => ({
