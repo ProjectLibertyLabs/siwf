@@ -126,52 +126,42 @@ function expect(test: boolean, errorMessage: string) {
  *
  * @throws Will throw an error if the schemes, paths, or domains do not match.
  */
-function validateDomainAndUri(msgUri: string, msgDomain: string, expectedUri: string) {
-  /* eslint-disable prefer-const */
-  let msgParsedScheme: string | null;
-  let expectedParsedScheme: string | null;
-  let msgParsedDomain: string | undefined;
-  let expectedParsedDomain: string | undefined;
-  let msgParsedPath: string | undefined;
-  let expectedParsedPath: string | undefined;
+function validateDomainAndUri(msgUri: string, expectedUri: string) {
+  const parseUri = (uri: string) => {
+    const [scheme, domainWithPath] = uri.includes('://') ? uri.split('://', 2) : [null, uri];
+    const [domainAndPath, queryString] = domainWithPath.split('?', 2) ?? [domainWithPath, ''];
+    const [domain, path] = domainAndPath?.split('/', 2) ?? [domainAndPath, ''];
+    return { scheme, domain, path, queryString };
+  };
 
-  // Parse out the optional scheme from the domain
-  // expectedUri may be configured with or without a scheme that accommodates app-specific needs.
-  // e.g. `example://login`, `https://www.example.com/login` or `example.com/login` are all valid.
-  [msgParsedScheme, msgParsedDomain] = msgUri.includes('://') ? msgUri.split('://', 2) : [null, msgUri];
+  const msgParsed = parseUri(msgUri);
+  const expectedParsed = parseUri(expectedUri);
 
-  [expectedParsedScheme, expectedParsedDomain] = expectedUri.includes('://')
-    ? expectedUri.split('://', 2)
-    : [null, expectedUri];
-
-  // If the expected uri has a scheme, the scheme must match
-  if (expectedParsedScheme) {
+  // If the expected URI has a scheme, the scheme must match
+  if (expectedParsed.scheme) {
     expect(
-      msgParsedScheme === expectedParsedScheme,
-      `Message does not match expected domain. Domain scheme mismatch. Scheme: ${msgParsedScheme} Expected: ${expectedParsedScheme}`
+      msgParsed.scheme === expectedParsed.scheme,
+      `Message does not match expected domain. Domain scheme mismatch. Scheme: ${msgParsed.scheme} Expected: ${expectedParsed.scheme}`
     );
   }
 
-  // Parse the path from the domain
-  // e.g. 'example.com/path' -> 'path'
-  // e.g. 'example/path' -> 'path'
-  [msgParsedDomain, msgParsedPath] = msgParsedDomain?.split('/', 2) ?? [msgParsedDomain, ''];
-  [expectedParsedDomain, expectedParsedPath] = expectedParsedDomain?.split('/', 2) ?? [expectedParsedDomain, ''];
-  if (expectedParsedPath) {
+  // If the expected URI has a path, the path must match
+  if (expectedParsed.path) {
     expect(
-      msgParsedPath === expectedParsedPath,
-      `Message does not match expected domain. Domain path mismatch. Path: ${msgParsedPath} Expected: ${expectedParsedPath}`
+      msgParsed.path === expectedParsed.path,
+      `Message does not match expected domain. Domain path mismatch. Path: ${msgParsed.path} Expected: ${expectedParsed.path}`
     );
   }
 
   // Ignore ports in validation
-  msgParsedDomain = msgParsedDomain?.split(':')[0];
-  expectedParsedDomain = expectedParsedDomain?.split(':')[0];
+  const msgParsedDomain = msgParsed.domain?.split(':')[0];
+  const expectedParsedDomain = expectedParsed.domain?.split(':')[0];
+
+  // If the domain in the message does not match the domain in the URI, throw an error
   expect(
     msgParsedDomain === expectedParsedDomain,
     `Message does not match expected domain. Domain: ${msgParsedDomain} Expected: ${expectedParsedDomain}`
   );
-  /* eslint-enable prefer-const */
 }
 
 /**
@@ -205,7 +195,7 @@ function validateLoginPayload(
   const msg = parseMessage(payload.payload.message);
 
   // Validate the domain
-  validateDomainAndUri(msg.uri, msg.domain, loginMsgUri);
+  validateDomainAndUri(msg.uri, loginMsgUri);
 
   // Match address encoding before comparing
   // decodeAddress will throw if it cannot decode meaning bad address

@@ -209,6 +209,18 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       );
     });
 
+    it('Can verify a Generated Login Payload with a query string', async () => {
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginUrl('https://example.com/login?query=string')],
+          },
+          'https://example.com/login'
+        )
+      ).resolves.toBeUndefined();
+    });
+
     it('Can verify a Static Login Payload', async () => {
       await expect(
         validatePayloads(

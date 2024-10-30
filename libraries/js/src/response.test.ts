@@ -97,10 +97,23 @@ describe('validateSiwfResponse', () => {
     await expect(validateSiwfResponse(base64url(JSON.stringify(example)), 'example://login')).to.rejects.toThrowError(
       'Message does not match expected domain. Domain scheme mismatch. Scheme: https Expected: example'
     );
+  });
 
-    // const badSchemeExample = await ExamplePayloadLoginGood('not_example://login');
-    // await expect(validateSiwfResponse(base64url(JSON.stringify(badSchemeExample)), 'example://login')).to.rejects.toThrowError(
-    //   'Message does not match expected domain. Domain scheme mismatch. Scheme: local Expected: example'
-    // );
+  it('throws on a bad path in domain', async () => {
+    const example = await ExampleLogin();
+    await expect(
+      validateSiwfResponse(base64url(JSON.stringify(example)), 'your-app.com/login')
+    ).to.rejects.toThrowError(
+      'Message does not match expected domain. Domain path mismatch. Path: signin Expected: login'
+    );
+  });
+
+  it('throws on a bad protocol in domain', async () => {
+    const example = await ExampleLogin();
+    await expect(
+      validateSiwfResponse(base64url(JSON.stringify(example)), 'http://your-app.com')
+    ).to.rejects.toThrowError(
+      'Message does not match expected domain. Domain scheme mismatch. Scheme: https Expected: http'
+    );
   });
 });
