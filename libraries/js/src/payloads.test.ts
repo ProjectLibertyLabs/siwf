@@ -216,7 +216,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKey,
             payloads: [ExamplePayloadLoginStatic],
           },
-          'testnet.frequencyaccess.com'
+          'your-app.com'
         )
       ).resolves.toBeUndefined();
     });
