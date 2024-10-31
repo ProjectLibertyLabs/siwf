@@ -96,7 +96,8 @@ No submission to the chain is required, but the application *must* validate the 
 The message signed follows [CAIP-122: Sign in With X](https://chainagnostic.org/CAIPs/caip-122) specification which is derived from [EIP-4361: Sign-In with Ethereum](https://eips.ethereum.org/EIPS/eip-4361).
 
 #### Example Message with Placeholders
-```
+
+```text
 {{domain}} wants you to sign in with your Frequency account:
 frequency:{{chainReference}}:{{ss58Address}}
 
@@ -107,7 +108,10 @@ Chain ID: frequency:{{chainReference}}
 Issued At: {{issued-at}}
 ```
 
+Inside the message, `{{domain}}` is the domain of the application requesting the sign-in. `{{domain}}` should match the domain contained in the `URI` field.
+
 #### Validation Steps
+
 1. Perform an Sr25519 signature verification using:
     - `userPublicKey`: The signing key
     - `payload.message`: The signed message parsing `\n` into `LF` line breaks
