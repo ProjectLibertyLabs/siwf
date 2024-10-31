@@ -381,7 +381,7 @@ If the actions are not submitted before expriation, Frequency will reject the tr
 No submission to the chain is required, but the application <em>must</em> validate the signature to be sure that the user is authenticated.</p>
 <p>The message signed follows <a href="https://chainagnostic.org/CAIPs/caip-122">CAIP-122: Sign in With X</a> specification which is derived from <a href="https://eips.ethereum.org/EIPS/eip-4361">EIP-4361: Sign-In with Ethereum</a>.</p>
 <h4 id="example-message-with-placeholders"><a class="header" href="#example-message-with-placeholders">Example Message with Placeholders</a></h4>
-<pre><code>{{domain}} wants you to sign in with your Frequency account:
+<pre><code class="language-text">{{domain}} wants you to sign in with your Frequency account:
 frequency:{{chainReference}}:{{ss58Address}}
 
 URI: {{uri}}
@@ -390,6 +390,7 @@ Nonce: {{nonce}}
 Chain ID: frequency:{{chainReference}}
 Issued At: {{issued-at}}
 </code></pre>
+<p>Inside the message, <code>{{domain}}</code> is the domain of the application requesting the sign-in. <code>{{domain}}</code> should match the domain contained in the <code>URI</code> field.</p>
 <h4 id="validation-steps"><a class="header" href="#validation-steps">Validation Steps</a></h4>
 <ol>
 <li>Perform an Sr25519 signature verification using:
@@ -694,11 +695,11 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x84a4e03344b07d64087ebdf47b2c8c679aa7de78179689988992609f1b83c34f6086c7de99ef41c5325cce64d148624e716c605d355f22d1281f6d23f546f584"
+        "encodedValue": "0xe261698297111834e68b4152bf1f89819e886b6528f6fff45715f7781d0f1e7dc4007ccfed1e85b8c603c0fea2f7abf22bfe6336869ad21f11a09a114452c680"
       },
       "type": "login",
       "payload": {
-        "message": "localhost wants you to sign in with your Frequency account:\nf6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ\n\n\n\nURI: https://testnet.frequencyaccess.com/signin/confirm\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-03-05T23:18:03.041Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
+        "message": "your-app.com wants you to sign in with your Frequency account:\nf6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ\n\n\n\nURI: https://your-app.com/signin/callback\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-10-29T19:17:27.077Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
       }
     }
   ],
