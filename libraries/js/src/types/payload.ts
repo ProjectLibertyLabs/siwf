@@ -103,6 +103,15 @@ function isPayloadBase(obj: any): obj is SiwfResponsePayloadBase {
   return isObj(obj) && isStr(obj.type) && isPayloadSignature(obj.signature) && isObj(obj.payload);
 }
 
+/**
+ * Checks if the given object is a `SiwfResponsePayloadLogin`.
+ *
+ * This function verifies that the object is a valid payload base and that its type is 'login'.
+ * Additionally, it ensures that the `message` property in the payload is a string.
+ *
+ * @param obj - The object to check.
+ * @returns `true` if the object is a `SiwfResponsePayloadLogin`, otherwise `false`.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isPayloadLogin(obj: any): obj is SiwfResponsePayloadLogin {
   return isPayloadBase(obj) && obj.type === 'login' && isStr(obj.payload.message);

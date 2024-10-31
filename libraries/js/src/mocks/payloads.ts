@@ -12,38 +12,52 @@ import {
   serializeItemActionsPayloadHex,
 } from '../util.js';
 
-function generateLoginMessage(account: string, issued: Date, expires: Date, domain: string) {
-  return `${domain} wants you to sign in with your Frequency account:\n${account}\n\n\n\nURI: https://testnet.frequencyaccess.com/signin/confirm\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: ${issued.toISOString()}\nExpiration Time: ${expires.toISOString()}`;
+function generateLoginMessage(account: string, issued: Date, expires: Date, uri: URL) {
+  return `${uri.hostname} wants you to sign in with your Frequency account:\n${account}\n\n\n\nURI: ${uri}\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: ${issued.toISOString()}\nExpiration Time: ${expires.toISOString()}`;
 }
 
 // Setup now so that it is consistent for the entire test run
 const now = Date.now();
 
-const loginMessageGood = (domain: string) =>
+const loginMessageUrl = (url: string) =>
   generateLoginMessage(
     ExampleUserKey.public,
     new Date(now - 24 * 60 * 60 * 1000),
     new Date(now + 24 * 60 * 60 * 1000),
-    domain
+    new URL(url)
   );
+
+const loginMessageGood = () => loginMessageUrl('https://your-app.com/signin/callback');
 
 const loginMessageExpired = () =>
   generateLoginMessage(
     ExampleUserKey.public,
     new Date(now - 2 * 24 * 60 * 60 * 1000),
     new Date(now - 24 * 60 * 60 * 1000),
-    'localhost'
+    new URL('https://your-app.com/signin/callback')
   );
 
-export const ExamplePayloadLoginGood = (domain: string): SiwfResponsePayloadLogin => ({
+export const ExamplePayloadLoginUrl = (url: string): SiwfResponsePayloadLogin => ({
   signature: {
     algo: 'SR25519',
     encoding: 'base16',
-    encodedValue: u8aToHex(ExampleUserKey.keyPair().sign(loginMessageGood(domain))),
+    encodedValue: u8aToHex(ExampleUserKey.keyPair().sign(loginMessageUrl(url))),
   },
   type: 'login',
   payload: {
-    message: loginMessageGood(domain),
+    message: loginMessageUrl(url),
+  },
+});
+
+export const ExamplePayloadLoginGood = (): SiwfResponsePayloadLogin => ({
+  signature: {
+    algo: 'SR25519',
+    encoding: 'base16',
+    encodedValue: u8aToHex(ExampleUserKey.keyPair().sign(loginMessageGood())),
+  },
+  type: 'login',
+  payload: {
+    message: loginMessageGood(),
   },
 });
 
@@ -64,12 +78,20 @@ export const ExamplePayloadLoginStatic: SiwfResponsePayloadLogin = {
     algo: 'SR25519',
     encoding: 'base16',
     encodedValue:
-      '0x84a4e03344b07d64087ebdf47b2c8c679aa7de78179689988992609f1b83c34f6086c7de99ef41c5325cce64d148624e716c605d355f22d1281f6d23f546f584',
+      '0xe261698297111834e68b4152bf1f89819e886b6528f6fff45715f7781d0f1e7dc4007ccfed1e85b8c603c0fea2f7abf22bfe6336869ad21f11a09a114452c680',
   },
   type: 'login',
   payload: {
     message:
-      'localhost wants you to sign in with your Frequency account:\nf6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ\n\n\n\nURI: https://testnet.frequencyaccess.com/signin/confirm\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-03-05T23:18:03.041Z\nExpiration Time: 2060-03-05T23:23:03.041Z',
+      'your-app.com wants you to sign in with your Frequency account:\n' +
+      'f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ\n' +
+      '\n' +
+      '\n' +
+      '\n' +
+      'URI: https://your-app.com/signin/callback\n' +
+      'Nonce: N6rLwqyz34oUxJEXJ\n' +
+      'Issued At: 2024-10-29T19:17:27.077Z\n' +
+      'Expiration Time: 2060-03-05T23:23:03.041Z',
   },
 };
 
