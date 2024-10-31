@@ -7,6 +7,7 @@ import {
   ExamplePayloadGrantDelegation,
   ExamplePayloadLoginGood,
   ExamplePayloadLoginStatic,
+  ExamplePayloadLoginUrl,
   ExamplePayloadPublicGraphKey,
 } from './mocks/payloads.js';
 import { ExampleUserPublicKey } from './mocks/index.js';
@@ -62,9 +63,57 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('localhost')],
+            payloads: [ExamplePayloadLoginGood()],
           },
-          'localhost'
+          'your-app.com'
+        )
+      ).resolves.toBeUndefined();
+    });
+
+    it('Can verify a Generated Login Payload: app scheme', async () => {
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginUrl('example://login')],
+          },
+          'example://login'
+        )
+      ).resolves.toBeUndefined();
+    });
+
+    it('Can verify a Generated Login Payload: https://example.com/login', async () => {
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginUrl('https://example.com/login')],
+          },
+          'https://example.com/login'
+        )
+      ).resolves.toBeUndefined();
+    });
+
+    it('Can verify a Generated Login Payload: www.example.com/login', async () => {
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginUrl('http://www.example.com/login')],
+          },
+          'www.example.com/login'
+        )
+      ).resolves.toBeUndefined();
+    });
+
+    it('Can verify a Generated Login Payload: localhost:3030/login/path', async () => {
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginUrl('localhost:3030/login/path')],
+          },
+          'localhost:3030/login/path'
         )
       ).resolves.toBeUndefined();
     });
@@ -74,21 +123,102 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('badhost')],
+            payloads: [ExamplePayloadLoginUrl('http://badhost')],
           },
           'localhost'
         )
-      ).rejects.toThrowError('Message does not match expected domain. Message: badhost Expected: localhost');
+      ).rejects.toThrowError('Message does not match expected domain. Domain: badhost Expected: localhost');
 
       await expect(
         validatePayloads(
           {
             userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginGood('localhost')],
+            payloads: [ExamplePayloadLoginGood()],
           },
           'betterhost'
         )
-      ).rejects.toThrowError('Message does not match expected domain. Message: localhost Expected: betterhost');
+      ).rejects.toThrowError('Message does not match expected domain. Domain: your-app.com Expected: betterhost');
+    });
+
+    it('Will fail to verify a Generated Login Payload with an incorrect app scheme', async () => {
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginUrl('notexample://login')],
+          },
+          'example://login'
+        )
+      ).rejects.toThrowError(
+        'Message does not match expected domain. Domain scheme mismatch. Scheme: notexample Expected: example'
+      );
+    });
+
+    it('Will fail to verify a Generated Login Payload with an incorrect https scheme', async () => {
+      // Check the scheme
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginUrl('http://example.com/login')],
+          },
+          'https://example.com/login'
+        )
+      ).rejects.toThrowError(
+        'Message does not match expected domain. Domain scheme mismatch. Scheme: http Expected: https'
+      );
+
+      // Check the domain
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginUrl('https://www.examples.com/login')],
+          },
+          'https://www.example.com/login'
+        )
+      ).rejects.toThrowError(
+        'Message does not match expected domain. Domain: www.examples.com Expected: www.example.com'
+      );
+
+      // Check the path
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginUrl('https://www.example.com/logins')],
+          },
+          'https://www.example.com/login'
+        )
+      ).rejects.toThrowError(
+        'Message does not match expected domain. Domain path mismatch. Path: logins Expected: login'
+      );
+    });
+
+    it('Will fail to verify a Generated Login Payload with an incorrect www scheme', async () => {
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginUrl('http://www.examples.com/login')],
+          },
+          'www.example.com/login'
+        )
+      ).rejects.toThrowError(
+        'Message does not match expected domain. Domain: www.examples.com Expected: www.example.com'
+      );
+    });
+
+    it('Can verify a Generated Login Payload with a query string', async () => {
+      await expect(
+        validatePayloads(
+          {
+            userPublicKey: ExampleUserPublicKey,
+            payloads: [ExamplePayloadLoginUrl('https://example.com/login?query=string')],
+          },
+          'https://example.com/login'
+        )
+      ).resolves.toBeUndefined();
     });
 
     it('Can verify a Static Login Payload', async () => {
@@ -98,7 +228,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKey,
             payloads: [ExamplePayloadLoginStatic],
           },
-          'localhost'
+          'your-app.com'
         )
       ).resolves.toBeUndefined();
     });

@@ -25,6 +25,19 @@ interface SiwxMessage {
   uri: string;
 }
 
+/**
+ * Parses a given message string and extracts various components into a SiwxMessage object.
+ *
+ * @param message - The message string to be parsed.
+ * @returns An object containing the parsed components:
+ *  - `domain`: The domain extracted from the first line of the message.
+ *  - `address`: The address extracted from the second line of the message.
+ *  - `nonce`: The nonce extracted from the message.
+ *  - `uri`: The URI extracted from the message.
+ *  - `expired`: A boolean indicating whether the message has expired.
+ *  - `issuedAt`: The date and time when the message was issued.
+ *  - `expirationTime`: The date and time when the message expires, if available.
+ */
 function parseMessage(message: string): SiwxMessage {
   const msgSplit = message.split('\n');
   const domain = (msgSplit[0] || '').split(' ')[0] || '';
@@ -75,6 +88,14 @@ function verifySignatureHashMaybeWrapped(publicKey: string, signature: string, m
   return wrappedVerifyResult.isValid;
 }
 
+/**
+ * Verifies a signature against a given public key and message. This function supports both wrapped and unwrapped signatures.
+ *
+ * @param publicKey - The public key used to verify the signature.
+ * @param signature - The signature to be verified.
+ * @param message - The original message that was signed.
+ * @returns `true` if the signature is valid, `false` otherwise.
+ */
 function verifySignatureMaybeWrapped(publicKey: string, signature: string, message: Uint8Array): boolean {
   const unwrappedVerifyResult = signatureVerify(message, signature, publicKey);
   if (unwrappedVerifyResult.isValid) {
@@ -92,10 +113,73 @@ function expect(test: boolean, errorMessage: string) {
   if (!test) throw new Error(errorMessage);
 }
 
+/**
+ * Validates that the provided message domain matches the expected domain.
+ *
+ * This function checks the following:
+ * 1. If the domains have schemes (e.g., `https://`), the schemes must match.
+ * 2. The paths within the domains must match.
+ * 3. The domains themselves must match.
+ *
+ * @param msgUri - The uri from the message to be validated. This can include an optional scheme and path.
+ * @param expectedUri - The expected uri to validate against. This can include an optional scheme and path.
+ *
+ * @throws Will throw an error if the schemes, paths, or domains do not match.
+ */
+function validateDomainAndUri(msgUri: string, expectedUri: string) {
+  const parseUri = (uri: string) => {
+    const [scheme, domainWithPath] = uri.includes('://') ? uri.split('://', 2) : [null, uri];
+    const [domainAndPath, queryString] = domainWithPath.split('?', 2) ?? [domainWithPath, ''];
+    const [domain, path] = domainAndPath?.split('/', 2) ?? [domainAndPath, ''];
+    return { scheme, domain, path, queryString };
+  };
+
+  const msgParsed = parseUri(msgUri);
+  const expectedParsed = parseUri(expectedUri);
+
+  // If the expected URI has a scheme, the scheme must match
+  if (expectedParsed.scheme) {
+    expect(
+      msgParsed.scheme === expectedParsed.scheme,
+      `Message does not match expected domain. Domain scheme mismatch. Scheme: ${msgParsed.scheme} Expected: ${expectedParsed.scheme}`
+    );
+  }
+
+  // If the expected URI has a path, the path must match
+  if (expectedParsed.path) {
+    expect(
+      msgParsed.path === expectedParsed.path,
+      `Message does not match expected domain. Domain path mismatch. Path: ${msgParsed.path} Expected: ${expectedParsed.path}`
+    );
+  }
+
+  // Ignore ports in validation
+  const msgParsedDomain = msgParsed.domain?.split(':')[0];
+  const expectedParsedDomain = expectedParsed.domain?.split(':')[0];
+
+  // If the domain in the message does not match the domain in the URI, throw an error
+  expect(
+    msgParsedDomain === expectedParsedDomain,
+    `Message does not match expected domain. Domain: ${msgParsedDomain} Expected: ${expectedParsedDomain}`
+  );
+}
+
+/**
+ * Validates the login payload by verifying the signature, message contents, domain, and address.
+ *
+ * @param payload - The login payload to validate.
+ * @param userPublicKey - The public key of the user.
+ * @param loginMsgUri - The expected domain of the login message.
+ *
+ * @throws Will throw an error if the signature verification fails.
+ * @throws Will throw an error if the domain validation fails.
+ * @throws Will throw an error if the address decoding or comparison fails.
+ * @throws Will throw an error if the message has expired.
+ */
 function validateLoginPayload(
   payload: SiwfResponsePayloadLogin,
   userPublicKey: SiwfPublicKey,
-  loginMsgDomain: string
+  loginMsgUri: string
 ): void {
   // Check that the userPublicKey signed the message
   expect(
@@ -109,10 +193,10 @@ function validateLoginPayload(
 
   // Validate the message contents
   const msg = parseMessage(payload.payload.message);
-  expect(
-    msg.domain === loginMsgDomain,
-    `Message does not match expected domain. Message: ${msg.domain} Expected: ${loginMsgDomain}`
-  );
+
+  // Validate the domain
+  validateDomainAndUri(msg.uri, loginMsgUri);
+
   // Match address encoding before comparing
   // decodeAddress will throw if it cannot decode meaning bad address
   try {
@@ -135,13 +219,13 @@ function validateExtrinsicPayloadSignature(key: string, signature: string, messa
   expect(verifySignatureMaybeWrapped(key, signature, hexToU8a(message)), 'Payload signature failed');
 }
 
-export async function validatePayloads(response: SiwfResponse, loginMsgDomain: string): Promise<void> {
+export async function validatePayloads(response: SiwfResponse, loginMsgUri: string): Promise<void> {
   // Wait for the WASM to load
   await cryptoWaitReady();
   response.payloads.every((payload) => {
     switch (true) {
       case isPayloadLogin(payload):
-        return validateLoginPayload(payload, response.userPublicKey, loginMsgDomain);
+        return validateLoginPayload(payload, response.userPublicKey, loginMsgUri);
       case isPayloadAddProvider(payload):
         return validateExtrinsicPayloadSignature(
           response.userPublicKey.encodedValue,

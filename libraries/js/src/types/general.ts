@@ -2,7 +2,7 @@ import { validateAddress } from '@polkadot/util-crypto/address/validate';
 
 export interface SiwfOptions {
   endpoint: string;
-  loginMsgDomain?: string;
+  loginMsgUri?: string;
 }
 
 export interface SiwfPublicKey {
