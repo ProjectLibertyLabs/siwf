@@ -7,15 +7,15 @@
     "start": "tsx src/main.ts"
   },
   "dependencies": {
-    "@projectlibertylabs/frequency-scenario-template": "^1.1.8",
-    "@frequency-chain/api-augment": "^1.11.0",
-    "@polkadot/api": "^10.12.4",
-    "@polkadot/keyring": "^12.6.2",
-    "@polkadot/types": "^10.12.4",
-    "@polkadot/util-crypto": "^12.6.2",
-    "typescript": "^5.2.2"
+    "@frequency-chain/api-augment": "^1.15.0",
+    "@polkadot/api": "^14.2.2",
+    "@polkadot/keyring": "^13.2.2",
+    "@polkadot/types": "^14.2.2",
+    "@polkadot/util-crypto": "^13.2.2",
+    "@projectlibertylabs/frequency-scenario-template": "^1.1.10",
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
-    "tsx": "^4.7.0"
+    "tsx": "^4.19.2"
   }
 }

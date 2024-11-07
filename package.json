@@ -25,7 +25,7 @@
     "eslint": "^8.57.1",
     "prettier": "^3.3.3",
     "prettier-plugin-svelte": "^3.2.7",
-    "vitest": "^2.1.2"
+    "vitest": "^2.1.4"
   },
   "keywords": [],
   "author": "Project Liberty Labs",
