@@ -61,8 +61,7 @@ jobs:
       - name: NPM Access Config
         run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NPM_AUTH_TOKEN}}
 
-      # This should NEVER publish to the "latest" tag as v1 is NEVER latest.
+      # This should ONLY publish to the "v1" tag
       - name: Release on NPM
-        if: steps.is-full-release.outputs.is-full-release != 'true'
-        run: npm publish --access public
+        run: npm publish --tag v1 --access public
         working-directory: packages/siwf/dist
