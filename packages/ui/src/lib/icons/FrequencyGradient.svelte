@@ -31,7 +31,8 @@
     inkscape:window-y="0"
     inkscape:window-maximized="0"
     inkscape:current-layer="svg1"
-  />
+  >
+  </sodipodi:namedview>
   <defs id="defs1">
     <linearGradient id="linearGradient1" inkscape:collect="always">
       <stop style="stop-color:#4b64ff;stop-opacity:1;" offset="0" id="stop1" />

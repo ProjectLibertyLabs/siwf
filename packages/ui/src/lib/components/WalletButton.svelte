@@ -11,6 +11,7 @@
   const dispatch = createEventDispatcher();
   export let extensionMetadata: ConfiguredExtension;
 
+  /* eslint svelte/valid-compile: "off" */
   $: cachedExtension = $CachedExtensionsStore?.[extensionMetadata.injectedName] ?? {
     injectedName: extensionMetadata.injectedName,
     installed: false,
