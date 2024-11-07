@@ -44,4 +44,4 @@ jobs:
 
       - name: Publish 0.0.0-<SHA:6> on NPM
         working-directory: libraries/js/dist
-        run: npm publish --verbose --access public
+        run: npm publish --tag next --verbose --access public

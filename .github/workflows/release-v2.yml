@@ -58,4 +58,4 @@ jobs:
       - name: Release on NPM without @latest
         if: env.NPM_LATEST != 'true'
         working-directory: libraries/js/dist
-        run: npm publish --access public
+        run: npm publish --tag next --access public

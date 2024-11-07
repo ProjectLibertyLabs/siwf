@@ -64,5 +64,5 @@ jobs:
       # This should NEVER publish to the "latest" tag as v1 is NEVER latest.
       - name: Release on NPM
         if: steps.is-full-release.outputs.is-full-release != 'true'
-        run: npm publish --access public
+        run: npm publish --tag v1 --access public
         working-directory: packages/siwf/dist
