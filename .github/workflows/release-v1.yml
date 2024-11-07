@@ -63,5 +63,5 @@ jobs:
 
       # This should ONLY publish to the "v1" tag
       - name: Release on NPM
-        run: npm publish --tag v1 --access public
+        run: npm publish --tag siwf-v1 --access public
         working-directory: packages/siwf/dist
