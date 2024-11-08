@@ -56,7 +56,7 @@ jobs:
         run: npm run build
 
       - name: Generator Tool - Copy Build
-        run: cp -a tools/signed-request-generator/build docs/src/Generator
+        run: rm -Rf docs/src/Generator && cp -a tools/signed-request-generator/build docs/src/Generator
 
       - name: Build with mdBook
         working-directory: docs
