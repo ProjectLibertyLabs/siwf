@@ -11,6 +11,9 @@ command = "node preprocessors/button-links.mjs"
 [preprocessor.svg-embed]
 command = "node preprocessors/svg-embed.mjs"
 
+[preprocessor.generator]
+command = "node preprocessors/generator.mjs"
+
 
 [output.html]
 no-section-label = true
@@ -22,6 +25,7 @@ additional-css = [
   "css/highlight-dark.css",
   "css/tailwind-short.css",
   "css/button-links.css",
+  "css/generator.css",
   "css/overrides.css",
 ]
 

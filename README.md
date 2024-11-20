@@ -76,8 +76,8 @@ Documentation is written in [CommonMark Markdown](https://rust-lang.github.io/md
 #### Local Development
 
 - Serve the HTML locally and watch for changes: `mdbook serve` or `mdbook serve -p <port, default 3000>`
-- For style edits see: [`docs/css/extended.css`](./docs/css/extended.css)
-- For changes to the custom preprocessor see: [`docs/preprocessor.mjs`](./docs/preprocessor.mjs)
+- For style edits see: [`docs/css/overrides.css`](./docs/css/overrides.css)
+- For changes to the custom preprocessor see: [`docs/preprocessors/README.md`](./docs/preprocessors/README.md)
 
 #### Deployment
 
