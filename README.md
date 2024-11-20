@@ -68,7 +68,7 @@ Documentation is written in [CommonMark Markdown](https://rust-lang.github.io/md
 #### Prerequisites
 
 - [mdBook](https://rust-lang.github.io/mdBook/)
-  - Cargo: `cargo install mdbook`
+  - Cargo: `cargo install mdbook@0.4.42`
   - Mac Brew `brew install mdbook`
   - Binaries: [Download Release](https://github.com/rust-lang/mdBook/releases)
 - [Node.js v20+](https://nodejs.org)
