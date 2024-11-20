@@ -67,7 +67,7 @@ This key pair is PII and should be stored with care, but must be stored to read 
 
 ### Example Credential
 
-{{#markdown-embed src/DataStructures/VerifiedPhone.md 0}}
+{{#include ../DataStructures/VerifiedPhone.md 0}}
 
 ## Step 4: Processing the Payloads
 
@@ -175,12 +175,12 @@ SIWF services do not manage user sessions.
 
 ## New Frequency User Response
 
-{{#markdown-embed src/DataStructures/Response-NewUser.md 0}}
+{{#include ../DataStructures/Response-NewUser.md 0}}
 
 ## New Application/Delegation Response
 
-{{#markdown-embed src/DataStructures/Response-NewProvider.md 0}}
+{{#include ../DataStructures/Response-NewProvider.md 0}}
 
 ## Login Only Response
 
-{{#markdown-embed src/DataStructures/Response-LoginOnly.md 0}}
+{{#include ../DataStructures/Response-LoginOnly.md 0}}

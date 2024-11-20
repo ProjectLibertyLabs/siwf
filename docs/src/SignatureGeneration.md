@@ -143,7 +143,7 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
 
 ### Full Example Request
 
-{{#markdown-embed src/DataStructures/SignedRequest.md 0}}
+{{#include DataStructures/SignedRequest.md 0}}
 
 ## Usage
 

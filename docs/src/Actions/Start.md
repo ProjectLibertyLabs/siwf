@@ -76,11 +76,11 @@ For example, if you wish to correlate the original unauthorized session with the
 
 Parameters
 
-{{#markdown-embed src/DataStructures/Request.md 0}}
+{{#include ../DataStructures/Request.md 0}}
 
 Testnet Authentication URL
 
-{{#markdown-embed src/DataStructures/RequestUrl.md 0}}
+{{#include ../DataStructures/RequestUrl.md 0}}
 
 ## Step 3: Redirect the User
 
