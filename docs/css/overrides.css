@@ -248,6 +248,7 @@ h6:target::before {
   font-weight: 300;
   line-height: 1;
   padding-bottom: 56px;
+  max-width: 300px;
 }
 
 #logo,
