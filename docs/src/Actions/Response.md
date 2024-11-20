@@ -67,7 +67,7 @@ This key pair is PII and should be stored with care, but must be stored to read 
 
 ### Example Credential
 
-{{#markdown-embed src/DataStructures/VerifiedPhone.md 0}}
+{{#include ../DataStructures/VerifiedPhone.md 0}}
 
 ## Step 4: Processing the Payloads
 
