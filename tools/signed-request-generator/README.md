@@ -5,6 +5,7 @@ A simple site that generates signed requests for SIWF.
 ## Developing
 
 1. Build the `siwf` package
+
 ```shell
   cd ../../libraries/js
   npm install
@@ -12,11 +13,13 @@ A simple site that generates signed requests for SIWF.
   cd dist
   npm pack
 ```
+
 2. Change back to this directory and install the newly-built `siwf` package:
+
 ```shell
   npm install ../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz
-````
- 
+```
+
 4. Start a development server:
 
 ```bash
