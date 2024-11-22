@@ -290,3 +290,23 @@ hr {
   color: var(--headers);
   margin: 20px 0;
 }
+
+.warning {
+  position: relative;
+}
+
+.warning:before {
+  position: absolute;
+  width: 2.5rem;
+  height: 3rem;
+  margin-inline-start: calc(-3rem + 7px);
+  content: 'ⓘ';
+  background-color: var(--bg);
+  color: var(--warning-border);
+  font-weight: bold;
+  font-size: 2rem;
+  top: -8px;
+  border-top: 38px white;
+  margin-right: 0.5em;
+}
+
