@@ -82,7 +82,7 @@ Testnet Authentication URL
 
 {{#include ../DataStructures/RequestUrl.md 0}}
 
-## Step 3: Redirect the User
+## Step 4: Redirect the User
 
 - Redirect the user's Browser or Embedded Browser (for mobile apps) to the Authentication URL.
   - [SafariViewController for iOS](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller)
