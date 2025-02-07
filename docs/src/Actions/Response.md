@@ -42,7 +42,7 @@ Each credential would be matched based on the `type` field.
 These credentials follow the [DSNP Verifiable Credentials Specification](https://spec.dsnp.org/VerifiableCredentials/Overview.html).
 
 - [`@dsnp/verifiable-credentials`](https://github.com/LibertyDSNP/dsnp-verifiable-credentials) TypeScript library for verifying these DSNP Credentials specifically
-- Other [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model-1.1/) verifiers may also be compatable.
+- Other [W3C Verifiable Credentials](https://www.w3.org/TR/vc-data-model-1.1/) verifiers may also be compatible.
 
 ### Verify the Credential
 
