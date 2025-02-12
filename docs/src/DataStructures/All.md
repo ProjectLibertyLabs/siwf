@@ -43,3 +43,9 @@ This is JSON stringified and then [`base64url`](https://datatracker.ietf.org/doc
 ### SMS/Phone
 
 {{#include VerifiedPhone.md 0}}
+
+## Context Data
+
+### Application Context Credential
+
+{{#include ApplicationContext.md 0}}

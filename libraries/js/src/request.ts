@@ -3,6 +3,7 @@ import { encodeAddress } from '@polkadot/keyring';
 import { u8aToHex } from '@polkadot/util';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import {
+  SiwfCredential,
   SiwfCredentialRequest,
   SiwfSignedRequest,
   isSiwfCredentialsRequest,
@@ -66,14 +67,15 @@ export async function generateSignedRequest(
   providerKeyUri: string,
   callbackUri: string,
   permissions: number[],
-  credentials: SiwfCredentialRequest[] = []
+  credentials: SiwfCredentialRequest[] = [],
+  applicationContext: SiwfCredential | null = null,
 ): Promise<SiwfSignedRequest> {
   await cryptoWaitReady();
   const keyPair = keyring.createFromUri(providerKeyUri);
 
   const signature = keyPair.sign(generateRequestSigningData(callbackUri, permissions, true), {});
 
-  return buildSignedRequest(u8aToHex(signature), keyPair.address, callbackUri, permissions, credentials);
+  return buildSignedRequest(u8aToHex(signature), keyPair.address, callbackUri, permissions, credentials, applicationContext);
 }
 
 /**
@@ -92,7 +94,8 @@ export function buildSignedRequest(
   signerPublicKey: string,
   callbackUri: string,
   permissions: number[],
-  credentials: SiwfCredentialRequest[] = []
+  credentials: SiwfCredentialRequest[] = [],
+  applicationContext: SiwfCredential | null = null,
 ): SiwfSignedRequest {
   if (!isSiwfCredentialsRequest(credentials)) {
     console.error('credentials', credentials);
@@ -120,6 +123,7 @@ export function buildSignedRequest(
       },
     },
     requestedCredentials,
+    applicationContext: applicationContext || undefined,
   };
 }
 
@@ -137,9 +141,10 @@ export async function generateEncodedSignedRequest(
   providerKeyUri: string,
   callbackUri: string,
   permissions: number[],
-  credentials: SiwfCredentialRequest[] = []
+  credentials: SiwfCredentialRequest[] = [],
+  applicationContext: SiwfCredential | null = null,
 ): Promise<string> {
-  const signedRequest = await generateSignedRequest(providerKeyUri, callbackUri, permissions, credentials);
+  const signedRequest = await generateSignedRequest(providerKeyUri, callbackUri, permissions, credentials, applicationContext);
   return encodeSignedRequest(signedRequest);
 }
 

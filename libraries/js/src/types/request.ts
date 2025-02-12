@@ -27,6 +27,7 @@ export interface SiwfSignedRequest {
     };
   };
   requestedCredentials?: SiwfCredentialRequest[];
+  applicationContext?: SiwfCredential;
 }
 
 function isSiwfCredential(input: unknown): input is SiwfCredential {
