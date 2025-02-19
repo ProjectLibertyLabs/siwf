@@ -85,7 +85,7 @@
 			id="applicationContext"
 			bind:value={applicationContext}
 			required
-			placeholder="{ \"url\": \"https://example.org/my-app-context.json\" }"
+			placeholder="{ &quot;url&quot;: &quot;https://example.org/my-app-context.json&quot; }"
 		/>
 	</div>
 	{#if isRequiredComplete}
