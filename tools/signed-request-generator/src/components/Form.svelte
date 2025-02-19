@@ -20,8 +20,8 @@
 	let isManualSign = false;
 	let permissions: number[] = [];
 	let credentials: SiwfCredential[] = [];
-        let applicationContextPlaceholder = "{ \"url\": \"https://example.org/my-app-context.json\" }";
-        let applicationContext = '';
+	let applicationContextPlaceholder = '{ "url": "https://example.org/my-app-context.json" }';
+	let applicationContext = '';
 	let isRequiredComplete = false;
 
 	let manualSignature = '';
@@ -50,7 +50,7 @@
 				callbackUri,
 				permissions,
 				credentials,
-                                JSON.parse(applicationContext)
+				JSON.parse(applicationContext)
 			);
 			encodedRequest = encodeSignedRequest(signedRequest);
 			requestJson = JSON.stringify(signedRequest, null, 2);
@@ -86,7 +86,7 @@
 			id="applicationContext"
 			bind:value={applicationContext}
 			required
-                        placeholder={applicationContextPlaceholder}
+			placeholder={applicationContextPlaceholder}
 		/>
 	</div>
 	{#if isRequiredComplete}

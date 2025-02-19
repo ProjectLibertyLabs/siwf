@@ -3,7 +3,6 @@ import { encodeAddress } from '@polkadot/keyring';
 import { u8aToHex } from '@polkadot/util';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import {
-  SiwfCredential,
   SiwfCredentialRequest,
   SiwfSignedRequest,
   isSiwfCredentialsRequest,
@@ -68,7 +67,7 @@ export async function generateSignedRequest(
   callbackUri: string,
   permissions: number[],
   credentials: SiwfCredentialRequest[] = [],
-  applicationContext: SiwfCredential | null = null,
+  applicationContext: { url: string } | null = null,
 ): Promise<SiwfSignedRequest> {
   await cryptoWaitReady();
   const keyPair = keyring.createFromUri(providerKeyUri);
@@ -95,7 +94,7 @@ export function buildSignedRequest(
   callbackUri: string,
   permissions: number[],
   credentials: SiwfCredentialRequest[] = [],
-  applicationContext: SiwfCredential | null = null,
+  applicationContext: { url: string } | null = null,
 ): SiwfSignedRequest {
   if (!isSiwfCredentialsRequest(credentials)) {
     console.error('credentials', credentials);
@@ -142,7 +141,7 @@ export async function generateEncodedSignedRequest(
   callbackUri: string,
   permissions: number[],
   credentials: SiwfCredentialRequest[] = [],
-  applicationContext: SiwfCredential | null = null,
+  applicationContext: { url: string } | null = null,
 ): Promise<string> {
   const signedRequest = await generateSignedRequest(providerKeyUri, callbackUri, permissions, credentials, applicationContext);
   return encodeSignedRequest(signedRequest);

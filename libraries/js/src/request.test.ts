@@ -19,9 +19,6 @@ const stockCredentials = [
 
 const exampleApplicationContext = {
   url: "https://example.org/myapp/siwf-manifest.json",
-  hash: [
-    "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
-  ],
 };
 
 describe('request', () => {
