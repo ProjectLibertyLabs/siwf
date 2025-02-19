@@ -20,6 +20,7 @@
 	let isManualSign = false;
 	let permissions: number[] = [];
 	let credentials: SiwfCredential[] = [];
+        let applicationContextPlaceholder = "{ \"url\": \"https://example.org/my-app-context.json\" }";
         let applicationContext = '';
 	let isRequiredComplete = false;
 
@@ -85,7 +86,7 @@
 			id="applicationContext"
 			bind:value={applicationContext}
 			required
-			placeholder="{ &quot;url&quot;: &quot;https://example.org/my-app-context.json&quot; }"
+                        placeholder={applicationContextPlaceholder}
 		/>
 	</div>
 	{#if isRequiredComplete}

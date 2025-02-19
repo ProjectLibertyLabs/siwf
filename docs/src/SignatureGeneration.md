@@ -102,7 +102,7 @@ Supported Options:
 
 ## Step 4 (Recommended): Provide Application Context
 
-To help users understand which application is asking them to sign in, you can provide an `applicationContext` object that contains the URL and content hash of an application context credential.
+To help users understand which application is asking them to sign in, you can provide an `applicationContext` object that contains the URL of an application context credential.
 This is especially important if you want to manage multiple applications under a single provider identity.
 Note that any delegations that are granted by the user will apply to all applications for that provider.
 
@@ -110,8 +110,7 @@ Note that any delegations that are granted by the user will apply to all applica
 {
   // ...
   "applicationContext": {
-    "url": "https://example.org/myapp/siwf-manifest.json",
-    "hash": ["bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"]
+    "url": "https://example.org/myapp/siwf-manifest.json"
   }
 }
 ```
@@ -141,8 +140,11 @@ const credentials = [
   siwf.VerifiedGraphKeyCredential,
 ];
 
+// This is a reference to an application context credential
 const applicationContext = {
-  "url": "https://example.org
+  url: "https://example.org/myapp/context.json",
+};
+
 // This is the URI that the user should return to after authenticating
 const callbackUri: string = getWebOrApplicationCallbackUri();
 
