@@ -3,7 +3,7 @@ name: Deploy v2 to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["259-siwf-create-assets-directory"]
   workflow_dispatch:
 
 permissions:
@@ -62,10 +62,12 @@ jobs:
         working-directory: docs
         run: mdbook build && ls book
 
-      - name: Structure v2
+      - name: Structure v2 (Docs + Assets)
         run: |
-          mkdir -p ./siwf-v2
-          mv ./docs/book ./siwf-v2/docs
+          mkdir -p ./siwf-v2/docs
+          mkdir -p ./siwf-v2/assets
+          mv ./docs/book/* ./siwf-v2/docs/
+          cp -r ./assets/* ./siwf-v2/assets/
 
       - name: Deploy to GitHub Pages v2
         uses: JamesIves/github-pages-deploy-action@v4.6.4
