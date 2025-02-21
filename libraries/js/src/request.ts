@@ -67,14 +67,21 @@ export async function generateSignedRequest(
   callbackUri: string,
   permissions: number[],
   credentials: SiwfCredentialRequest[] = [],
-  applicationContext: { url: string } | null = null,
+  applicationContext: { url: string } | null = null
 ): Promise<SiwfSignedRequest> {
   await cryptoWaitReady();
   const keyPair = keyring.createFromUri(providerKeyUri);
 
   const signature = keyPair.sign(generateRequestSigningData(callbackUri, permissions, true), {});
 
-  return buildSignedRequest(u8aToHex(signature), keyPair.address, callbackUri, permissions, credentials, applicationContext);
+  return buildSignedRequest(
+    u8aToHex(signature),
+    keyPair.address,
+    callbackUri,
+    permissions,
+    credentials,
+    applicationContext
+  );
 }
 
 /**
@@ -94,7 +101,7 @@ export function buildSignedRequest(
   callbackUri: string,
   permissions: number[],
   credentials: SiwfCredentialRequest[] = [],
-  applicationContext: { url: string } | null = null,
+  applicationContext: { url: string } | null = null
 ): SiwfSignedRequest {
   if (!isSiwfCredentialsRequest(credentials)) {
     console.error('credentials', credentials);
@@ -141,9 +148,15 @@ export async function generateEncodedSignedRequest(
   callbackUri: string,
   permissions: number[],
   credentials: SiwfCredentialRequest[] = [],
-  applicationContext: { url: string } | null = null,
+  applicationContext: { url: string } | null = null
 ): Promise<string> {
-  const signedRequest = await generateSignedRequest(providerKeyUri, callbackUri, permissions, credentials, applicationContext);
+  const signedRequest = await generateSignedRequest(
+    providerKeyUri,
+    callbackUri,
+    permissions,
+    credentials,
+    applicationContext
+  );
   return encodeSignedRequest(signedRequest);
 }
 
