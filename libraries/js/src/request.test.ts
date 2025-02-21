@@ -17,9 +17,19 @@ const stockCredentials = [
   VerifiedGraphKeyCredential,
 ];
 
+const exampleApplicationContext = {
+  url: 'https://example.org/myapp/siwf-manifest.json',
+};
+
 describe('request', () => {
   it('correctly generates the signed request', async () => {
-    const generated = await generateSignedRequest('//Alice', 'http://localhost:3000', [1, 2, 100], stockCredentials);
+    const generated = await generateSignedRequest(
+      '//Alice',
+      'http://localhost:3000',
+      [1, 2, 100],
+      stockCredentials,
+      exampleApplicationContext
+    );
 
     expect(generated).toEqual({
       requestedSignatures: {
@@ -57,6 +67,7 @@ describe('request', () => {
           hash: ['bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y'],
         },
       ],
+      applicationContext: exampleApplicationContext,
     });
   });
 

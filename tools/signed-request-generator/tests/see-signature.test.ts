@@ -4,6 +4,7 @@ test('can see an output  when I add a url and signature data', async ({ page }) 
 	await page.goto('/');
 	await expect(page.locator('#callbackUri')).toBeVisible();
 	await page.locator('#callbackUri').fill('http://localhost:3000');
+	await page.locator('#applicationContext').fill('http://example.org');
 	await page.locator('#signMethod-manual').check();
 	await expect(page.locator('#signerPublicKey')).toBeVisible();
 
