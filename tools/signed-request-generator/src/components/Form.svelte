@@ -50,7 +50,7 @@
 				callbackUri,
 				permissions,
 				credentials,
-				{ url: applicationContext },
+				{ url: applicationContext }
 			);
 			encodedRequest = encodeSignedRequest(signedRequest);
 			requestJson = JSON.stringify(signedRequest, null, 2);
