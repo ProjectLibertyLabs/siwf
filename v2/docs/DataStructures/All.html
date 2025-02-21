@@ -239,7 +239,13 @@
         }
       ]
     }
-  ]
+  ],
+  "applicationContext": {
+    "url": "https://example.org/myapp/siwf-manifest.json",
+    "hash": [
+      "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+    ]
+  }
 }
 </code></pre>
 <h3 id="new-frequency-user-response"><a class="header" href="#new-frequency-user-response">New Frequency User Response</a></h3>
@@ -653,6 +659,67 @@
     "cryptosuite": "eddsa-rdfc-2022",
     "proofPurpose": "assertionMethod",
     "proofValue": "z5sJ2CjHX1wwgzfFGoZNocxeFKd2ffpo5TVgUvdaSkYq1M6gF7UjpYfePo97QoZgmiWdgPAWPjxFvGBysaxHV8DZ4"
+  }
+}
+</code></pre>
+<h2 id="context-data"><a class="header" href="#context-data">Context Data</a></h2>
+<h3 id="application-context-credential"><a class="header" href="#application-context-credential">Application Context Credential</a></h3>
+<h1 id="application-context"><a class="header" href="#application-context">Application Context</a></h1>
+<h2 id="schema"><a class="header" href="#schema">Schema</a></h2>
+<p>An application context credential MUST be a W3C Verifiable Credential document containing information about the application requesting user sign-in.</p>
+<p>The <code>type</code> array for the credential should begin with the string <code>"ApplicationContextCredential"</code>.</p>
+<p>The <code>credentialSchema</code> field should contain an object with the following fields:</p>
+<ul>
+<li><code>type</code>: MUST be <code>JsonSchema</code></li>
+<li><code>id</code>: MUST be the URL of the published application context credential schema. The latest version is <a href="https://schemas.frequencyaccess.com/ApplicationContextCredential/bciqe2bsnuaqg7zy3gqjmwha2q5h2bybvr6log2jsb5kjn2hos6irrlq.json"><code>https://schemas.frequencyaccess.com/ApplicationContextCredential/bciqe2bsnuaqg7zy3gqjmwha2q5h2bybvr6log2jsb5kjn2hos6irrlq.json</code></a>.</li>
+</ul>
+<p>The <code>credentialSubject</code> field should contain an object with the following fields:</p>
+<ul>
+<li><code>id</code>: Your provider identifier, expressed as a DID.</li>
+<li><code>application</code>: A JSON object containing the following keys:
+<ul>
+<li><code>name</code>: A map of one or more language tags to human-readable string values. Language tags should follow <a href="https://www.rfc-editor.org/rfc/rfc5646.html">BCP-47/RFC-5646</a> (as used in the HTTP <code>Content-Language</code> header). A content language key of <code>"*"</code> indicates a wildcard or default value, as in HTTP.</li>
+<li><code>logo</code>: A map of one or more language tags (as above) to objects containing a <code>url</code> property. The URL should resolve to an image in the PNG format. The recommended maximum image width for optimal client compatibility is 200 pixels.</li>
+</ul>
+</li>
+</ul>
+<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<p>This application context credential describes a hypothetical app called "My Social App".</p>
+<pre><code class="language-json">{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/undefined-terms/v2"
+  ],
+  "type": [
+    "ApplicationContextCredential",
+    "VerifiableCredential"
+  ],
+  "issuer": "did:web:frequencyaccess.com",
+  "validFrom": "2025-02-12T21:28:08.289+0000",
+  "credentialSchema": {
+    "type": "JsonSchema",
+    "id": "https://schemas.frequencyaccess.com/ApplicationContextCredential/bciqe2bsnuaqg7zy3gqjmwha2q5h2bybvr6log2jsb5kjn2hos6irrlq.json"
+  },
+  "credentialSubject": {
+    "id": "did:dsnp:123456",
+    "application": {
+      "name": {
+        "en": "My Social App",
+        "es": "Mi Aplicación Social"
+      },
+      "logo": {
+        "*": {
+          "url": "https://example.org/logos/my-social-app.png"
+        }
+      }
+    }
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
+    "cryptosuite": "eddsa-rdfc-2022",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
   }
 }
 </code></pre>

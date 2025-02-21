@@ -257,6 +257,20 @@ Supported Options:</p>
 <ul>
 <li>See a full list of <a href="./Credentials.html">Available Credentials</a></li>
 </ul>
+<h2 id="step-4-recommended-provide-application-context"><a class="header" href="#step-4-recommended-provide-application-context">Step 4 (Recommended): Provide Application Context</a></h2>
+<p>To help users understand which application is asking them to sign in, you can provide an <code>applicationContext</code> object that contains the URL of an application context credential.
+This is especially important if you want to manage multiple applications under a single provider identity.
+Note that any delegations that are granted by the user will apply to all applications for that provider.</p>
+<pre><code class="language-json">{
+  // ...
+  "applicationContext": {
+    "url": "https://example.org/myapp/siwf-manifest.json"
+  }
+}
+</code></pre>
+<p>The application context credential is a JSON-formatted verifiable credential that MAY be signed by a credential issuer.
+If you are integrating with Frequency Access, your application context details will be created as part of the provisioning process.</p>
+<p>For detailed information on the credential schema and properties, see the <a href="./DataStructures/ApplicationContext.html">full specification and example</a>.</p>
 <h3 id="example-using-typescriptjavascript"><a class="header" href="#example-using-typescriptjavascript">Example Using TypeScript/JavaScript</a></h3>
 <pre><code class="language-typescript">// This is the URI of a key. Usually just a seed phrase, but also supports test accounts such as `//Alice` or `//Bob`
 const providerKeyUri: string = getProviderKeyUriSecret();
@@ -275,6 +289,11 @@ const credentials = [
   siwf.VerifiedGraphKeyCredential,
 ];
 
+// This is a reference to an application context credential
+const applicationContext = {
+  url: "https://example.org/myapp/context.json",
+};
+
 // This is the URI that the user should return to after authenticating
 const callbackUri: string = getWebOrApplicationCallbackUri();
 
@@ -285,6 +304,7 @@ const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
   callbackUri,
   permissions,
   credentials,
+  applicationContext,
 );
 
 // Options with endpoint selection
@@ -343,7 +363,13 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
         }
       ]
     }
-  ]
+  ],
+  "applicationContext": {
+    "url": "https://example.org/myapp/siwf-manifest.json",
+    "hash": [
+      "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+    ]
+  }
 }
 </code></pre>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>

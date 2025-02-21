@@ -1016,6 +1016,20 @@ Supported Options:</p>
 <ul>
 <li>See a full list of <a href="./Credentials.html">Available Credentials</a></li>
 </ul>
+<h2 id="step-4-recommended-provide-application-context"><a class="header" href="#step-4-recommended-provide-application-context">Step 4 (Recommended): Provide Application Context</a></h2>
+<p>To help users understand which application is asking them to sign in, you can provide an <code>applicationContext</code> object that contains the URL of an application context credential.
+This is especially important if you want to manage multiple applications under a single provider identity.
+Note that any delegations that are granted by the user will apply to all applications for that provider.</p>
+<pre><code class="language-json">{
+  // ...
+  "applicationContext": {
+    "url": "https://example.org/myapp/siwf-manifest.json"
+  }
+}
+</code></pre>
+<p>The application context credential is a JSON-formatted verifiable credential that MAY be signed by a credential issuer.
+If you are integrating with Frequency Access, your application context details will be created as part of the provisioning process.</p>
+<p>For detailed information on the credential schema and properties, see the <a href="./DataStructures/ApplicationContext.html">full specification and example</a>.</p>
 <h3 id="example-using-typescriptjavascript"><a class="header" href="#example-using-typescriptjavascript">Example Using TypeScript/JavaScript</a></h3>
 <pre><code class="language-typescript">// This is the URI of a key. Usually just a seed phrase, but also supports test accounts such as `//Alice` or `//Bob`
 const providerKeyUri: string = getProviderKeyUriSecret();
@@ -1034,6 +1048,11 @@ const credentials = [
   siwf.VerifiedGraphKeyCredential,
 ];
 
+// This is a reference to an application context credential
+const applicationContext = {
+  url: "https://example.org/myapp/context.json",
+};
+
 // This is the URI that the user should return to after authenticating
 const callbackUri: string = getWebOrApplicationCallbackUri();
 
@@ -1044,6 +1063,7 @@ const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
   callbackUri,
   permissions,
   credentials,
+  applicationContext,
 );
 
 // Options with endpoint selection
@@ -1102,7 +1122,13 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
         }
       ]
     }
-  ]
+  ],
+  "applicationContext": {
+    "url": "https://example.org/myapp/siwf-manifest.json",
+    "hash": [
+      "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+    ]
+  }
 }
 </code></pre>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
@@ -1116,24 +1142,24 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.tn0RQdqM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.BkmufY_o.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.Dwj1LlJC.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.DnllMIUk.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.C7G3L_GJ.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/scheduler.B3svg8oL.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.3MRdm6uW.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.qktt35Hq.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/preload-helper.CmsKOCeN.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/index.DZkXAG2l.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.Brb9J0GP.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.Cnf5FKyx.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/2.DmvP_UpW.js">   <div><div class="mb-4"><form><div class="mb-4"><label for="callbackUri" data-svelte-h="svelte-1i096uq">Callback URI *</label> <input type="url" id="callbackUri" required placeholder="https://localhost:3000/login" value=""></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-151ob36">Permissions</legend> <div class="checkboxes"><label><input type="checkbox" value="8,10,9,7">  <!-- HTML_TAG_START -->Bundle: Public & Private Graph <span title="dsnp.public-follows@v1, dsnp.private-connections@v1, dsnp.private-follows@v1, dsnp.public-key-key-agreement@v1">ⓘ</span><!-- HTML_TAG_END --> </label><label><input type="checkbox" value="17,18,16,4,19">  <!-- HTML_TAG_START -->Bundle: DSNP v1.3 Content <span title="dsnp.broadcast@v2, dsnp.reply@v2, dsnp.tombstone@v2, dsnp.reaction@v1, dsnp.update@v2">ⓘ</span><!-- HTML_TAG_END --> </label><label><input type="checkbox" value="2,3,1,4,5">  <!-- HTML_TAG_START -->(Deprecated) Bundle: DSNP v1.0 Content <span title="dsnp.broadcast@v1, dsnp.reply@v1, dsnp.tombstone@v1, dsnp.reaction@v1, dsnp.update@v1">ⓘ</span><!-- HTML_TAG_END --> </label><label><input type="checkbox" value="2">  <!-- HTML_TAG_START -->(Deprecated) dsnp.broadcast: Create new public content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="6">  <!-- HTML_TAG_START -->(Deprecated) dsnp.profile: Update profile information (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="3">  <!-- HTML_TAG_START -->(Deprecated) dsnp.reply: Public reply to content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="1">  <!-- HTML_TAG_START -->(Deprecated) dsnp.tombstone: Mark content for deletion (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="5">  <!-- HTML_TAG_START -->(Deprecated) dsnp.update: Update an existing post or reply (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="17">  <!-- HTML_TAG_START -->dsnp.broadcast: Create new public content (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="12">  <!-- HTML_TAG_START -->dsnp.dsnp-content-attribute: Create an authenticated attribute set for DSNP content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="13">  <!-- HTML_TAG_START -->dsnp.ext-content-attribute: Create an authenticated attribute set for content external to DSNP (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="10">  <!-- HTML_TAG_START -->dsnp.private-connections: Update private friendship connections (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="9">  <!-- HTML_TAG_START -->dsnp.private-follows: Update private follow list (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="15">  <!-- HTML_TAG_START -->dsnp.profile-resources: Update user profile information (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="8">  <!-- HTML_TAG_START -->dsnp.public-follows: Update public follow list (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="4">  <!-- HTML_TAG_START -->dsnp.reaction: Public reaction to content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="18">  <!-- HTML_TAG_START -->dsnp.reply: Public reply to content (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="16">  <!-- HTML_TAG_START -->dsnp.tombstone: Mark content for deletion (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="19">  <!-- HTML_TAG_START -->dsnp.update: Update an existing post or reply (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="20">  <!-- HTML_TAG_START -->dsnp.user-attribute-set: Create an authenticated attribute set for a DSNP User (v2)<!-- HTML_TAG_END --> </label> <div><label for="additionalPermissions" data-svelte-h="svelte-1lmz6b8">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""></div> <div class="my-2 text-sm"><label for="schemaIds" data-svelte-h="svelte-1te7gk5">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""></div></div></fieldset></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-1g8jyhu">Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox">
+<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.qNSc93UO.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/2.BGHMoNmi.js">   <div><div class="mb-4"><form><div class="mb-4"><label for="callbackUri" data-svelte-h="svelte-1i096uq">Callback URI *</label> <input type="url" id="callbackUri" required placeholder="https://localhost:3000/login" value=""></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-151ob36">Permissions</legend> <div class="checkboxes"><label><input type="checkbox" value="8,10,9,7">  <!-- HTML_TAG_START -->Bundle: Public & Private Graph <span title="dsnp.public-follows@v1, dsnp.private-connections@v1, dsnp.private-follows@v1, dsnp.public-key-key-agreement@v1">ⓘ</span><!-- HTML_TAG_END --> </label><label><input type="checkbox" value="17,18,16,4,19">  <!-- HTML_TAG_START -->Bundle: DSNP v1.3 Content <span title="dsnp.broadcast@v2, dsnp.reply@v2, dsnp.tombstone@v2, dsnp.reaction@v1, dsnp.update@v2">ⓘ</span><!-- HTML_TAG_END --> </label><label><input type="checkbox" value="2,3,1,4,5">  <!-- HTML_TAG_START -->(Deprecated) Bundle: DSNP v1.0 Content <span title="dsnp.broadcast@v1, dsnp.reply@v1, dsnp.tombstone@v1, dsnp.reaction@v1, dsnp.update@v1">ⓘ</span><!-- HTML_TAG_END --> </label><label><input type="checkbox" value="2">  <!-- HTML_TAG_START -->(Deprecated) dsnp.broadcast: Create new public content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="6">  <!-- HTML_TAG_START -->(Deprecated) dsnp.profile: Update profile information (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="3">  <!-- HTML_TAG_START -->(Deprecated) dsnp.reply: Public reply to content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="1">  <!-- HTML_TAG_START -->(Deprecated) dsnp.tombstone: Mark content for deletion (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="5">  <!-- HTML_TAG_START -->(Deprecated) dsnp.update: Update an existing post or reply (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="17">  <!-- HTML_TAG_START -->dsnp.broadcast: Create new public content (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="12">  <!-- HTML_TAG_START -->dsnp.dsnp-content-attribute: Create an authenticated attribute set for DSNP content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="13">  <!-- HTML_TAG_START -->dsnp.ext-content-attribute: Create an authenticated attribute set for content external to DSNP (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="10">  <!-- HTML_TAG_START -->dsnp.private-connections: Update private friendship connections (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="9">  <!-- HTML_TAG_START -->dsnp.private-follows: Update private follow list (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="15">  <!-- HTML_TAG_START -->dsnp.profile-resources: Update user profile information (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="8">  <!-- HTML_TAG_START -->dsnp.public-follows: Update public follow list (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="4">  <!-- HTML_TAG_START -->dsnp.reaction: Public reaction to content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="18">  <!-- HTML_TAG_START -->dsnp.reply: Public reply to content (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="16">  <!-- HTML_TAG_START -->dsnp.tombstone: Mark content for deletion (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="19">  <!-- HTML_TAG_START -->dsnp.update: Update an existing post or reply (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="20">  <!-- HTML_TAG_START -->dsnp.user-attribute-set: Create an authenticated attribute set for a DSNP User (v2)<!-- HTML_TAG_END --> </label> <div><label for="additionalPermissions" data-svelte-h="svelte-1lmz6b8">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""></div> <div class="my-2 text-sm"><label for="schemaIds" data-svelte-h="svelte-1te7gk5">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""></div></div></fieldset></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-1g8jyhu">Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox">
 Graph Key (Required for reading private graph)</label> <label><input type="checkbox">
 Verified Email Address</label> <label><input type="checkbox">
-Verified SMS/Phone Number</label></div></fieldset></div> </form></div> <h2 data-svelte-h="svelte-1dmlwxr">Result</h2> <dl><dt data-svelte-h="svelte-1epj4gw">Login Request Payload and Signature (
+Verified SMS/Phone Number</label></div></fieldset></div> <div class="mb-4"><label for="applicationContext" data-svelte-h="svelte-1nugt19">Application Context URL*</label> <input type="url" id="applicationContext" required placeholder="https://example.org/my-app-context.json" value=""></div> </form></div> <h2 data-svelte-h="svelte-1dmlwxr">Result</h2> <dl><dt data-svelte-h="svelte-1epj4gw">Login Request Payload and Signature (
 <code>signedRequest</code>
 parameter )
 </dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div>
 <script>
 {
-__sveltekit_lnu5hy = {
+__sveltekit_93c828 = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
@@ -1142,8 +1168,8 @@ const element = document.currentScript.parentElement;
 const data = [null,null];
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.BkmufY_o.js"),
-import("./Generator/_app/immutable/entry/app.3MRdm6uW.js")
+import("./Generator/_app/immutable/entry/start.DnllMIUk.js"),
+import("./Generator/_app/immutable/entry/app.qktt35Hq.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
@@ -1433,7 +1459,13 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
         }
       ]
     }
-  ]
+  ],
+  "applicationContext": {
+    "url": "https://example.org/myapp/siwf-manifest.json",
+    "hash": [
+      "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+    ]
+  }
 }
 </code></pre>
 <h3 id="new-frequency-user-response-1"><a class="header" href="#new-frequency-user-response-1">New Frequency User Response</a></h3>
@@ -1847,6 +1879,67 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
     "cryptosuite": "eddsa-rdfc-2022",
     "proofPurpose": "assertionMethod",
     "proofValue": "z5sJ2CjHX1wwgzfFGoZNocxeFKd2ffpo5TVgUvdaSkYq1M6gF7UjpYfePo97QoZgmiWdgPAWPjxFvGBysaxHV8DZ4"
+  }
+}
+</code></pre>
+<h2 id="context-data"><a class="header" href="#context-data">Context Data</a></h2>
+<h3 id="application-context-credential"><a class="header" href="#application-context-credential">Application Context Credential</a></h3>
+<h1 id="application-context"><a class="header" href="#application-context">Application Context</a></h1>
+<h2 id="schema"><a class="header" href="#schema">Schema</a></h2>
+<p>An application context credential MUST be a W3C Verifiable Credential document containing information about the application requesting user sign-in.</p>
+<p>The <code>type</code> array for the credential should begin with the string <code>"ApplicationContextCredential"</code>.</p>
+<p>The <code>credentialSchema</code> field should contain an object with the following fields:</p>
+<ul>
+<li><code>type</code>: MUST be <code>JsonSchema</code></li>
+<li><code>id</code>: MUST be the URL of the published application context credential schema. The latest version is <a href="https://schemas.frequencyaccess.com/ApplicationContextCredential/bciqe2bsnuaqg7zy3gqjmwha2q5h2bybvr6log2jsb5kjn2hos6irrlq.json"><code>https://schemas.frequencyaccess.com/ApplicationContextCredential/bciqe2bsnuaqg7zy3gqjmwha2q5h2bybvr6log2jsb5kjn2hos6irrlq.json</code></a>.</li>
+</ul>
+<p>The <code>credentialSubject</code> field should contain an object with the following fields:</p>
+<ul>
+<li><code>id</code>: Your provider identifier, expressed as a DID.</li>
+<li><code>application</code>: A JSON object containing the following keys:
+<ul>
+<li><code>name</code>: A map of one or more language tags to human-readable string values. Language tags should follow <a href="https://www.rfc-editor.org/rfc/rfc5646.html">BCP-47/RFC-5646</a> (as used in the HTTP <code>Content-Language</code> header). A content language key of <code>"*"</code> indicates a wildcard or default value, as in HTTP.</li>
+<li><code>logo</code>: A map of one or more language tags (as above) to objects containing a <code>url</code> property. The URL should resolve to an image in the PNG format. The recommended maximum image width for optimal client compatibility is 200 pixels.</li>
+</ul>
+</li>
+</ul>
+<h3 id="example-6"><a class="header" href="#example-6">Example</a></h3>
+<p>This application context credential describes a hypothetical app called "My Social App".</p>
+<pre><code class="language-json">{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/undefined-terms/v2"
+  ],
+  "type": [
+    "ApplicationContextCredential",
+    "VerifiableCredential"
+  ],
+  "issuer": "did:web:frequencyaccess.com",
+  "validFrom": "2025-02-12T21:28:08.289+0000",
+  "credentialSchema": {
+    "type": "JsonSchema",
+    "id": "https://schemas.frequencyaccess.com/ApplicationContextCredential/bciqe2bsnuaqg7zy3gqjmwha2q5h2bybvr6log2jsb5kjn2hos6irrlq.json"
+  },
+  "credentialSubject": {
+    "id": "did:dsnp:123456",
+    "application": {
+      "name": {
+        "en": "My Social App",
+        "es": "Mi Aplicación Social"
+      },
+      "logo": {
+        "*": {
+          "url": "https://example.org/logos/my-social-app.png"
+        }
+      }
+    }
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
+    "cryptosuite": "eddsa-rdfc-2022",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
   }
 }
 </code></pre>
