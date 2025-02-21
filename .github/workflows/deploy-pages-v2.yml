@@ -3,7 +3,7 @@ name: Deploy v2 to GitHub Pages
 
 on:
   push:
-    branches: ["259-siwf-create-assets-directory"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
