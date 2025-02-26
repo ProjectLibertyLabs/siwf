@@ -1,8 +1,8 @@
 {
   "colors": {
     "primary": "#54B2AB",
-    "light": "#fff",
-    "dark": "#000"
+    "light": "#ffffff",
+    "dark": "#000000"
   },
   "content": {
     "title": "Sign In With Frequency"
