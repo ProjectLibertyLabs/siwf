@@ -419,7 +419,7 @@ For example, if you wish to correlate the original unauthorized session with the
 <p>Testnet Authentication URL</p>
 <pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDk2MGYxOTVkYzFmOTFiZjcxYzBiMzUyMzE1MGFlMzc0NzFiZWRlMDdhMDAzOTA5NjQ3Y2NmMDQwYWNkNWNkMDRlYTQ4NzBiZDEyNGNhZmEyZGViNTliMGUzNzhjYjE5ZmJjNmFmNjAxYjc1NTU5ZmFhYjdiNzY4ZGU4MWEwOTgzIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0&amp;mode=dark"
 </code></pre>
-<h2 id="step-3-redirect-the-user"><a class="header" href="#step-3-redirect-the-user">Step 3: Redirect the User</a></h2>
+<h2 id="step-4-redirect-the-user"><a class="header" href="#step-4-redirect-the-user">Step 4: Redirect the User</a></h2>
 <ul>
 <li>Redirect the user's Browser or Embedded Browser (for mobile apps) to the Authentication URL.
 <ul>
@@ -1142,10 +1142,10 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.tn0RQdqM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.BAm1CBwQ.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.BsRlWPOI.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.CqWYKOxf.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/entry.YtlTQIsC.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/scheduler.B3svg8oL.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.howr00us.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.B3UdEmuf.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/preload-helper.CmsKOCeN.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/index.DZkXAG2l.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.Brb9J0GP.js">
@@ -1159,7 +1159,7 @@ parameter )
 </dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div>
 <script>
 {
-__sveltekit_1xhy6ep = {
+__sveltekit_13okrob = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
@@ -1168,8 +1168,8 @@ const element = document.currentScript.parentElement;
 const data = [null,null];
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.BAm1CBwQ.js"),
-import("./Generator/_app/immutable/entry/app.howr00us.js")
+import("./Generator/_app/immutable/entry/start.CqWYKOxf.js"),
+import("./Generator/_app/immutable/entry/app.B3UdEmuf.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
