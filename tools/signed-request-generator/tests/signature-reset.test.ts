@@ -4,6 +4,7 @@ test('can see the signature removed when edit signature permission data', async 
 	await page.goto('/');
 	await expect(page.locator('#callbackUri')).toBeVisible();
 	await page.locator('#callbackUri').fill('http://localhost:3000');
+	await page.locator('#applicationContext').fill('http://example.org');
 	await page.locator('#signMethod-manual').check();
 	await expect(page.locator('#signerPublicKey')).toBeVisible();
 
@@ -18,6 +19,7 @@ test('can see the signature removed when edit signature callback data', async ({
 	await page.goto('/');
 	await expect(page.locator('#callbackUri')).toBeVisible();
 	await page.locator('#callbackUri').fill('http://localhost:3000');
+	await page.locator('#applicationContext').fill('http://example.org');
 	await page.locator('#signMethod-manual').check();
 	await expect(page.locator('#signerPublicKey')).toBeVisible();
 

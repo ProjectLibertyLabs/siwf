@@ -100,6 +100,26 @@ Supported Options:
 
 - See a full list of [Available Credentials](./Credentials.md)
 
+## Step 4 (Recommended): Provide Application Context
+
+To help users understand which application is asking them to sign in, you can provide an `applicationContext` object that contains the URL of an application context credential.
+This is especially important if you want to manage multiple applications under a single provider identity.
+Note that any delegations that are granted by the user will apply to all applications for that provider.
+
+```json
+{
+  // ...
+  "applicationContext": {
+    "url": "https://example.org/myapp/siwf-manifest.json"
+  }
+}
+```
+
+The application context credential is a JSON-formatted verifiable credential that MAY be signed by a credential issuer.
+If you are integrating with Frequency Access, your application context details will be created as part of the provisioning process.
+
+For detailed information on the credential schema and properties, see the [full specification and example](./DataStructures/ApplicationContext.md).
+
 ### Example Using TypeScript/JavaScript
 
 ```typescript
@@ -120,6 +140,11 @@ const credentials = [
   siwf.VerifiedGraphKeyCredential,
 ];
 
+// This is a reference to an application context credential
+const applicationContext = {
+  url: "https://example.org/myapp/context.json",
+};
+
 // This is the URI that the user should return to after authenticating
 const callbackUri: string = getWebOrApplicationCallbackUri();
 
@@ -130,6 +155,7 @@ const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
   callbackUri,
   permissions,
   credentials,
+  applicationContext,
 );
 
 // Options with endpoint selection
