@@ -118,7 +118,7 @@ Note that any delegations that are granted by the user will apply to all applica
 The application context credential is a JSON-formatted verifiable credential that MAY be signed by a credential issuer.
 If you are integrating with Frequency Access, your application context details will be created as part of the provisioning process.
 
-For detailed information on the credential schema and properties, see the [full specification and example](./DataStructures/ApplicationContext.md).
+For detailed information on the credential schema and properties, see the [full specification and example](./DataStructures/All.html#application-context).
 
 ### Example Using TypeScript/JavaScript
 
