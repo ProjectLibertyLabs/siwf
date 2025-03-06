@@ -50,7 +50,7 @@
 				callbackUri,
 				permissions,
 				credentials,
-				{ url: applicationContext }
+				applicationContext ? { url: applicationContext } : undefined
 			);
 			encodedRequest = encodeSignedRequest(signedRequest);
 			requestJson = JSON.stringify(signedRequest, null, 2);
@@ -85,7 +85,6 @@
 			type="url"
 			id="applicationContext"
 			bind:value={applicationContext}
-			required
 			placeholder={applicationContextPlaceholder}
 		/>
 	</div>
