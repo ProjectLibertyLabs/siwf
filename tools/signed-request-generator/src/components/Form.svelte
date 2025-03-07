@@ -80,7 +80,7 @@
 		<Credentials bind:credentials />
 	</div>
 	<div class="mb-4">
-		<label for="applicationContext">Application Context URL*</label>
+		<label for="applicationContext">Application Context URL</label>
 		<input
 			type="url"
 			id="applicationContext"
