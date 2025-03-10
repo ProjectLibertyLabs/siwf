@@ -30,25 +30,25 @@
     "pack": "cd dist && npm pack"
   },
   "devDependencies": {
-    "@polkadot/rpc-provider": "^14.2.2",
+    "@polkadot/rpc-provider": "^15.7.2",
     "@projectlibertylabs/eslint-config-siwf": "workspace:*",
-    "@vitest/coverage-v8": "^2.1.4",
+    "@vitest/coverage-v8": "^2.1.9",
     "jsdom": "^25.0.1",
     "pathe": "^1.1.2",
-    "prettier": "^3.3.3",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.10",
-    "vite-plugin-dts": "^4.3.0",
-    "vitest": "^2.1.4"
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2",
+    "vite": "^5.4.14",
+    "vite-plugin-dts": "^4.5.3",
+    "vitest": "^2.1.9"
   },
   "dependencies": {
-    "@frequency-chain/api-augment": "^1.15.0",
-    "@polkadot/api": "^14.2.2",
-    "@polkadot/extension-dapp": "^0.56.1",
-    "@polkadot/extension-inject": "^0.56.1",
-    "@polkadot/types": "^14.2.2",
-    "@polkadot/util": "^13.2.2",
-    "@polkadot/util-crypto": "^13.2.2",
-    "@talismn/siws": "^0.0.19"
+    "@frequency-chain/api-augment": "file:/Users/mattheworris/projects/frequency/js/api-augment/dist/frequency-chain-api-augment-0.0.0.tgz",
+    "@polkadot/api": "^15.7.2",
+    "@polkadot/extension-dapp": "^0.58.5",
+    "@polkadot/extension-inject": "^0.58.5",
+    "@polkadot/types": "^15.7.2",
+    "@polkadot/util": "^13.4.3",
+    "@polkadot/util-crypto": "^13.4.3",
+    "@talismn/siws": "^1.0.0"
   }
 }
