@@ -39,10 +39,10 @@
   },
   "dependencies": {
     "@frequency-chain/api-augment": "^1.15.0",
-    "@polkadot/api": "^14.2.2",
-    "@polkadot/extension-dapp": "^0.56.1",
-    "@polkadot/extension-inject": "^0.56.1",
-    "@polkadot/types": "^14.2.2",
+    "@polkadot/api": "^15.7.2",
+    "@polkadot/extension-dapp": "^0.58.5",
+    "@polkadot/extension-inject": "^0.58.5",
+    "@polkadot/types": "^15.7.2",
     "@polkadot/util": "^13.2.2",
     "@polkadot/util-crypto": "^13.2.2",
     "@stablelib/random": "^2.0.0"
