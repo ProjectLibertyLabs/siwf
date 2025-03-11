@@ -30,7 +30,7 @@
     "pack": "cd dist && npm pack"
   },
   "devDependencies": {
-    "@polkadot/rpc-provider": "^15.7.2",
+    "@polkadot/rpc-provider": "^15.8.1",
     "@projectlibertylabs/eslint-config-siwf": "workspace:*",
     "@vitest/coverage-v8": "^2.1.9",
     "jsdom": "^25.0.1",
@@ -42,11 +42,11 @@
     "vitest": "^2.1.9"
   },
   "dependencies": {
-    "@frequency-chain/api-augment": "file:/Users/mattheworris/projects/frequency/js/api-augment/dist/frequency-chain-api-augment-0.0.0.tgz",
-    "@polkadot/api": "^15.7.2",
+    "@frequency-chain/api-augment": "^1.15.4",
+    "@polkadot/api": "^15.8.1",
     "@polkadot/extension-dapp": "^0.58.5",
     "@polkadot/extension-inject": "^0.58.5",
-    "@polkadot/types": "^15.7.2",
+    "@polkadot/types": "^15.8.1",
     "@polkadot/util": "^13.4.3",
     "@polkadot/util-crypto": "^13.4.3",
     "@talismn/siws": "^1.0.0"
