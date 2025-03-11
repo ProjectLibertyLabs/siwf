@@ -23,8 +23,8 @@
   "devDependencies": {
     "@projectlibertylabs/eslint-config-siwf": "workspace:*",
     "eslint": "^8.57.1",
-    "prettier": "^3.3.3",
-    "prettier-plugin-svelte": "^3.2.7",
+    "prettier": "^3.5.3",
+    "prettier-plugin-svelte": "^3.3.3",
     "vitest": "^2.1.4"
   },
   "keywords": [],
