@@ -55,3 +55,5 @@ yarn-error.log*
 package/
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+.idea
