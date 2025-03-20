@@ -1,25 +1,22 @@
-<!-- MOBILE DEVELOPMENT -->
-
-# 📱 Mobile Development
+# 📱 Mobile App Integration
 
 ## **Sign-In With Frequency (SIWF) SDK Integration Guide**
 
 🚀 **The SIWF SDK provides a seamless authentication experience for mobile apps. This guide walks you through integrating the SIWF SDK into your **iOS** or **Android** app.**
 
----
+
 
 ## 📌 **Index**
-1. 📥 [Installation](#installation)
-2. 🛠 [Usage](#usage)
-3. 🔄 [Handling Authorization Callbacks](#handling-authorization-callbacks)
-4. 🔑 [Process Authorization Code](#process-authorization-code)
+1. 📱 [iOS](#iOS)
+2. 🤖 [Android](#Android)
 
 ---
 
-## 📥 **Installation**
+## 📱 **iOS**
+
 
 <details>
-  <summary>📱 iOS</summary>
+<summary>📥 Installation</summary>
 
 ### ⚙️ Requirements
 - iOS 15.0 or later
@@ -39,29 +36,7 @@ You can install the SIWF SDK via **Swift Package Manager (SPM)**:
 </details>
 
 <details>
-  <summary>🤖 Android</summary>
-
-### ⚙️ Requirements
-- Android API level **24** or later
-- Java **11+**
-
-### 📦 Installing the SIWF SDK
-To install the SIWF SDK via **Gradle**, add the following to your `build.gradle` file:
-
-```gradle
-dependencies {
-    implementation 'io.projectliberty:siwf:1.0.0'
-}
-```
-
-</details>
-
----
-
-## 🛠 **Usage**
-
-<details>
-  <summary>📱 iOS</summary>
+  <summary>🛠 Usage</summary>
 
 ### **Displaying the SIWF Sign-In Button**
 To create a SIWF sign-in button, use the `Siwf.createSignInButton` method:
@@ -75,29 +50,7 @@ Siwf.createSignInButton(mode: .primary, authRequest: authRequest)
 </details>
 
 <details>
-  <summary>🤖 Android</summary>
-
-### **Displaying the SIWF Sign-In Button**
-To create a SIWF sign-in button in your Android app, use:
-
-```kotlin
-import io.projectliberty.siwf.Siwf
-import io.projectliberty.models.SiwfButtonMode
-
-Siwf.CreateSignInButton(
-    mode = SiwfButtonMode.PRIMARY,
-    authRequest = authRequest
-)
-```
-
-</details>
-
----
-
-## 🔄 **Handling Authorization Callbacks**
-
-<details>
-  <summary>📱 iOS</summary>
+  <summary>🔄 Handling Authorization Callbacks</summary>
 
 ### **Handling Authorization Redirects**
 Use `onOpenURL` to handle deep links for authentication:
@@ -120,11 +73,60 @@ Siwf.createSignInButton(authRequest: authRequest)
         )
     }
 ```
+</details>
+
+<details>
+<summary>🔑 Process Authorization Code</summary><br />
+
+On your backend services process the authorization code and start your session.
+
+Resources:
+- [SIWF Documentation on Processing a Result](https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html)
+- [Frequency Gateway SSO Tutorial](https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html)
+</details>
+
+---
+
+## 🤖 **Android**
+
+<details>
+<summary>📥 Installation</summary>
+
+### ⚙️ Requirements
+- Android API level **24** or later
+- Java **11+**
+
+### 📦 Installing the SIWF SDK
+To install the SIWF SDK via **Gradle**, add the following to your `build.gradle` file:
+
+```gradle
+dependencies {
+    implementation 'io.projectliberty:siwf:1.0.0'
+}
+```
 
 </details>
 
 <details>
-  <summary>🤖 Android</summary>
+  <summary>🛠 Usage</summary>
+
+### **Displaying the SIWF Sign-In Button**
+To create a SIWF sign-in button in your Android app, use:
+
+```kotlin
+import io.projectliberty.siwf.Siwf
+import io.projectliberty.models.SiwfButtonMode
+
+Siwf.CreateSignInButton(
+    mode = SiwfButtonMode.PRIMARY,
+    authRequest = authRequest
+)
+```
+
+</details>
+
+<details>
+  <summary>🔄 Handling Authorization Callbacks</summary>
 
 ### **Handling Authorization Redirects**
 Update your `AndroidManifest.xml` with intent filters for authentication callbacks:
@@ -191,12 +193,12 @@ setContent {
 
 </details>
 
----
-
-## **🔑 Process Authorization Code**
+<details>
+<summary>🔑 Process Authorization Code</summary><br />
 
 On your backend services process the authorization code and start your session.
 
 Resources:
 - [SIWF Documentation on Processing a Result](https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html)
 - [Frequency Gateway SSO Tutorial](https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html)
+</details>
