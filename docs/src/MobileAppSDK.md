@@ -67,7 +67,7 @@ Resources:
 - [Frequency Gateway SSO Tutorial](https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html)
 </details>
 
-**For more info see: [SIWF iOS SDK Source Code](https://github.com/ProjectLibertyLabs/siwf-sdk-ios)**
+**For more info see: [SIWF iOS SDK Source Code + Demo App](https://github.com/ProjectLibertyLabs/siwf-sdk-ios)**
 
 ---
 
@@ -150,4 +150,4 @@ Resources:
 - [Frequency Gateway SSO Tutorial](https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html)
 </details>
 
-**For more info see: [SIWF Android SDK Source Code](https://github.com/ProjectLibertyLabs/siwf-sdk-android)**
+**For more info see: [SIWF Android SDK Source Code + Demo App](https://github.com/ProjectLibertyLabs/siwf-sdk-android)**
