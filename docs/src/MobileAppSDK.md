@@ -53,26 +53,8 @@ Siwf.createSignInButton(mode: .primary, authRequest: authRequest)
   <summary>🔄 Handling Authorization Callbacks</summary>
 
 ### **Handling Authorization Redirects**
-Use `onOpenURL` to handle deep links for authentication:
+Use `onOpenURL` and `Siwf.handleRedirectUrl` to handle deep links and retreive the authentication code.
 
-```swift
-Siwf.createSignInButton(authRequest: authRequest)
-    .onOpenURL { url in
-        guard let redirectUrl = URL(string: "siwfdemoapp://login") else {
-            print("❌ Error: Invalid redirect URL.")
-            return
-        }
-        Siwf.handleRedirectUrl(
-            incomingUrl: url,
-            redirectUrl: redirectUrl,
-            processAuthorization: { authorizationCode in
-                print("✅ Successfully extracted authorization code: \(authorizationCode) ")
-                // Process the authorizationCode by sending it it your backend servers
-                // See https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html
-            }
-        )
-    }
-```
 </details>
 
 <details>
@@ -84,6 +66,8 @@ Resources:
 - [SIWF Documentation on Processing a Result](https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html)
 - [Frequency Gateway SSO Tutorial](https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html)
 </details>
+
+**For more info see: [SIWF iOS SDK Source Code](https://github.com/ProjectLibertyLabs/siwf-sdk-ios)**
 
 ---
 
@@ -133,27 +117,18 @@ Update your `AndroidManifest.xml` with intent filters for authentication callbac
 
 ```xml
 <activity
-        android:name="io.projectliberty.helpers.AuthCallbackActivity"
-        android:exported="true"
-        android:launchMode="singleTask">
-
-    <!-- HTTP Callback Example. Requires a Verified App Link: https://developer.android.com/training/app-links/verify-android-applinks -->
+    android:name="io.projectliberty.helpers.AuthCallbackActivity"
+    ...
     <intent-filter android:autoVerify="true">
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
+        ...
         <data
                 android:scheme="http"
                 android:host="localhost"
                 android:port="3000"
                 android:path="/login/callback" />
     </intent-filter>
-
-    <!-- Custom Schema Support Example -->
     <intent-filter android:autoVerify="true">
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
+        ... or ...
         <data
                 android:scheme="siwfdemoapp"
                 android:host="login" />
@@ -161,35 +136,7 @@ Update your `AndroidManifest.xml` with intent filters for authentication callbac
 </activity>
 ```
 
-Then, use a `BroadcastReceiver` to extract the authorization code:
-
-```kotlin
-setContent {
-    var authorizationCode by remember { mutableStateOf<String?>(null) }
-
-    val authReceiver = remember {
-        object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                val receivedCode = intent?.getStringExtra(AuthConstants.AUTH_INTENT_KEY)
-                authorizationCode = receivedCode
-                // Process the authorizationCode by sending it it your backend servers
-                // See https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html
-            }
-        }
-    }
-
-    val authFilter = IntentFilter(AuthConstants.AUTH_RESULT_ACTION)
-
-    ContextCompat.registerReceiver(
-        this,
-        authReceiver,
-        authFilter,
-        ContextCompat.RECEIVER_NOT_EXPORTED
-    )
-
-    // Render UI content
-}
-```
+Then, use a `BroadcastReceiver()` to receive the authorization code.
 
 </details>
 
@@ -202,3 +149,5 @@ Resources:
 - [SIWF Documentation on Processing a Result](https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html)
 - [Frequency Gateway SSO Tutorial](https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html)
 </details>
+
+**For more info see: [SIWF Android SDK Source Code](https://github.com/ProjectLibertyLabs/siwf-sdk-android)**
