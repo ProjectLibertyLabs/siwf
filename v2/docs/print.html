@@ -1142,10 +1142,10 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.tn0RQdqM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.BkQp61ZF.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/BlDd4zHV.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.DqgmWHRo.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CjKFbUE1.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/DA731Zuz.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.BSbj4m4r.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.UdXF9Ipp.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/CmsKOCeN.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/B_KhoqXc.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.MRHcqIJb.js">
@@ -1159,15 +1159,15 @@ parameter )
 </dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div>
 <script>
 {
-__sveltekit_1hsrfdr = {
+__sveltekit_nmqv5m = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
 const element = document.currentScript.parentElement;
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.BkQp61ZF.js"),
-import("./Generator/_app/immutable/entry/app.BSbj4m4r.js")
+import("./Generator/_app/immutable/entry/start.DqgmWHRo.js"),
+import("./Generator/_app/immutable/entry/app.UdXF9Ipp.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
@@ -1943,6 +1943,123 @@ The issuer MAY be the provider's control key, expressed in <code>did:key</code> 
   }
 }
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="-mobile-app-integration"><a class="header" href="#-mobile-app-integration">📱 Mobile App Integration</a></h1>
+<h2 id="sign-in-with-frequency-siwf-sdk-integration-guide"><a class="header" href="#sign-in-with-frequency-siwf-sdk-integration-guide"><strong>Sign-In With Frequency (SIWF) SDK Integration Guide</strong></a></h2>
+<p>🚀 <strong>The SIWF SDK provides a seamless authentication experience for mobile apps. This guide walks you through integrating the SIWF SDK into your <strong>iOS</strong> or <strong>Android</strong> app.</strong></p>
+<h2 id="-index"><a class="header" href="#-index">📌 <strong>Index</strong></a></h2>
+<ol>
+<li>📱 <a href="MobileAppSDK.html#iOS">iOS</a></li>
+<li>🤖 <a href="MobileAppSDK.html#Android">Android</a></li>
+</ol>
+<hr />
+<h2 id="-ios"><a class="header" href="#-ios">📱 <strong>iOS</strong></a></h2>
+<details>
+<summary>📥 Installation</summary>
+<h3 id="-requirements"><a class="header" href="#-requirements">⚙️ Requirements</a></h3>
+<ul>
+<li>iOS 15.0 or later</li>
+<li>macOS 11.0 or later</li>
+<li>Swift</li>
+</ul>
+<h3 id="-installing-the-siwf-sdk"><a class="header" href="#-installing-the-siwf-sdk">📦 Installing the SIWF SDK</a></h3>
+<p>You can install the SIWF SDK via <strong>Swift Package Manager (SPM)</strong>:</p>
+<ol>
+<li>Open Xcode and navigate to <strong>File → Add Packages</strong>.</li>
+<li>Enter the repository URL:
+<pre><code>https://github.com/ProjectLibertyLabs/siwf-sdk-ios
+</code></pre>
+</li>
+<li>Select the latest stable version and add it to your project.</li>
+</ol>
+</details>
+<details>
+  <summary>🛠 Usage</summary>
+<h3 id="displaying-the-siwf-sign-in-button"><a class="header" href="#displaying-the-siwf-sign-in-button"><strong>Displaying the SIWF Sign-In Button</strong></a></h3>
+<p>To create a SIWF sign-in button, use the <code>Siwf.createSignInButton</code> method:</p>
+<pre><code class="language-swift">import Siwf
+
+Siwf.createSignInButton(mode: .primary, authRequest: authRequest)
+</code></pre>
+</details>
+<details>
+  <summary>🔄 Handling Authorization Callbacks</summary>
+<h3 id="handling-authorization-redirects"><a class="header" href="#handling-authorization-redirects"><strong>Handling Authorization Redirects</strong></a></h3>
+<p>Use <code>onOpenURL</code> and <code>Siwf.handleRedirectUrl</code> to handle deep links and retreive the authentication code.</p>
+</details>
+<details>
+<summary>🔑 Process Authorization Code</summary><br />
+<p>On your backend services process the authorization code and start your session.</p>
+<p>Resources:</p>
+<ul>
+<li><a href="https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html">SIWF Documentation on Processing a Result</a></li>
+<li><a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway SSO Tutorial</a></li>
+</ul>
+</details>
+<p><strong>For more info see: <a href="https://github.com/ProjectLibertyLabs/siwf-sdk-ios">SIWF iOS SDK Source Code + Demo App</a></strong></p>
+<hr />
+<h2 id="-android"><a class="header" href="#-android">🤖 <strong>Android</strong></a></h2>
+<details>
+<summary>📥 Installation</summary>
+<h3 id="-requirements-1"><a class="header" href="#-requirements-1">⚙️ Requirements</a></h3>
+<ul>
+<li>Android API level <strong>24</strong> or later</li>
+<li>Java <strong>11+</strong></li>
+</ul>
+<h3 id="-installing-the-siwf-sdk-1"><a class="header" href="#-installing-the-siwf-sdk-1">📦 Installing the SIWF SDK</a></h3>
+<p>To install the SIWF SDK via <strong>Gradle</strong>, add the following to your <code>build.gradle</code> file:</p>
+<pre><code class="language-gradle">dependencies {
+    implementation 'io.projectliberty:siwf:1.0.0'
+}
+</code></pre>
+</details>
+<details>
+  <summary>🛠 Usage</summary>
+<h3 id="displaying-the-siwf-sign-in-button-1"><a class="header" href="#displaying-the-siwf-sign-in-button-1"><strong>Displaying the SIWF Sign-In Button</strong></a></h3>
+<p>To create a SIWF sign-in button in your Android app, use:</p>
+<pre><code class="language-kotlin">import io.projectliberty.siwf.Siwf
+import io.projectliberty.models.SiwfButtonMode
+
+Siwf.CreateSignInButton(
+    mode = SiwfButtonMode.PRIMARY,
+    authRequest = authRequest
+)
+</code></pre>
+</details>
+<details>
+  <summary>🔄 Handling Authorization Callbacks</summary>
+<h3 id="handling-authorization-redirects-1"><a class="header" href="#handling-authorization-redirects-1"><strong>Handling Authorization Redirects</strong></a></h3>
+<p>Update your <code>AndroidManifest.xml</code> with intent filters for authentication callbacks:</p>
+<pre><code class="language-xml">&lt;activity
+    android:name="io.projectliberty.helpers.AuthCallbackActivity"
+    ...
+    &lt;intent-filter android:autoVerify="true"&gt;
+        ...
+        &lt;data
+                android:scheme="http"
+                android:host="localhost"
+                android:port="3000"
+                android:path="/login/callback" /&gt;
+    &lt;/intent-filter&gt;
+    &lt;intent-filter android:autoVerify="true"&gt;
+        ... or ...
+        &lt;data
+                android:scheme="siwfdemoapp"
+                android:host="login" /&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre>
+<p>Then, use a <code>BroadcastReceiver()</code> to receive the authorization code.</p>
+</details>
+<details>
+<summary>🔑 Process Authorization Code</summary><br />
+<p>On your backend services process the authorization code and start your session.</p>
+<p>Resources:</p>
+<ul>
+<li><a href="https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html">SIWF Documentation on Processing a Result</a></li>
+<li><a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway SSO Tutorial</a></li>
+</ul>
+</details>
+<p><strong>For more info see: <a href="https://github.com/ProjectLibertyLabs/siwf-sdk-android">SIWF Android SDK Source Code + Demo App</a></strong></p>
 
                     </main>
 

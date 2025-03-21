@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Generator - Sign In With Frequency</title>
+        <title>Mobile SDK - Sign In With Frequency</title>
 
 
         <!-- Custom HTML head -->
@@ -150,7 +150,7 @@
                         <a href="https://github.com/ProjectLibertyLabs/siwf" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                        <a href="https://github.com/ProjectLibertyLabs/siwf/blob/main/docs/src/Generate.md" title="Suggest an edit" aria-label="Suggest an edit">
+                        <a href="https://github.com/ProjectLibertyLabs/siwf/blob/main/docs/src/MobileAppSDK.md" title="Suggest an edit" aria-label="Suggest an edit">
                             <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
@@ -179,59 +179,132 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="signed-request-generator"><a class="header" href="#signed-request-generator">Signed Request Generator</a></h1>
-<p>Fill out the form and the signed request will be generated at the bottom.</p>
-<div id="generator">
-<link href="./Generator/_app/immutable/assets/0.tn0RQdqM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.DqgmWHRo.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CjKFbUE1.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/DA731Zuz.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.UdXF9Ipp.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CmsKOCeN.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/B_KhoqXc.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.MRHcqIJb.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.CMGTPGg8.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CFjF2K8p.js">   <div><div class="mb-4"><form><div class="mb-4"><label for="callbackUri" data-svelte-h="svelte-1i096uq">Callback URI *</label> <input type="url" id="callbackUri" required placeholder="https://localhost:3000/login" value=""></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-151ob36">Permissions</legend> <div class="checkboxes"><label><input type="checkbox" value="8,10,9,7">  <!-- HTML_TAG_START -->Bundle: Public & Private Graph <span title="dsnp.public-follows@v1, dsnp.private-connections@v1, dsnp.private-follows@v1, dsnp.public-key-key-agreement@v1">ⓘ</span><!-- HTML_TAG_END --> </label><label><input type="checkbox" value="17,18,16,4,19">  <!-- HTML_TAG_START -->Bundle: DSNP v1.3 Content <span title="dsnp.broadcast@v2, dsnp.reply@v2, dsnp.tombstone@v2, dsnp.reaction@v1, dsnp.update@v2">ⓘ</span><!-- HTML_TAG_END --> </label><label><input type="checkbox" value="2,3,1,4,5">  <!-- HTML_TAG_START -->(Deprecated) Bundle: DSNP v1.0 Content <span title="dsnp.broadcast@v1, dsnp.reply@v1, dsnp.tombstone@v1, dsnp.reaction@v1, dsnp.update@v1">ⓘ</span><!-- HTML_TAG_END --> </label><label><input type="checkbox" value="2">  <!-- HTML_TAG_START -->(Deprecated) dsnp.broadcast: Create new public content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="6">  <!-- HTML_TAG_START -->(Deprecated) dsnp.profile: Update profile information (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="3">  <!-- HTML_TAG_START -->(Deprecated) dsnp.reply: Public reply to content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="1">  <!-- HTML_TAG_START -->(Deprecated) dsnp.tombstone: Mark content for deletion (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="5">  <!-- HTML_TAG_START -->(Deprecated) dsnp.update: Update an existing post or reply (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="17">  <!-- HTML_TAG_START -->dsnp.broadcast: Create new public content (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="12">  <!-- HTML_TAG_START -->dsnp.dsnp-content-attribute: Create an authenticated attribute set for DSNP content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="13">  <!-- HTML_TAG_START -->dsnp.ext-content-attribute: Create an authenticated attribute set for content external to DSNP (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="10">  <!-- HTML_TAG_START -->dsnp.private-connections: Update private friendship connections (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="9">  <!-- HTML_TAG_START -->dsnp.private-follows: Update private follow list (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="15">  <!-- HTML_TAG_START -->dsnp.profile-resources: Update user profile information (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="8">  <!-- HTML_TAG_START -->dsnp.public-follows: Update public follow list (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="4">  <!-- HTML_TAG_START -->dsnp.reaction: Public reaction to content (v1)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="18">  <!-- HTML_TAG_START -->dsnp.reply: Public reply to content (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="16">  <!-- HTML_TAG_START -->dsnp.tombstone: Mark content for deletion (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="19">  <!-- HTML_TAG_START -->dsnp.update: Update an existing post or reply (v2)<!-- HTML_TAG_END --> </label><label><input type="checkbox" value="20">  <!-- HTML_TAG_START -->dsnp.user-attribute-set: Create an authenticated attribute set for a DSNP User (v2)<!-- HTML_TAG_END --> </label> <div><label for="additionalPermissions" data-svelte-h="svelte-1lmz6b8">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""></div> <div class="my-2 text-sm"><label for="schemaIds" data-svelte-h="svelte-1te7gk5">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""></div></div></fieldset></div> <div class="mb-4"><fieldset><legend data-svelte-h="svelte-1g8jyhu">Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox">
-Graph Key (Required for reading private graph)</label> <label><input type="checkbox">
-Verified Email Address</label> <label><input type="checkbox">
-Verified SMS/Phone Number</label></div></fieldset></div> <div class="mb-4"><label for="applicationContext" data-svelte-h="svelte-1uploq7">Application Context URL</label> <input type="url" id="applicationContext" placeholder="https://example.org/my-app-context.json" value=""></div> </form></div> <h2 data-svelte-h="svelte-1dmlwxr">Result</h2> <dl><dt data-svelte-h="svelte-1epj4gw">Login Request Payload and Signature (
-<code>signedRequest</code>
-parameter )
-</dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div>
-<script>
-{
-__sveltekit_nmqv5m = {
-base: new URL(".", location).pathname.slice(0, -1)
-};
+                        <h1 id="-mobile-app-integration"><a class="header" href="#-mobile-app-integration">📱 Mobile App Integration</a></h1>
+<h2 id="sign-in-with-frequency-siwf-sdk-integration-guide"><a class="header" href="#sign-in-with-frequency-siwf-sdk-integration-guide"><strong>Sign-In With Frequency (SIWF) SDK Integration Guide</strong></a></h2>
+<p>🚀 <strong>The SIWF SDK provides a seamless authentication experience for mobile apps. This guide walks you through integrating the SIWF SDK into your <strong>iOS</strong> or <strong>Android</strong> app.</strong></p>
+<h2 id="-index"><a class="header" href="#-index">📌 <strong>Index</strong></a></h2>
+<ol>
+<li>📱 <a href="#iOS">iOS</a></li>
+<li>🤖 <a href="#Android">Android</a></li>
+</ol>
+<hr />
+<h2 id="-ios"><a class="header" href="#-ios">📱 <strong>iOS</strong></a></h2>
+<details>
+<summary>📥 Installation</summary>
+<h3 id="-requirements"><a class="header" href="#-requirements">⚙️ Requirements</a></h3>
+<ul>
+<li>iOS 15.0 or later</li>
+<li>macOS 11.0 or later</li>
+<li>Swift</li>
+</ul>
+<h3 id="-installing-the-siwf-sdk"><a class="header" href="#-installing-the-siwf-sdk">📦 Installing the SIWF SDK</a></h3>
+<p>You can install the SIWF SDK via <strong>Swift Package Manager (SPM)</strong>:</p>
+<ol>
+<li>Open Xcode and navigate to <strong>File → Add Packages</strong>.</li>
+<li>Enter the repository URL:
+<pre><code>https://github.com/ProjectLibertyLabs/siwf-sdk-ios
+</code></pre>
+</li>
+<li>Select the latest stable version and add it to your project.</li>
+</ol>
+</details>
+<details>
+  <summary>🛠 Usage</summary>
+<h3 id="displaying-the-siwf-sign-in-button"><a class="header" href="#displaying-the-siwf-sign-in-button"><strong>Displaying the SIWF Sign-In Button</strong></a></h3>
+<p>To create a SIWF sign-in button, use the <code>Siwf.createSignInButton</code> method:</p>
+<pre><code class="language-swift">import Siwf
 
-const element = document.currentScript.parentElement;
-
-Promise.all([
-import("./Generator/_app/immutable/entry/start.DqgmWHRo.js"),
-import("./Generator/_app/immutable/entry/app.UdXF9Ipp.js")
-]).then(([kit, app]) => {
-kit.start(app, element, {
-node_ids: [0, 2],
-data: [null,null],
-form: null,
-error: null
-});
-});
+Siwf.createSignInButton(mode: .primary, authRequest: authRequest)
+</code></pre>
+</details>
+<details>
+  <summary>🔄 Handling Authorization Callbacks</summary>
+<h3 id="handling-authorization-redirects"><a class="header" href="#handling-authorization-redirects"><strong>Handling Authorization Redirects</strong></a></h3>
+<p>Use <code>onOpenURL</code> and <code>Siwf.handleRedirectUrl</code> to handle deep links and retreive the authentication code.</p>
+</details>
+<details>
+<summary>🔑 Process Authorization Code</summary><br />
+<p>On your backend services process the authorization code and start your session.</p>
+<p>Resources:</p>
+<ul>
+<li><a href="https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html">SIWF Documentation on Processing a Result</a></li>
+<li><a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway SSO Tutorial</a></li>
+</ul>
+</details>
+<p><strong>For more info see: <a href="https://github.com/ProjectLibertyLabs/siwf-sdk-ios">SIWF iOS SDK Source Code + Demo App</a></strong></p>
+<hr />
+<h2 id="-android"><a class="header" href="#-android">🤖 <strong>Android</strong></a></h2>
+<details>
+<summary>📥 Installation</summary>
+<h3 id="-requirements-1"><a class="header" href="#-requirements-1">⚙️ Requirements</a></h3>
+<ul>
+<li>Android API level <strong>24</strong> or later</li>
+<li>Java <strong>11+</strong></li>
+</ul>
+<h3 id="-installing-the-siwf-sdk-1"><a class="header" href="#-installing-the-siwf-sdk-1">📦 Installing the SIWF SDK</a></h3>
+<p>To install the SIWF SDK via <strong>Gradle</strong>, add the following to your <code>build.gradle</code> file:</p>
+<pre><code class="language-gradle">dependencies {
+    implementation 'io.projectliberty:siwf:1.0.0'
 }
-</script>
-</div>
+</code></pre>
+</details>
+<details>
+  <summary>🛠 Usage</summary>
+<h3 id="displaying-the-siwf-sign-in-button-1"><a class="header" href="#displaying-the-siwf-sign-in-button-1"><strong>Displaying the SIWF Sign-In Button</strong></a></h3>
+<p>To create a SIWF sign-in button in your Android app, use:</p>
+<pre><code class="language-kotlin">import io.projectliberty.siwf.Siwf
+import io.projectliberty.models.SiwfButtonMode
+
+Siwf.CreateSignInButton(
+    mode = SiwfButtonMode.PRIMARY,
+    authRequest = authRequest
+)
+</code></pre>
+</details>
+<details>
+  <summary>🔄 Handling Authorization Callbacks</summary>
+<h3 id="handling-authorization-redirects-1"><a class="header" href="#handling-authorization-redirects-1"><strong>Handling Authorization Redirects</strong></a></h3>
+<p>Update your <code>AndroidManifest.xml</code> with intent filters for authentication callbacks:</p>
+<pre><code class="language-xml">&lt;activity
+    android:name="io.projectliberty.helpers.AuthCallbackActivity"
+    ...
+    &lt;intent-filter android:autoVerify="true"&gt;
+        ...
+        &lt;data
+                android:scheme="http"
+                android:host="localhost"
+                android:port="3000"
+                android:path="/login/callback" /&gt;
+    &lt;/intent-filter&gt;
+    &lt;intent-filter android:autoVerify="true"&gt;
+        ... or ...
+        &lt;data
+                android:scheme="siwfdemoapp"
+                android:host="login" /&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre>
+<p>Then, use a <code>BroadcastReceiver()</code> to receive the authorization code.</p>
+</details>
+<details>
+<summary>🔑 Process Authorization Code</summary><br />
+<p>On your backend services process the authorization code and start your session.</p>
+<p>Resources:</p>
+<ul>
+<li><a href="https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html">SIWF Documentation on Processing a Result</a></li>
+<li><a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway SSO Tutorial</a></li>
+</ul>
+</details>
+<p><strong>For more info see: <a href="https://github.com/ProjectLibertyLabs/siwf-sdk-android">SIWF Android SDK Source Code + Demo App</a></strong></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="SignatureGeneration.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="DataStructures/All.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="Credentials.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -241,13 +314,10 @@ error: null
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 <!-- Mobile navigation buttons -->
                 <!-- MOD: Show names and Chevrons -->
-                  <a rel="prev" href="SignatureGeneration.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter: Signature Generation" aria-keyshortcuts="Left">
-                      <svg height="1.75em" style="display: inline" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="chevron" style="display:inline" viewBox="0 0 24 26"><path d="m15 6-6 6 6 6"/></svg>Signature Generation
+                  <a rel="prev" href="DataStructures/All.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter: Data Structures" aria-keyshortcuts="Left">
+                      <svg height="1.75em" style="display: inline" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="chevron" style="display:inline" viewBox="0 0 24 26"><path d="m15 6-6 6 6 6"/></svg>Data Structures
                   </a>
 
-                  <a rel="next" href="Credentials.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter: Credentials" aria-keyshortcuts="Right">
-                      Credentials<svg height="1.75em" style="display: inline" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="chevron" style="display:inline" viewBox="0 0 24 26"><path d="m9 18 6-6-6-6"/></svg>
-                  </a>
               <div style="clear: both"></div>
             </nav>
 
