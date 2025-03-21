@@ -90,6 +90,10 @@ The documentation is deployed to GitHub Pages automatically on merge to `main` b
 Library is published on merge to `main` with a development tag `0.0.0-[SHA:6]`.
 Releases are made via GitHub Releases with tags in the style: `vX.Y.Z`.
 
+#### Mobile App Development
+
+To learn more about using SIWF in your mobile app, see: [`docs/MobileAppSDK.md`](./docs/MobileAppSDK.md)
+
 <!-- CONTRIBUTING -->
 
 ## 🤝 Contributing
