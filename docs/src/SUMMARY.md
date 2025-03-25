@@ -13,4 +13,6 @@
   - [Delegations](Delegations.md)
   - [Payloads](Payloads.md)
   - [Data Structures](DataStructures/All.md)
-- [Mobile SDK](MobileAppSDK.md)
+- [SIWF SDK](SDK/Overview.md)
+  - [Android](SDK/Android.md)
+  - [iOS](SDK/iOS.md)
