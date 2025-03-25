@@ -273,12 +273,7 @@ async function startLogin() {
 <h2 id="step-2-web-forward-the-user-to-a-browser"><a class="header" href="#step-2-web-forward-the-user-to-a-browser">Step 2 (Web): Forward the User to a Browser</a></h2>
 <p>For website interactions, just forward the user to the returned <code>authenticationUrl</code>.</p>
 <h2 id="step-2-androidios-forward-the-user-to-an-embedded-browser"><a class="header" href="#step-2-androidios-forward-the-user-to-an-embedded-browser">Step 2 (Android/iOS): Forward the User to an Embedded Browser</a></h2>
-<p>For mobile applications, it is recommended to use an embedded browser and set the <code>callbackDomain</code> in the <code>signedRequest</code> and the <code>callbackPath</code> to your application's Universal Link. This ensures that the user remains within the application environment and does not have to leave the app.</p>
-<p>For more details, refer to the official documentation:</p>
-<ul>
-<li><a href="https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller">SafariViewController for iOS</a></li>
-<li><a href="https://developer.chrome.com/docs/android/custom-tabs/">Chrome Custom Tabs for Android</a></li>
-</ul>
+<p><a href="/SDK/Overview.html">SDKs are provided</a> for Android and iOS to perform the correct redirects and callback setups using the proper interactions specific to these platforms.</p>
 <h2 id="step-3-callback-processing"><a class="header" href="#step-3-callback-processing">Step 3: Callback Processing</a></h2>
 <pre><code class="language-typescript">import * as siwf from "@projectlibertylabs/siwf";
 
@@ -452,7 +447,7 @@ For example, if you wish to correlate the original unauthorized session with the
 <ul>
 <li><code>userPublicKey</code>: The key for the user signing this request</li>
 <li><code>payloads</code>: Signed payloads from the user</li>
-<li><code>credentials</code>: User approved verified credentials from Frequency Access (or other SIWF-compatible services) such as email, phone, user keys, etc...</li>
+<li><code>credentials</code>: User-approved, verified credentials from Frequency Access (or other SIWF-compatible services) such as email, phone, user keys, etc...</li>
 </ul>
 <h3 id="userpublickey"><a class="header" href="#userpublickey"><code>userPublicKey</code></a></h3>
 <p>The public key for the user identifies the user for this session.
@@ -1142,10 +1137,10 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.tn0RQdqM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.DqgmWHRo.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CjKFbUE1.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.Dejc31vi.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CaBzPe3M.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/DA731Zuz.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.UdXF9Ipp.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.BIzSYrzd.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/CmsKOCeN.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/B_KhoqXc.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.MRHcqIJb.js">
@@ -1159,15 +1154,15 @@ parameter )
 </dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div>
 <script>
 {
-__sveltekit_nmqv5m = {
+__sveltekit_h1mpwb = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
 const element = document.currentScript.parentElement;
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.DqgmWHRo.js"),
-import("./Generator/_app/immutable/entry/app.UdXF9Ipp.js")
+import("./Generator/_app/immutable/entry/start.Dejc31vi.js"),
+import("./Generator/_app/immutable/entry/app.BIzSYrzd.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
@@ -1943,79 +1938,55 @@ The issuer MAY be the provider's control key, expressed in <code>did:key</code> 
   }
 }
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="-mobile-app-integration"><a class="header" href="#-mobile-app-integration">📱 Mobile App Integration</a></h1>
-<h2 id="sign-in-with-frequency-siwf-sdk-integration-guide"><a class="header" href="#sign-in-with-frequency-siwf-sdk-integration-guide"><strong>Sign-In With Frequency (SIWF) SDK Integration Guide</strong></a></h2>
-<p>🚀 <strong>The SIWF SDK provides a seamless authentication experience for mobile apps. This guide walks you through integrating the SIWF SDK into your <strong>iOS</strong> or <strong>Android</strong> app.</strong></p>
-<h2 id="-index"><a class="header" href="#-index">📌 <strong>Index</strong></a></h2>
-<ol>
-<li>📱 <a href="MobileAppSDK.html#iOS">iOS</a></li>
-<li>🤖 <a href="MobileAppSDK.html#Android">Android</a></li>
-</ol>
-<hr />
-<h2 id="-ios"><a class="header" href="#-ios">📱 <strong>iOS</strong></a></h2>
-<details>
-<summary>📥 Installation</summary>
-<h3 id="-requirements"><a class="header" href="#-requirements">⚙️ Requirements</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sign-in-with-frequency-siwf-sdk-integration-guide"><a class="header" href="#sign-in-with-frequency-siwf-sdk-integration-guide">Sign-In With Frequency (SIWF) SDK Integration Guide</a></h1>
+<p>The SIWF SDK provides a seamless authentication experience for your applications.
+These guides will walk you through integrating the SIWF SDK into your <strong>iOS</strong> or <strong>Android</strong> app.</p>
+<h3 id="platform-specific-sdk-guides"><a class="header" href="#platform-specific-sdk-guides">Platform Specific SDK Guides</a></h3>
 <ul>
-<li>iOS 15.0 or later</li>
-<li>macOS 11.0 or later</li>
-<li>Swift</li>
+<li><a href="SDK//SDK/Android.html">Android</a></li>
+<li><a href="SDK//SDK/iOS.html">iOS</a></li>
 </ul>
-<h3 id="-installing-the-siwf-sdk"><a class="header" href="#-installing-the-siwf-sdk">📦 Installing the SIWF SDK</a></h3>
-<p>You can install the SIWF SDK via <strong>Swift Package Manager (SPM)</strong>:</p>
-<ol>
-<li>Open Xcode and navigate to <strong>File → Add Packages</strong>.</li>
-<li>Enter the repository URL:
-<pre><code>https://github.com/ProjectLibertyLabs/siwf-sdk-ios
-</code></pre>
-</li>
-<li>Select the latest stable version and add it to your project.</li>
-</ol>
-</details>
-<details>
-  <summary>🛠 Usage</summary>
-<h3 id="displaying-the-siwf-sign-in-button"><a class="header" href="#displaying-the-siwf-sign-in-button"><strong>Displaying the SIWF Sign-In Button</strong></a></h3>
-<p>To create a SIWF sign-in button, use the <code>Siwf.createSignInButton</code> method:</p>
-<pre><code class="language-swift">import Siwf
-
-Siwf.createSignInButton(mode: .primary, authRequest: authRequest)
-</code></pre>
-</details>
-<details>
-  <summary>🔄 Handling Authorization Callbacks</summary>
-<h3 id="handling-authorization-redirects"><a class="header" href="#handling-authorization-redirects"><strong>Handling Authorization Redirects</strong></a></h3>
-<p>Use <code>onOpenURL</code> and <code>Siwf.handleRedirectUrl</code> to handle deep links and retreive the authentication code.</p>
-</details>
-<details>
-<summary>🔑 Process Authorization Code</summary><br />
-<p>On your backend services process the authorization code and start your session.</p>
+<hr />
+<h2 id="general-overview"><a class="header" href="#general-overview">General Overview</a></h2>
+<h3 id="1-installation"><a class="header" href="#1-installation">1. Installation</a></h3>
+<p>Add the platform specific package to your project.</p>
+<h3 id="2-displaying-the-siwf-button"><a class="header" href="#2-displaying-the-siwf-button">2. Displaying the SIWF Button</a></h3>
+<p>The SIWF Button creation will require the <a href="SDK//Actions/Start.html#step-1-generate-the-signed-request-payload">Signed Request Payload</a> in either <code>base64url</code> encoded or structured form.
+You may also specify other options such as the button style (light/dark) and the network (Mainnet/Testnet) to use.</p>
+<h3 id="3-handling-authorization-callbacks"><a class="header" href="#3-handling-authorization-callbacks">3. Handling Authorization Callbacks</a></h3>
+<p>You will need to create a redirect handler to receive the information from the Authorization.
+This is the redirect URL provided to the Signed Request Payload.
+That handler will receive the information Once the authorization is complete that can then be send and processed by your backend and initate the session.</p>
+<p>See the platform specific details for how to create the callback handler.</p>
+<h3 id="4-process-authorization-code"><a class="header" href="#4-process-authorization-code">4. Process Authorization Code</a></h3>
+<p>On your backend service, process the authorization code and start your session.
+The <a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway Account Service</a> supports directing sending the result from the authorization process for processing.</p>
 <p>Resources:</p>
 <ul>
 <li><a href="https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html">SIWF Documentation on Processing a Result</a></li>
 <li><a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway SSO Tutorial</a></li>
 </ul>
-</details>
-<p><strong>For more info see: <a href="https://github.com/ProjectLibertyLabs/siwf-sdk-ios">SIWF iOS SDK Source Code + Demo App</a></strong></p>
-<hr />
-<h2 id="-android"><a class="header" href="#-android">🤖 <strong>Android</strong></a></h2>
-<details>
-<summary>📥 Installation</summary>
-<h3 id="-requirements-1"><a class="header" href="#-requirements-1">⚙️ Requirements</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="android-siwf-sdk"><a class="header" href="#android-siwf-sdk">Android SIWF SDK</a></h1>
+<h2 id="quick-reference-2"><a class="header" href="#quick-reference-2">Quick Reference</a></h2>
+<ul>
+<li><a href="https://github.com/ProjectLibertyLabs/siwf-sdk-android">SIWF Android SDK Source Code + Demo App</a></li>
+<li><a href="https://central.sonatype.com/artifact/io.projectliberty/siwf">Maven Central Package</a> <code>implementation("io.projectliberty:siwf:1.0.0")</code></li>
+</ul>
+<h2 id="1-installation-1"><a class="header" href="#1-installation-1">1. Installation</a></h2>
+<h3 id="requirements"><a class="header" href="#requirements">Requirements</a></h3>
 <ul>
 <li>Android API level <strong>24</strong> or later</li>
 <li>Java <strong>11+</strong></li>
 </ul>
-<h3 id="-installing-the-siwf-sdk-1"><a class="header" href="#-installing-the-siwf-sdk-1">📦 Installing the SIWF SDK</a></h3>
+<h3 id="installing-the-siwf-sdk"><a class="header" href="#installing-the-siwf-sdk">Installing the SIWF SDK</a></h3>
 <p>To install the SIWF SDK via <strong>Gradle</strong>, add the following to your <code>build.gradle</code> file:</p>
 <pre><code class="language-gradle">dependencies {
     implementation 'io.projectliberty:siwf:1.0.0'
 }
 </code></pre>
-</details>
-<details>
-  <summary>🛠 Usage</summary>
-<h3 id="displaying-the-siwf-sign-in-button-1"><a class="header" href="#displaying-the-siwf-sign-in-button-1"><strong>Displaying the SIWF Sign-In Button</strong></a></h3>
-<p>To create a SIWF sign-in button in your Android app, use:</p>
+<p><a href="https://central.sonatype.com/artifact/io.projectliberty/siwf">Maven Central Pacakge Page</a></p>
+<h2 id="2-displaying-the-siwf-button-1"><a class="header" href="#2-displaying-the-siwf-button-1">2. Displaying the SIWF Button</a></h2>
+<p>To create a SIWF Button in your Android app, use:</p>
 <pre><code class="language-kotlin">import io.projectliberty.siwf.Siwf
 import io.projectliberty.models.SiwfButtonMode
 
@@ -2024,11 +1995,8 @@ Siwf.CreateSignInButton(
     authRequest = authRequest
 )
 </code></pre>
-</details>
-<details>
-  <summary>🔄 Handling Authorization Callbacks</summary>
-<h3 id="handling-authorization-redirects-1"><a class="header" href="#handling-authorization-redirects-1"><strong>Handling Authorization Redirects</strong></a></h3>
-<p>Update your <code>AndroidManifest.xml</code> with intent filters for authentication callbacks:</p>
+<h2 id="3-handling-authorization-callbacks-1"><a class="header" href="#3-handling-authorization-callbacks-1">3. Handling Authorization Callbacks</a></h2>
+<p>Update your <code>AndroidManifest.xml</code> with your own intent filters for authentication callbacks. Example:</p>
 <pre><code class="language-xml">&lt;activity
     android:name="io.projectliberty.helpers.AuthCallbackActivity"
     ...
@@ -2048,18 +2016,52 @@ Siwf.CreateSignInButton(
     &lt;/intent-filter&gt;
 &lt;/activity&gt;
 </code></pre>
-<p>Then, use a <code>BroadcastReceiver()</code> to receive the authorization code.</p>
-</details>
-<details>
-<summary>🔑 Process Authorization Code</summary><br />
-<p>On your backend services process the authorization code and start your session.</p>
+<p>Then, use a <code>BroadcastReceiver()</code> to receive the authorization code with <code>AuthConstants.AUTH_INTENT_KEY</code>.</p>
+<h2 id="4-process-authorization-code-1"><a class="header" href="#4-process-authorization-code-1">4. Process Authorization Code</a></h2>
+<p>On your backend service, process the authorization code and start your session.</p>
 <p>Resources:</p>
 <ul>
 <li><a href="https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html">SIWF Documentation on Processing a Result</a></li>
 <li><a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway SSO Tutorial</a></li>
 </ul>
-</details>
-<p><strong>For more info see: <a href="https://github.com/ProjectLibertyLabs/siwf-sdk-android">SIWF Android SDK Source Code + Demo App</a></strong></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ios-siwf-sdk"><a class="header" href="#ios-siwf-sdk">iOS SIWF SDK</a></h1>
+<h2 id="quick-reference-3"><a class="header" href="#quick-reference-3">Quick Reference</a></h2>
+<ul>
+<li><a href="https://github.com/ProjectLibertyLabs/siwf-sdk-ios">SIWF iOS SDK Source Code + Demo App</a></li>
+<li><a href="https://swiftpackageindex.com/ProjectLibertyLabs/siwf-sdk-ios">Swift Package</a> <code>https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git</code></li>
+</ul>
+<h2 id="1-installation-2"><a class="header" href="#1-installation-2">1. Installation</a></h2>
+<h3 id="requirements-1"><a class="header" href="#requirements-1">Requirements</a></h3>
+<ul>
+<li>iOS 15.0 or later</li>
+<li>Swift Package Manager</li>
+</ul>
+<h3 id="installing-the-siwf-sdk-1"><a class="header" href="#installing-the-siwf-sdk-1">Installing the SIWF SDK</a></h3>
+<p>You can install the SIWF SDK via <strong>Swift Package Manager (SPM)</strong>:</p>
+<ol>
+<li>Open Xcode and navigate to <strong>File → Add Packages</strong>.</li>
+<li>Enter the repository URL:
+<pre><code>https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git
+</code></pre>
+</li>
+<li>Select the latest stable version and add it to your project.</li>
+</ol>
+<p><a href="https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app">Xcode Documentation Reference</a></p>
+<h2 id="2-displaying-the-siwf-button-2"><a class="header" href="#2-displaying-the-siwf-button-2">2. Displaying the SIWF Button</a></h2>
+<p>To create a SIWF Button, use the <code>Siwf.createSignInButton</code> method:</p>
+<pre><code class="language-swift">import Siwf
+
+Siwf.createSignInButton(mode: .primary, authRequest: authRequest)
+</code></pre>
+<h2 id="3-handling-authorization-callbacks-2"><a class="header" href="#3-handling-authorization-callbacks-2">3. Handling Authorization Callbacks</a></h2>
+<p>Use <code>onOpenURL</code> and <code>Siwf.handleRedirectUrl</code> to handle deep links and retreive the authentication code.</p>
+<h2 id="4-process-authorization-code-2"><a class="header" href="#4-process-authorization-code-2">4. Process Authorization Code</a></h2>
+<p>On your backend service, process the authorization code and start your session.</p>
+<p>Resources:</p>
+<ul>
+<li><a href="https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html">SIWF Documentation on Processing a Result</a></li>
+<li><a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway SSO Tutorial</a></li>
+</ul>
 
                     </main>
 
