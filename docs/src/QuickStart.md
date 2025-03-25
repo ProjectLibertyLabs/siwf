@@ -44,12 +44,7 @@ For website interactions, just forward the user to the returned `authenticationU
 
 ## Step 2 (Android/iOS): Forward the User to an Embedded Browser
 
-For mobile applications, it is recommended to use an embedded browser and set the `callbackDomain` in the `signedRequest` and the `callbackPath` to your application's Universal Link. This ensures that the user remains within the application environment and does not have to leave the app.
-
-For more details, refer to the official documentation:
-
-- [SafariViewController for iOS](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller)
-- [Chrome Custom Tabs for Android](https://developer.chrome.com/docs/android/custom-tabs/)
+[SDKs are provided](/SDK/Overview.md) for Android and iOS to perform the correct redirects and callback setups using the proper interactions specific to these platforms.
 
 ## Step 3: Callback Processing
 

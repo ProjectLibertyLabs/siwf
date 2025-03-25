@@ -24,7 +24,7 @@ Response Sections
 
 - `userPublicKey`: The key for the user signing this request
 - `payloads`: Signed payloads from the user
-- `credentials`: User approved verified credentials from Frequency Access (or other SIWF-compatible services) such as email, phone, user keys, etc...
+- `credentials`: User-approved, verified credentials from Frequency Access (or other SIWF-compatible services) such as email, phone, user keys, etc...
 
 ### `userPublicKey`
 

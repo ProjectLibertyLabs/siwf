@@ -92,7 +92,7 @@ Releases are made via GitHub Releases with tags in the style: `vX.Y.Z`.
 
 #### Mobile App Development
 
-To learn more about using SIWF in your mobile app, see: [`docs/MobileAppSDK.md`](./docs/MobileAppSDK.md)
+To learn more about using SIWF in your mobile app, see: [`docs/SDK/Overview.md`](./docs/SDK/Overview.md)
 
 <!-- CONTRIBUTING -->
 
