@@ -28,9 +28,9 @@ Response Sections
 
 ### `userPublicKey`
 
-The public key for the user identifies the user for this session.
-If that user has a Frequency blockchain account (MSA), the MSA Id can be retrieved from Frequency using this key.
-Or in the case when it does not, the `payloads` section will contain the payload to create said MSA Id.
+The user for the current session is identified via the public key.
+If the user has a Frequency blockchain account (MSA), the user’s MSA Id can be retrieved from Frequency via this key.
+If the user does not have an account, the payloads section with contain the payload to create the MSA Id.
 
 While the `userPublicKey` may change, the MSA Id will _always_ be the same for the same user account.
 

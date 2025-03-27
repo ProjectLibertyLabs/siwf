@@ -3,7 +3,7 @@
 ## Quick Reference
 
 - [SIWF iOS SDK Source Code + Demo App](https://github.com/ProjectLibertyLabs/siwf-sdk-ios)
-- [Swift Package](https://swiftpackageindex.com/ProjectLibertyLabs/siwf-sdk-ios) `https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git`
+- [Swift Package: `https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git`](https://swiftpackageindex.com/ProjectLibertyLabs/siwf-sdk-ios)
 
 ## 1. Installation
 
@@ -32,6 +32,8 @@ import Siwf
 
 Siwf.createSignInButton(mode: .primary, authRequest: authRequest)
 ```
+
+`authRequest` requires the [Signed Request Payload](../Actions/Start.html#step-1-generate-the-signed-request-payload) in either `base64url` encoded or structured form.
 
 ## 3. Handling Authorization Callbacks
 

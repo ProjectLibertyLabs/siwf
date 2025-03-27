@@ -3,7 +3,7 @@
 ## Quick Reference
 
 - [SIWF Android SDK Source Code + Demo App](https://github.com/ProjectLibertyLabs/siwf-sdk-android)
-- [Maven Central Package](https://central.sonatype.com/artifact/io.projectliberty/siwf) `implementation("io.projectliberty:siwf:1.0.0")`
+- [Maven Central Package `io.projectliberty:siwf`](https://central.sonatype.com/artifact/io.projectliberty/siwf)
 
 ## 1. Installation
 
@@ -37,9 +37,13 @@ Siwf.CreateSignInButton(
 )
 ```
 
+`authRequest` requires the [Signed Request Payload](../Actions/Start.html#step-1-generate-the-signed-request-payload) in either `base64url` encoded or structured form.
+
 ## 3. Handling Authorization Callbacks
 
-Update your `AndroidManifest.xml` with your own intent filters for authentication callbacks. Example:
+Update your `AndroidManifest.xml` with your own intent filters for authentication callbacks.
+Then, use a `BroadcastReceiver()` to receive the authorization code with `AuthConstants.AUTH_INTENT_KEY`.
+Example:
 
 ```xml
 <activity
@@ -61,8 +65,6 @@ Update your `AndroidManifest.xml` with your own intent filters for authenticatio
     </intent-filter>
 </activity>
 ```
-
-Then, use a `BroadcastReceiver()` to receive the authorization code with `AuthConstants.AUTH_INTENT_KEY`.
 
 ## 4. Process Authorization Code
 

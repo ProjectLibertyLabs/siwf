@@ -23,11 +23,10 @@ You may also specify other options such as the button style (light/dark) and the
 
 ### 3. Handling Authorization Callbacks
 
-You will need to create a redirect handler to receive the information from the Authorization.
-This is the redirect URL provided to the Signed Request Payload.
-That handler will receive the information Once the authorization is complete that can then be send and processed by your backend and initate the session.
+You will need to create a redirect handler to receive information from the Authorization (i.e. the redirect URL provided to the Signed Request Payload).
+This redirect handler will receive information once the authorization is complete, which may then be sent and processed by your system’s backend to initiate the session.
 
-See the platform specific details for how to create the callback handler.
+See platform-specific details in the [Android](Android.md) or [iOS](iOS.md) sections for instructions for creating the callback handler
 
 ### 4. Process Authorization Code
 
