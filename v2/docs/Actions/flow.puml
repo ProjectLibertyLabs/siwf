@@ -16,14 +16,14 @@ alt Application Backend resolves payload
     ua->p: GET against callback url with authoricationCode
     p->fa: GET /<API_BASE>/api/payload trade authorizationCode for SiwfPayloadResponse
     return SiwfPayloadResponse {signed payloads and credentials}
-    p->ua: Post sign-in screen
+    p->ua: Post sign in screen
     p->bc: If needed, submit required transactions to Frequency
     return Transaction result
 else User Agent resolves payload
     ua->ua: Pre-empted by OS (Universal Link)
     ua->fa: GET /<API_BASE>/api/payload trade authorizationCode for SiwfPayloadResponse
     return SiwfPayloadResponse {signed payloads and credentials}
-    ua->ua: Post sign-in screen
+    ua->ua: Post sign in screen
     ua->p: Sign in result
     p->bc: If needed, submit required transactions to Frequency
     return Transaction result

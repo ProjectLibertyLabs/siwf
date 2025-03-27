@@ -450,9 +450,9 @@ For example, if you wish to correlate the original unauthorized session with the
 <li><code>credentials</code>: User-approved, verified credentials from Frequency Access (or other SIWF-compatible services) such as email, phone, user keys, etc...</li>
 </ul>
 <h3 id="userpublickey"><a class="header" href="#userpublickey"><code>userPublicKey</code></a></h3>
-<p>The public key for the user identifies the user for this session.
-If that user has a Frequency blockchain account (MSA), the MSA Id can be retrieved from Frequency using this key.
-Or in the case when it does not, the <code>payloads</code> section will contain the payload to create said MSA Id.</p>
+<p>The user for the current session is identified via the public key.
+If the user has a Frequency blockchain account (MSA), the user’s MSA Id can be retrieved from Frequency via this key.
+If the user does not have an account, the payloads section with contain the payload to create the MSA Id.</p>
 <p>While the <code>userPublicKey</code> may change, the MSA Id will <em>always</em> be the same for the same user account.</p>
 <h2 id="step-3-processing-the-credentials"><a class="header" href="#step-3-processing-the-credentials">Step 3: Processing the Credentials</a></h2>
 <p>The <code>credentials</code> array will contain any <a href="Actions/../SignatureGeneration.html#step-3-optional-request-credentials-graph-key-email-phone">requested</a> and approved credentials.
@@ -465,7 +465,7 @@ Each credential would be matched based on the <code>type</code> field.</p>
 <h3 id="verify-the-credential"><a class="header" href="#verify-the-credential">Verify the Credential</a></h3>
 <p><em>Trust Model Note</em>: You may choose to just trust credentials issued by Frequency Access (or other SIWF-compatible services) given that the credential is fetched directly. These will have issuer <code>did:web:testnet.frequencyaccess.com</code> or <code>did:web:frequencyaccess.com</code>.</p>
 <ol>
-<li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://w3c-ccg.github.io/did-method-key/#format"><code>did:key</code> Method from the W3C</a></li>
+<li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://w3c-ccg.github.io/did-key-spec/#format"><code>did:key</code> Method from the W3C</a></li>
 </ol>
 <ul>
 <li>Example: <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code> is the <a href="https://docs.substrate.io/reference/address-formats/">SS58</a> version with prefix <code>90</code> of the hex address <code>0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code>. <code>0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code> is multicodec <code>sr25519-pub</code> hex which is multiformat <code>base58-btc</code> <code>z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ</code></li>
@@ -528,7 +528,7 @@ For more information on how the Graph data is structured after decryption, see t
 <p>The payloads that require submission to Frequency should be submitted in one batch using <a href="https://docs.frequency.xyz/Tokenomics/ProviderIncentives.html#capacity-model">Capacity</a>.
 The <code>addProvider</code> <em>must</em> always be <em>first</em> in the batch to ensure the correct permissions and delegations are in place for subsequent actions in the batch.</p>
 <p>Signatures to Frequency have an expiration set to a future Frequency block number.
-If the actions are not submitted before expriation, Frequency will reject the transactions and your application will need to request new signatures.</p>
+If the actions are not submitted before expiration, Frequency will reject the transactions and your application will need to request new signatures.</p>
 <p><a href="Actions/../Payloads.html">Payload Examples and Signature Details</a></p>
 <h3 id="login"><a class="header" href="#login"><code>login</code></a></h3>
 <p>The correct delegation for the user already exists.
@@ -544,7 +544,7 @@ Nonce: {{nonce}}
 Chain ID: frequency:{{chainReference}}
 Issued At: {{issued-at}}
 </code></pre>
-<p>Inside the message, <code>{{domain}}</code> is the domain of the application requesting the sign-in. <code>{{domain}}</code> should match the domain contained in the <code>URI</code> field.</p>
+<p>Inside the message, <code>{{domain}}</code> is the domain of the application requesting the sign in. <code>{{domain}}</code> should match the domain contained in the <code>URI</code> field.</p>
 <h4 id="validation-steps"><a class="header" href="#validation-steps">Validation Steps</a></h4>
 <ol>
 <li>Perform an Sr25519 signature verification using:
@@ -599,7 +599,7 @@ These actions <em>must</em> be submitted to the chain for the correct functionin
 <li><code>claimHandle</code></li>
 </ul>
 <p>They can be submitted to the chain in one transaction using <a href="https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics"><code>pay_with_capacity_batch_all</code></a>.</p>
-<h2 id="step-6-session-starts"><a class="header" href="#step-6-session-starts">Step 6: Session Starts</a></h2>
+<h2 id="step-7-session-starts"><a class="header" href="#step-7-session-starts">Step 7: Session Starts</a></h2>
 <p>Once the payloads have been validated, the user's authenticated session may start.
 SIWF services do not manage user sessions.</p>
 <h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
@@ -1137,10 +1137,10 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.tn0RQdqM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.Dejc31vi.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CaBzPe3M.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.DKjt8tMy.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/uAxTJplo.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/DA731Zuz.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.BIzSYrzd.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.Bff9yV3V.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/CmsKOCeN.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/B_KhoqXc.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.MRHcqIJb.js">
@@ -1154,15 +1154,15 @@ parameter )
 </dt><dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea> </dd><dt data-svelte-h="svelte-598f49">Mainnet/Production URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-m0lv8a">Testnet/Staging URL</dt><dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="> </dd><dt data-svelte-h="svelte-1ld7ss8">Signed Request (JSON)</dt><dd><details><summary style="cursor: pointer;" data-svelte-h="svelte-1yimw2u">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl></div>
 <script>
 {
-__sveltekit_h1mpwb = {
+__sveltekit_ng88uy = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
 const element = document.currentScript.parentElement;
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.Dejc31vi.js"),
-import("./Generator/_app/immutable/entry/app.BIzSYrzd.js")
+import("./Generator/_app/immutable/entry/start.DKjt8tMy.js"),
+import("./Generator/_app/immutable/entry/app.Bff9yV3V.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
@@ -1879,7 +1879,7 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
 <h3 id="application-context-credential"><a class="header" href="#application-context-credential">Application Context Credential</a></h3>
 <h1 id="application-context"><a class="header" href="#application-context">Application Context</a></h1>
 <h2 id="schema"><a class="header" href="#schema">Schema</a></h2>
-<p>An application context credential MUST be a W3C Verifiable Credential document containing information about the application requesting user sign-in.</p>
+<p>An application context credential MUST be a W3C Verifiable Credential document containing information about the application requesting user sign in.</p>
 <p>The <code>type</code> array for the credential should begin with the string <code>"ApplicationContextCredential"</code>.</p>
 <p>The <code>credentialSchema</code> field should contain an object with the following fields:</p>
 <ul>
@@ -1938,26 +1938,25 @@ The issuer MAY be the provider's control key, expressed in <code>did:key</code> 
   }
 }
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="sign-in-with-frequency-siwf-sdk-integration-guide"><a class="header" href="#sign-in-with-frequency-siwf-sdk-integration-guide">Sign-In With Frequency (SIWF) SDK Integration Guide</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sign-in-with-frequency-siwf-sdk-integration-guide"><a class="header" href="#sign-in-with-frequency-siwf-sdk-integration-guide">Sign In With Frequency (SIWF) SDK Integration Guide</a></h1>
 <p>The SIWF SDK provides a seamless authentication experience for your applications.
 These guides will walk you through integrating the SIWF SDK into your <strong>iOS</strong> or <strong>Android</strong> app.</p>
-<h3 id="platform-specific-sdk-guides"><a class="header" href="#platform-specific-sdk-guides">Platform Specific SDK Guides</a></h3>
+<h3 id="platform-specific-sdk-guides"><a class="header" href="#platform-specific-sdk-guides">Platform-Specific SDK Guides</a></h3>
 <ul>
-<li><a href="SDK//SDK/Android.html">Android</a></li>
-<li><a href="SDK//SDK/iOS.html">iOS</a></li>
+<li><a href="SDK/Android.html">Android</a></li>
+<li><a href="SDK/iOS.html">iOS</a></li>
 </ul>
 <hr />
 <h2 id="general-overview"><a class="header" href="#general-overview">General Overview</a></h2>
 <h3 id="1-installation"><a class="header" href="#1-installation">1. Installation</a></h3>
-<p>Add the platform specific package to your project.</p>
+<p>Add the platform-specific package to your project.</p>
 <h3 id="2-displaying-the-siwf-button"><a class="header" href="#2-displaying-the-siwf-button">2. Displaying the SIWF Button</a></h3>
-<p>The SIWF Button creation will require the <a href="SDK//Actions/Start.html#step-1-generate-the-signed-request-payload">Signed Request Payload</a> in either <code>base64url</code> encoded or structured form.
+<p>SIWF Button creation will require the <a href="SDK/../Actions/Start.html#step-1-generate-the-signed-request-payload">Signed Request Payload</a> in either <code>base64url</code> encoded or structured form.
 You may also specify other options such as the button style (light/dark) and the network (Mainnet/Testnet) to use.</p>
 <h3 id="3-handling-authorization-callbacks"><a class="header" href="#3-handling-authorization-callbacks">3. Handling Authorization Callbacks</a></h3>
-<p>You will need to create a redirect handler to receive the information from the Authorization.
-This is the redirect URL provided to the Signed Request Payload.
-That handler will receive the information Once the authorization is complete that can then be send and processed by your backend and initate the session.</p>
-<p>See the platform specific details for how to create the callback handler.</p>
+<p>You will need to create a redirect handler to receive information from the Authorization (i.e. the redirect URL provided to the Signed Request Payload).
+This redirect handler will receive information once the authorization is complete, which may then be sent and processed by your system’s backend to initiate the session.</p>
+<p>See platform-specific details in the <a href="SDK/Android.html">Android</a> or <a href="SDK/iOS.html">iOS</a> sections for instructions for creating the callback handler</p>
 <h3 id="4-process-authorization-code"><a class="header" href="#4-process-authorization-code">4. Process Authorization Code</a></h3>
 <p>On your backend service, process the authorization code and start your session.
 The <a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway Account Service</a> supports directing sending the result from the authorization process for processing.</p>
@@ -1970,7 +1969,7 @@ The <a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.htm
 <h2 id="quick-reference-2"><a class="header" href="#quick-reference-2">Quick Reference</a></h2>
 <ul>
 <li><a href="https://github.com/ProjectLibertyLabs/siwf-sdk-android">SIWF Android SDK Source Code + Demo App</a></li>
-<li><a href="https://central.sonatype.com/artifact/io.projectliberty/siwf">Maven Central Package</a> <code>implementation("io.projectliberty:siwf:1.0.0")</code></li>
+<li><a href="https://central.sonatype.com/artifact/io.projectliberty/siwf">Maven Central Package <code>io.projectliberty:siwf</code></a></li>
 </ul>
 <h2 id="1-installation-1"><a class="header" href="#1-installation-1">1. Installation</a></h2>
 <h3 id="requirements"><a class="header" href="#requirements">Requirements</a></h3>
@@ -1984,7 +1983,7 @@ The <a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.htm
     implementation 'io.projectliberty:siwf:1.0.0'
 }
 </code></pre>
-<p><a href="https://central.sonatype.com/artifact/io.projectliberty/siwf">Maven Central Pacakge Page</a></p>
+<p><a href="https://central.sonatype.com/artifact/io.projectliberty/siwf">Maven Central Package Page</a></p>
 <h2 id="2-displaying-the-siwf-button-1"><a class="header" href="#2-displaying-the-siwf-button-1">2. Displaying the SIWF Button</a></h2>
 <p>To create a SIWF Button in your Android app, use:</p>
 <pre><code class="language-kotlin">import io.projectliberty.siwf.Siwf
@@ -1995,8 +1994,11 @@ Siwf.CreateSignInButton(
     authRequest = authRequest
 )
 </code></pre>
+<p><code>authRequest</code> requires the <a href="SDK/../Actions/Start.html#step-1-generate-the-signed-request-payload">Signed Request Payload</a> in either <code>base64url</code> encoded or structured form.</p>
 <h2 id="3-handling-authorization-callbacks-1"><a class="header" href="#3-handling-authorization-callbacks-1">3. Handling Authorization Callbacks</a></h2>
-<p>Update your <code>AndroidManifest.xml</code> with your own intent filters for authentication callbacks. Example:</p>
+<p>Update your <code>AndroidManifest.xml</code> with your own intent filters for authentication callbacks.
+Then, use a <code>BroadcastReceiver()</code> to receive the authorization code with <code>AuthConstants.AUTH_INTENT_KEY</code>.
+Example:</p>
 <pre><code class="language-xml">&lt;activity
     android:name="io.projectliberty.helpers.AuthCallbackActivity"
     ...
@@ -2016,19 +2018,18 @@ Siwf.CreateSignInButton(
     &lt;/intent-filter&gt;
 &lt;/activity&gt;
 </code></pre>
-<p>Then, use a <code>BroadcastReceiver()</code> to receive the authorization code with <code>AuthConstants.AUTH_INTENT_KEY</code>.</p>
 <h2 id="4-process-authorization-code-1"><a class="header" href="#4-process-authorization-code-1">4. Process Authorization Code</a></h2>
 <p>On your backend service, process the authorization code and start your session.</p>
 <p>Resources:</p>
 <ul>
-<li><a href="https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html">SIWF Documentation on Processing a Result</a></li>
+<li><a href="SDK/../Actions/Response.html">Documentation on Processing a Result</a></li>
 <li><a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway SSO Tutorial</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ios-siwf-sdk"><a class="header" href="#ios-siwf-sdk">iOS SIWF SDK</a></h1>
 <h2 id="quick-reference-3"><a class="header" href="#quick-reference-3">Quick Reference</a></h2>
 <ul>
 <li><a href="https://github.com/ProjectLibertyLabs/siwf-sdk-ios">SIWF iOS SDK Source Code + Demo App</a></li>
-<li><a href="https://swiftpackageindex.com/ProjectLibertyLabs/siwf-sdk-ios">Swift Package</a> <code>https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git</code></li>
+<li><a href="https://swiftpackageindex.com/ProjectLibertyLabs/siwf-sdk-ios">Swift Package: <code>https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git</code></a></li>
 </ul>
 <h2 id="1-installation-2"><a class="header" href="#1-installation-2">1. Installation</a></h2>
 <h3 id="requirements-1"><a class="header" href="#requirements-1">Requirements</a></h3>
@@ -2053,13 +2054,14 @@ Siwf.CreateSignInButton(
 
 Siwf.createSignInButton(mode: .primary, authRequest: authRequest)
 </code></pre>
+<p><code>authRequest</code> requires the <a href="SDK/../Actions/Start.html#step-1-generate-the-signed-request-payload">Signed Request Payload</a> in either <code>base64url</code> encoded or structured form.</p>
 <h2 id="3-handling-authorization-callbacks-2"><a class="header" href="#3-handling-authorization-callbacks-2">3. Handling Authorization Callbacks</a></h2>
-<p>Use <code>onOpenURL</code> and <code>Siwf.handleRedirectUrl</code> to handle deep links and retreive the authentication code.</p>
+<p>Use <code>onOpenURL</code> and <code>Siwf.handleRedirectUrl</code> to handle deep links and retrieve the authentication code.</p>
 <h2 id="4-process-authorization-code-2"><a class="header" href="#4-process-authorization-code-2">4. Process Authorization Code</a></h2>
 <p>On your backend service, process the authorization code and start your session.</p>
 <p>Resources:</p>
 <ul>
-<li><a href="https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html">SIWF Documentation on Processing a Result</a></li>
+<li><a href="SDK/../Actions/Response.html">Documentation on Processing a Result</a></li>
 <li><a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway SSO Tutorial</a></li>
 </ul>
 

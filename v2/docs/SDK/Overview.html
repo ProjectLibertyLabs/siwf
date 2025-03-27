@@ -179,26 +179,25 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="sign-in-with-frequency-siwf-sdk-integration-guide"><a class="header" href="#sign-in-with-frequency-siwf-sdk-integration-guide">Sign-In With Frequency (SIWF) SDK Integration Guide</a></h1>
+                        <h1 id="sign-in-with-frequency-siwf-sdk-integration-guide"><a class="header" href="#sign-in-with-frequency-siwf-sdk-integration-guide">Sign In With Frequency (SIWF) SDK Integration Guide</a></h1>
 <p>The SIWF SDK provides a seamless authentication experience for your applications.
 These guides will walk you through integrating the SIWF SDK into your <strong>iOS</strong> or <strong>Android</strong> app.</p>
-<h3 id="platform-specific-sdk-guides"><a class="header" href="#platform-specific-sdk-guides">Platform Specific SDK Guides</a></h3>
+<h3 id="platform-specific-sdk-guides"><a class="header" href="#platform-specific-sdk-guides">Platform-Specific SDK Guides</a></h3>
 <ul>
-<li><a href="/SDK/Android.html">Android</a></li>
-<li><a href="/SDK/iOS.html">iOS</a></li>
+<li><a href="Android.html">Android</a></li>
+<li><a href="iOS.html">iOS</a></li>
 </ul>
 <hr />
 <h2 id="general-overview"><a class="header" href="#general-overview">General Overview</a></h2>
 <h3 id="1-installation"><a class="header" href="#1-installation">1. Installation</a></h3>
-<p>Add the platform specific package to your project.</p>
+<p>Add the platform-specific package to your project.</p>
 <h3 id="2-displaying-the-siwf-button"><a class="header" href="#2-displaying-the-siwf-button">2. Displaying the SIWF Button</a></h3>
-<p>The SIWF Button creation will require the <a href="/Actions/Start.html#step-1-generate-the-signed-request-payload">Signed Request Payload</a> in either <code>base64url</code> encoded or structured form.
+<p>SIWF Button creation will require the <a href="../Actions/Start.html#step-1-generate-the-signed-request-payload">Signed Request Payload</a> in either <code>base64url</code> encoded or structured form.
 You may also specify other options such as the button style (light/dark) and the network (Mainnet/Testnet) to use.</p>
 <h3 id="3-handling-authorization-callbacks"><a class="header" href="#3-handling-authorization-callbacks">3. Handling Authorization Callbacks</a></h3>
-<p>You will need to create a redirect handler to receive the information from the Authorization.
-This is the redirect URL provided to the Signed Request Payload.
-That handler will receive the information Once the authorization is complete that can then be send and processed by your backend and initate the session.</p>
-<p>See the platform specific details for how to create the callback handler.</p>
+<p>You will need to create a redirect handler to receive information from the Authorization (i.e. the redirect URL provided to the Signed Request Payload).
+This redirect handler will receive information once the authorization is complete, which may then be sent and processed by your system’s backend to initiate the session.</p>
+<p>See platform-specific details in the <a href="Android.html">Android</a> or <a href="iOS.html">iOS</a> sections for instructions for creating the callback handler</p>
 <h3 id="4-process-authorization-code"><a class="header" href="#4-process-authorization-code">4. Process Authorization Code</a></h3>
 <p>On your backend service, process the authorization code and start your session.
 The <a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway Account Service</a> supports directing sending the result from the authorization process for processing.</p>

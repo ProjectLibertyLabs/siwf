@@ -183,7 +183,7 @@
 <h2 id="quick-reference"><a class="header" href="#quick-reference">Quick Reference</a></h2>
 <ul>
 <li><a href="https://github.com/ProjectLibertyLabs/siwf-sdk-ios">SIWF iOS SDK Source Code + Demo App</a></li>
-<li><a href="https://swiftpackageindex.com/ProjectLibertyLabs/siwf-sdk-ios">Swift Package</a> <code>https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git</code></li>
+<li><a href="https://swiftpackageindex.com/ProjectLibertyLabs/siwf-sdk-ios">Swift Package: <code>https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git</code></a></li>
 </ul>
 <h2 id="1-installation"><a class="header" href="#1-installation">1. Installation</a></h2>
 <h3 id="requirements"><a class="header" href="#requirements">Requirements</a></h3>
@@ -208,13 +208,14 @@
 
 Siwf.createSignInButton(mode: .primary, authRequest: authRequest)
 </code></pre>
+<p><code>authRequest</code> requires the <a href="../Actions/Start.html#step-1-generate-the-signed-request-payload">Signed Request Payload</a> in either <code>base64url</code> encoded or structured form.</p>
 <h2 id="3-handling-authorization-callbacks"><a class="header" href="#3-handling-authorization-callbacks">3. Handling Authorization Callbacks</a></h2>
-<p>Use <code>onOpenURL</code> and <code>Siwf.handleRedirectUrl</code> to handle deep links and retreive the authentication code.</p>
+<p>Use <code>onOpenURL</code> and <code>Siwf.handleRedirectUrl</code> to handle deep links and retrieve the authentication code.</p>
 <h2 id="4-process-authorization-code"><a class="header" href="#4-process-authorization-code">4. Process Authorization Code</a></h2>
 <p>On your backend service, process the authorization code and start your session.</p>
 <p>Resources:</p>
 <ul>
-<li><a href="https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html">SIWF Documentation on Processing a Result</a></li>
+<li><a href="../Actions/Response.html">Documentation on Processing a Result</a></li>
 <li><a href="https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html">Frequency Gateway SSO Tutorial</a></li>
 </ul>
 
