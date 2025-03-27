@@ -1,4 +1,4 @@
-# Sign-In With Frequency (SIWF) SDK Integration Guide
+# Sign In With Frequency (SIWF) SDK Integration Guide
 
 The SIWF SDK provides a seamless authentication experience for your applications.
 These guides will walk you through integrating the SIWF SDK into your **iOS** or **Android** app.

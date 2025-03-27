@@ -108,7 +108,7 @@ Chain ID: frequency:{{chainReference}}
 Issued At: {{issued-at}}
 ```
 
-Inside the message, `{{domain}}` is the domain of the application requesting the sign-in. `{{domain}}` should match the domain contained in the `URI` field.
+Inside the message, `{{domain}}` is the domain of the application requesting the sign in. `{{domain}}` should match the domain contained in the `URI` field.
 
 #### Validation Steps
 
