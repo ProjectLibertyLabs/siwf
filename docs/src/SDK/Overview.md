@@ -5,8 +5,8 @@ These guides will walk you through integrating the SIWF SDK into your **iOS** or
 
 ### Platform Specific SDK Guides
 
-- [Android](/SDK/Android.md)
-- [iOS](/SDK/iOS.md)
+- [Android](Android.md)
+- [iOS](iOS.md)
 
 ---
 
@@ -18,7 +18,7 @@ Add the platform specific package to your project.
 
 ### 2. Displaying the SIWF Button
 
-The SIWF Button creation will require the [Signed Request Payload](/Actions/Start.html#step-1-generate-the-signed-request-payload) in either `base64url` encoded or structured form.
+SIWF Button creation will require the [Signed Request Payload](../Actions/Start.html#step-1-generate-the-signed-request-payload) in either `base64url` encoded or structured form.
 You may also specify other options such as the button style (light/dark) and the network (Mainnet/Testnet) to use.
 
 ### 3. Handling Authorization Callbacks

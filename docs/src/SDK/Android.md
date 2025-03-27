@@ -69,5 +69,5 @@ Then, use a `BroadcastReceiver()` to receive the authorization code with `AuthCo
 On your backend service, process the authorization code and start your session.
 
 Resources:
-- [SIWF Documentation on Processing a Result](https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html)
+- [Documentation on Processing a Result](../Actions/Response.html)
 - [Frequency Gateway SSO Tutorial](https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html)

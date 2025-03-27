@@ -48,7 +48,7 @@ These credentials follow the [DSNP Verifiable Credentials Specification](https:/
 
 _Trust Model Note_: You may choose to just trust credentials issued by Frequency Access (or other SIWF-compatible services) given that the credential is fetched directly. These will have issuer `did:web:testnet.frequencyaccess.com` or `did:web:frequencyaccess.com`.
 
-1. Check that the `credentialSubject.id` matches the `userPublicKey` following the [`did:key` Method from the W3C](https://w3c-ccg.github.io/did-method-key/#format)
+1. Check that the `credentialSubject.id` matches the `userPublicKey` following the [`did:key` Method from the W3C](https://w3c-ccg.github.io/did-key-spec/#format)
   - Example: `f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH` is the [SS58](https://docs.substrate.io/reference/address-formats/) version with prefix `90` of the hex address `0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d`. `0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d` is multicodec `sr25519-pub` hex which is multiformat `base58-btc` `z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ`
 2. Fetch the issuer DID Document following the [`did:web` Method from the W3C](https://w3c-ccg.github.io/did-method-web/)
   - Production-Mainnet should always be `did:web:frequencyaccess.com` which resolves to `https://frequencyaccess.com/.well-known/did.json`
