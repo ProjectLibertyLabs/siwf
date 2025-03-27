@@ -3,7 +3,7 @@
 The SIWF SDK provides a seamless authentication experience for your applications.
 These guides will walk you through integrating the SIWF SDK into your **iOS** or **Android** app.
 
-### Platform Specific SDK Guides
+### Platform-Specific SDK Guides
 
 - [Android](Android.md)
 - [iOS](iOS.md)
@@ -14,7 +14,7 @@ These guides will walk you through integrating the SIWF SDK into your **iOS** or
 
 ### 1. Installation
 
-Add the platform specific package to your project.
+Add the platform-specific package to your project.
 
 ### 2. Displaying the SIWF Button
 

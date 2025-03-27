@@ -20,7 +20,7 @@ dependencies {
 }
 ```
 
-[Maven Central Pacakge Page](https://central.sonatype.com/artifact/io.projectliberty/siwf)
+[Maven Central Package Page](https://central.sonatype.com/artifact/io.projectliberty/siwf)
 
 
 ## 2. Displaying the SIWF Button

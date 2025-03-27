@@ -35,7 +35,7 @@ Siwf.createSignInButton(mode: .primary, authRequest: authRequest)
 
 ## 3. Handling Authorization Callbacks
 
-Use `onOpenURL` and `Siwf.handleRedirectUrl` to handle deep links and retreive the authentication code.
+Use `onOpenURL` and `Siwf.handleRedirectUrl` to handle deep links and retrieve the authentication code.
 
 ## 4. Process Authorization Code
 

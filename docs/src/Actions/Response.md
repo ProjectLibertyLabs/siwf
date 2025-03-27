@@ -84,7 +84,7 @@ The payloads that require submission to Frequency should be submitted in one bat
 The `addProvider` *must* always be *first* in the batch to ensure the correct permissions and delegations are in place for subsequent actions in the batch.
 
 Signatures to Frequency have an expiration set to a future Frequency block number.
-If the actions are not submitted before expriation, Frequency will reject the transactions and your application will need to request new signatures.
+If the actions are not submitted before expiration, Frequency will reject the transactions and your application will need to request new signatures.
 
 [Payload Examples and Signature Details](../Payloads.md)
 
@@ -166,7 +166,7 @@ Frequency submission is required for any of the following payloads:
 
 They can be submitted to the chain in one transaction using [`pay_with_capacity_batch_all`](https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics).
 
-## Step 6: Session Starts
+## Step 7: Session Starts
 
 Once the payloads have been validated, the user's authenticated session may start.
 SIWF services do not manage user sessions.
