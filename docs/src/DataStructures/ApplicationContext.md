@@ -2,7 +2,7 @@
 
 ## Schema
 
-An application context credential MUST be a W3C Verifiable Credential document containing information about the application requesting user sign-in.
+An application context credential MUST be a W3C Verifiable Credential document containing information about the application requesting user sign in.
 
 The `type` array for the credential should begin with the string `"ApplicationContextCredential"`.
 

@@ -3,7 +3,7 @@
 ## Quick Reference
 
 - [SIWF iOS SDK Source Code + Demo App](https://github.com/ProjectLibertyLabs/siwf-sdk-ios)
-- [Swift Package](https://swiftpackageindex.com/ProjectLibertyLabs/siwf-sdk-ios) `https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git`
+- [Swift Package: `https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git`](https://swiftpackageindex.com/ProjectLibertyLabs/siwf-sdk-ios)
 
 ## 1. Installation
 
@@ -33,14 +33,16 @@ import Siwf
 Siwf.createSignInButton(mode: .primary, authRequest: authRequest)
 ```
 
+`authRequest` requires the [Signed Request Payload](../Actions/Start.html#step-1-generate-the-signed-request-payload) in either `base64url` encoded or structured form.
+
 ## 3. Handling Authorization Callbacks
 
-Use `onOpenURL` and `Siwf.handleRedirectUrl` to handle deep links and retreive the authentication code.
+Use `onOpenURL` and `Siwf.handleRedirectUrl` to handle deep links and retrieve the authentication code.
 
 ## 4. Process Authorization Code
 
 On your backend service, process the authorization code and start your session.
 
 Resources:
-- [SIWF Documentation on Processing a Result](https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html)
+- [Documentation on Processing a Result](../Actions/Response.html)
 - [Frequency Gateway SSO Tutorial](https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html)
