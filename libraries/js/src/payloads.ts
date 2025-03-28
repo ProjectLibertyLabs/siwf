@@ -182,6 +182,7 @@ function validateParsedDomainAndUri(msgParsed: ParsedUri, expectedParsed: Parsed
       msgParsedDomain === expectedParsedDomain,
       `Message does not match expected domain. Domain: ${msgParsedDomain} Expected: ${expectedParsedDomain}`
     );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return error.message;
   }
