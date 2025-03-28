@@ -144,15 +144,10 @@ function validateDomainAndUri(msgUri: string, expectedUri: string | string[]) {
   const msgParsed = parseUri(msgUri);
 
   const errors: string[] = [];
-  if (Array.isArray(expectedUri)) {
-    for (const expected of expectedUri) {
-      const expectedParsed = parseUri(expected);
-      const error = validateParsedDomainAndUri(msgParsed, expectedParsed);
-      if (!error) return;
-      errors.push(error);
-    }
-  } else {
-    const error = validateParsedDomainAndUri(msgParsed, parseUri(expectedUri));
+  const uri = Array.isArray(expectedUri) ? expectedUri : [expectedUri];
+  for (const expected of uri) {
+    const expectedParsed = parseUri(expected);
+    const error = validateParsedDomainAndUri(msgParsed, expectedParsed);
     if (!error) return;
     errors.push(error);
   }
