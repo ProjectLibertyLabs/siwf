@@ -25,6 +25,13 @@ interface SiwxMessage {
   uri: string;
 }
 
+interface ParsedUri {
+  scheme: string | null;
+  domain?: string;
+  path?: string;
+  queryString?: string;
+}
+
 /**
  * Parses a given message string and extracts various components into a SiwxMessage object.
  *
@@ -126,8 +133,8 @@ function expect(test: boolean, errorMessage: string) {
  *
  * @throws Will throw an error if the schemes, paths, or domains do not match.
  */
-function validateDomainAndUri(msgUri: string, expectedUri: string) {
-  const parseUri = (uri: string) => {
+function validateDomainAndUri(msgUri: string, expectedUri: string | string[]) {
+  const parseUri = (uri: string): ParsedUri => {
     const [scheme, domainWithPath] = uri.includes('://') ? uri.split('://', 2) : [null, uri];
     const [domainAndPath, queryString] = domainWithPath.split('?', 2) ?? [domainWithPath, ''];
     const [domain, path] = domainAndPath?.split('/', 2) ?? [domainAndPath, ''];
@@ -135,33 +142,52 @@ function validateDomainAndUri(msgUri: string, expectedUri: string) {
   };
 
   const msgParsed = parseUri(msgUri);
-  const expectedParsed = parseUri(expectedUri);
 
-  // If the expected URI has a scheme, the scheme must match
-  if (expectedParsed.scheme) {
-    expect(
-      msgParsed.scheme === expectedParsed.scheme,
-      `Message does not match expected domain. Domain scheme mismatch. Scheme: ${msgParsed.scheme} Expected: ${expectedParsed.scheme}`
-    );
+  const errors: string[] = [];
+  const uri = Array.isArray(expectedUri) ? expectedUri : [expectedUri];
+  for (const expected of uri) {
+    const expectedParsed = parseUri(expected);
+    const error = validateParsedDomainAndUri(msgParsed, expectedParsed);
+    if (!error) return;
+    errors.push(error);
   }
 
-  // If the expected URI has a path, the path must match
-  if (expectedParsed.path) {
+  expect(errors.length === 0, 'Message does not match any expected domain. ' + errors.join('\n'));
+}
+
+function validateParsedDomainAndUri(msgParsed: ParsedUri, expectedParsed: ParsedUri): string | null {
+  try {
+    // If the expected URI has a scheme, the scheme must match
+    if (expectedParsed.scheme) {
+      expect(
+        msgParsed.scheme === expectedParsed.scheme,
+        `Message does not match expected domain. Domain scheme mismatch. Scheme: ${msgParsed.scheme} Expected: ${expectedParsed.scheme}`
+      );
+    }
+
+    // If the expected URI has a path, the path must match
+    if (expectedParsed.path) {
+      expect(
+        msgParsed.path === expectedParsed.path,
+        `Message does not match expected domain. Domain path mismatch. Path: ${msgParsed.path} Expected: ${expectedParsed.path}`
+      );
+    }
+
+    // Ignore ports in validation
+    const msgParsedDomain = msgParsed.domain?.split(':')[0];
+    const expectedParsedDomain = expectedParsed.domain?.split(':')[0];
+
+    // If the domain in the message does not match the domain in the URI, throw an error
     expect(
-      msgParsed.path === expectedParsed.path,
-      `Message does not match expected domain. Domain path mismatch. Path: ${msgParsed.path} Expected: ${expectedParsed.path}`
+      msgParsedDomain === expectedParsedDomain,
+      `Message does not match expected domain. Domain: ${msgParsedDomain} Expected: ${expectedParsedDomain}`
     );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return error.message;
   }
 
-  // Ignore ports in validation
-  const msgParsedDomain = msgParsed.domain?.split(':')[0];
-  const expectedParsedDomain = expectedParsed.domain?.split(':')[0];
-
-  // If the domain in the message does not match the domain in the URI, throw an error
-  expect(
-    msgParsedDomain === expectedParsedDomain,
-    `Message does not match expected domain. Domain: ${msgParsedDomain} Expected: ${expectedParsedDomain}`
-  );
+  return null;
 }
 
 /**
@@ -179,7 +205,7 @@ function validateDomainAndUri(msgUri: string, expectedUri: string) {
 function validateLoginPayload(
   payload: SiwfResponsePayloadLogin,
   userPublicKey: SiwfPublicKey,
-  loginMsgUri: string
+  loginMsgUri: string | string[]
 ): void {
   // Check that the userPublicKey signed the message
   expect(
@@ -219,7 +245,7 @@ function validateExtrinsicPayloadSignature(key: string, signature: string, messa
   expect(verifySignatureMaybeWrapped(key, signature, hexToU8a(message)), 'Payload signature failed');
 }
 
-export async function validatePayloads(response: SiwfResponse, loginMsgUri: string): Promise<void> {
+export async function validatePayloads(response: SiwfResponse, loginMsgUri: string | string[]): Promise<void> {
   // Wait for the WASM to load
   await cryptoWaitReady();
   response.payloads.every((payload) => {

@@ -118,6 +118,17 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       ).resolves.toBeUndefined();
     });
 
+    it('Can verify a payload against multiple allowable domains', async () => {
+      await expect;
+      validatePayloads(
+        {
+          userPublicKey: ExampleUserPublicKey,
+          payloads: [ExamplePayloadLoginUrl('http://localhost:3030/login')],
+        },
+        ['otherdomain/login/callback', 'localhost:3030/login']
+      );
+    });
+
     it('Will fail to verify a Login Payload with the wrong domain', async () => {
       await expect(
         validatePayloads(
