@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIWF Button Example</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .demo-section {
+        margin-bottom: 30px;
+        padding: 15px;
+        border-radius: 6px;
+        background-color: #f8f9fa;
+      }
+      h2 {
+        margin-top: 0;
+        color: #444;
+      }
+      .code {
+        background-color: #f1f1f1;
+        padding: 10px;
+        border-radius: 4px;
+        margin: 15px 0;
+        font-family: monospace;
+        white-space: xmp-wrap;
+      }
+      .button-row {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 15px;
+        margin: 15px 0;
+      }
+      .button-container {
+        min-width: 150px;
+        background-color: #666;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SIWF Auth Button Demo</h1>
+
+    <div class="demo-section">
+      <h2>Basic Usage</h2>
+      <p>Here are the three button styles: primary, light, and dark.</p>
+    </div>
+
+    <div class="demo-section">
+      <h2>Auto-initialization with Data Attributes</h2>
+      <p>Simply add the <code>data-siwf-button</code> set it to your encoded signed request:</p>
+
+      <div class="button-row">
+        <div class="button-container">
+          <div
+            data-siwf-button="eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNuM0NpVlFqRGpQRmhTekh4WkM5NFRKZzNBNU1ZNlFCTkpSZXpnQ21TVVNqdzdSIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDI4NzEyZGQ0MGM1YWM3NWZjNDIyNmFkZDgzODU1YTI0ODI0ZWE4ZmQwZmM2Njg3MDU5NTdlYmJlMjJkOTJlMTNjMTY3NDgzY2NjMmZmMGZjOTdiM2M0NzQzMGIxMjdmNzlkNjI2YjBhNGJmOTYwYzg0MDczMjY4MmUzMjhlYjhiIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV19"
+            data-siwf-endpoint="testnet"
+          ></div>
+        </div>
+      </div>
+
+      <xmp class="code">
+<!-- The button will auto-initialize and render -->
+<div data-siwf-button="<place encoded signed request here>"></div>
+      </xmp>
+
+      <h3>Environment: Testnet, Mode: Light</h3>
+
+      <div class="button-row">
+        <div class="button-container">
+          <div
+            data-siwf-button="eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNuM0NpVlFqRGpQRmhTekh4WkM5NFRKZzNBNU1ZNlFCTkpSZXpnQ21TVVNqdzdSIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDI4NzEyZGQ0MGM1YWM3NWZjNDIyNmFkZDgzODU1YTI0ODI0ZWE4ZmQwZmM2Njg3MDU5NTdlYmJlMjJkOTJlMTNjMTY3NDgzY2NjMmZmMGZjOTdiM2M0NzQzMGIxMjdmNzlkNjI2YjBhNGJmOTYwYzg0MDczMjY4MmUzMjhlYjhiIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV19"
+            data-siwf-mode="light"
+            data-siwf-endpoint="testnet"
+          ></div>
+        </div>
+
+        <xmp class="code">
+<!-- The button will auto-initialize and render -->
+<div
+  data-siwf-button="<place encoded signed request here>"
+  data-siwf-endpoint="testnet"
+  data-siwf-mode="light"
+></div>
+          </xmp>
+
+        <h3>Environment: Testnet, Mode: Dark</h3>
+        <div class="button-container">
+          <div
+            data-siwf-button="eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNuM0NpVlFqRGpQRmhTekh4WkM5NFRKZzNBNU1ZNlFCTkpSZXpnQ21TVVNqdzdSIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDI4NzEyZGQ0MGM1YWM3NWZjNDIyNmFkZDgzODU1YTI0ODI0ZWE4ZmQwZmM2Njg3MDU5NTdlYmJlMjJkOTJlMTNjMTY3NDgzY2NjMmZmMGZjOTdiM2M0NzQzMGIxMjdmNzlkNjI2YjBhNGJmOTYwYzg0MDczMjY4MmUzMjhlYjhiIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV19"
+            data-siwf-mode="dark"
+            data-siwf-endpoint="testnet"
+          ></div>
+        </div>
+      </div>
+      <xmp class="code">
+<!-- The button will auto-initialize and render -->
+<div
+  data-siwf-button="<place encoded signed request here>"
+  data-siwf-mode="dark"
+  data-siwf-endpoint="https://custom.url/such-as-mock-for-testing"
+></div>
+      </xmp>
+    </div>
+
+    <div class="demo-section">
+      <h2>Manual-initialization via JavaScript</h2>
+      <xmp class="code"
+>
+SiwfButton.render('#button-primary-testnet', encodedSignedRequest, { endpoint: 'testnet' });
+SiwfButton.render('#button-light', encodedSignedRequest, { mode: 'light' });
+SiwfButton.render('#button-dark', encodedSignedRequest, { mode: 'dark' });
+      </xmp>
+    </div>
+
+    <!-- Load the SIWF Auth library -->
+    <script src="index.js"></script>
+
+    <script>
+      // Render buttons with different styles
+      SiwfButton.render("#button-primary", { mode: "primary" });
+      SiwfButton.render("#button-light", { mode: "light" });
+      SiwfButton.render("#button-dark", { mode: "dark" });
+    </script>
+  </body>
+</html>

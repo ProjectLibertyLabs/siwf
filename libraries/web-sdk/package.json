@@ -1,0 +1,19 @@
+{
+  "name": "siwf-sdk-js",
+  "version": "0.0.0",
+  "description": " SIWF SDK for Web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectLibertyLabs/siwf.git"
+  },
+  "author": "Project Liberty",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ProjectLibertyLabs/siwf/issues"
+  },
+  "homepage": "https://github.com/ProjectLibertyLabs/siwf#readme"
+}
