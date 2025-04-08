@@ -60,7 +60,7 @@ export function generateRequestSigningData(
  * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
- * @returns {Promise<string>} The generated Authentication URL that can be used for authentication.
+ * @returns {Promise<SiwfSignedRequest>} The generated signed request that can be used for authentication.
  */
 export async function generateSignedRequest(
   providerKeyUri: string,
@@ -93,7 +93,7 @@ export async function generateSignedRequest(
  * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
- * @returns {string} The generated Authentication URL that can be used for authentication.
+ * @returns {SiwfSignedRequest} The generated signed request that can be used for authentication.
  */
 export function buildSignedRequest(
   signature: string,
