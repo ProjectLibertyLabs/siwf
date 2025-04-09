@@ -101,7 +101,7 @@
 {#if walletAccounts.length > 0}
 	<div class="mb-4">
 		<select id="walletAccount" bind:value={selectedAccount}>
-			{#each walletAccounts as [address, display]}
+			{#each walletAccounts as [address, display] (address)}
 				<option value={address}>
 					{display}
 				</option>

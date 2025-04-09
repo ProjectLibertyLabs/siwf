@@ -60,7 +60,7 @@
 <fieldset>
 	<legend>Permissions</legend>
 	<div class="checkboxes">
-		{#each Object.entries(knownPermissions) as [name, ids]}
+		{#each Object.entries(knownPermissions) as [name, ids] (name)}
 			<label>
 				<input type="checkbox" bind:group={selectedGroups} value={ids} />
 				<!-- eslint-disable eslint-disable-next-line svelte/no-at-html-tags -->
