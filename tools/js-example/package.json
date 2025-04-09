@@ -12,7 +12,7 @@
   "type": "module",
   "dependencies": {
     "@projectlibertylabs/siwf": "file:../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz",
-    "typescript": "^5.6.2",
-    "vitest": "^2.1.2"
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
   }
 }
