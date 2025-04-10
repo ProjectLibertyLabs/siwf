@@ -24,13 +24,8 @@ test("snapshot only demo-buttons element", async ({ page }) => {
   await demoButtons.waitFor({ state: "visible" });
 
   // Give any animations or dynamic content time to stabilize (optional)
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(1000);
 
   // Take screenshot of only the demo-buttons element
-  expect(
-    await demoButtons.screenshot({
-      animations: "disabled",
-      scale: "css",
-    }),
-  ).toMatchSnapshot("demo-buttons.png");
+  expect(await demoButtons.screenshot()).toMatchSnapshot("demo-buttons.png");
 });

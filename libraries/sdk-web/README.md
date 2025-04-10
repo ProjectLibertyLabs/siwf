@@ -200,11 +200,22 @@ Your application backend or integration partner should provide this encoded sign
 - Set appropriate Content Security Policy (CSP) headers when deploying
 - Never store or expose private keys in client-side code
 
-### **License**
+## **Developing**
 
-[Apache-2.0](https://github.com/ProjectLibertyLabs/siwf/blob/main/LICENSE)
+### **Running Tests**
 
-## Release Process
+This uses visual regression testing.
+Therefore it is important to run the tests on the correct platform.
+There are Linux and Docker versions of this test setup:
+
+- Run Visual Regression Tests
+  - Linux: `npm test`
+  - Docker: `npm run test:docker`
+- Update Visual Regression Snapshots
+  - Linux: `npm run test:update`
+  - Docker: `npm run test:update:docker`
+
+### **Release Process**
 
 1. Make a [new GitHub Release](https://github.com/ProjectLibertyLabs/siwf/releases/new).
 2. Tag it with the version and the prefix `sdk-web-` i.e. `sdk-web-v1.0.0`.
@@ -212,3 +223,7 @@ Your application backend or integration partner should provide this encoded sign
 4. CI will run the NPM package release process, tagging it with that version and `latest`.
 
 Note: You may also append the `-rc<int>` (`-rc2`) suffix to generate a pre-release.
+
+## **License**
+
+[Apache-2.0](https://github.com/ProjectLibertyLabs/siwf/blob/main/LICENSE)

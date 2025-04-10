@@ -7,7 +7,9 @@
   "scripts": {
     "build": "npm run minify && node scripts/package.cjs",
     "test": "npx playwright test",
+    "test:docker": "docker run -v ./:/app -w /app -it --rm --ipc=host mcr.microsoft.com/playwright:v1.51.1-noble npm test",
     "test:update": "npx playwright test --update-snapshots",
+    "test:update:docker": "docker run -v ./:/app -w /app -it --rm --ipc=host mcr.microsoft.com/playwright:v1.51.1-noble npm run test:update",
     "minify": "npx terser index.js -o dist/siwf-sdk-web.min.js -c"
   },
   "repository": {
