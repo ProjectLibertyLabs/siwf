@@ -1,122 +1,205 @@
-## Improved Usage Example
+# **Sign-In With Frequency (SIWF) Web Button SDK**
 
-### Basic Usage (HTML Declarative)
+🚀 **[Sign-In With Frequency (SIWF)](https://github.com/ProjectLibertyLabs/siwf)** is an authentication SDK designed for seamless integration with web applications.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>SIWF Auth Example</title>
-  <!-- Load the script -->
-  <script src="siwf-auth.js"></script>
-</head>
-<body>
-  <!-- Auto-initialized button -->
-  <div data-siwf data-siwf-mode="primary" data-siwf-callback="https://yourapp.com/callback"></div>
+This repository contains the SIWF Button Web SDK and example implementation for seamless integration and as a reference for how to use the SIWF Button in your web app.
 
-  <!-- Auto-init the library -->
-  <script data-siwf-auto></script>
-</body>
-</html>
+## 📌 **Index**
+
+1. 🚀 [Getting Started - SIWF Button Demo](#getting-started---siwf-button-demo)
+2. 📝 [Getting Started - SIWF Button For Your Web App](#getting-started---siwf-button-for-your-web-app)
+3. 🛠 [Usage For Your Web App](#usage-for-your-web-app)
+4. ⚙️ [Configuration Options](#configuration-options)
+5. 🤝 [Contributing](#contributing)
+
+## 🚀 **Getting Started - SIWF Button Demo**
+
+Follow these steps to set up and run the demo:
+
+### 1️⃣ Clone the Repository
+
+Run the following command in your terminal to clone the repository:
+
+```sh
+git clone git@github.com:ProjectLibertyLabs/siwf-web-sdk.git
+cd siwf-web-sdk
 ```
 
-### Programmatic Usage (JavaScript)
+### 2️⃣ Install Dependencies (if any)
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>SIWF Auth Example</title>
-  <script src="siwf-auth.js"></script>
-</head>
-<body>
-  <div id="siwf-container"></div>
+No external dependencies are required! The SDK is designed to be lightweight and dependency-free.
 
-  <script>
-    // Initialize the library
-    SiwfAuth.init({
-      endpoint: 'https://api.example.com/mainnet',
-      assets: {
-        buttonText: 'Continue with SIWF'
-      }
-    });
+### 3️⃣ Run the Demo
 
-    // Wait for the library to load
-    SiwfAuth.load(function() {
-      // Render a button
-      SiwfAuth.renderButton('#siwf-container', {
-        mode: 'primary',
-        signedRequest: {
-          requestedSignatures: {
-            // Your signature data
-          },
-          requestedCredentials: [],
-          applicationContext: {
-            url: "https://yourapp.com"
-          }
-        },
-        additionalCallbackUrlParams: {
-          redirect_uri: "https://yourapp.com/callback"
-        },
-        // Callbacks
-        onSuccess: function(userData) {
-          console.log('Authentication successful', userData);
-        },
-        onError: function(error) {
-          console.error('Authentication failed', error);
-        }
-      });
-    });
+Start a local server to view the example (for example using npm serve):
 
-    // Listen for events
-    document.querySelector('#siwf-container').addEventListener('siwf:success', function(e) {
-      console.log('User logged in:', e.detail);
-    });
-  </script>
-</body>
-</html>
+```sh
+npx serve -p 3000 .
 ```
 
-## Key Improvements to Match Google/Facebook SSO Patterns
+### 4️⃣ Open in Browser
 
-1. **Global Namespace**: Uses a single global object (`SiwfAuth`) like Google's `gapi` or Facebook's `FB`
+Open your browser and navigate to:
 
-2. **Initialization Flow**: Separate `init()` and `load()` methods similar to:
-   ```javascript
-   gapi.load('auth2', function() {
-     gapi.auth2.init({...});
-   });
-   ```
+```
+http://localhost:3000/example.html
+```
 
-3. **Declarative HTML Integration**: Supports automatic initialization with data attributes:
-   ```html
-   <div data-siwf data-siwf-mode="primary"></div>
-   ```
+Your SIWF Button Demo should now be running! 🚀
 
-4. **Event-based Communication**: Uses both callbacks and custom events for flexibility:
-   ```javascript
-   SiwfAuth.renderButton('#container', {
-     onSuccess: function(user) { ... }
-   });
+## 📝 **Getting Started - SIWF Button For Your Web App**
 
-   element.addEventListener('siwf:success', function(e) { ... });
-   ```
+### ⚙️ Requirements
 
-5. **Promise-based Authentication**: Uses modern Promise API for auth flow:
-   ```javascript
-   SiwfAuth.signIn().then(user => {
-     console.log(user);
-   });
-   ```
+The SIWF Button SDK is compatible with all modern browsers:
 
-6. **Consistent Styling**: Follows the same visual styling pattern as Google/Facebook SSO buttons
+- Chrome v53+
+- Firefox v63+
+- Edge v79+
+- Safari (macOS) v10+
+- Safari (iOS) v11+
+- Opera v40+
 
-7. **Popup Management**: Handles the popup window lifecycle similar to OAuth implementations
+### 📥 Installation
 
-This implementation now much more closely aligns with how Google, Facebook, and other major SSO providers structure their button implementations, while still maintaining your specific configuration needs.
+Simply include the SDK in your HTML (update the version as needed):
 
-### Run the Example
+```html
+<script src="https://https://cdn.jsdelivr.net/gh/ProjectLibertyLabs/siwf@v2.1.5/siwf-web-sdk.min.js"></script>
+```
 
-- `npx serve .`
+Or download from [GitHub Releases](https://github.com/ProjectLibertyLabs/siwf/releases) and include it locally:
+
+```html
+<script src="path/to/siwf-web-sdk.min.js"></script>
+```
+
+## 🛠 **Usage For Your Web App**
+
+When you decide to use the SIWF Button in your own web app, follow the steps below for easy integration:
+
+### **1️⃣ Define the SIWF Authentication Details**
+
+- Refer to the Demo App for examples of encoded signed requests.
+- To create your own, use [Frequency's Signed Request Generator](https://projectlibertylabs.github.io/siwf/v2/docs/Generate.html).
+
+### **2️⃣ Display the SIWF Sign-In Button**
+
+You have two options to add the button to your UI:
+
+#### Option A: Declarative HTML Implementation
+
+```html
+<!-- Add a button container with data attributes -->
+<div data-siwf-button="YOUR_ENCODED_SIGNED_REQUEST" data-siwf-mode="primary" data-siwf-endpoint="mainnet"></div>
+```
+
+#### Option B: JavaScript Implementation
+
+```html
+<div id="siwf-button-container"></div>
+
+<script>
+  // Render a button
+  SiwfButton.render("#siwf-button-container", "YOUR_ENCODED_SIGNED_REQUEST", {
+    mode: "primary",
+    endpoint: "mainnet",
+  });
+</script>
+```
+
+### **3️⃣ Handle Authentication Callbacks**
+
+Make sure your backend is configured to handle the authentication callback:
+
+1. The authentication callback URL must match what was specified in your signed request
+2. When the authentication flow completes, the user will be redirected to your callback URL
+3. Your backend should process the authentication response and initiate a session
+
+Resources:
+
+- [SIWF Documentation on Processing a Result](https://projectlibertylabs.github.io/siwf/v2/docs/Actions/Response.html)
+- [Frequency Gateway SSO Tutorial](https://projectlibertylabs.github.io/gateway/GettingStarted/SSO.html)
+
+## ⚙️ **Configuration Options**
+
+### **Button Modes**
+
+The SIWF Button supports three visual styles:
+
+```javascript
+// Primary mode (teal background, default)
+SiwfButton.render("#container", encodedRequest, { mode: "primary" });
+
+// Light mode (white background with border)
+SiwfButton.render("#container", encodedRequest, { mode: "light" });
+
+// Dark mode (black background)
+SiwfButton.render("#container", encodedRequest, { mode: "dark" });
+```
+
+### **Environments**
+
+Choose the authentication environment:
+
+```javascript
+// Production environment
+SiwfButton.render("#container", encodedRequest, { endpoint: "mainnet" });
+
+// Testing environment
+SiwfButton.render("#container", encodedRequest, { endpoint: "testnet" });
+
+// Custom environment
+SiwfButton.render("#container", encodedRequest, { endpoint: "https://custom-mock.example.com" });
+```
+
+### **All Configuration Options**
+
+| Option                        | Type   | Default       | Description                                                            |
+| ----------------------------- | ------ | ------------- | ---------------------------------------------------------------------- |
+| `mode`                        | string | `'primary'`   | Button style: `'primary'`, `'light'`, or `'dark'`                      |
+| `endpoint`                    | string | `'mainnet'`   | Authentication environment: `'mainnet'`, `'testnet'`, or a custom URL  |
+| `assetsUrl`                   | string | _default URL_ | URL to fetch button assets from                                        |
+| `additionalCallbackUrlParams` | string | `''`          | Additional parameters to add to the callback URL (query string format) |
+
+### **Data Attributes**
+
+When using HTML declarative implementation, you can configure the button with these attributes:
+
+| Attribute                             | Description                                          |
+| ------------------------------------- | ---------------------------------------------------- |
+| `data-siwf-button`                    | _Required_. The encoded signed request               |
+| `data-siwf-mode`                      | Button style (`primary`, `light`, or `dark`)         |
+| `data-siwf-endpoint`                  | Environment (`mainnet`, `testnet`, or custom URL)    |
+| `data-siwf-assets-url`                | Custom assets URL                                    |
+| `data-additional-callback-url-params` | Additional callback parameters (query string format) |
+
+## 🤝 **Contributing**
+
+To contribute:
+
+- Fork the repo and create a feature branch.
+- Make changes and test.
+- Submit a pull request with details.
+
+### **What's an Encoded Signed Request?**
+
+The encoded signed request is a Base64URL-encoded JSON string containing the necessary information for authentication. This includes:
+
+- The public key to verify signatures
+- The signature data
+- Callback URL
+- Requested permissions and credentials
+
+Your application backend or integration partner should provide this encoded signed request.
+
+### **Security Best Practices**
+
+- Always validate authentication responses server-side
+- Use HTTPS in production
+- Set appropriate Content Security Policy (CSP) headers when deploying
+- Never store or expose private keys in client-side code
+
+### **License**
+
+[Apache-2.0](https://github.com/ProjectLibertyLabs/siwf/blob/main/LICENSE)
