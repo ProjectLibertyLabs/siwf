@@ -1,10 +1,13 @@
 {
-  "name": "siwf-sdk-js",
+  "name": "siwf-web-sdk",
   "version": "0.0.0",
   "description": " SIWF SDK for Web",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx playwright test",
+    "test:update": "npx playwright test --update-snapshots",
+    "minify": "npx terser index.js -o siwf-web-sdk.min.js -c"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/ProjectLibertyLabs/siwf/issues"
   },
-  "homepage": "https://github.com/ProjectLibertyLabs/siwf#readme"
+  "homepage": "https://github.com/ProjectLibertyLabs/siwf#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "terser": "^5.39.0"
+  }
 }
