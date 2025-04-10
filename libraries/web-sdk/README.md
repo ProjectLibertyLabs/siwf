@@ -62,13 +62,13 @@ The SIWF Button SDK is compatible with all modern browsers:
 
 ### 📥 Installation
 
-Simply include the SDK in your HTML (update the version as needed):
+Simply include the SDK in your HTML from [jsDelivr](https://www.jsdelivr.com/package/npm/@ProjectLibertyLabs/siwf-web-sdk) (update the version as needed):
 
 ```html
-<script src="https://https://cdn.jsdelivr.net/gh/ProjectLibertyLabs/siwf@v2.1.5/siwf-web-sdk.min.js"></script>
+<script src="https://https://cdn.jsdelivr.net/npm/@ProjectLibertyLabs/siwf@1.0.0/siwf-web-sdk.min.js"></script>
 ```
 
-Or download from [GitHub Releases](https://github.com/ProjectLibertyLabs/siwf/releases) and include it locally:
+Or download from [GitHub Releases](https://github.com/ProjectLibertyLabs/siwf/releases?q=web-sdk&expanded=true) and include it locally:
 
 ```html
 <script src="path/to/siwf-web-sdk.min.js"></script>
@@ -203,3 +203,12 @@ Your application backend or integration partner should provide this encoded sign
 ### **License**
 
 [Apache-2.0](https://github.com/ProjectLibertyLabs/siwf/blob/main/LICENSE)
+
+## Release Process
+
+1. Make a [new GitHub Release](https://github.com/ProjectLibertyLabs/siwf/releases/new).
+2. Tag it with the version and the prefix `web-sdk-` i.e. `web-sdk-v1.0.0`.
+3. Complete the release notes.
+4. CI will run the NPM package release process, tagging it with that version and `latest`.
+
+Note: You may also append the `-rc<int>` (`-rc2`) suffix to generate a pre-release.
