@@ -27,5 +27,10 @@ test("snapshot only demo-buttons element", async ({ page }) => {
   await page.waitForTimeout(500);
 
   // Take screenshot of only the demo-buttons element
-  expect(await demoButtons.screenshot()).toMatchSnapshot("demo-buttons.png");
+  expect(
+    await demoButtons.screenshot({
+      animations: "disabled",
+      scale: "css",
+    }),
+  ).toMatchSnapshot("demo-buttons.png");
 });

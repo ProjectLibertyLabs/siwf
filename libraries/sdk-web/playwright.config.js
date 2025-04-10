@@ -3,6 +3,7 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: ".",
   timeout: 30000,
+  snapshotPathTemplate: "{testDir}/__snapshots__/{testFilePath}/{arg}{ext}",
   expect: {
     toMatchSnapshot: { threshold: 0.01 }, // Allows for a tiny difference tolerance
   },
