@@ -156,13 +156,15 @@
     const config = validateAndBuildConfig(options);
     config.encodedSignedRequest = encodedSignedRequest;
 
-    let assets = defaultAssets;
-    if (config.assetsUrl)
-      if (config.assetsUrl && config.assetsUrl !== defaultConfig.assetsUrl) {
-        // Update assets if the url has changed?
-        // TODO
-      }
-    renderFinal(targetElement, config, assets);
+    if (config.assetsUrl) {
+      return fetchWithTimeout(config.assetsUrl)
+        .then((assets) => renderFinal(targetElement, config, assets))
+        .catch((e) => {
+          console.log("Error fetching assets:", e);
+          return renderFinal(targetElement, config, defaultAssets);
+        });
+    }
+    return renderFinal(targetElement, config, defaultAssets);
   };
 
   function renderFinal(targetElement, config, assets) {
@@ -186,26 +188,40 @@
   // ----- Helper Functions -----
 
   /**
-   * Load all necessary resources (CSS, remote assets)
+   * A fetch replacement, as not all browsers support fetch
    */
-  function loadResources(assetsUrl) {
-    // Add CSS to the page using the default colors
-    addButtonStyles(loadedAssets.colors);
+  function fetchWithTimeout(url, timeout = 1500) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
 
-    // Fetch remote assets if available
-    return new Promise((resolve) => {
-      if (assetsUrl) {
-        fetch(assetsUrl)
-          .then((response) => response.json())
-          .then((data) => resolve(data))
-          .catch((err) => {
-            console.warn("Could not load custom assets:", err);
-            // Still resolve, using defaults
-            resolve(defaultAssets);
-          });
-      } else {
-        resolve(defaultAssets);
-      }
+      // Set timeout
+      xhr.timeout = timeout;
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            try {
+              const jsonResponse = JSON.parse(xhr.responseText);
+              resolve(jsonResponse);
+            } catch (e) {
+              reject(new Error("Error parsing JSON: " + e.message));
+            }
+          } else {
+            reject(new Error("Request failed with status: " + xhr.status));
+          }
+        }
+      };
+
+      xhr.ontimeout = function () {
+        reject(new Error(`Request timed out after ${timeout}ms`));
+      };
+
+      xhr.onerror = function () {
+        reject(new Error("Network error occurred"));
+      };
+
+      xhr.open("GET", url, true);
+      xhr.send();
     });
   }
 
@@ -340,10 +356,14 @@ a.siwf-button > span {
   }
 
   // Try to auto-initialize buttons after loading the font and the resources
-  // Kick off and start caching?
-  // fetch(defaultConfig.assetsUrl);
-  fontFace.load().then((x) => {
-    document.fonts.add(x);
+
+  if (document.fonts) {
+    fontFace.load().then((x) => {
+      document.fonts.add(x);
+      renderAutoButtons();
+    });
+  } else {
+    // No font loading support
     renderAutoButtons();
-  });
+  }
 })(window, document);
