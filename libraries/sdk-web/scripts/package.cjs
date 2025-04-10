@@ -23,7 +23,7 @@ delete rootPackage["files"];
 delete rootPackage["devDependencies"];
 
 // Setup the main and types correctly
-rootPackage["main"] = "siwf-web-sdk.min.js";
+rootPackage["main"] = "siwf-sdk-web.min.js";
 // Write it out
 fs.writeFileSync(`${path.join(__dirname, "../dist", "package.json")}`, JSON.stringify(rootPackage, null, 2), (err) => {
   if (err) throw new Error(err);

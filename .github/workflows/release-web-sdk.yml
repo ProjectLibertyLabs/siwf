@@ -8,8 +8,8 @@ concurrency:
 on:
   push:
     tags:
-      - "web-sdk-v[0-9]+.[0-9]+.[0-9]+" # ex. web-sdk-v1.0.0
-      - "web-sdk-v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+" # ex. web-sdk-v1.1.0-rc1
+      - "sdk-web-v[0-9]+.[0-9]+.[0-9]+" # ex. sdk-web-v1.0.0
+      - "sdk-web-v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+" # ex. sdk-web-v1.1.0-rc1
 
 env:
   NEW_RELEASE_TAG: ${{github.ref_name}}
@@ -32,19 +32,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache-dependency-path: libraries/web-sdk/package-lock.json
+          cache-dependency-path: libraries/sdk-web/package-lock.json
 
       - name: Install dependencies
-        working-directory: libraries/web-sdk
+        working-directory: libraries/sdk-web
         run: npm ci
 
       - name: build
-        working-directory: libraries/web-sdk
+        working-directory: libraries/sdk-web
         run: npm run build
 
       - name: Version Package
-        working-directory: libraries/web-sdk/dist
-        run: npm version --new-version "${{env.NEW_RELEASE_TAG#web-sdk-}}" --no-git-tag-version
+        working-directory: libraries/sdk-web/dist
+        run: npm version --new-version "${{env.NEW_RELEASE_TAG#sdk-web-}}" --no-git-tag-version
 
         # Required for Granular Access Tokens
       - name: NPM Access Config
@@ -52,10 +52,10 @@ jobs:
 
       - name: Release on NPM @latest
         if: env.NPM_LATEST == 'true'
-        working-directory: libraries/web-sdk/dist
+        working-directory: libraries/sdk-web/dist
         run: npm publish --tag latest --access public
 
       - name: Release on NPM without @latest
         if: env.NPM_LATEST != 'true'
-        working-directory: libraries/web-sdk/dist
+        working-directory: libraries/sdk-web/dist
         run: npm publish --tag next --access public

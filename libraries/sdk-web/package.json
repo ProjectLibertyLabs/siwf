@@ -8,7 +8,7 @@
     "build": "npm run minify && node scripts/package.cjs",
     "test": "npx playwright test",
     "test:update": "npx playwright test --update-snapshots",
-    "minify": "npx terser index.js -o dist/siwf-web-sdk.min.js -c"
+    "minify": "npx terser index.js -o dist/siwf-sdk-web.min.js -c"
   },
   "repository": {
     "type": "git",
