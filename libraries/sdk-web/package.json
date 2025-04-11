@@ -1,0 +1,29 @@
+{
+  "name": "@projectlibertylabs/siwf-sdk-web",
+  "version": "0.0.0",
+  "description": " SIWF SDK for Web",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "npm run minify && node scripts/package.cjs",
+    "test": "npx playwright test",
+    "test:docker": "docker run -v ./:/app -w /app -it --rm --ipc=host mcr.microsoft.com/playwright:v1.51.1-noble npm test",
+    "test:update": "npx playwright test --update-snapshots",
+    "test:update:docker": "docker run -v ./:/app -w /app -it --rm --ipc=host mcr.microsoft.com/playwright:v1.51.1-noble npm run test:update",
+    "minify": "npx terser index.js -o dist/siwf-sdk-web.min.js -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectLibertyLabs/siwf.git"
+  },
+  "author": "Project Liberty",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ProjectLibertyLabs/siwf/issues"
+  },
+  "homepage": "https://github.com/ProjectLibertyLabs/siwf#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "terser": "^5.39.0"
+  }
+}

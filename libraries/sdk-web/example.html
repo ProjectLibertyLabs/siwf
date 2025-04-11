@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIWF Button Web SDK Demo</title>
+    <style>
+      body {
+        font-family: Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+      }
+      header h1 {
+        color: #54b2ab;
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        color: #666;
+        font-style: italic;
+      }
+      .demo-section {
+        margin-bottom: 40px;
+        padding: 25px;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      h2 {
+        margin-top: 0;
+        color: #444;
+        border-bottom: 2px solid #54b2ab;
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+      }
+      h3 {
+        margin-top: 0;
+        color: #555;
+      }
+      .code {
+        background-color: #f1f1f1;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 15px 0;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        overflow-x: auto;
+        border-left: 4px solid #54b2ab;
+      }
+      .preview {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 6px;
+        margin: 15px 0;
+        border: 1px solid #ddd;
+      }
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 20px 0;
+      }
+      .button-container {
+        padding: 15px;
+        border-radius: 6px;
+        min-width: 250px;
+      }
+      .dark-bg {
+        background-color: #333;
+      }
+      .light-bg {
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+      }
+      .primary-bg {
+        background-color: #fff;
+      }
+      .options-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      .options-table th,
+      .options-table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+      .options-table th {
+        background-color: #f5f5f5;
+      }
+      .note {
+        background-color: #fff8e1;
+        border-left: 4px solid #ffca28;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+      footer {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+        color: #777;
+        font-size: 14px;
+      }
+      .code-section {
+        margin: 20px 0;
+      }
+      .code-heading {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .copy-button {
+        background-color: #54b2ab;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+        font-size: 12px;
+      }
+      .copy-button:hover {
+        background-color: #408c86;
+      }
+      xmp {
+        margin: 0;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>SIWF Button Web SDK Demo</h1>
+      <p class="subtitle">Integrate "Sign In With Frequency" authentication into your web applications</p>
+    </header>
+
+    <div class="demo-section">
+      <h2>👋 Introduction</h2>
+      <p>
+        The SIWF Button Web SDK provides a simple, drop-in solution for adding "Sign In With Frequency" authentication
+        to your web applications. This demo page shows various implementation options, configurations, and visual
+        styles.
+      </p>
+      <div class="note">
+        <strong>Note:</strong> This demo uses a test signed request that will ONLY work as an example. For your own
+        testnet or production signed request, you'll need to
+        <a href="https://projectlibertylabs.github.io/siwf/v2/docs/Generate.html" target="_blank"
+          >generate your own signed request</a
+        >.
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>🎨 Button Styles</h2>
+      <p>
+        The SIWF Button supports three visual styles: <code>primary</code> (teal), <code>light</code> (white), and
+        <code>dark</code> (black). Choose the style that best matches your application's design.
+      </p>
+
+      <div id="demo-buttons" class="button-row">
+        <div class="button-container primary-bg">
+          <h3>Primary (Default)</h3>
+          <div id="primary-button-demo"></div>
+        </div>
+
+        <div class="button-container light-bg">
+          <h3>Light</h3>
+          <div id="light-button-demo"></div>
+        </div>
+
+        <div class="button-container dark-bg">
+          <h3>Dark</h3>
+          <div id="dark-button-demo"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>🧩 Integration Methods</h2>
+
+      <h3>Method 1: Declarative HTML (Auto-initialization)</h3>
+      <p>
+        The simplest way to integrate is with data attributes. The button will automatically initialize when the page
+        loads.
+      </p>
+
+      <div class="preview">
+        <div
+          data-siwf-button="eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNuM0NpVlFqRGpQRmhTekh4WkM5NFRKZzNBNU1ZNlFCTkpSZXpnQ21TVVNqdzdSIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDI4NzEyZGQ0MGM1YWM3NWZjNDIyNmFkZDgzODU1YTI0ODI0ZWE4ZmQwZmM2Njg3MDU5NTdlYmJlMjJkOTJlMTNjMTY3NDgzY2NjMmZmMGZjOTdiM2M0NzQzMGIxMjdmNzlkNjI2YjBhNGJmOTYwYzg0MDczMjY4MmUzMjhlYjhiIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV19"
+          data-siwf-endpoint="testnet"
+        ></div>
+      </div>
+
+      <div class="code-section">
+        <button class="copy-button" onclick="copyCode('html-method-code')">Copy</button>
+        <div class="code" id="html-method-code">
+          <xmp>
+<!-- Include the SDK -->
+<script src="index.js"></script>
+
+<!-- Add your button container with data attributes -->
+<div
+  data-siwf-button="YOUR_ENCODED_SIGNED_REQUEST"
+  data-siwf-endpoint="testnet">
+</div></xmp>
+        </div>
+      </div>
+
+      <h3>Method 2: JavaScript API (Programmatic)</h3>
+      <p>For more control, use the JavaScript API to programmatically render buttons.</p>
+
+      <div class="preview">
+        <div id="js-method-demo"></div>
+      </div>
+
+      <div class="code-section">
+        <button class="copy-button" onclick="copyCode('js-method-code')">Copy</button>
+        <div class="code" id="js-method-code">
+          <xmp>
+<!-- Include the SDK -->
+<script src="index.js"></script>
+
+<!-- Create a container -->
+<div id="siwf-button-container"></div>
+
+<script>
+  // Define your signed request (typically from your backend)
+  const encodedSignedRequest = "YOUR_ENCODED_SIGNED_REQUEST";
+
+  // Render the button
+  SiwfButton.render(
+    '#siwf-button-container',
+    encodedSignedRequest,
+    {
+      mode: 'primary',
+      endpoint: 'testnet'
+    }
+  );
+</script></xmp>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>🌐 Environment Configuration</h2>
+      <p>The SIWF Button supports different authentication environments:</p>
+
+      <table class="options-table">
+        <tr>
+          <th>Environment</th>
+          <th>Description</th>
+          <th>URL Used</th>
+        </tr>
+        <tr>
+          <td><code>mainnet</code></td>
+          <td>Production environment</td>
+          <td>https://www.frequencyaccess.com/siwa/start</td>
+        </tr>
+        <tr>
+          <td><code>testnet</code></td>
+          <td>Testing environment</td>
+          <td>https://testnet.frequencyaccess.com/siwa/start</td>
+        </tr>
+        <tr>
+          <td>Custom URL</td>
+          <td>Your own endpoint</td>
+          <td>https://your-custom-endpoint.com</td>
+        </tr>
+      </table>
+
+      <h3>Example Usage:</h3>
+      <div class="preview">
+        <div id="environment-button-demo"></div>
+      </div>
+
+      <div class="code-section">
+        <button class="copy-button" onclick="copyCode('env-code-snippet')">Copy</button>
+        <div class="code" id="env-code-snippet">
+          <xmp
+>
+// For production
+SiwfButton.render('#button-container', encodedSignedRequest, {
+  endpoint: 'mainnet'
+});
+
+// For testing
+SiwfButton.render('#button-container', encodedSignedRequest, {
+  endpoint: 'testnet'
+});
+
+// For custom endpoint
+SiwfButton.render('#button-container', encodedSignedRequest, {
+  endpoint: 'https://your-custom-endpoint.com'
+});</xmp
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>⚙️ Advanced Configuration</h2>
+
+      <h3>Additional Callback URL Parameters</h3>
+      <p>You can add custom parameters to the callback URL for tracking or other purposes.</p>
+
+      <div class="preview">
+        <div id="custom-params-demo"></div>
+      </div>
+
+      <div class="code-section">
+        <button class="copy-button" onclick="copyCode('params-code')">Copy</button>
+        <div class="code" id="params-code">
+          <xmp>
+// JavaScript method
+SiwfButton.render('#button-container', encodedSignedRequest, {
+  endpoint: 'testnet',
+  additionalCallbackUrlParams: 'source=website&campaign=spring2023'
+});
+
+// HTML method
+<div
+  data-siwf-button="YOUR_ENCODED_SIGNED_REQUEST"
+  data-siwf-endpoint="testnet"
+  data-additional-callback-url-params="source=website&campaign=spring2023">
+</div></xmp>
+        </div>
+      </div>
+
+      <h3>Custom Assets URL</h3>
+      <p>You can specify a custom URL for fetching button assets such as logos and styles.</p>
+
+      <div class="code-section">
+        <button class="copy-button" onclick="copyCode('assets-code')">Copy</button>
+        <div class="code" id="assets-code">
+          <xmp>
+// JavaScript method
+SiwfButton.render('#button-container', encodedSignedRequest, {
+  endpoint: 'testnet',
+  assetsUrl: 'https://your-custom-assets-url.com/assets.json'
+});
+
+// HTML method
+<div
+  data-siwf-button="YOUR_ENCODED_SIGNED_REQUEST"
+  data-siwf-endpoint="testnet"
+  data-siwf-assets-url="https://your-custom-assets-url.com/assets.json">
+</div></xmp>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>🔄 Full Integration Flow</h2>
+      <p>Here's a complete overview of the SIWF authentication flow:</p>
+
+      <ol>
+        <li>
+          <strong>Generate a signed request</strong> on your server using the
+          <a href="https://projectlibertylabs.github.io/siwf/v2/docs/Generate.html" target="_blank"
+            >Frequency's Signed Request Generator</a
+          >
+        </li>
+        <li><strong>Display the SIWF button</strong> in your application using this SDK</li>
+        <li><strong>Handle the callback</strong> when the user completes authentication</li>
+        <li><strong>Verify the authentication response</strong> on your server</li>
+        <li><strong>Create a session</strong> for the authenticated user</li>
+      </ol>
+
+      <div class="note">
+        <strong>Important:</strong> Always validate authentication responses server-side before establishing user
+        sessions.
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>📋 Configuration Reference</h2>
+
+      <h3>Data Attributes for HTML Implementation</h3>
+
+      <table class="options-table">
+        <tr>
+          <th>Attribute</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td><code>data-siwf-button</code></td>
+          <td><em>Required</em>. The encoded signed request</td>
+        </tr>
+        <tr>
+          <td><code>data-siwf-mode</code></td>
+          <td>Button style (<code>primary</code>, <code>light</code>, or <code>dark</code>)</td>
+        </tr>
+        <tr>
+          <td><code>data-siwf-endpoint</code></td>
+          <td>Environment (<code>mainnet</code>, <code>testnet</code>, or custom URL)</td>
+        </tr>
+        <tr>
+          <td><code>data-siwf-assets-url</code></td>
+          <td>Custom assets URL</td>
+        </tr>
+        <tr>
+          <td><code>data-additional-callback-url-params</code></td>
+          <td>Additional callback parameters (query string format)</td>
+        </tr>
+      </table>
+
+      <h3>Configuration for JS Implementation</h3>
+      <table class="options-table">
+        <tr>
+          <th>Option</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td><code>mode</code></td>
+          <td>string</td>
+          <td><code>'primary'</code></td>
+          <td>Button style: <code>'primary'</code>, <code>'light'</code>, or <code>'dark'</code></td>
+        </tr>
+        <tr>
+          <td><code>endpoint</code></td>
+          <td>string</td>
+          <td><code>'mainnet'</code></td>
+          <td>Authentication environment: <code>'mainnet'</code>, <code>'testnet'</code>, or a custom URL</td>
+        </tr>
+        <tr>
+          <td><code>assetsUrl</code></td>
+          <td>string</td>
+          <td><code>'https://projectlibertylabs.github.io/siwf/v2/assets/assets-v2.json'</code></td>
+          <td>URL to fetch button assets from</td>
+        </tr>
+        <tr>
+          <td><code>additionalCallbackUrlParams</code></td>
+          <td>string</td>
+          <td><code>''</code></td>
+          <td>Additional parameters to add to the callback URL (query string format)</td>
+        </tr>
+      </table>
+    </div>
+
+    <footer>
+      <p>
+        For more information, visit
+        <a href="https://projectlibertylabs.github.io/siwf/v2/docs/" target="_blank">SIWF Documentation</a>
+      </p>
+    </footer>
+
+    <!-- Load the SIWF Button library -->
+    <script src="index.js"></script>
+    <script>
+      // Sample encoded signed request for demos
+      const encodedSignedRequest =
+        "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNuM0NpVlFqRGpQRmhTekh4WkM5NFRKZzNBNU1ZNlFCTkpSZXpnQ21TVVNqdzdSIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDI4NzEyZGQ0MGM1YWM3NWZjNDIyNmFkZDgzODU1YTI0ODI0ZWE4ZmQwZmM2Njg3MDU5NTdlYmJlMjJkOTJlMTNjMTY3NDgzY2NjMmZmMGZjOTdiM2M0NzQzMGIxMjdmNzlkNjI2YjBhNGJmOTYwYzg0MDczMjY4MmUzMjhlYjhiIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV19";
+
+      // Initialize buttons for button styles section
+      SiwfButton.render("#primary-button-demo", encodedSignedRequest, {
+        mode: "primary",
+        endpoint: "testnet",
+      });
+
+      SiwfButton.render("#light-button-demo", encodedSignedRequest, {
+        mode: "light",
+        endpoint: "testnet",
+      });
+
+      SiwfButton.render("#dark-button-demo", encodedSignedRequest, {
+        mode: "dark",
+        endpoint: "testnet",
+      });
+
+      // Environment demo
+      SiwfButton.render("#environment-button-demo", encodedSignedRequest, {
+        endpoint: "testnet",
+      });
+
+      // JS method demo
+      SiwfButton.render("#js-method-demo", encodedSignedRequest, {
+        endpoint: "testnet",
+      });
+
+      // Custom params demo
+      SiwfButton.render("#custom-params-demo", encodedSignedRequest, {
+        endpoint: "testnet",
+        additionalCallbackUrlParams: "source=demo&campaign=example",
+      });
+
+      // Copy code functionality
+      function copyCode(elementId) {
+        const codeElement = document.querySelector(`#${elementId} xmp`);
+        const text = codeElement.textContent;
+
+        navigator.clipboard.writeText(text).then(
+          function () {
+            const button = document.querySelector(`#${elementId}`).previousElementSibling;
+            const originalText = button.textContent;
+            button.textContent = "Copied!";
+
+            setTimeout(function () {
+              button.textContent = originalText;
+            }, 2000);
+          },
+          function () {
+            console.error("Failed to copy text");
+          },
+        );
+      }
+    </script>
+  </body>
+</html>

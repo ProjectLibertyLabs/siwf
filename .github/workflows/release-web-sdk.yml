@@ -1,0 +1,61 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: Release SIWF Web SDK
+run-name: Publish SIWF Web SDK Release ${{github.ref_name}}
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: false
+on:
+  push:
+    tags:
+      - "sdk-web-v[0-9]+.[0-9]+.[0-9]+" # ex. sdk-web-v1.0.0
+      - "sdk-web-v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+" # ex. sdk-web-v1.1.0-rc1
+
+env:
+  NEW_RELEASE_TAG: ${{github.ref_name}}
+  # RC and v0.0.x should NEVER be latest
+  NPM_LATEST: ${{true != contains(fromJSON('["-rc", "v0.0."]'), github.ref_name)}}
+
+jobs:
+  release-update:
+    name: Publish NPM Package
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache-dependency-path: libraries/sdk-web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: libraries/sdk-web
+        run: npm ci
+
+      - name: build
+        working-directory: libraries/sdk-web
+        run: npm run build
+
+      - name: Version Package
+        working-directory: libraries/sdk-web/dist
+        run: npm version --new-version "${{env.NEW_RELEASE_TAG#sdk-web-}}" --no-git-tag-version
+
+        # Required for Granular Access Tokens
+      - name: NPM Access Config
+        run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NPM_AUTH_TOKEN}}
+
+      - name: Release on NPM @latest
+        if: env.NPM_LATEST == 'true'
+        working-directory: libraries/sdk-web/dist
+        run: npm publish --tag latest --access public
+
+      - name: Release on NPM without @latest
+        if: env.NPM_LATEST != 'true'
+        working-directory: libraries/sdk-web/dist
+        run: npm publish --tag next --access public
