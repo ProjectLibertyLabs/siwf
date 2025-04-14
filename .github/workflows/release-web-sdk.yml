@@ -7,12 +7,14 @@ concurrency:
   cancel-in-progress: false
 on:
   push:
+    branches:
+      - ci/fix-release
     tags:
       - "sdk-web-v[0-9]+.[0-9]+.[0-9]+" # ex. sdk-web-v1.0.0
       - "sdk-web-v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+" # ex. sdk-web-v1.1.0-rc1
 
 env:
-  NEW_RELEASE_TAG: ${{github.ref_name}}
+  NEW_RELEASE_TAG: "sdk-web-v0.0.2" # ${{github.ref_name}}
   # RC and v0.0.x should NEVER be latest
   NPM_LATEST: ${{true != contains(fromJSON('["-rc", "v0.0."]'), github.ref_name)}}
 
@@ -42,9 +44,12 @@ jobs:
         working-directory: libraries/sdk-web
         run: npm run build
 
+      - name: version
+        run: echo "${NEW_RELEASE_TAG#sdk-web-}"
+
       - name: Version Package
         working-directory: libraries/sdk-web/dist
-        run: npm version --new-version "${{env.NEW_RELEASE_TAG#sdk-web-}}" --no-git-tag-version
+        run: npm version --new-version "${NEW_RELEASE_TAG#sdk-web-}" --no-git-tag-version
 
         # Required for Granular Access Tokens
       - name: NPM Access Config
