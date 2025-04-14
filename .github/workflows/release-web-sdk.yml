@@ -42,9 +42,12 @@ jobs:
         working-directory: libraries/sdk-web
         run: npm run build
 
+      - name: Echo Version
+        run: echo "${NEW_RELEASE_TAG#sdk-web-}"
+
       - name: Version Package
         working-directory: libraries/sdk-web/dist
-        run: npm version --new-version "${{env.NEW_RELEASE_TAG#sdk-web-}}" --no-git-tag-version
+        run: npm version --new-version "${NEW_RELEASE_TAG#sdk-web-}" --no-git-tag-version
 
         # Required for Granular Access Tokens
       - name: NPM Access Config
