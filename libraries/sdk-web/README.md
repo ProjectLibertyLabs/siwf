@@ -62,10 +62,10 @@ The SIWF Button SDK is compatible with all modern browsers:
 
 ### 📥 Installation
 
-Simply include the SDK in your HTML from [jsDelivr](https://www.jsdelivr.com/package/npm/@ProjectLibertyLabs/siwf-sdk-web) (update the version as needed):
+Simply include the SDK in your HTML from [jsDelivr](https://www.jsdelivr.com/package/npm/@projectlibertylabs/siwf-sdk-web) (update the version as needed):
 
 ```html
-<script src="https://https://cdn.jsdelivr.net/npm/@ProjectLibertyLabs/siwf@1.0.0/siwf-sdk-web.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@projectlibertylabs/siwf-sdk-web@1.0.1/siwf-sdk-web.min.js"></script>
 ```
 
 Or download from [GitHub Releases](https://github.com/ProjectLibertyLabs/siwf/releases?q=sdk-web&expanded=true) and include it locally:
