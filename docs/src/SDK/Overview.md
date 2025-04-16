@@ -7,6 +7,7 @@ These guides will walk you through integrating the SIWF SDK into your **iOS** or
 
 - [Android](Android.md)
 - [iOS](iOS.md)
+- [Web](Web.md)
 
 ---
 
@@ -26,7 +27,8 @@ You may also specify other options such as the button style (light/dark) and the
 You will need to create a redirect handler to receive information from the Authorization (i.e. the redirect URL provided to the Signed Request Payload).
 This redirect handler will receive information once the authorization is complete, which may then be sent and processed by your system’s backend to initiate the session.
 
-See platform-specific details in the [Android](Android.md) or [iOS](iOS.md) sections for instructions for creating the callback handler
+See platform-specific details in the [Android](Android.md) or [iOS](iOS.md) sections for instructions for creating the callback handler.
+[Web](Web.md) requires your own callback processing to extract the `authorizationCode` from the URL parameters.
 
 ### 4. Process Authorization Code
 
