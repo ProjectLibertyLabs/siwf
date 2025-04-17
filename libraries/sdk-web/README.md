@@ -6,11 +6,11 @@ This repository contains the SIWF Button Web SDK and example implementation for 
 
 ## 📌 **Index**
 
-1. 🚀 [Getting Started - SIWF Button Demo](#getting-started---siwf-button-demo)
-2. 📝 [Getting Started - SIWF Button For Your Web App](#getting-started---siwf-button-for-your-web-app)
-3. 🛠 [Usage For Your Web App](#usage-for-your-web-app)
-4. ⚙️ [Configuration Options](#configuration-options)
-5. 🤝 [Contributing](#contributing)
+1. 🚀 [Getting Started - SIWF Button Demo](#-getting-started---siwf-button-demo)
+2. 📝 [Getting Started - SIWF Button For Your Web App](#-getting-started---siwf-button-for-your-web-app)
+3. 🛠 [Usage For Your Web App](#-usage-for-your-web-app)
+4. ⚙️ [Configuration Options](#%EF%B8%8F-configuration-options)
+5. 🤝 [Contributing](#-contributing)
 
 ## 🚀 **Getting Started - SIWF Button Demo**
 

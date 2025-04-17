@@ -16,3 +16,4 @@
 - [SIWF SDK](SDK/Overview.md)
   - [Android](SDK/Android.md)
   - [iOS](SDK/iOS.md)
+  - [Web](SDK/Web.md)
