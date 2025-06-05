@@ -27,6 +27,7 @@ additional-css = [
   "css/button-links.css",
   "css/highlight.css",
   "css/highlight-dark.css",
+  "css/generator.css",
 ]
 no-section-label = true
 copy-fonts = false # Switched to custom fonts
