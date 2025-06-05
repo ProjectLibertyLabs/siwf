@@ -7,7 +7,7 @@
 }
 
 html {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   color: var(--fg);
   background-color: var(--bg);
   text-size-adjust: none;
@@ -58,9 +58,8 @@ h6 code {
 .hide-boring .boring {
   display: none;
 }
-.hidden {
-  display: none !important;
-}
+/* Collision with Tailwind */
+/* .hidden { display: none !important; } */
 
 h2,
 h3 {
@@ -84,7 +83,7 @@ h4:target::before,
 h5:target::before,
 h6:target::before {
   display: inline-block;
-  content: '»';
+  content: "»";
   margin-inline-start: -30px;
   width: 30px;
 }
@@ -107,17 +106,16 @@ h6:target::before {
   box-sizing: border-box;
   background-color: var(--bg);
 }
+
+/* MOD: Replaced with side-nav.css
 .no-js .page-wrapper,
 .js:not(.sidebar-resizing) .page-wrapper {
-  transition:
-    margin-left 0.3s ease,
-    transform 0.3s ease; /* Animation: slide away */
+    transition: margin-left 0.3s ease, transform 0.3s ease;
 }
-[dir='rtl'] .js:not(.sidebar-resizing) .page-wrapper {
-  transition:
-    margin-right 0.3s ease,
-    transform 0.3s ease; /* Animation: slide away */
+[dir=rtl] .js:not(.sidebar-resizing) .page-wrapper {
+    transition: margin-right 0.3s ease, transform 0.3s ease;
 }
+END MOD: Replaced with side-nav.css */
 
 .content {
   overflow-y: auto;
@@ -202,7 +200,7 @@ blockquote {
   width: 3rem;
   height: 3rem;
   margin-inline-start: calc(-1.5rem - 21px);
-  content: 'ⓘ';
+  content: "ⓘ";
   text-align: center;
   background-color: var(--bg);
   color: var(--warning-border);
@@ -237,16 +235,53 @@ sup {
   line-height: 0;
 }
 
-:not(.footnote-definition) + .footnote-definition,
-.footnote-definition + :not(.footnote-definition) {
-  margin-block-start: 2em;
-}
 .footnote-definition {
   font-size: 0.9em;
-  margin: 0.5em 0;
 }
-.footnote-definition p {
-  display: inline;
+/* The default spacing for a list is a little too large. */
+.footnote-definition ul,
+.footnote-definition ol {
+  padding-left: 20px;
+}
+.footnote-definition > li {
+  /* Required to position the ::before target */
+  position: relative;
+}
+.footnote-definition > li:target {
+  scroll-margin-top: 50vh;
+}
+.footnote-reference:target {
+  scroll-margin-top: 50vh;
+}
+/* Draws a border around the footnote (including the marker) when it is selected.
+   TODO: If there are multiple linkbacks, highlight which one you just came
+   from so you know which one to click.
+*/
+.footnote-definition > li:target::before {
+  border: 2px solid var(--footnote-highlight);
+  border-radius: 6px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -32px;
+  pointer-events: none;
+  content: "";
+}
+/* Pulses the footnote reference so you can quickly see where you left off reading.
+   This could use some improvement.
+*/
+@media not (prefers-reduced-motion) {
+  .footnote-reference:target {
+    animation: fn-highlight 0.8s;
+    border-radius: 2px;
+  }
+
+  @keyframes fn-highlight {
+    from {
+      background-color: var(--footnote-highlight);
+    }
+  }
 }
 
 .tooltiptext {

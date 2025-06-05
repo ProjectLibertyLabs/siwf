@@ -60,7 +60,7 @@ jobs:
 
       - name: Build with mdBook
         working-directory: docs
-        run: mdbook build && ls book
+        run: npm i && mdbook build && ls book
 
       - name: Structure v2 (Docs + Assets)
         run: |

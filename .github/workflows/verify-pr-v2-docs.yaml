@@ -52,4 +52,4 @@ jobs:
 
       - name: Build mdBook 📚
         working-directory: docs
-        run: mdbook build && ls book
+        run: npm i && mdbook build && ls book

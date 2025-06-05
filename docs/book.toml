@@ -14,20 +14,25 @@ command = "node preprocessors/svg-embed.mjs"
 [preprocessor.generator]
 command = "node preprocessors/generator.mjs"
 
+[preprocessor.tailwind]
+renderers = ["html"]
+command = 'node preprocessors/noop-npx.mjs "npx -y @tailwindcss/cli -i ./theme/tailwind.css -o ./css/tailwind.css"'
+
 
 [output.html]
+additional-css = [
+  "css/tailwind.css",
+  "css/overrides.css",
+  "css/side-nav.css",
+  "css/button-links.css",
+  "css/highlight.css",
+  "css/highlight-dark.css",
+]
 no-section-label = true
+copy-fonts = false # Switched to custom fonts
 git-repository-url = "https://github.com/ProjectLibertyLabs/siwf"
 edit-url-template = "https://github.com/ProjectLibertyLabs/siwf/blob/main/docs/{path}"
 preferred-dark-theme = "coal"
-additional-css = [
-  "css/highlight.css",
-  "css/highlight-dark.css",
-  "css/tailwind-short.css",
-  "css/button-links.css",
-  "css/generator.css",
-  "css/overrides.css",
-]
 
 [output.html.fold]
 enable = true
