@@ -44,3 +44,13 @@ jobs:
       - name: Build
         working-directory: libraries/sdk-web
         run: npm run build
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: Tests Report
+          path: |
+            test-results/
+            __snapshots__/
+          retention-days: 4
