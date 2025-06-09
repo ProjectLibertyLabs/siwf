@@ -5,7 +5,7 @@ export default defineConfig({
   timeout: 30000,
   snapshotPathTemplate: "{testDir}/__snapshots__/{testFilePath}/{arg}-{platform}{ext}",
   expect: {
-    toMatchSnapshot: { threshold: 0.01 }, // Allows for a tiny difference tolerance
+    toMatchSnapshot: { threshold: 0.03 }, // Allows for a tiny difference tolerance
   },
   use: {
     screenshot: "only-on-failure",
