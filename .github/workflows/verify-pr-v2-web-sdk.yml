@@ -15,7 +15,7 @@ jobs:
         node-version: [20.x, 22.x]
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.52.0-noble
+      image: mcr.microsoft.com/playwright:v1.53.0-noble
 
     steps:
       - name: Checkout

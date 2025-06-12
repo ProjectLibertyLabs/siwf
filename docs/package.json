@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@frequency-chain/style-guide": "^0.3.0",
-    "@tailwindcss/cli": "^4.1.7",
-    "tailwindcss": "^4.1.7"
+    "@tailwindcss/cli": "^4.1.10",
+    "tailwindcss": "^4.1.10"
   },
   "engines": {
     "node": ">=20"
