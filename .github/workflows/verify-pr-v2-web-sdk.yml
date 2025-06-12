@@ -51,6 +51,6 @@ jobs:
         with:
           name: Tests Report
           path: |
-            test-results/
-            __snapshots__/
+            siwf/libraries/sdk-web/__snapshots__
+            siwf/libraries/sdk-web/test-results
           retention-days: 4
