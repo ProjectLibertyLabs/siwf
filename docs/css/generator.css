@@ -58,12 +58,13 @@
     margin: 0 0 3rem 0;
     border-radius: 1em;
     border: none;
-    background-color: #4ba0a5;
+    color: var(--button-nav-fg);
+    background-color: var(--button-nav-bg);
     padding: 1em 24px;
-    color: white;
     cursor: pointer;
     &:hover {
-      background-color: #00b6af;
+      color: var(--button-nav-hover-fg);
+      background: var(--button-nav-hover-bg);
     }
   }
 
@@ -78,12 +79,12 @@
     padding: 1rem 24px;
     border: 2px solid #c8cdd0;
     &:focus {
-      border-color: #00b6af;
+      border-color: #790e70;
       outline: none;
     }
     &:read-only {
       &:focus {
-        border-color: #c8cdd0;
+        border-color: #790e70;
       }
       font-size: 1.2rem;
       padding: 1rem 1rem;

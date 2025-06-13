@@ -68,7 +68,7 @@ Documentation is written in [CommonMark Markdown](https://rust-lang.github.io/md
 #### Prerequisites
 
 - [mdBook](https://rust-lang.github.io/mdBook/)
-  - Cargo: `cargo install mdbook@0.4.42`
+  - Cargo: `cargo install mdbook@0.4.51`
   - Mac Brew `brew install mdbook`
   - Binaries: [Download Release](https://github.com/rust-lang/mdBook/releases)
 - [Node.js v20+](https://nodejs.org)
@@ -77,6 +77,7 @@ Documentation is written in [CommonMark Markdown](https://rust-lang.github.io/md
 - Build the signed-request-generator: follow the "Development" and "Build" steps in `[tools/signed-request-generator/README.md]`.
 - Copy the new Generator to the docs directory: `rm -Rf docs/src/Generator && cp -a tools/signed-request-generator/build docs/src/Generator`
 - `cd ../../docs`
+- Install packages `npm i`
 - Serve the HTML locally and watch for changes: `mdbook serve` or `mdbook serve -p <port, default 3000>`
 - For style edits see: [`docs/css/overrides.css`](./docs/css/overrides.css)
 - For changes to the custom preprocessor see: [`docs/preprocessors/README.md`](./docs/preprocessors/README.md)
