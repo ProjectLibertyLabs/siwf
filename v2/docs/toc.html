@@ -15,39 +15,45 @@
         <meta charset="UTF-8">
         <meta name="robots" content="noindex">
         <!-- Custom HTML head -->
+        <link rel="icon" href="images/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+        <link rel="manifest" href="images/manifest.webmanifest" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
         <link rel="stylesheet" href="css/print.css" media="print">
-        <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <!-- MOD: Fonts Remove Font-Awesome -->
         <link rel="stylesheet" href="fonts/fonts.css">
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="css/tailwind.css">
+        <link rel="stylesheet" href="css/overrides.css">
+        <link rel="stylesheet" href="css/side-nav.css">
+        <link rel="stylesheet" href="css/button-links.css">
         <link rel="stylesheet" href="css/highlight.css">
         <link rel="stylesheet" href="css/highlight-dark.css">
-        <link rel="stylesheet" href="css/tailwind-short.css">
-        <link rel="stylesheet" href="css/button-links.css">
         <link rel="stylesheet" href="css/generator.css">
-        <link rel="stylesheet" href="css/overrides.css">
     </head>
-    <body class="sidebar-iframe-inner">
-        <a id="logo" href="https://projectlibertylabs.github.io/gateway/">
-            Frequency Developer Gateway
-        </a>
-        <ol class="chapter"><li class="chapter-item affix "><a href="index.html" target="_parent">Introduction</a></li><li class="chapter-item "><a href="QuickStart.html" target="_parent">Quick Start</a></li><li class="chapter-item "><a href="Actions/Actions.html" target="_parent">Actions</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Actions/Start.html" target="_parent">Start Login</a></li><li class="chapter-item "><a href="Actions/Response.html" target="_parent">Login Response</a></li></ol></li><li class="chapter-item "><a href="Reference.html" target="_parent">Reference</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="SignatureGeneration.html" target="_parent">Signature Generation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Generate.html" target="_parent">Generator</a></li></ol></li><li class="chapter-item "><a href="Credentials.html" target="_parent">Credentials</a></li><li class="chapter-item "><a href="Delegations.html" target="_parent">Delegations</a></li><li class="chapter-item "><a href="Payloads.html" target="_parent">Payloads</a></li><li class="chapter-item "><a href="DataStructures/All.html" target="_parent">Data Structures</a></li></ol></li><li class="chapter-item "><a href="SDK/Overview.html" target="_parent">SIWF SDK</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="SDK/Android.html" target="_parent">Android</a></li><li class="chapter-item "><a href="SDK/iOS.html" target="_parent">iOS</a></li><li class="chapter-item "><a href="SDK/Web.html" target="_parent">Web</a></li></ol></li></ol>
-        <ol class="chapter">
-            <li class="chapter-item">
-                <a href="https://docs.frequency.xyz" class="nav-return">
-                    Frequency Docs
-                </a>
-            </li>
-            <li class="chapter-item">
-                <a href="https://github.com/ProjectLibertyLabs/gateway" class="nav-return">
-                    GitHub
-                </a>
-            </li>
-        </ol>
+    <!-- MOD: Update to have the correct contents of the body -->
+    <body id="sidebar">
+      <div class="sidebar-contents">
+        <div class="sidebar-iframe-inner">
+          <a id="logo" href="https://projectlibertylabs.github.io/gateway/">
+              Sign In With Frequency
+          </a>
+          <div id="toc">
+            <ol class="chapter"><li class="chapter-item affix "><a href="index.html" target="_parent">Introduction</a></li><li class="chapter-item "><a href="QuickStart.html" target="_parent">Quick Start</a></li><li class="chapter-item "><a href="Actions/Actions.html" target="_parent">Actions</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Actions/Start.html" target="_parent">Start Login</a></li><li class="chapter-item "><a href="Actions/Response.html" target="_parent">Login Response</a></li></ol></li><li class="chapter-item "><a href="Reference.html" target="_parent">Reference</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="SignatureGeneration.html" target="_parent">Signature Generation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="Generate.html" target="_parent">Generator</a></li></ol></li><li class="chapter-item "><a href="Credentials.html" target="_parent">Credentials</a></li><li class="chapter-item "><a href="Delegations.html" target="_parent">Delegations</a></li><li class="chapter-item "><a href="Payloads.html" target="_parent">Payloads</a></li><li class="chapter-item "><a href="DataStructures/All.html" target="_parent">Data Structures</a></li></ol></li><li class="chapter-item "><a href="SDK/Overview.html" target="_parent">SIWF SDK</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="SDK/Android.html" target="_parent">Android</a></li><li class="chapter-item "><a href="SDK/iOS.html" target="_parent">iOS</a></li><li class="chapter-item "><a href="SDK/Web.html" target="_parent">Web</a></li></ol></li></ol>
+          </div>
+          <div class="spacer"></div>
+          <ol class="chapter pt-2">
+                <li class="chapter-item">
+                  <a href="https://github.com/ProjectLibertyLabs/siwf" title="Git repository" aria-label="Git repository">
+                      <i id="git-repository-button" class="fa fa-github"></i> GitHub
+                  </a>
+                  </li>
+          </ol>
+        </div>
+      </div>
     </body>
 </html>
