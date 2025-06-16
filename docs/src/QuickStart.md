@@ -44,7 +44,7 @@ For website interactions, just forward the user to the returned `authenticationU
 
 ## Step 2 (Android/iOS): Forward the User to an Embedded Browser
 
-[SDKs are provided](/SDK/Overview.md) for Android and iOS to perform the correct redirects and callback setups using the proper interactions specific to these platforms.
+[SDKs are provided](./SDK/Overview.md) for Android and iOS to perform the correct redirects and callback setups using the proper interactions specific to these platforms.
 
 ## Step 3: Callback Processing
 

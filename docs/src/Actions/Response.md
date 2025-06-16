@@ -155,7 +155,7 @@ The user wishes to claim a Frequency Handle.
 
 [See Frequency Documentation](https://frequency-chain.github.io/frequency/pallet_handles/index.html#extrinsics) on forming the transaction for the extrinsics.
 
-## Step 6: Frequency Transaction Submission
+## Step 5: Frequency Transaction Submission
 
 All payloads that are returned will be able to be processed using [Capacity on Frequency](https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics).
 
@@ -166,7 +166,7 @@ Frequency submission is required for any of the following payloads:
 
 They can be submitted to the chain in one transaction using [`pay_with_capacity_batch_all`](https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics).
 
-## Step 7: Session Starts
+## Step 6: Session Starts
 
 Once the payloads have been validated, the user's authenticated session may start.
 SIWF services do not manage user sessions.

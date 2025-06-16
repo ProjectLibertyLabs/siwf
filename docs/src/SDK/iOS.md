@@ -15,10 +15,7 @@
 You can install the SIWF SDK via **Swift Package Manager (SPM)**:
 
 1. Open Xcode and navigate to **File → Add Packages**.
-2. Enter the repository URL:
-   ```
-   https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git
-   ```
+2. Enter the repository URL: `https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git`
 3. Select the latest stable version and add it to your project.
 
 [Xcode Documentation Reference](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app)

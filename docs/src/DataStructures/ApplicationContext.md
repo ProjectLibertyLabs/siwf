@@ -1,6 +1,6 @@
 # Application Context
 
-## Schema
+#### Schema
 
 An application context credential MUST be a W3C Verifiable Credential document containing information about the application requesting user sign in.
 
@@ -21,7 +21,7 @@ The `credentialSubject` field should contain an object with the following fields
 The credential SHOULD be signed by a trusted `issuer`.
 The issuer MAY be the provider's control key, expressed in `did:key` syntax.
 
-### Example
+#### Example
 
 This application context credential describes a hypothetical app called "My Social App".
 

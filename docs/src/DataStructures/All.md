@@ -22,30 +22,30 @@ This is JSON stringified and then [`base64url`](https://datatracker.ietf.org/doc
 
 ### New Application/Delegation Response
 
-{{#include Response-NewProvider.md 0}}
+{{#include Response-NewProvider.md}}
 
 ### Login Only Response
 
-{{#include Response-LoginOnly.md 0}}
+{{#include Response-LoginOnly.md}}
 
 ## Verified User Data
 
 ### Graph Key
 
-{{#include VerifiedGraphKeyPair.md 0}}
+{{#include VerifiedGraphKeyPair.md}}
 
 ## Verified Contact Credentials
 
 ### Email
 
-{{#include VerifiedEmail.md 0}}
+{{#include VerifiedEmail.md}}
 
 ### SMS/Phone
 
-{{#include VerifiedPhone.md 0}}
+{{#include VerifiedPhone.md}}
 
 ## Context Data
 
 ### Application Context Credential
 
-{{#include ApplicationContext.md 0}}
+{{#include ApplicationContext.md:2:}}
