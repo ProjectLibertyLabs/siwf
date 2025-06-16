@@ -677,8 +677,7 @@
 </code></pre>
 <h2 id="context-data"><a class="header" href="#context-data">Context Data</a></h2>
 <h3 id="application-context-credential"><a class="header" href="#application-context-credential">Application Context Credential</a></h3>
-<h1 id="application-context"><a class="header" href="#application-context">Application Context</a></h1>
-<h2 id="schema"><a class="header" href="#schema">Schema</a></h2>
+<h4 id="schema"><a class="header" href="#schema">Schema</a></h4>
 <p>An application context credential MUST be a W3C Verifiable Credential document containing information about the application requesting user sign in.</p>
 <p>The <code>type</code> array for the credential should begin with the string <code>"ApplicationContextCredential"</code>.</p>
 <p>The <code>credentialSchema</code> field should contain an object with the following fields:</p>
@@ -698,7 +697,7 @@
 </ul>
 <p>The credential SHOULD be signed by a trusted <code>issuer</code>.
 The issuer MAY be the provider's control key, expressed in <code>did:key</code> syntax.</p>
-<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<h4 id="example"><a class="header" href="#example">Example</a></h4>
 <p>This application context credential describes a hypothetical app called "My Social App".</p>
 <pre><code class="language-json">{
   "@context": [

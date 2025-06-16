@@ -286,7 +286,7 @@ async function startLogin() {
 <h2 id="step-2-web-forward-the-user-to-a-browser"><a class="header" href="#step-2-web-forward-the-user-to-a-browser">Step 2 (Web): Forward the User to a Browser</a></h2>
 <p>For website interactions, just forward the user to the returned <code>authenticationUrl</code>.</p>
 <h2 id="step-2-androidios-forward-the-user-to-an-embedded-browser"><a class="header" href="#step-2-androidios-forward-the-user-to-an-embedded-browser">Step 2 (Android/iOS): Forward the User to an Embedded Browser</a></h2>
-<p><a href="/SDK/Overview.html">SDKs are provided</a> for Android and iOS to perform the correct redirects and callback setups using the proper interactions specific to these platforms.</p>
+<p><a href="./SDK/Overview.html">SDKs are provided</a> for Android and iOS to perform the correct redirects and callback setups using the proper interactions specific to these platforms.</p>
 <h2 id="step-3-callback-processing"><a class="header" href="#step-3-callback-processing">Step 3: Callback Processing</a></h2>
 <pre><code class="language-typescript">import * as siwf from "@projectlibertylabs/siwf";
 
@@ -603,7 +603,7 @@ These actions <em>must</em> be submitted to the chain for the correct functionin
 <h3 id="claimhandle"><a class="header" href="#claimhandle"><code>claimHandle</code></a></h3>
 <p>The user wishes to claim a Frequency Handle.</p>
 <p><a href="https://frequency-chain.github.io/frequency/pallet_handles/index.html#extrinsics">See Frequency Documentation</a> on forming the transaction for the extrinsics.</p>
-<h2 id="step-6-frequency-transaction-submission"><a class="header" href="#step-6-frequency-transaction-submission">Step 6: Frequency Transaction Submission</a></h2>
+<h2 id="step-5-frequency-transaction-submission"><a class="header" href="#step-5-frequency-transaction-submission">Step 5: Frequency Transaction Submission</a></h2>
 <p>All payloads that are returned will be able to be processed using <a href="https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics">Capacity on Frequency</a>.</p>
 <p>Frequency submission is required for any of the following payloads:</p>
 <ul>
@@ -612,7 +612,7 @@ These actions <em>must</em> be submitted to the chain for the correct functionin
 <li><code>claimHandle</code></li>
 </ul>
 <p>They can be submitted to the chain in one transaction using <a href="https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics"><code>pay_with_capacity_batch_all</code></a>.</p>
-<h2 id="step-7-session-starts"><a class="header" href="#step-7-session-starts">Step 7: Session Starts</a></h2>
+<h2 id="step-6-session-starts"><a class="header" href="#step-6-session-starts">Step 6: Session Starts</a></h2>
 <p>Once the payloads have been validated, the user's authenticated session may start.
 SIWF services do not manage user sessions.</p>
 <h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
@@ -936,17 +936,53 @@ SIWF services do not manage user sessions.</p>
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="reference"><a class="header" href="#reference">Reference</a></h1>
 <ul>
-<li><a href="./SignatureGeneration.html">Signature Generation</a>
-<ul>
-<li><a href="./Generate.html">Signature Generator Tool</a></li>
-</ul>
-</li>
+<li><a href="./Generate.html">Signed Request Generator Tool</a></li>
+<li><a href="./SignatureGeneration.html">Signed Request</a></li>
 <li><a href="./Credentials.html">Available Credentials</a></li>
 <li><a href="./Delegations.html">Available Delegations</a></li>
 <li><a href="./Payloads.html">Signed Payloads</a></li>
 <li><a href="./DataStructures/All.html">Data Structures and Examples</a></li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="authentication-url-signature"><a class="header" href="#authentication-url-signature">Authentication URL Signature</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="signed-request-generator"><a class="header" href="#signed-request-generator">Signed Request Generator</a></h1>
+<p>Fill out the form and the signed request will be generated at the bottom.</p>
+<div id="generator">
+<link href="./Generator/_app/immutable/assets/0.tn0RQdqM.css" rel="stylesheet">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.CpeorHy4.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/Cbgb5qQp.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CgqYYNKe.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/BwsSu_VZ.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.DonfCnB5.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/-AvFmrNB.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/D7z_nF4p.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CL5X56dl.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.9NHzt5Sy.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/Boo8G1f3.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.Dxg1spkg.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/DDPItZwv.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/nb5uAOaO.js"> <!--[--><!--[--><!----><div><!----><!----><div class="mb-4"><form><div class="mb-4"><label for="callbackUri">Callback URI *</label> <input type="url" id="callbackUri" value="" required placeholder="https://localhost:3000/login"/></div> <div class="mb-4"><fieldset><legend>Permissions</legend> <div class="checkboxes"><!--[--><label><input type="checkbox" value="8,10,9,7"/> <!---->Bundle: Public & Private Graph <span title="dsnp.public-follows@v1, dsnp.private-connections@v1, dsnp.private-follows@v1, dsnp.public-key-key-agreement@v1">ⓘ</span><!----></label><label><input type="checkbox" value="17,18,16,4,19"/> <!---->Bundle: DSNP v1.3 Content <span title="dsnp.broadcast@v2, dsnp.reply@v2, dsnp.tombstone@v2, dsnp.reaction@v1, dsnp.update@v2">ⓘ</span><!----></label><label><input type="checkbox" value="2,3,1,4,5"/> <!---->(Deprecated) Bundle: DSNP v1.0 Content <span title="dsnp.broadcast@v1, dsnp.reply@v1, dsnp.tombstone@v1, dsnp.reaction@v1, dsnp.update@v1">ⓘ</span><!----></label><label><input type="checkbox" value="2"/> <!---->(Deprecated) dsnp.broadcast: Create new public content (v1)<!----></label><label><input type="checkbox" value="6"/> <!---->(Deprecated) dsnp.profile: Update profile information (v1)<!----></label><label><input type="checkbox" value="3"/> <!---->(Deprecated) dsnp.reply: Public reply to content (v1)<!----></label><label><input type="checkbox" value="1"/> <!---->(Deprecated) dsnp.tombstone: Mark content for deletion (v1)<!----></label><label><input type="checkbox" value="5"/> <!---->(Deprecated) dsnp.update: Update an existing post or reply (v1)<!----></label><label><input type="checkbox" value="17"/> <!---->dsnp.broadcast: Create new public content (v2)<!----></label><label><input type="checkbox" value="12"/> <!---->dsnp.dsnp-content-attribute: Create an authenticated attribute set for DSNP content (v1)<!----></label><label><input type="checkbox" value="13"/> <!---->dsnp.ext-content-attribute: Create an authenticated attribute set for content external to DSNP (v1)<!----></label><label><input type="checkbox" value="10"/> <!---->dsnp.private-connections: Update private friendship connections (v1)<!----></label><label><input type="checkbox" value="9"/> <!---->dsnp.private-follows: Update private follow list (v1)<!----></label><label><input type="checkbox" value="15"/> <!---->dsnp.profile-resources: Update user profile information (v1)<!----></label><label><input type="checkbox" value="8"/> <!---->dsnp.public-follows: Update public follow list (v1)<!----></label><label><input type="checkbox" value="4"/> <!---->dsnp.reaction: Public reaction to content (v1)<!----></label><label><input type="checkbox" value="18"/> <!---->dsnp.reply: Public reply to content (v2)<!----></label><label><input type="checkbox" value="16"/> <!---->dsnp.tombstone: Mark content for deletion (v2)<!----></label><label><input type="checkbox" value="19"/> <!---->dsnp.update: Update an existing post or reply (v2)<!----></label><label><input type="checkbox" value="20"/> <!---->dsnp.user-attribute-set: Create an authenticated attribute set for a DSNP User (v2)<!----></label><!--]--> <div><label for="additionalPermissions">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""/></div> <div class="my-2 text-sm"><label for="schemaIds">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""/></div></div></fieldset><!----></div> <div class="mb-4"><fieldset><legend>Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox"/> Graph Key (Required for reading private graph)</label> <label><input type="checkbox"/> Verified Email Address</label> <label><input type="checkbox"/> Verified SMS/Phone Number</label></div></fieldset><!----></div> <div class="mb-4"><label for="applicationContext">Application Context URL</label> <input type="url" id="applicationContext" value="" placeholder="https://example.org/my-app-context.json"/></div> <!--[!--><!--]--></form><!----></div> <!--[!--><h2 id="result"><a class="header" href="#result">Result</a></h2> <dl><dt>Login Request Payload and Signature ( <code>signedRequest</code> parameter )</dt> <dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea></dd> <dt>Mainnet/Production URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Testnet/Staging URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Signed Request (JSON)</dt> <dd><details><summary style="cursor: pointer;">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl><!--]--><!----><!----></div><!----><!--]--> <!--[!--><!--]--><!--]-->
+<script>
+{
+__sveltekit_k0atpa = {
+base: new URL(".", location).pathname.slice(0, -1)
+};
+
+const element = document.currentScript.parentElement;
+
+Promise.all([
+import("./Generator/_app/immutable/entry/start.CpeorHy4.js"),
+import("./Generator/_app/immutable/entry/app.DonfCnB5.js")
+]).then(([kit, app]) => {
+kit.start(app, element, {
+node_ids: [0, 2],
+data: [null,null],
+form: null,
+error: null
+});
+});
+}
+</script>
+</div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="signed-request-for-authentication-url-signature"><a class="header" href="#signed-request-for-authentication-url-signature">Signed Request for Authentication URL Signature</a></h1>
 <p>Most applications skip all of this and just <a href="./Generate.html">generate the login request payload and signature</a>.</p>
 <h2 id="step-1-create-the-payload-for-signing"><a class="header" href="#step-1-create-the-payload-for-signing">Step 1: Create the Payload for Signing</a></h2>
 <h3 id="parameter-callback"><a class="header" href="#parameter-callback">Parameter: <code>callback</code></a></h3>
@@ -1146,45 +1182,6 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
 <li>JSON Stringify the <code>SignedRequest</code> object</li>
 <li><a href="https://datatracker.ietf.org/doc/html/rfc4648#section-5"><code>base64url</code></a> encode the stringified result</li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="signed-request-generator"><a class="header" href="#signed-request-generator">Signed Request Generator</a></h1>
-<p>Fill out the form and the signed request will be generated at the bottom.</p>
-<div id="generator">
-<link href="./Generator/_app/immutable/assets/0.tn0RQdqM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.BL8kSuiR.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/wrHXk6Mh.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CgqYYNKe.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/BwsSu_VZ.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.DsjJRXCn.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/-AvFmrNB.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/D7z_nF4p.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CL5X56dl.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.9NHzt5Sy.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/Boo8G1f3.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.Dxg1spkg.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/DDPItZwv.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/nb5uAOaO.js"> <!--[--><!--[--><!----><div><!----><!----><div class="mb-4"><form><div class="mb-4"><label for="callbackUri">Callback URI *</label> <input type="url" id="callbackUri" value="" required placeholder="https://localhost:3000/login"/></div> <div class="mb-4"><fieldset><legend>Permissions</legend> <div class="checkboxes"><!--[--><label><input type="checkbox" value="8,10,9,7"/> <!---->Bundle: Public & Private Graph <span title="dsnp.public-follows@v1, dsnp.private-connections@v1, dsnp.private-follows@v1, dsnp.public-key-key-agreement@v1">ⓘ</span><!----></label><label><input type="checkbox" value="17,18,16,4,19"/> <!---->Bundle: DSNP v1.3 Content <span title="dsnp.broadcast@v2, dsnp.reply@v2, dsnp.tombstone@v2, dsnp.reaction@v1, dsnp.update@v2">ⓘ</span><!----></label><label><input type="checkbox" value="2,3,1,4,5"/> <!---->(Deprecated) Bundle: DSNP v1.0 Content <span title="dsnp.broadcast@v1, dsnp.reply@v1, dsnp.tombstone@v1, dsnp.reaction@v1, dsnp.update@v1">ⓘ</span><!----></label><label><input type="checkbox" value="2"/> <!---->(Deprecated) dsnp.broadcast: Create new public content (v1)<!----></label><label><input type="checkbox" value="6"/> <!---->(Deprecated) dsnp.profile: Update profile information (v1)<!----></label><label><input type="checkbox" value="3"/> <!---->(Deprecated) dsnp.reply: Public reply to content (v1)<!----></label><label><input type="checkbox" value="1"/> <!---->(Deprecated) dsnp.tombstone: Mark content for deletion (v1)<!----></label><label><input type="checkbox" value="5"/> <!---->(Deprecated) dsnp.update: Update an existing post or reply (v1)<!----></label><label><input type="checkbox" value="17"/> <!---->dsnp.broadcast: Create new public content (v2)<!----></label><label><input type="checkbox" value="12"/> <!---->dsnp.dsnp-content-attribute: Create an authenticated attribute set for DSNP content (v1)<!----></label><label><input type="checkbox" value="13"/> <!---->dsnp.ext-content-attribute: Create an authenticated attribute set for content external to DSNP (v1)<!----></label><label><input type="checkbox" value="10"/> <!---->dsnp.private-connections: Update private friendship connections (v1)<!----></label><label><input type="checkbox" value="9"/> <!---->dsnp.private-follows: Update private follow list (v1)<!----></label><label><input type="checkbox" value="15"/> <!---->dsnp.profile-resources: Update user profile information (v1)<!----></label><label><input type="checkbox" value="8"/> <!---->dsnp.public-follows: Update public follow list (v1)<!----></label><label><input type="checkbox" value="4"/> <!---->dsnp.reaction: Public reaction to content (v1)<!----></label><label><input type="checkbox" value="18"/> <!---->dsnp.reply: Public reply to content (v2)<!----></label><label><input type="checkbox" value="16"/> <!---->dsnp.tombstone: Mark content for deletion (v2)<!----></label><label><input type="checkbox" value="19"/> <!---->dsnp.update: Update an existing post or reply (v2)<!----></label><label><input type="checkbox" value="20"/> <!---->dsnp.user-attribute-set: Create an authenticated attribute set for a DSNP User (v2)<!----></label><!--]--> <div><label for="additionalPermissions">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""/></div> <div class="my-2 text-sm"><label for="schemaIds">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""/></div></div></fieldset><!----></div> <div class="mb-4"><fieldset><legend>Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox"/> Graph Key (Required for reading private graph)</label> <label><input type="checkbox"/> Verified Email Address</label> <label><input type="checkbox"/> Verified SMS/Phone Number</label></div></fieldset><!----></div> <div class="mb-4"><label for="applicationContext">Application Context URL</label> <input type="url" id="applicationContext" value="" placeholder="https://example.org/my-app-context.json"/></div> <!--[!--><!--]--></form><!----></div> <!--[!--><h2 id="result"><a class="header" href="#result">Result</a></h2> <dl><dt>Login Request Payload and Signature ( <code>signedRequest</code> parameter )</dt> <dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea></dd> <dt>Mainnet/Production URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Testnet/Staging URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Signed Request (JSON)</dt> <dd><details><summary style="cursor: pointer;">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl><!--]--><!----><!----></div><!----><!--]--> <!--[!--><!--]--><!--]-->
-<script>
-{
-__sveltekit_11ix1nf = {
-base: new URL(".", location).pathname.slice(0, -1)
-};
-
-const element = document.currentScript.parentElement;
-
-Promise.all([
-import("./Generator/_app/immutable/entry/start.BL8kSuiR.js"),
-import("./Generator/_app/immutable/entry/app.DsjJRXCn.js")
-]).then(([kit, app]) => {
-kit.start(app, element, {
-node_ids: [0, 2],
-data: [null,null],
-form: null,
-error: null
-});
-});
-}
-</script>
-</div>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="credentials"><a class="header" href="#credentials">Credentials</a></h1>
 <h2 id="request-structure"><a class="header" href="#request-structure">Request Structure</a></h2>
 <p>The request is an array that requires ALL listed credential objects.
@@ -1888,8 +1885,7 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
 </code></pre>
 <h2 id="context-data"><a class="header" href="#context-data">Context Data</a></h2>
 <h3 id="application-context-credential"><a class="header" href="#application-context-credential">Application Context Credential</a></h3>
-<h1 id="application-context"><a class="header" href="#application-context">Application Context</a></h1>
-<h2 id="schema"><a class="header" href="#schema">Schema</a></h2>
+<h4 id="schema"><a class="header" href="#schema">Schema</a></h4>
 <p>An application context credential MUST be a W3C Verifiable Credential document containing information about the application requesting user sign in.</p>
 <p>The <code>type</code> array for the credential should begin with the string <code>"ApplicationContextCredential"</code>.</p>
 <p>The <code>credentialSchema</code> field should contain an object with the following fields:</p>
@@ -1909,7 +1905,7 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
 </ul>
 <p>The credential SHOULD be signed by a trusted <code>issuer</code>.
 The issuer MAY be the provider's control key, expressed in <code>did:key</code> syntax.</p>
-<h3 id="example-6"><a class="header" href="#example-6">Example</a></h3>
+<h4 id="example-6"><a class="header" href="#example-6">Example</a></h4>
 <p>This application context credential describes a hypothetical app called "My Social App".</p>
 <pre><code class="language-json">{
   "@context": [
@@ -2054,10 +2050,7 @@ Example:</p>
 <p>You can install the SIWF SDK via <strong>Swift Package Manager (SPM)</strong>:</p>
 <ol>
 <li>Open Xcode and navigate to <strong>File → Add Packages</strong>.</li>
-<li>Enter the repository URL:
-<pre><code>https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git
-</code></pre>
-</li>
+<li>Enter the repository URL: <code>https://github.com/ProjectLibertyLabs/siwf-sdk-ios.git</code></li>
 <li>Select the latest stable version and add it to your project.</li>
 </ol>
 <p><a href="https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app">Xcode Documentation Reference</a></p>
