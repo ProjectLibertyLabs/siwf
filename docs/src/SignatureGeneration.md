@@ -1,4 +1,4 @@
-# Authentication URL Signature
+# Signed Request for Authentication URL Signature
 
 Most applications skip all of this and just [generate the login request payload and signature](./Generate.md).
 
