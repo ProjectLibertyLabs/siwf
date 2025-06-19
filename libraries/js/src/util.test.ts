@@ -30,7 +30,7 @@ describe('SCALE serializations', () => {
 
   it('serializeAddProviderPayloadHex serializes correctly', () => {
     expect(
-      serializeAddProviderPayloadHex({
+      serializeAddProviderPayloadHex('Sr25519', {
         authorizedMsaId: 1,
         schemaIds: [5, 7, 8, 9, 10],
         expiration: 24,
@@ -40,7 +40,7 @@ describe('SCALE serializations', () => {
 
   it('serializeItemActionsPayloadHex serializes correctly', () => {
     expect(
-      serializeItemActionsPayloadHex({
+      serializeItemActionsPayloadHex('Sr25519', {
         schemaId: 7,
         targetHash: 0,
         expiration: 20,
@@ -55,7 +55,7 @@ describe('SCALE serializations', () => {
   });
 
   it('serializeClaimHandlePayloadHex serializes correctly', () => {
-    expect(serializeClaimHandlePayloadHex({ baseHandle: 'cassandre', expiration: 4576367 })).toEqual(
+    expect(serializeClaimHandlePayloadHex('Sr25519', { baseHandle: 'cassandre', expiration: 4576367 })).toEqual(
       '0x3c42797465733e2463617373616e6472656fd445003c2f42797465733e'
     );
   });

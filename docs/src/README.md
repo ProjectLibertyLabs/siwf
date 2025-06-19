@@ -42,7 +42,7 @@ URL: `www.frequencyaccess.com`
 - Uses Frequency Mainnet
 - Supports both SMS and Email verification
 - Bot protection via [hCaptcha](https://www.hcaptcha.com/)
-- Authorization Timeout: 30 seconds
+- Authorization Timeout: 30 seconds (?)
 
 #### Staging-Testnet
 
@@ -53,7 +53,7 @@ URL: `testnet.frequencyaccess.com`
 - No uptime guarantees
 - Limited bot protection
 - May rate limit usage
-- Authorization Timeout: 30 seconds
+- Authorization Timeout: 30 seconds (?)
 
 ## Prerequisites
 
@@ -67,5 +67,6 @@ URL: `testnet.frequencyaccess.com`
 - Production-Mainnet: The production environment
 - MSA: The Frequency blockchain account for a user
 - SR25519: Schnorr signatures using `ed25519` over ECDSA
+- Secp256k1: Elliptic curve used in Ethereum for digital signatures and keys.
 - Delegation: The user permission for an application to act on their behalf
 - Credential: Verified data about the user provided with permission of the user

@@ -1,6 +1,6 @@
 import { Keyring } from '@polkadot/keyring';
 import { encodeAddress } from '@polkadot/keyring';
-import { u8aToHex } from '@polkadot/util';
+import { hexToU8a, u8aToHex } from '@polkadot/util';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import {
   SiwfCredentialRequest,
@@ -8,9 +8,17 @@ import {
   isSiwfCredentialsRequest,
   isSiwfSignedRequest,
 } from './types/request.js';
-import { requestPayloadBytes, serializeLoginPayloadHex } from './util.js';
+import { getAlgorithmForCurveType, requestPayloadBytes, serializeLoginPayloadHex } from './util.js';
 import { VerifiedEmailAddress, VerifiedGraphKey, VerifiedPhoneNumber } from './constants.js';
 import { stringFromBase64URL, stringToBase64URL } from './base64url.js';
+import {
+  createSiwfSignedRequest,
+  HexString,
+  signEip712,
+  getKeyringPairFromSecp256k1PrivateKey,
+  getUnifiedAddress,
+} from '@frequency-chain/ethereum-utils';
+import { CurveType } from './types';
 
 const keyring = new Keyring({ type: 'sr25519' });
 
@@ -55,38 +63,52 @@ export function generateRequestSigningData(
 /**
  * Generates the signed request for the authentication flow start.
  *
- * @param {string} providerKeyUri - The URI of a key, usually a seed phrase, but may also include test accounts such as `//Alice` or `//Bob`.
- * @param {string} callbackUri - The URI that the user should return to after authenticating.
+ * @param {CurveType} keyType - The key type
+ * @param {string} providerKeyUriOrPrivateKey - The URI of a key, usually a seed phrase, but may also include test accounts such as `//Alice` or `//Bob`. * @param {string} callbackUri - The URI that the user should return to after authenticating. Or the private key in hex format for Ethereum keys.
  * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
  * @returns {Promise<SiwfSignedRequest>} The generated signed request that can be used for authentication.
  */
 export async function generateSignedRequest(
-  providerKeyUri: string,
+  keyType: CurveType,
+  providerKeyUriOrPrivateKey: string,
   callbackUri: string,
   permissions: number[],
   credentials: SiwfCredentialRequest[] = [],
   applicationContext: { url: string } | null = null
 ): Promise<SiwfSignedRequest> {
   await cryptoWaitReady();
-  const keyPair = keyring.createFromUri(providerKeyUri);
 
-  const signature = keyPair.sign(generateRequestSigningData(callbackUri, permissions, true), {});
+  let keyPair;
+  let signature;
+  let publicKey;
 
-  return buildSignedRequest(
-    u8aToHex(signature),
-    keyPair.address,
-    callbackUri,
-    permissions,
-    credentials,
-    applicationContext
-  );
+  switch (keyType) {
+    case 'Sr25519':
+      keyPair = keyring.createFromUri(providerKeyUriOrPrivateKey);
+      signature = u8aToHex(keyPair.sign(generateRequestSigningData(callbackUri, permissions, true), {}));
+      publicKey = getUnifiedAddress(keyPair);
+      break;
+
+    case 'Secp256k1':
+      signature = (
+        await signEip712(providerKeyUriOrPrivateKey as HexString, createSiwfSignedRequest(callbackUri, permissions))
+      ).Ecdsa;
+      publicKey = getUnifiedAddress(getKeyringPairFromSecp256k1PrivateKey(hexToU8a(providerKeyUriOrPrivateKey)));
+      break;
+
+    default:
+      throw new Error(`${keyType} is not supported!`);
+  }
+
+  return buildSignedRequest(keyType, signature, publicKey, callbackUri, permissions, credentials, applicationContext);
 }
 
 /**
  * Builds the signed request for the authentication flow.
  *
+ * @param {CurveType} keyType - The key type
  * @param {string} signature - The hex string of the signed data.
  * @param {string} signerPublicKey - The hex or SS58 public key of the signer.
  * @param {string} callbackUri - The URI that the user should return to after authenticating.
@@ -96,6 +118,7 @@ export async function generateSignedRequest(
  * @returns {SiwfSignedRequest} The generated signed request that can be used for authentication.
  */
 export function buildSignedRequest(
+  keyType: CurveType,
   signature: string,
   signerPublicKey: string,
   callbackUri: string,
@@ -116,10 +139,10 @@ export function buildSignedRequest(
         encodedValue: encodeAddress(signerPublicKey, 90),
         encoding: 'base58',
         format: 'ss58',
-        type: 'Sr25519',
+        type: keyType,
       },
       signature: {
-        algo: 'SR25519',
+        algo: getAlgorithmForCurveType(keyType),
         encoding: 'base16',
         encodedValue: signature,
       },
@@ -136,22 +159,25 @@ export function buildSignedRequest(
 /**
  * Generates the encoded signed payload for the authentication flow.
  *
- * @param {string} providerKeyUri - The URI of a key, usually a seed phrase, but may also include test accounts such as `//Alice` or `//Bob`.
- * @param {string} callbackUri - The URI that the user should return to after authenticating.
+ * @param keyType
+ * @param providerKeyUriOrPrivateKey - The URI of a key, usually a seed phrase, but may also include test accounts such as `//Alice` or `//Bob`. * @param {string} callbackUri - The URI that the user should return to after authenticating. Or the private key in hex format for Ethereum keys. * @param {string} callbackUri - The URI that the user should return to after authenticating.
  * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
+ * @param applicationContext
  * @returns {Promise<string>} The generated base64url encoded signed payload that can be that can be used for authentication.
  */
 export async function generateEncodedSignedRequest(
-  providerKeyUri: string,
+  keyType: CurveType,
+  providerKeyUriOrPrivateKey: string,
   callbackUri: string,
   permissions: number[],
   credentials: SiwfCredentialRequest[] = [],
   applicationContext: { url: string } | null = null
 ): Promise<string> {
   const signedRequest = await generateSignedRequest(
-    providerKeyUri,
+    keyType,
+    providerKeyUriOrPrivateKey,
     callbackUri,
     permissions,
     credentials,

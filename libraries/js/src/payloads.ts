@@ -1,5 +1,5 @@
 import { signatureVerify, cryptoWaitReady, decodeAddress, blake2AsU8a } from '@polkadot/util-crypto';
-import { hexToU8a, stringToU8a, u8aToHex, u8aWrapBytes } from '@polkadot/util';
+import { stringToU8a, u8aToHex, u8aWrapBytes } from '@polkadot/util';
 import {
   isPayloadAddProvider,
   isPayloadClaimHandle,
@@ -7,13 +7,26 @@ import {
   isPayloadLogin,
   SiwfResponsePayloadLogin,
 } from './types/payload.js';
-import { SiwfResponse } from './types/response.js';
+import {MakePropertyRequired, SiwfResponse} from './types/response.js';
 import {
+  getChainTypeFromEndpoint,
   serializeAddProviderPayloadHex,
   serializeClaimHandlePayloadHex,
   serializeItemActionsPayloadHex,
 } from './util.js';
-import { SiwfPublicKey } from './types/general.js';
+import {
+  CurveType,
+  isSignedPayloadSupportedPayload,
+  isSignedPayloadUint8Array,
+  SignedPayload, SiwfOptions,
+  SiwfPublicKey
+} from './types/general.js';
+import {
+  HexString,
+  reverseUnifiedAddressToEthereumAddress,
+  createSiwfLoginRequestPayload,
+  verifyEip712Signature, signEip712,
+} from '@frequency-chain/ethereum-utils';
 
 interface SiwxMessage {
   domain: string;
@@ -98,22 +111,44 @@ function verifySignatureHashMaybeWrapped(publicKey: string, signature: string, m
 /**
  * Verifies a signature against a given public key and message. This function supports both wrapped and unwrapped signatures.
  *
+ * @param curveType - curve type
  * @param publicKey - The public key used to verify the signature.
  * @param signature - The signature to be verified.
  * @param message - The original message that was signed.
+ * @param options - Environment options.
  * @returns `true` if the signature is valid, `false` otherwise.
  */
-function verifySignatureMaybeWrapped(publicKey: string, signature: string, message: Uint8Array): boolean {
-  const unwrappedVerifyResult = signatureVerify(message, signature, publicKey);
-  if (unwrappedVerifyResult.isValid) {
-    return true;
+function verifySignatureMaybeWrapped(
+  curveType: CurveType,
+  publicKey: string,
+  signature: string,
+  message: SignedPayload,
+  options: MakePropertyRequired<SiwfOptions, 'endpoint'>,
+): boolean {
+  if (curveType === 'Sr25519' && isSignedPayloadUint8Array(message)) {
+    const unwrappedVerifyResult = signatureVerify(message, signature, publicKey);
+    if (unwrappedVerifyResult.isValid) {
+      return true;
+    }
+
+    // Support both wrapped and unwrapped signatures
+    const wrappedSignedBytes = u8aWrapBytes(message);
+    const wrappedVerifyResult = signatureVerify(wrappedSignedBytes, signature, publicKey);
+
+    return (
+        wrappedVerifyResult.isValid || verifySignatureHashMaybeWrapped(publicKey, signature, message)
+    );
+
+  } else if (curveType === 'Secp256k1' && isSignedPayloadSupportedPayload(message)) {
+      return verifyEip712Signature(
+        reverseUnifiedAddressToEthereumAddress(publicKey as HexString),
+        signature as HexString,
+        message,
+        getChainTypeFromEndpoint(options.endpoint),
+      );
+  } else {
+      throw new Error(`${curveType} is not supported!`);
   }
-
-  // Support both wrapped and unwrapped signatures
-  const wrappedSignedBytes = u8aWrapBytes(message);
-  const wrappedVerifyResult = signatureVerify(wrappedSignedBytes, signature, publicKey);
-
-  return wrappedVerifyResult.isValid || verifySignatureHashMaybeWrapped(publicKey, signature, message);
 }
 
 function expect(test: boolean, errorMessage: string) {
@@ -195,7 +230,7 @@ function validateParsedDomainAndUri(msgParsed: ParsedUri, expectedParsed: Parsed
  *
  * @param payload - The login payload to validate.
  * @param userPublicKey - The public key of the user.
- * @param loginMsgUri - The expected domain of the login message.
+ * @param options - Environmental options (contains expected domain of the login message.)
  *
  * @throws Will throw an error if the signature verification fails.
  * @throws Will throw an error if the domain validation fails.
@@ -205,23 +240,39 @@ function validateParsedDomainAndUri(msgParsed: ParsedUri, expectedParsed: Parsed
 function validateLoginPayload(
   payload: SiwfResponsePayloadLogin,
   userPublicKey: SiwfPublicKey,
-  loginMsgUri: string | string[]
+  options: SiwfOptions,
 ): void {
   // Check that the userPublicKey signed the message
-  expect(
-    verifySignatureMaybeWrapped(
-      userPublicKey.encodedValue,
-      payload.signature.encodedValue,
-      stringToU8a(payload.payload.message)
-    ),
-    'Login message signature failed'
-  );
+  if (userPublicKey.type === 'Sr25519') {
+    expect(
+      verifySignatureMaybeWrapped(
+        userPublicKey.type,
+        userPublicKey.encodedValue,
+        payload.signature.encodedValue,
+        stringToU8a(payload.payload.message),
+        options,
+      ),
+      'Login message signature failed'
+    );
+  } else if (userPublicKey.type === 'Secp256k1') {
+    expect(
+      verifyEip712Signature(
+          reverseUnifiedAddressToEthereumAddress(userPublicKey.encodedValue as HexString),
+          payload.signature.encodedValue as HexString,
+          createSiwfLoginRequestPayload(payload.payload.message),
+          getChainTypeFromEndpoint(options.endpoint),
+      ),
+      'Login message signature failed'
+    );
+  } else {
+    throw Error(`Invalid key type ${userPublicKey.type}`);
+  }
 
   // Validate the message contents
   const msg = parseMessage(payload.payload.message);
 
   // Validate the domain
-  validateDomainAndUri(msg.uri, loginMsgUri);
+  validateDomainAndUri(msg.uri, options?.loginMsgUri ?? '');
 
   // Match address encoding before comparing
   // decodeAddress will throw if it cannot decode meaning bad address
@@ -241,34 +292,46 @@ function validateLoginPayload(
   }
 }
 
-function validateExtrinsicPayloadSignature(key: string, signature: string, message: string) {
-  expect(verifySignatureMaybeWrapped(key, signature, hexToU8a(message)), 'Payload signature failed');
+function validateExtrinsicPayloadSignature(
+  curveType: CurveType,
+  key: string,
+  signature: string,
+  message: SignedPayload,
+  options: SiwfOptions,
+) {
+  expect(verifySignatureMaybeWrapped(curveType, key, signature, message, options), 'Payload signature failed');
 }
 
-export async function validatePayloads(response: SiwfResponse, loginMsgUri: string | string[]): Promise<void> {
+export async function validatePayloads(response: SiwfResponse, options: SiwfOptions): Promise<void> {
   // Wait for the WASM to load
   await cryptoWaitReady();
   response.payloads.every((payload) => {
     switch (true) {
       case isPayloadLogin(payload):
-        return validateLoginPayload(payload, response.userPublicKey, loginMsgUri);
+        return validateLoginPayload(payload, response.userPublicKey, options);
       case isPayloadAddProvider(payload):
         return validateExtrinsicPayloadSignature(
+          response.userPublicKey.type,
           response.userPublicKey.encodedValue,
           payload.signature.encodedValue,
-          serializeAddProviderPayloadHex(payload.payload)
+          serializeAddProviderPayloadHex(response.userPublicKey.type, payload.payload),
+          options,
         );
       case isPayloadClaimHandle(payload):
         return validateExtrinsicPayloadSignature(
+          response.userPublicKey.type,
           response.userPublicKey.encodedValue,
           payload.signature.encodedValue,
-          serializeClaimHandlePayloadHex(payload.payload)
+          serializeClaimHandlePayloadHex(response.userPublicKey.type, payload.payload),
+          options,
         );
       case isPayloadItemActions(payload):
         return validateExtrinsicPayloadSignature(
+          response.userPublicKey.type,
           response.userPublicKey.encodedValue,
           payload.signature.encodedValue,
-          serializeItemActionsPayloadHex(payload.payload)
+          serializeItemActionsPayloadHex(response.userPublicKey.type, payload.payload),
+          options,
         );
     }
     throw new Error(`Unknown or Bad Payload: ${payload.type}`);

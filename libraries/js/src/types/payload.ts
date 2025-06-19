@@ -1,4 +1,4 @@
-import { isArrayOf, isNum, isObj, isStr } from './general.js';
+import {AlgorithmType, isArrayOf, isNum, isObj, isStr} from './general.js';
 import { SiwfResponse } from './response.js';
 
 interface SiwfResponsePayloadEndpoint {
@@ -8,7 +8,7 @@ interface SiwfResponsePayloadEndpoint {
 
 interface SiwfResponsePayloadBase {
   signature: {
-    algo: 'SR25519';
+    algo: AlgorithmType;
     encoding: 'base16';
     encodedValue: string;
   };
@@ -19,7 +19,7 @@ interface SiwfResponsePayloadBase {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isPayloadSignature(obj: any): obj is SiwfResponsePayloadBase['signature'] {
-  return isObj(obj) && obj.algo?.toUpperCase() === 'SR25519' && obj.encoding == 'base16' && isStr(obj.encodedValue);
+  return isObj(obj) && ['SR25519', 'SECP256K1'].includes(obj.algo?.toUpperCase()) && obj.encoding == 'base16' && isStr(obj.encodedValue);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

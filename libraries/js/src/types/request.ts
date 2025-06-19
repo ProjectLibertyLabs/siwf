@@ -1,4 +1,4 @@
-import { isArrayOf, isHexStr, isNum, isObj, isPublicKey, isStr, SiwfPublicKey } from './general.js';
+import { AlgorithmType, isArrayOf, isHexStr, isNum, isObj, isPublicKey, isStr, SiwfPublicKey } from './general.js';
 
 interface AnyOfRequired {
   anyOf: SiwfCredential[];
@@ -16,7 +16,7 @@ export interface SiwfSignedRequest {
   requestedSignatures: {
     publicKey: SiwfPublicKey;
     signature: {
-      algo: 'SR25519';
+      algo: AlgorithmType;
       encoding: 'base16';
       encodedValue: string;
     };
@@ -57,7 +57,7 @@ function isRequestedSignaturePayload(input: unknown): input is SiwfSignedRequest
 function isRequestedSignature(input: unknown): input is SiwfSignedRequest['requestedSignatures'] {
   return (
     isObj(input) &&
-    input.algo?.toUpperCase() === 'SR25519' &&
+    ['SR25519', 'SECP256K1'].includes(input.algo?.toUpperCase())  &&
     input.encoding === 'base16' &&
     isHexStr(input.encodedValue)
   );
