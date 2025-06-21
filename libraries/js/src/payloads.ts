@@ -25,7 +25,7 @@ import {
   HexString,
   reverseUnifiedAddressToEthereumAddress,
   createSiwfLoginRequestPayload,
-  verifyEip712Signature, signEip712,
+  verifySignature,
 } from '@frequency-chain/ethereum-utils';
 
 interface SiwxMessage {
@@ -140,7 +140,7 @@ function verifySignatureMaybeWrapped(
     );
 
   } else if (curveType === 'Secp256k1' && isSignedPayloadSupportedPayload(message)) {
-      return verifyEip712Signature(
+      return verifySignature(
         reverseUnifiedAddressToEthereumAddress(publicKey as HexString),
         signature as HexString,
         message,
@@ -256,7 +256,7 @@ function validateLoginPayload(
     );
   } else if (userPublicKey.type === 'Secp256k1') {
     expect(
-      verifyEip712Signature(
+      verifySignature(
           reverseUnifiedAddressToEthereumAddress(userPublicKey.encodedValue as HexString),
           payload.signature.encodedValue as HexString,
           createSiwfLoginRequestPayload(payload.payload.message),

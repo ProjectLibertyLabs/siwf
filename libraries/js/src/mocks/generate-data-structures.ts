@@ -7,7 +7,7 @@ import { ExampleLoginSr25519, ExampleNewProviderSr25519, ExampleNewUserSr25519, 
 import { serializeLoginPayloadHex } from '../util.js';
 import { encodeSignedRequest } from '../request.js';
 import { SiwfSignedRequest } from '../types/request.js';
-import {createSiwfSignedRequest, signEip712} from "@frequency-chain/ethereum-utils";
+import { createSiwfSignedRequest, sign } from "@frequency-chain/ethereum-utils";
 
 function output(obj: unknown, file: string) {
   writeFileSync(file, '```json\n' + JSON.stringify(obj, null, 2) + '\n```\n');
@@ -67,7 +67,7 @@ async function exampleSignedRequestSecp256k1(): Promise<SiwfSignedRequest> {
     permissions: [5, 7, 8, 9, 10],
   };
   const requestPayload = createSiwfSignedRequest(payload.callback, payload.permissions);
-  const signature = await signEip712(privateKey, requestPayload);
+  const signature = await sign(privateKey, requestPayload);
 
   return {
     requestedSignatures: {

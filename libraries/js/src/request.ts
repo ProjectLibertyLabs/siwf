@@ -14,7 +14,7 @@ import { stringFromBase64URL, stringToBase64URL } from './base64url.js';
 import {
   createSiwfSignedRequest,
   HexString,
-  signEip712,
+  sign,
   getKeyringPairFromSecp256k1PrivateKey,
   getUnifiedAddress,
 } from '@frequency-chain/ethereum-utils';
@@ -93,7 +93,7 @@ export async function generateSignedRequest(
 
     case 'Secp256k1':
       signature = (
-        await signEip712(providerKeyUriOrPrivateKey as HexString, createSiwfSignedRequest(callbackUri, permissions))
+        await sign(providerKeyUriOrPrivateKey as HexString, createSiwfSignedRequest(callbackUri, permissions))
       ).Ecdsa;
       publicKey = getUnifiedAddress(getKeyringPairFromSecp256k1PrivateKey(hexToU8a(providerKeyUriOrPrivateKey)));
       break;

@@ -176,12 +176,24 @@ SIWF services do not manage user sessions.
 
 ## New Frequency User Response
 
-{{#include ../DataStructures/Response-NewUser.md 0}}
+### Sr25519
+{{#include ../DataStructures/Sr25519/Response-NewUser.md 0}}
+
+### Secp256k1
+{{#include ../DataStructures/Secp256k1/Response-NewUser.md 0}}
 
 ## New Application/Delegation Response
 
-{{#include ../DataStructures/Response-NewProvider.md 0}}
+### Sr25519
+{{#include ../DataStructures/Sr25519/Response-NewProvider.md 0}}
+
+### Secp256k1
+{{#include ../DataStructures/Secp256k1/Response-NewProvider.md 0}}
 
 ## Login Only Response
 
-{{#include ../DataStructures/Response-LoginOnly.md 0}}
+### Sr25519
+{{#include ../DataStructures/Sr25519/Response-LoginOnly.md 0}}
+
+### Secp256k1
+{{#include ../DataStructures/Secp256k1/Response-LoginOnly.md 0}}

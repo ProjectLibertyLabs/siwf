@@ -38,13 +38,6 @@ This is JSON stringified and then [`base64url`](https://datatracker.ietf.org/doc
 
 ### New Application/Delegation Response
 
-<<<<<<< Updated upstream
-{{#include Response-NewProvider.md}}
-
-### Login Only Response
-
-{{#include Response-LoginOnly.md}}
-=======
 #### Sr25519
 {{#include ./Sr25519/Response-NewProvider.md 0}}
 
@@ -58,7 +51,6 @@ This is JSON stringified and then [`base64url`](https://datatracker.ietf.org/doc
 
 #### Secp256k1
 {{#include ./Secp256k1/Response-LoginOnly.md 0}}
->>>>>>> Stashed changes
 
 ## Verified User Data
 
