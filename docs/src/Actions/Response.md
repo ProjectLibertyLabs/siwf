@@ -113,7 +113,7 @@ Inside the message, `{{domain}}` is the domain of the application requesting the
 
 #### Validation Steps
 
-1. Perform an Sr25519 signature verification using:
+1. Perform an Sr25519/Secp256k1 signature verification using:
     - `userPublicKey`: The signing key
     - `payload.message`: The signed message parsing `\n` into `LF` line breaks
     - `signature.encodedValue`: The signature

@@ -42,7 +42,7 @@ URL: `www.frequencyaccess.com`
 - Uses Frequency Mainnet
 - Supports both SMS and Email verification
 - Bot protection via [hCaptcha](https://www.hcaptcha.com/)
-- Authorization Timeout: 30 seconds (?)
+- Authorization Timeout: 30 seconds
 
 #### Staging-Testnet
 
@@ -53,7 +53,7 @@ URL: `testnet.frequencyaccess.com`
 - No uptime guarantees
 - Limited bot protection
 - May rate limit usage
-- Authorization Timeout: 30 seconds (?)
+- Authorization Timeout: 30 seconds
 
 ## Prerequisites
 

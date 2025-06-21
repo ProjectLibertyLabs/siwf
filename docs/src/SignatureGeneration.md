@@ -54,6 +54,7 @@ Sign the serialized payload using Schnorr signatures over ECDSA.
 
 ### 2d: Example
 
+#### Sr25519
 Remember that SR25519 signatures are non-deterministic, so the payload and encoding will match, but the signature will be different.
 This example uses the `//Alice` seed phrase to generate the signature.
 
@@ -62,6 +63,13 @@ This example uses the `//Alice` seed phrase to generate the signature.
 - Wrapped Payload (Hex): `0x3c42797465733e5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a00003c2f42797465733e`
 - Signing Public Key (SS58 Prefix 90): `f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH`
 - Signature (Hex): `0x9abd3c54e7164e8385627dc692724b9467386acd7b02a13d6187e2c58fd91440d9134781c0410a45812f5532b71f4a34b4a5443ef8d68b5a1956f7f0f81d4286`
+
+#### Secp256k1
+This example uses the `0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133` private key.
+
+- Payload: `{ "callback": "http://localhost:3000", "permissions": [5, 7, 8, 9, 10] }`
+- Signing Public Key (SS58 Prefix 90): `f6d1YDa4agkaQ5Kqq8ZKwCf2Ew8UFz9ot2JNrBwHsFkhdtHEn`
+- Signature (Hex): `0x8248785b609da7f257667c55ac6cbf78f2b5d42aa63334950fbaa33cf6c719d6010b23d179819461287a67edc3d420b048fb69d0cb06247382adb5b412ebed1b1c`
 
 ## Step 3 (Optional): Request Credentials (Graph Key, Email, Phone)
 
