@@ -6,6 +6,7 @@ import {
   serializeClaimHandlePayloadHex,
   serializeItemActionsPayloadHex,
 } from './util.js';
+import { u8aToHex } from '@polkadot/util';
 
 describe('SCALE serializations', () => {
   it('serializeLoginPayloadHex serializes correctly', () => {
@@ -30,34 +31,40 @@ describe('SCALE serializations', () => {
 
   it('serializeAddProviderPayloadHex serializes correctly', () => {
     expect(
-      serializeAddProviderPayloadHex('Sr25519', {
-        authorizedMsaId: 1,
-        schemaIds: [5, 7, 8, 9, 10],
-        expiration: 24,
-      })
+      u8aToHex(
+        serializeAddProviderPayloadHex('Sr25519', {
+          authorizedMsaId: 1,
+          schemaIds: [5, 7, 8, 9, 10],
+          expiration: 24,
+        }) as Uint8Array
+      )
     ).toEqual('0x3c42797465733e01000000000000001405000700080009000a00180000003c2f42797465733e');
   });
 
   it('serializeItemActionsPayloadHex serializes correctly', () => {
     expect(
-      serializeItemActionsPayloadHex('Sr25519', {
-        schemaId: 7,
-        targetHash: 0,
-        expiration: 20,
-        actions: [
-          {
-            type: 'addItem',
-            payloadHex: '0x40eea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37',
-          },
-        ],
-      })
+      u8aToHex(
+        serializeItemActionsPayloadHex('Sr25519', {
+          schemaId: 7,
+          targetHash: 0,
+          expiration: 20,
+          actions: [
+            {
+              type: 'addItem',
+              payloadHex: '0x40eea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37',
+            },
+          ],
+        }) as Uint8Array
+      )
     ).toEqual('0x3c42797465733e1c001400000004003c2f42797465733e');
   });
 
   it('serializeClaimHandlePayloadHex serializes correctly', () => {
-    expect(serializeClaimHandlePayloadHex('Sr25519', { baseHandle: 'cassandre', expiration: 4576367 })).toEqual(
-      '0x3c42797465733e2463617373616e6472656fd445003c2f42797465733e'
-    );
+    expect(
+      u8aToHex(
+        serializeClaimHandlePayloadHex('Sr25519', { baseHandle: 'cassandre', expiration: 4576367 }) as Uint8Array
+      )
+    ).toEqual('0x3c42797465733e2463617373616e6472656fd445003c2f42797465733e');
   });
 });
 

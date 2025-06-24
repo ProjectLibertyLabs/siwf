@@ -52,7 +52,11 @@ export const ExampleLoginSr25519 = async (): Promise<SiwfResponse> => ({
 
 export const ExampleNewUserSr25519 = async (): Promise<SiwfResponse> => ({
   userPublicKey: ExampleUserPublicKeySr25519,
-  payloads: [ExamplePayloadCreateSponsoredAccountSr25519(), ExamplePayloadPublicGraphKeySr25519(), ExamplePayloadClaimHandleSr25519()],
+  payloads: [
+    ExamplePayloadCreateSponsoredAccountSr25519(),
+    ExamplePayloadPublicGraphKeySr25519(),
+    ExamplePayloadClaimHandleSr25519(),
+  ],
   credentials: [await ExampleEmailCredential(), await ExampleUserGraphCredential()],
 });
 
@@ -70,7 +74,11 @@ export const ExampleLoginSecp256k1 = async (): Promise<SiwfResponse> => ({
 
 export const ExampleNewUserSecp256k1 = async (): Promise<SiwfResponse> => ({
   userPublicKey: ExampleUserPublicKeySecp256k1,
-  payloads: [ExamplePayloadCreateSponsoredAccountSecp256k1(), ExamplePayloadPublicGraphKeySecp256k1(), ExamplePayloadClaimHandleSecp256k1()],
+  payloads: [
+    ExamplePayloadCreateSponsoredAccountSecp256k1(),
+    ExamplePayloadPublicGraphKeySecp256k1(),
+    ExamplePayloadClaimHandleSecp256k1(),
+  ],
   credentials: [],
 });
 

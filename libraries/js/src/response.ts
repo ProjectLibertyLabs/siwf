@@ -1,11 +1,10 @@
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import base64url from 'base64url';
 import { SiwfOptions } from './types/general.js';
-import {isSiwfResponse, MakePropertyRequired, SiwfResponse} from './types/response.js';
+import { isSiwfResponse, SiwfResponse } from './types/response.js';
 import { parseEndpoint } from './util.js';
 import { validateCredentials } from './credentials.js';
 import { validatePayloads } from './payloads.js';
-
 
 /**
  * Checks to see if there are any chain submissions in the result
@@ -63,12 +62,9 @@ export async function validateSiwfResponse(response: unknown, options: SiwfOptio
  *
  * @returns {Promise<SiwfResponse>} The parsed and validated response
  */
-export async function getLoginResult(
-  authorizationCode: string,
-  options: SiwfOptions
-): Promise<SiwfResponse> {
+export async function getLoginResult(authorizationCode: string, options: SiwfOptions): Promise<SiwfResponse> {
   const endpoint = new URL(
-    `${parseEndpoint(options?.endpoint ??  '', '/api/payload')}?authorizationCode=${authorizationCode}`
+    `${parseEndpoint(options?.endpoint ?? '', '/api/payload')}?authorizationCode=${authorizationCode}`
   );
   const response = await fetch(endpoint);
 

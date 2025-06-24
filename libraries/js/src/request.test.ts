@@ -24,6 +24,8 @@ const exampleApplicationContext = {
 describe('request', () => {
   it('correctly generates the signed request', async () => {
     const generated = await generateSignedRequest(
+      'base58',
+      'ss58',
       'Sr25519',
       '//Alice',
       'http://localhost:3000',
@@ -74,6 +76,8 @@ describe('request', () => {
 
   it('correctly generates the signature', async () => {
     const generated = await generateSignedRequest(
+      'base58',
+      'ss58',
       'Sr25519',
       '//Alice',
       'http://localhost:3000',
@@ -97,6 +101,8 @@ describe('request', () => {
 
   it('Can encode and decode successfully', async () => {
     const encoded = await generateEncodedSignedRequest(
+      'base58',
+      'ss58',
       'Sr25519',
       '//Alice',
       'http://localhost:3000',

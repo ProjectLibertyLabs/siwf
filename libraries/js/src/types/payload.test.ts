@@ -1,8 +1,8 @@
 import {
-  ExamplePayloadCreateSponsoredAccount,
-  ExamplePayloadGrantDelegation,
+  ExamplePayloadCreateSponsoredAccountSr25519,
+  ExamplePayloadGrantDelegationSr25519,
   ExamplePayloadLoginGood,
-  ExamplePayloadPublicGraphKey,
+  ExamplePayloadPublicGraphKeySr25519,
 } from '../mocks/payloads.js';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { isPayloadAddProvider, isPayloadItemActions, isPayloadLogin, isPayloads } from './payload.js';
@@ -20,18 +20,18 @@ describe('Payload Types and Type Predicates', () => {
     });
 
     it('is successful with ExamplePayloadCreateSponsoredAccount', () => {
-      expect(isPayloadAddProvider(ExamplePayloadCreateSponsoredAccount())).toBe(true);
-      expect(isPayloads([ExamplePayloadCreateSponsoredAccount()])).toBe(true);
+      expect(isPayloadAddProvider(ExamplePayloadCreateSponsoredAccountSr25519())).toBe(true);
+      expect(isPayloads([ExamplePayloadCreateSponsoredAccountSr25519()])).toBe(true);
     });
 
     it('is successful with ExamplePayloadGrantDelegation', () => {
-      expect(isPayloadAddProvider(ExamplePayloadGrantDelegation())).toBe(true);
-      expect(isPayloads([ExamplePayloadGrantDelegation()])).toBe(true);
+      expect(isPayloadAddProvider(ExamplePayloadGrantDelegationSr25519())).toBe(true);
+      expect(isPayloads([ExamplePayloadGrantDelegationSr25519()])).toBe(true);
     });
 
     it('is successful with ExamplePayloadPublicGraphKey', () => {
-      expect(isPayloadItemActions(ExamplePayloadPublicGraphKey())).toBe(true);
-      expect(isPayloads([ExamplePayloadPublicGraphKey()])).toBe(true);
+      expect(isPayloadItemActions(ExamplePayloadPublicGraphKeySr25519())).toBe(true);
+      expect(isPayloads([ExamplePayloadPublicGraphKeySr25519()])).toBe(true);
     });
   });
 
@@ -40,9 +40,9 @@ describe('Payload Types and Type Predicates', () => {
       expect(
         isPayloads([
           ExamplePayloadLoginGood(),
-          ExamplePayloadCreateSponsoredAccount(),
-          ExamplePayloadGrantDelegation(),
-          ExamplePayloadPublicGraphKey(),
+          ExamplePayloadCreateSponsoredAccountSr25519(),
+          ExamplePayloadGrantDelegationSr25519(),
+          ExamplePayloadPublicGraphKeySr25519(),
         ])
       ).toBe(true);
     });
@@ -51,9 +51,9 @@ describe('Payload Types and Type Predicates', () => {
       expect(
         isPayloads([
           ExamplePayloadLoginGood(),
-          ExamplePayloadCreateSponsoredAccount(),
-          ExamplePayloadGrantDelegation(),
-          ExamplePayloadPublicGraphKey(),
+          ExamplePayloadCreateSponsoredAccountSr25519(),
+          ExamplePayloadGrantDelegationSr25519(),
+          ExamplePayloadPublicGraphKeySr25519(),
           {},
         ])
       ).toBe(false);

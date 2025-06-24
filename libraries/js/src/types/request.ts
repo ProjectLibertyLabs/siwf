@@ -57,7 +57,7 @@ function isRequestedSignaturePayload(input: unknown): input is SiwfSignedRequest
 function isRequestedSignature(input: unknown): input is SiwfSignedRequest['requestedSignatures'] {
   return (
     isObj(input) &&
-    ['SR25519', 'SECP256K1'].includes(input.algo?.toUpperCase())  &&
+    ['SR25519', 'SECP256K1'].includes(input.algo?.toUpperCase()) &&
     input.encoding === 'base16' &&
     isHexStr(input.encodedValue)
   );

@@ -7,7 +7,7 @@ import {
   isPayloadLogin,
   SiwfResponsePayloadLogin,
 } from './types/payload.js';
-import {MakePropertyRequired, SiwfResponse} from './types/response.js';
+import { MakePropertyRequired, SiwfResponse } from './types/response.js';
 import {
   getChainTypeFromEndpoint,
   serializeAddProviderPayloadHex,
@@ -18,15 +18,11 @@ import {
   CurveType,
   isSignedPayloadSupportedPayload,
   isSignedPayloadUint8Array,
-  SignedPayload, SiwfOptions,
-  SiwfPublicKey
+  SignedPayload,
+  SiwfOptions,
+  SiwfPublicKey,
 } from './types/general.js';
-import {
-  HexString,
-  reverseUnifiedAddressToEthereumAddress,
-  createSiwfLoginRequestPayload,
-  verifySignature,
-} from '@frequency-chain/ethereum-utils';
+import { HexString, createSiwfLoginRequestPayload, verifySignature } from '@frequency-chain/ethereum-utils';
 
 interface SiwxMessage {
   domain: string;
@@ -123,7 +119,7 @@ function verifySignatureMaybeWrapped(
   publicKey: string,
   signature: string,
   message: SignedPayload,
-  options: MakePropertyRequired<SiwfOptions, 'endpoint'>,
+  options: MakePropertyRequired<SiwfOptions, 'endpoint'>
 ): boolean {
   if (curveType === 'Sr25519' && isSignedPayloadUint8Array(message)) {
     const unwrappedVerifyResult = signatureVerify(message, signature, publicKey);
@@ -135,19 +131,16 @@ function verifySignatureMaybeWrapped(
     const wrappedSignedBytes = u8aWrapBytes(message);
     const wrappedVerifyResult = signatureVerify(wrappedSignedBytes, signature, publicKey);
 
-    return (
-        wrappedVerifyResult.isValid || verifySignatureHashMaybeWrapped(publicKey, signature, message)
-    );
-
+    return wrappedVerifyResult.isValid || verifySignatureHashMaybeWrapped(publicKey, signature, message);
   } else if (curveType === 'Secp256k1' && isSignedPayloadSupportedPayload(message)) {
-      return verifySignature(
-        reverseUnifiedAddressToEthereumAddress(publicKey as HexString),
-        signature as HexString,
-        message,
-        getChainTypeFromEndpoint(options.endpoint),
-      );
+    return verifySignature(
+      publicKey as HexString,
+      signature as HexString,
+      message,
+      getChainTypeFromEndpoint(options.endpoint)
+    );
   } else {
-      throw new Error(`${curveType} is not supported!`);
+    throw new Error(`${curveType} is not supported!`);
   }
 }
 
@@ -240,7 +233,7 @@ function validateParsedDomainAndUri(msgParsed: ParsedUri, expectedParsed: Parsed
 function validateLoginPayload(
   payload: SiwfResponsePayloadLogin,
   userPublicKey: SiwfPublicKey,
-  options: SiwfOptions,
+  options: SiwfOptions
 ): void {
   // Check that the userPublicKey signed the message
   if (userPublicKey.type === 'Sr25519') {
@@ -250,17 +243,17 @@ function validateLoginPayload(
         userPublicKey.encodedValue,
         payload.signature.encodedValue,
         stringToU8a(payload.payload.message),
-        options,
+        options
       ),
       'Login message signature failed'
     );
   } else if (userPublicKey.type === 'Secp256k1') {
     expect(
       verifySignature(
-          reverseUnifiedAddressToEthereumAddress(userPublicKey.encodedValue as HexString),
-          payload.signature.encodedValue as HexString,
-          createSiwfLoginRequestPayload(payload.payload.message),
-          getChainTypeFromEndpoint(options.endpoint),
+        userPublicKey.encodedValue as HexString,
+        payload.signature.encodedValue as HexString,
+        createSiwfLoginRequestPayload(payload.payload.message),
+        getChainTypeFromEndpoint(options.endpoint)
       ),
       'Login message signature failed'
     );
@@ -277,10 +270,14 @@ function validateLoginPayload(
   // Match address encoding before comparing
   // decodeAddress will throw if it cannot decode meaning bad address
   try {
-    const msgAddr = decodeAddress(msg.address);
-    const userAddr = decodeAddress(userPublicKey.encodedValue);
-    // Hex for easy comparison
-    expect(u8aToHex(msgAddr) === u8aToHex(userAddr), 'Address mismatch');
+    if (userPublicKey.type === 'Sr25519') {
+      const msgAddr = decodeAddress(msg.address);
+      const userAddr = decodeAddress(userPublicKey.encodedValue);
+      // Hex for easy comparison
+      expect(u8aToHex(msgAddr) === u8aToHex(userAddr), 'Address mismatch');
+    } else if (userPublicKey.type === 'Secp256k1') {
+      expect(msg.address.toLowerCase() === userPublicKey.encodedValue.toLowerCase(), 'Address mismatch');
+    }
   } catch (_e) {
     throw new Error(
       `Invalid address or message does not match bytes of expected user public key value. Message: ${msg.address} User: ${userPublicKey.encodedValue}`
@@ -297,7 +294,7 @@ function validateExtrinsicPayloadSignature(
   key: string,
   signature: string,
   message: SignedPayload,
-  options: SiwfOptions,
+  options: SiwfOptions
 ) {
   expect(verifySignatureMaybeWrapped(curveType, key, signature, message, options), 'Payload signature failed');
 }
@@ -315,7 +312,7 @@ export async function validatePayloads(response: SiwfResponse, options: SiwfOpti
           response.userPublicKey.encodedValue,
           payload.signature.encodedValue,
           serializeAddProviderPayloadHex(response.userPublicKey.type, payload.payload),
-          options,
+          options
         );
       case isPayloadClaimHandle(payload):
         return validateExtrinsicPayloadSignature(
@@ -323,7 +320,7 @@ export async function validatePayloads(response: SiwfResponse, options: SiwfOpti
           response.userPublicKey.encodedValue,
           payload.signature.encodedValue,
           serializeClaimHandlePayloadHex(response.userPublicKey.type, payload.payload),
-          options,
+          options
         );
       case isPayloadItemActions(payload):
         return validateExtrinsicPayloadSignature(
@@ -331,7 +328,7 @@ export async function validatePayloads(response: SiwfResponse, options: SiwfOpti
           response.userPublicKey.encodedValue,
           payload.signature.encodedValue,
           serializeItemActionsPayloadHex(response.userPublicKey.type, payload.payload),
-          options,
+          options
         );
     }
     throw new Error(`Unknown or Bad Payload: ${payload.type}`);

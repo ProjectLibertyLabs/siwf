@@ -148,7 +148,8 @@ export const ExamplePayloadCreateSponsoredAccountSecp256k1 = (): SiwfResponsePay
   signature: {
     algo: 'SECP256K1',
     encoding: 'base16',
-    encodedValue: '0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c',
+    encodedValue:
+      '0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c',
   },
   endpoint: {
     pallet: 'msa',
@@ -193,7 +194,8 @@ export const ExamplePayloadGrantDelegationSecp256k1 = (): SiwfResponsePayloadAdd
   signature: {
     algo: 'SECP256K1',
     encoding: 'base16',
-    encodedValue: '0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c',
+    encodedValue:
+      '0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c',
   },
   endpoint: {
     pallet: 'msa',
@@ -250,7 +252,8 @@ export const ExamplePayloadPublicGraphKeySecp256k1 = (): SiwfResponsePayloadItem
   signature: {
     algo: 'SECP256K1',
     encoding: 'base16',
-    encodedValue: '0xfd1d273752f6494cf64bc7091b37fce35f1bdd861b676c7f5ee392675453764f2e322797b6a5f676e6716738c5ba8fabe82de83dbe5bf9d9e771ef717ff036241c',
+    encodedValue:
+      '0xfd1d273752f6494cf64bc7091b37fce35f1bdd861b676c7f5ee392675453764f2e322797b6a5f676e6716738c5ba8fabe82de83dbe5bf9d9e771ef717ff036241c',
   },
   endpoint: {
     pallet: 'statefulStorage',
@@ -299,7 +302,8 @@ export const ExamplePayloadClaimHandleSecp256k1 = (): SiwfResponsePayloadClaimHa
   signature: {
     algo: 'SECP256K1',
     encoding: 'base16',
-    encodedValue: '0xeaa194e6f0074d777633522370fc0f74b200d933e1f1219bc8379ace1fb42759463e7b71d796abf839f2c1f78ecd0af4872010300afac4fbdb44d584c4686e041b',
+    encodedValue:
+      '0xeaa194e6f0074d777633522370fc0f74b200d933e1f1219bc8379ace1fb42759463e7b71d796abf839f2c1f78ecd0af4872010300afac4fbdb44d584c4686e041b',
   },
   endpoint: {
     pallet: 'handles',

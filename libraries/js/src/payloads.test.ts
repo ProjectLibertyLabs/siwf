@@ -2,16 +2,16 @@ import { describe, it, vi, expect, beforeAll } from 'vitest';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import { validatePayloads } from './payloads.js';
 import {
-  ExamplePayloadClaimHandle,
-  ExamplePayloadCreateSponsoredAccount,
-  ExamplePayloadGrantDelegation,
+  ExamplePayloadClaimHandleSr25519,
+  ExamplePayloadCreateSponsoredAccountSr25519,
+  ExamplePayloadGrantDelegationSr25519,
   ExamplePayloadLoginGood,
-  ExamplePayloadLoginStatic,
+  ExamplePayloadLoginStaticSr25519,
   ExamplePayloadLoginUrl,
-  ExamplePayloadPublicGraphKey,
+  ExamplePayloadPublicGraphKeySr25519,
 } from './mocks/payloads.js';
-import { ExampleUserPublicKey } from './mocks/index.js';
-import { ExampleProviderKey } from './mocks/keys.js';
+import { ExampleUserPublicKeySr25519 } from './mocks/index.js';
+import { ExampleProviderKeySr25519 } from './mocks/keys.js';
 
 global.fetch = vi.fn();
 
@@ -53,7 +53,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
               },
             ],
           },
-          'localhost'
+          { loginMsgUri: 'localhost', endpoint: '' }
         )
       ).resolves.toBeUndefined();
     });
@@ -62,10 +62,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginGood()],
           },
-          'your-app.com'
+          { loginMsgUri: 'your-app.com', endpoint: '' }
         )
       ).resolves.toBeUndefined();
     });
@@ -74,10 +74,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrl('example://login')],
           },
-          'example://login'
+          { loginMsgUri: 'example://login', endpoint: '' }
         )
       ).resolves.toBeUndefined();
     });
@@ -86,10 +86,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrl('https://example.com/login')],
           },
-          'https://example.com/login'
+          { loginMsgUri: 'https://example.com/login', endpoint: '' }
         )
       ).resolves.toBeUndefined();
     });
@@ -98,10 +98,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrl('http://www.example.com/login')],
           },
-          'www.example.com/login'
+          { loginMsgUri: 'www.example.com/login', endpoint: '' }
         )
       ).resolves.toBeUndefined();
     });
@@ -110,10 +110,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrl('localhost:3030/login/path')],
           },
-          'localhost:3030/login/path'
+          { loginMsgUri: 'localhost:3030/login/path', endpoint: '' }
         )
       ).resolves.toBeUndefined();
     });
@@ -122,10 +122,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect;
       validatePayloads(
         {
-          userPublicKey: ExampleUserPublicKey,
+          userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [ExamplePayloadLoginUrl('http://localhost:3030/login')],
         },
-        ['otherdomain/login/callback', 'localhost:3030/login']
+        { loginMsgUri: ['otherdomain/login/callback', 'localhost:3030/login'], endpoint: '' }
       );
     });
 
@@ -133,20 +133,20 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrl('http://badhost')],
           },
-          'localhost'
+          { loginMsgUri: 'localhost', endpoint: '' }
         )
       ).rejects.toThrowError('Message does not match expected domain. Domain: badhost Expected: localhost');
 
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginGood()],
           },
-          'betterhost'
+          { loginMsgUri: 'betterhost', endpoint: '' }
         )
       ).rejects.toThrowError('Message does not match expected domain. Domain: your-app.com Expected: betterhost');
     });
@@ -155,10 +155,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrl('notexample://login')],
           },
-          'example://login'
+          { loginMsgUri: 'example://login', endpoint: '' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain scheme mismatch. Scheme: notexample Expected: example'
@@ -170,10 +170,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrl('http://example.com/login')],
           },
-          'https://example.com/login'
+          { loginMsgUri: 'https://example.com/login', endpoint: '' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain scheme mismatch. Scheme: http Expected: https'
@@ -183,10 +183,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrl('https://www.examples.com/login')],
           },
-          'https://www.example.com/login'
+          { loginMsgUri: 'https://www.example.com/login', endpoint: '' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain: www.examples.com Expected: www.example.com'
@@ -196,10 +196,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrl('https://www.example.com/logins')],
           },
-          'https://www.example.com/login'
+          { loginMsgUri: 'https://www.example.com/login', endpoint: '' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain path mismatch. Path: logins Expected: login'
@@ -210,10 +210,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrl('http://www.examples.com/login')],
           },
-          'www.example.com/login'
+          { loginMsgUri: 'www.example.com/login', endpoint: '' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain: www.examples.com Expected: www.example.com'
@@ -224,10 +224,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
+            userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrl('https://example.com/login?query=string')],
           },
-          'https://example.com/login'
+          { loginMsgUri: 'https://example.com/login', endpoint: '' }
         )
       ).resolves.toBeUndefined();
     });
@@ -236,10 +236,10 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
       await expect(
         validatePayloads(
           {
-            userPublicKey: ExampleUserPublicKey,
-            payloads: [ExamplePayloadLoginStatic],
+            userPublicKey: ExampleUserPublicKeySr25519,
+            payloads: [ExamplePayloadLoginStaticSr25519],
           },
-          'your-app.com'
+          { loginMsgUri: 'your-app.com', endpoint: '' }
         )
       ).resolves.toBeUndefined();
     });
@@ -249,24 +249,24 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
     await expect(
       validatePayloads(
         {
-          userPublicKey: ExampleUserPublicKey,
-          payloads: [ExamplePayloadClaimHandle()],
+          userPublicKey: ExampleUserPublicKeySr25519,
+          payloads: [ExamplePayloadClaimHandleSr25519()],
         },
-        'localhost'
+        { loginMsgUri: 'localhost', endpoint: '' }
       )
     ).resolves.toBeUndefined();
   });
 
   it('Can fail a ClaimHandle with wrong key', async () => {
-    const upk = { ...ExampleUserPublicKey };
-    upk.encodedValue = ExampleProviderKey.public;
+    const upk = { ...ExampleUserPublicKeySr25519 };
+    upk.encodedValue = ExampleProviderKeySr25519.public;
     await expect(
       validatePayloads(
         {
           userPublicKey: upk,
-          payloads: [ExamplePayloadClaimHandle()],
+          payloads: [ExamplePayloadClaimHandleSr25519()],
         },
-        'localhost'
+        { loginMsgUri: 'localhost', endpoint: '' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
@@ -275,24 +275,24 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
     await expect(
       validatePayloads(
         {
-          userPublicKey: ExampleUserPublicKey,
-          payloads: [ExamplePayloadCreateSponsoredAccount()],
+          userPublicKey: ExampleUserPublicKeySr25519,
+          payloads: [ExamplePayloadCreateSponsoredAccountSr25519()],
         },
-        'localhost'
+        { loginMsgUri: 'localhost', endpoint: '' }
       )
     ).resolves.toBeUndefined();
   });
 
   it('Can fail a bad Create MSA with a bad signature', async () => {
-    const payload = ExamplePayloadCreateSponsoredAccount();
+    const payload = ExamplePayloadCreateSponsoredAccountSr25519();
     payload.signature.encodedValue += 'ff';
     await expect(
       validatePayloads(
         {
-          userPublicKey: ExampleUserPublicKey,
+          userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [payload],
         },
-        'localhost'
+        { loginMsgUri: 'localhost', endpoint: '' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
@@ -301,24 +301,24 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
     await expect(
       validatePayloads(
         {
-          userPublicKey: ExampleUserPublicKey,
-          payloads: [ExamplePayloadGrantDelegation()],
+          userPublicKey: ExampleUserPublicKeySr25519,
+          payloads: [ExamplePayloadGrantDelegationSr25519()],
         },
-        'localhost'
+        { loginMsgUri: 'localhost', endpoint: '' }
       )
     ).resolves.toBeUndefined();
   });
 
   it('Can fail a bad Add Delegation with a wrong payload', async () => {
-    const payload = ExamplePayloadGrantDelegation();
+    const payload = ExamplePayloadGrantDelegationSr25519();
     payload.payload.authorizedMsaId = 100000;
     await expect(
       validatePayloads(
         {
-          userPublicKey: ExampleUserPublicKey,
+          userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [payload],
         },
-        'localhost'
+        { loginMsgUri: 'localhost', endpoint: '' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
@@ -327,38 +327,38 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
     await expect(
       validatePayloads(
         {
-          userPublicKey: ExampleUserPublicKey,
-          payloads: [ExamplePayloadPublicGraphKey()],
+          userPublicKey: ExampleUserPublicKeySr25519,
+          payloads: [ExamplePayloadPublicGraphKeySr25519()],
         },
-        'localhost'
+        { loginMsgUri: 'localhost', endpoint: '' }
       )
     ).resolves.toBeUndefined();
   });
 
   it('Can fail with a wrong Add Items payload', async () => {
-    const payload = ExamplePayloadPublicGraphKey();
+    const payload = ExamplePayloadPublicGraphKeySr25519();
     payload.payload.schemaId = 1111;
     await expect(
       validatePayloads(
         {
-          userPublicKey: ExampleUserPublicKey,
+          userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [payload],
         },
-        'localhost'
+        { loginMsgUri: 'localhost', endpoint: '' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
 
   it('Can fail with a wrong payload', async () => {
-    const payload = ExamplePayloadPublicGraphKey();
+    const payload = ExamplePayloadPublicGraphKeySr25519();
     (payload.payload as any) = {};
     await expect(
       validatePayloads(
         {
-          userPublicKey: ExampleUserPublicKey,
+          userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [payload],
         },
-        'localhost'
+        { loginMsgUri: 'localhost', endpoint: '' }
       )
     ).rejects.toThrowError('Unknown or Bad Payload: itemActions');
   });

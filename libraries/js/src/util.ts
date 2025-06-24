@@ -8,7 +8,7 @@ import {
   SiwfResponsePayloadClaimHandle,
   SiwfResponsePayloadItemActions,
 } from './types/payload.js';
-import {AlgorithmType, CurveType, SignedPayload} from './types';
+import { AlgorithmType, CurveType, SignedPayload } from './types';
 import {
   ChainType,
   createAddProvider,
@@ -16,7 +16,6 @@ import {
   createItemizedAddAction,
   createItemizedSignaturePayloadV2,
   HexString,
-  SupportedPayload,
 } from '@frequency-chain/ethereum-utils';
 const registry = new TypeRegistry();
 
