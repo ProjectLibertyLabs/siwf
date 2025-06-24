@@ -11,6 +11,8 @@ import {
   serializeClaimHandlePayloadHex,
   serializeItemActionsPayloadHex,
 } from '../util.js';
+import { ExampleUserPublicKeySecp256k1 } from './index.js';
+import { createSiwfLoginRequestPayload, sign } from '@frequency-chain/ethereum-utils';
 
 function generateLoginMessage(account: string, issued: Date, expires: Date, uri: URL) {
   return `${uri.hostname} wants you to sign in with your Frequency account:\n${account}\n\n\n\nURI: ${uri}\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: ${issued.toISOString()}\nExpiration Time: ${expires.toISOString()}`;
@@ -19,7 +21,7 @@ function generateLoginMessage(account: string, issued: Date, expires: Date, uri:
 // Setup now so that it is consistent for the entire test run
 const now = Date.now();
 
-const loginMessageUrl = (url: string) =>
+const loginMessageUrlSr25519 = (url: string) =>
   generateLoginMessage(
     ExampleUserKeySr25519.public,
     new Date(now - 24 * 60 * 60 * 1000),
@@ -27,9 +29,19 @@ const loginMessageUrl = (url: string) =>
     new URL(url)
   );
 
-const loginMessageGood = () => loginMessageUrl('https://your-app.com/signin/callback');
+const loginMessageUrlSecp256k1 = (url: string) =>
+  generateLoginMessage(
+    ExampleUserPublicKeySecp256k1.encodedValue,
+    new Date(now - 24 * 60 * 60 * 1000),
+    new Date(now + 24 * 60 * 60 * 1000),
+    new URL(url)
+  );
 
-const loginMessageExpired = () =>
+const loginMessageGoodSr25519 = () => loginMessageUrlSr25519('https://your-app.com/signin/callback');
+
+const loginMessageGoodSecp256k1 = () => loginMessageUrlSecp256k1('https://your-app.com/signin/callback');
+
+const loginMessageExpiredSr25519 = () =>
   generateLoginMessage(
     ExampleUserKeySr25519.public,
     new Date(now - 2 * 24 * 60 * 60 * 1000),
@@ -37,39 +49,98 @@ const loginMessageExpired = () =>
     new URL('https://your-app.com/signin/callback')
   );
 
-export const ExamplePayloadLoginUrl = (url: string): SiwfResponsePayloadLogin => ({
+const loginMessageExpiredSecp256k1 = () =>
+  generateLoginMessage(
+    ExampleUserPublicKeySecp256k1.encodedValue,
+    new Date(now - 2 * 24 * 60 * 60 * 1000),
+    new Date(now - 24 * 60 * 60 * 1000),
+    new URL('https://your-app.com/signin/callback')
+  );
+
+export const ExamplePayloadLoginUrlSr25519 = (url: string): SiwfResponsePayloadLogin => ({
   signature: {
     algo: 'SR25519',
     encoding: 'base16',
-    encodedValue: u8aToHex(ExampleUserKeySr25519.keyPair().sign(loginMessageUrl(url))),
+    encodedValue: u8aToHex(ExampleUserKeySr25519.keyPair().sign(loginMessageUrlSr25519(url))),
   },
   type: 'login',
   payload: {
-    message: loginMessageUrl(url),
+    message: loginMessageUrlSr25519(url),
   },
 });
 
-export const ExamplePayloadLoginGood = (): SiwfResponsePayloadLogin => ({
+export const ExamplePayloadLoginUrlSecp256k1 = async (url: string): Promise<SiwfResponsePayloadLogin> => ({
   signature: {
-    algo: 'SR25519',
+    algo: 'SECP256K1',
     encoding: 'base16',
-    encodedValue: u8aToHex(ExampleUserKeySr25519.keyPair().sign(loginMessageGood())),
+    encodedValue: (
+      await sign(
+        '0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133',
+        createSiwfLoginRequestPayload(loginMessageUrlSecp256k1(url))
+      )
+    ).Ecdsa,
   },
   type: 'login',
   payload: {
-    message: loginMessageGood(),
+    message: loginMessageUrlSecp256k1(url),
   },
 });
 
-export const ExamplePayloadLoginExpired = (): SiwfResponsePayloadLogin => ({
+export const ExamplePayloadLoginGoodSr25519 = (): SiwfResponsePayloadLogin => ({
   signature: {
     algo: 'SR25519',
     encoding: 'base16',
-    encodedValue: u8aToHex(ExampleUserKeySr25519.keyPair().sign(loginMessageExpired())),
+    encodedValue: u8aToHex(ExampleUserKeySr25519.keyPair().sign(loginMessageGoodSr25519())),
   },
   type: 'login',
   payload: {
-    message: loginMessageExpired(),
+    message: loginMessageGoodSr25519(),
+  },
+});
+
+export const ExamplePayloadLoginGoodSecp256k1 = async (): Promise<SiwfResponsePayloadLogin> => ({
+  signature: {
+    algo: 'SECP256K1',
+    encoding: 'base16',
+    encodedValue: (
+      await sign(
+        '0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133',
+        createSiwfLoginRequestPayload(loginMessageGoodSecp256k1())
+      )
+    ).Ecdsa,
+  },
+  type: 'login',
+  payload: {
+    message: loginMessageGoodSecp256k1(),
+  },
+});
+
+export const ExamplePayloadLoginExpiredSr25519 = (): SiwfResponsePayloadLogin => ({
+  signature: {
+    algo: 'SR25519',
+    encoding: 'base16',
+    encodedValue: u8aToHex(ExampleUserKeySr25519.keyPair().sign(loginMessageExpiredSr25519())),
+  },
+  type: 'login',
+  payload: {
+    message: loginMessageExpiredSr25519(),
+  },
+});
+
+export const ExamplePayloadLoginExpiredSecp256k1 = async (): Promise<SiwfResponsePayloadLogin> => ({
+  signature: {
+    algo: 'SECP256K1',
+    encoding: 'base16',
+    encodedValue: (
+      await sign(
+        '0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133',
+        createSiwfLoginRequestPayload(loginMessageExpiredSecp256k1())
+      )
+    ).Ecdsa,
+  },
+  type: 'login',
+  payload: {
+    message: loginMessageExpiredSecp256k1(),
   },
 });
 
@@ -100,13 +171,13 @@ export const ExamplePayloadLoginStaticSecp256k1: SiwfResponsePayloadLogin = {
     algo: 'SECP256K1',
     encoding: 'base16',
     encodedValue:
-      '0xf61ea075f7bfb3fb00d730e50b43c503eba6020a580a0a3c7cb43d55ed8c8a8b7d47c5140e8ed2c3a6e521c31bcb62946e3758188eacbf71831c78695842ae521c',
+      '0xe8a1f5ef2c4afc8296adf84f92971bf270d68e89ffc512d13d6f5b99c3b2cd9108d5868e8a3a46d1c406137947d73a054888e195390a1fc4f69c4b16df4119d41b',
   },
   type: 'login',
   payload: {
     message:
       'your-app.com wants you to sign in with your Frequency account:\n' +
-      'f6d1YDa4agkaQ5Kqq8ZKwCf2Ew8UFz9ot2JNrBwHsFkhdtHEn\n' +
+      '0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac\n' +
       '\n' +
       '\n' +
       '\n' +

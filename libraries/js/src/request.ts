@@ -12,7 +12,7 @@ import { getAlgorithmForCurveType, requestPayloadBytes, serializeLoginPayloadHex
 import { VerifiedEmailAddress, VerifiedGraphKey, VerifiedPhoneNumber } from './constants.js';
 import { stringFromBase64URL, stringToBase64URL } from './base64url.js';
 import {
-  createSiwfSignedRequest,
+  createSiwfSignedRequestPayload,
   HexString,
   sign,
   getKeyringPairFromSecp256k1PrivateKey,
@@ -97,9 +97,9 @@ export async function generateSignedRequest(
 
     case 'Secp256k1':
       signature = (
-        await sign(providerKeyUriOrPrivateKey as HexString, createSiwfSignedRequest(callbackUri, permissions))
+        await sign(providerKeyUriOrPrivateKey as HexString, createSiwfSignedRequestPayload(callbackUri, permissions))
       ).Ecdsa;
-      publicKey = getUnifiedAddress(getKeyringPairFromSecp256k1PrivateKey(hexToU8a(providerKeyUriOrPrivateKey)));
+      publicKey = getKeyringPairFromSecp256k1PrivateKey(hexToU8a(providerKeyUriOrPrivateKey)).address;
       break;
 
     default:
