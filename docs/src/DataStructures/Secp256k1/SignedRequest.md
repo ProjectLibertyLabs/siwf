@@ -2,15 +2,15 @@
 {
   "requestedSignatures": {
     "publicKey": {
-      "encodedValue": "f6d1YDa4agkaQ5Kqq8ZKwCf2Ew8UFz9ot2JNrBwHsFkhdtHEn",
-      "encoding": "base58",
-      "format": "ss58",
+      "encodedValue": "0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac",
+      "encoding": "base16",
+      "format": "eip-55",
       "type": "Secp256k1"
     },
     "signature": {
       "algo": "SECP256K1",
       "encoding": "base16",
-      "encodedValue": "0x8248785b609da7f257667c55ac6cbf78f2b5d42aa63334950fbaa33cf6c719d6010b23d179819461287a67edc3d420b048fb69d0cb06247382adb5b412ebed1b1c"
+      "encodedValue": "0xaaeb3512bf3345e98a890f140954b00d1600203406e9ed85e732ad389f5a60e264bfc9808ade80e6b9cc9c6182b52e2a57052eff091e50e40f75af386eaea6551b"
     },
     "payload": {
       "callback": "http://localhost:3000",

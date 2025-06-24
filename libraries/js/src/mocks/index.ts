@@ -23,7 +23,7 @@ export const ExampleUserPublicKeySr25519: SiwfPublicKey = {
 };
 
 export const ExampleUserPublicKeySecp256k1: SiwfPublicKey = {
-  encodedValue: '0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac',
+  encodedValue: '0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac',
   encoding: 'base16',
   format: 'eip-55',
   type: 'Secp256k1',

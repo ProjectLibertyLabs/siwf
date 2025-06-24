@@ -1,9 +1,9 @@
 ```json
 {
   "userPublicKey": {
-    "encodedValue": "f6d1YDa4agkaQ5Kqq8ZKwCf2Ew8UFz9ot2JNrBwHsFkhdtHEn",
-    "encoding": "base58",
-    "format": "ss58",
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
     "type": "Secp256k1"
   },
   "payloads": [
