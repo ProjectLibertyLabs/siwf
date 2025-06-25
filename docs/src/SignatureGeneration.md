@@ -68,7 +68,7 @@ This example uses the `//Alice` seed phrase to generate the signature.
 This example uses the `0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133` private key.
 
 - Payload: `{ "callback": "http://localhost:3000", "permissions": [5, 7, 8, 9, 10] }`
-- Signing Public Key (SS58 Prefix 90): `f6d1YDa4agkaQ5Kqq8ZKwCf2Ew8UFz9ot2JNrBwHsFkhdtHEn`
+- Signing Ethereum Address: `0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac`
 - Signature (Hex): `0x8248785b609da7f257667c55ac6cbf78f2b5d42aa63334950fbaa33cf6c719d6010b23d179819461287a67edc3d420b048fb69d0cb06247382adb5b412ebed1b1c`
 
 ## Step 3 (Optional): Request Credentials (Graph Key, Email, Phone)

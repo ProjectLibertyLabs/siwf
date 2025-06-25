@@ -64,7 +64,7 @@ export async function validateSiwfResponse(response: unknown, options: SiwfOptio
  */
 export async function getLoginResult(authorizationCode: string, options: SiwfOptions): Promise<SiwfResponse> {
   const endpoint = new URL(
-    `${parseEndpoint(options?.endpoint ?? '', '/api/payload')}?authorizationCode=${authorizationCode}`
+    `${parseEndpoint(options?.endpoint, '/api/payload')}?authorizationCode=${authorizationCode}`
   );
   const response = await fetch(endpoint);
 
