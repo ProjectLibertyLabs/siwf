@@ -9,7 +9,7 @@ describe("SIWF request test", () => {
     const credentials = [siwf.VerifiedEmailAddressCredential];
 
     try {
-      const signedRequest = await siwf.generateSignedRequest(providerKeyUri, callbackUri, permissions, credentials);
+      const signedRequest = await siwf.generateSignedRequest('base58', 'ss58', 'Sr25519', providerKeyUri, callbackUri, permissions, credentials);
       const authenticationUrl = await siwf.generateAuthenticationUrl(
         signedRequest,
         new URLSearchParams({ mode: "dark" }),
