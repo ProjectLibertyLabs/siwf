@@ -227,6 +227,7 @@ The signature MUST be from one of the <a href="https://docs.frequency.xyz/Identi
 <h3 id="2c-sign-the-wrapped-payload-bytes"><a class="header" href="#2c-sign-the-wrapped-payload-bytes">2c: Sign the Wrapped Payload Bytes</a></h3>
 <p>Sign the serialized payload using Schnorr signatures over ECDSA.</p>
 <h3 id="2d-example"><a class="header" href="#2d-example">2d: Example</a></h3>
+<h4 id="sr25519"><a class="header" href="#sr25519">Sr25519</a></h4>
 <p>Remember that SR25519 signatures are non-deterministic, so the payload and encoding will match, but the signature will be different.
 This example uses the <code>//Alice</code> seed phrase to generate the signature.</p>
 <ul>
@@ -235,6 +236,13 @@ This example uses the <code>//Alice</code> seed phrase to generate the signature
 <li>Wrapped Payload (Hex): <code>0x3c42797465733e5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a00003c2f42797465733e</code></li>
 <li>Signing Public Key (SS58 Prefix 90): <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code></li>
 <li>Signature (Hex): <code>0x9abd3c54e7164e8385627dc692724b9467386acd7b02a13d6187e2c58fd91440d9134781c0410a45812f5532b71f4a34b4a5443ef8d68b5a1956f7f0f81d4286</code></li>
+</ul>
+<h4 id="secp256k1"><a class="header" href="#secp256k1">Secp256k1</a></h4>
+<p>This example uses the <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code> private key.</p>
+<ul>
+<li>Payload: <code>{ "callback": "http://localhost:3000", "permissions": [5, 7, 8, 9, 10] }</code></li>
+<li>Signing Ethereum Address: <code>0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</code></li>
+<li>Signature (Hex): <code>0x8248785b609da7f257667c55ac6cbf78f2b5d42aa63334950fbaa33cf6c719d6010b23d179819461287a67edc3d420b048fb69d0cb06247382adb5b412ebed1b1c</code></li>
 </ul>
 <h2 id="step-3-optional-request-credentials-graph-key-email-phone"><a class="header" href="#step-3-optional-request-credentials-graph-key-email-phone">Step 3 (Optional): Request Credentials (Graph Key, Email, Phone)</a></h2>
 <p>Frequency Access users can provide verified email or phone/SMS to your application when requested and approved by the user.
@@ -329,6 +337,7 @@ const options = { endpoint: "production" };
 const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new URLSearchParams({ id: getSessionId() }));
 </code></pre>
 <h3 id="full-example-request"><a class="header" href="#full-example-request">Full Example Request</a></h3>
+<h4 id="sr25519-1"><a class="header" href="#sr25519-1">Sr25519</a></h4>
 <pre><code class="language-json">{
   "requestedSignatures": {
     "publicKey": {
@@ -340,7 +349,7 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
     "signature": {
       "algo": "SR25519",
       "encoding": "base16",
-      "encodedValue": "0x0407ce814b77861df94d16b3fcb317d37a07abc2a7f9cd7c02cc22529ee7b32d56795f88bd6b4ad106b72b91b6246a783671bcd24cb01aaf0e9316db5e0cd085"
+      "encodedValue": "0x08e3cc8959406e23fe2b9e07576e4dfe565ab166a5d6fe5b0f7a0044152f683eded554732499687ada000abcc2411e327c552f34f7c3629e8d65568425fe358f"
     },
     "payload": {
       "callback": "http://localhost:3000",
@@ -376,13 +385,58 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
         }
       ]
     }
-  ],
-  "applicationContext": {
-    "url": "https://example.org/myapp/siwf-manifest.json",
-    "hash": [
-      "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
-    ]
-  }
+  ]
+}
+</code></pre>
+<h4 id="secp256k1-1"><a class="header" href="#secp256k1-1">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "requestedSignatures": {
+    "publicKey": {
+      "encodedValue": "0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac",
+      "encoding": "base16",
+      "format": "eip-55",
+      "type": "Secp256k1"
+    },
+    "signature": {
+      "algo": "SECP256K1",
+      "encoding": "base16",
+      "encodedValue": "0xaaeb3512bf3345e98a890f140954b00d1600203406e9ed85e732ad389f5a60e264bfc9808ade80e6b9cc9c6182b52e2a57052eff091e50e40f75af386eaea6551b"
+    },
+    "payload": {
+      "callback": "http://localhost:3000",
+      "permissions": [
+        5,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  "requestedCredentials": [
+    {
+      "type": "VerifiedGraphKeyCredential",
+      "hash": [
+        "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+      ]
+    },
+    {
+      "anyOf": [
+        {
+          "type": "VerifiedEmailAddressCredential",
+          "hash": [
+            "bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi"
+          ]
+        },
+        {
+          "type": "VerifiedPhoneNumberCredential",
+          "hash": [
+            "bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq"
+          ]
+        }
+      ]
+    }
+  ]
 }
 </code></pre>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>

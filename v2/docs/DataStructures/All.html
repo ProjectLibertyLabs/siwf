@@ -195,16 +195,28 @@
                         <h1 id="data-structure-reference"><a class="header" href="#data-structure-reference">Data Structure Reference</a></h1>
 <h2 id="request--response-from-siwf"><a class="header" href="#request--response-from-siwf">Request / Response from SIWF</a></h2>
 <h3 id="request"><a class="header" href="#request">Request</a></h3>
+<h4 id="sr25519"><a class="header" href="#sr25519">Sr25519</a></h4>
 <pre><code class="language-json">{
-  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDk2MGYxOTVkYzFmOTFiZjcxYzBiMzUyMzE1MGFlMzc0NzFiZWRlMDdhMDAzOTA5NjQ3Y2NmMDQwYWNkNWNkMDRlYTQ4NzBiZDEyNGNhZmEyZGViNTliMGUzNzhjYjE5ZmJjNmFmNjAxYjc1NTU5ZmFhYjdiNzY4ZGU4MWEwOTgzIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0",
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDA4ZTNjYzg5NTk0MDZlMjNmZTJiOWUwNzU3NmU0ZGZlNTY1YWIxNjZhNWQ2ZmU1YjBmN2EwMDQ0MTUyZjY4M2VkZWQ1NTQ3MzI0OTk2ODdhZGEwMDBhYmNjMjQxMWUzMjdjNTUyZjM0ZjdjMzYyOWU4ZDY1NTY4NDI1ZmUzNThmIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0",
+  "mode": "dark"
+}
+</code></pre>
+<h4 id="secp256k1"><a class="header" href="#secp256k1">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNGZmM2E5Y2YwNGM3MWRiYzk0ZDBiNTY2ZjdhMjdiOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV19",
   "mode": "dark"
 }
 </code></pre>
 <h3 id="request-url"><a class="header" href="#request-url">Request URL</a></h3>
-<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDk2MGYxOTVkYzFmOTFiZjcxYzBiMzUyMzE1MGFlMzc0NzFiZWRlMDdhMDAzOTA5NjQ3Y2NmMDQwYWNkNWNkMDRlYTQ4NzBiZDEyNGNhZmEyZGViNTliMGUzNzhjYjE5ZmJjNmFmNjAxYjc1NTU5ZmFhYjdiNzY4ZGU4MWEwOTgzIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0&amp;mode=dark"
+<h4 id="sr25519-1"><a class="header" href="#sr25519-1">Sr25519</a></h4>
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDA4ZTNjYzg5NTk0MDZlMjNmZTJiOWUwNzU3NmU0ZGZlNTY1YWIxNjZhNWQ2ZmU1YjBmN2EwMDQ0MTUyZjY4M2VkZWQ1NTQ3MzI0OTk2ODdhZGEwMDBhYmNjMjQxMWUzMjdjNTUyZjM0ZjdjMzYyOWU4ZDY1NTY4NDI1ZmUzNThmIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0&amp;mode=dark"
+</code></pre>
+<h4 id="secp256k1-1"><a class="header" href="#secp256k1-1">Secp256k1</a></h4>
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNGZmM2E5Y2YwNGM3MWRiYzk0ZDBiNTY2ZjdhMjdiOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV19&amp;mode=dark"
 </code></pre>
 <h3 id="signed-request"><a class="header" href="#signed-request">Signed Request</a></h3>
 <p>This is JSON stringified and then <a href="https://datatracker.ietf.org/doc/html/rfc4648#section-5"><code>base64url</code></a> encoded for the Request <code>signedRequest</code> value.</p>
+<h4 id="sr25519-2"><a class="header" href="#sr25519-2">Sr25519</a></h4>
 <pre><code class="language-json">{
   "requestedSignatures": {
     "publicKey": {
@@ -216,7 +228,7 @@
     "signature": {
       "algo": "SR25519",
       "encoding": "base16",
-      "encodedValue": "0x0407ce814b77861df94d16b3fcb317d37a07abc2a7f9cd7c02cc22529ee7b32d56795f88bd6b4ad106b72b91b6246a783671bcd24cb01aaf0e9316db5e0cd085"
+      "encodedValue": "0x08e3cc8959406e23fe2b9e07576e4dfe565ab166a5d6fe5b0f7a0044152f683eded554732499687ada000abcc2411e327c552f34f7c3629e8d65568425fe358f"
     },
     "payload": {
       "callback": "http://localhost:3000",
@@ -252,16 +264,62 @@
         }
       ]
     }
-  ],
-  "applicationContext": {
-    "url": "https://example.org/myapp/siwf-manifest.json",
-    "hash": [
-      "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
-    ]
-  }
+  ]
+}
+</code></pre>
+<h4 id="secp256k1-2"><a class="header" href="#secp256k1-2">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "requestedSignatures": {
+    "publicKey": {
+      "encodedValue": "0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac",
+      "encoding": "base16",
+      "format": "eip-55",
+      "type": "Secp256k1"
+    },
+    "signature": {
+      "algo": "SECP256K1",
+      "encoding": "base16",
+      "encodedValue": "0xaaeb3512bf3345e98a890f140954b00d1600203406e9ed85e732ad389f5a60e264bfc9808ade80e6b9cc9c6182b52e2a57052eff091e50e40f75af386eaea6551b"
+    },
+    "payload": {
+      "callback": "http://localhost:3000",
+      "permissions": [
+        5,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  "requestedCredentials": [
+    {
+      "type": "VerifiedGraphKeyCredential",
+      "hash": [
+        "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+      ]
+    },
+    {
+      "anyOf": [
+        {
+          "type": "VerifiedEmailAddressCredential",
+          "hash": [
+            "bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi"
+          ]
+        },
+        {
+          "type": "VerifiedPhoneNumberCredential",
+          "hash": [
+            "bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq"
+          ]
+        }
+      ]
+    }
+  ]
 }
 </code></pre>
 <h3 id="new-frequency-user-response"><a class="header" href="#new-frequency-user-response">New Frequency User Response</a></h3>
+<h4 id="sr25519-3"><a class="header" href="#sr25519-3">Sr25519</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -274,7 +332,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x1a27cb6d79b508e1ffc8d6ae70af78d5b3561cdc426124a06f230d7ce70e757e1947dd1bac8f9e817c30676a5fa6b06510bae1201b698b044ff0660c60f18c8a"
+        "encodedValue": "0xcaf7f6eceb68ab0c61b3f704be546400080152f51fa5581fdd103416e9b37435362e27bfe47f4d0b9d477fb60be1c775309a3367916e1a2ad284d1cae82a3c89"
       },
       "endpoint": {
         "pallet": "msa",
@@ -297,7 +355,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x9eb338773b386ded2e3731ba68ba734c80408b3ad24f92ed3c60342d374a32293851fa8e41d722c72a5a4e765a9e401c68570a8c666ab678e4e5d94aa6825d85"
+        "encodedValue": "0x0ebc5e7cf0233d4f99d11191b3df98f605398500fc4cfe698d2868d2dc6aba2983e413d969690dd9c954ab4c9bb0400006af2e359c6068a4342d0f5bf1b4c580"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -320,7 +378,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xb004140fd8ba3395cf5fcef49df8765d90023c293fde4eaf2e932cc24f74fc51b006c0bebcf31d85565648b4881fa22115e0051a3bdb95ab5bf7f37ac66f798f"
+        "encodedValue": "0x5e2c5b899db347c1c8ad1ff898ce8f853d7860f70418c172c0b795da6eee272a3eec5927d180174ad609aaa64ed903f5a2bfdaab16a694f07e7eb1717c222182"
       },
       "endpoint": {
         "pallet": "handles",
@@ -397,7 +455,83 @@
   ]
 }
 </code></pre>
+<h4 id="secp256k1-3"><a class="header" href="#secp256k1-3">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "createSponsoredAccountWithDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    },
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xfd1d273752f6494cf64bc7091b37fce35f1bdd861b676c7f5ee392675453764f2e322797b6a5f676e6716738c5ba8fabe82de83dbe5bf9d9e771ef717ff036241c"
+      },
+      "endpoint": {
+        "pallet": "statefulStorage",
+        "extrinsic": "applyItemActionsWithSignatureV2"
+      },
+      "type": "itemActions",
+      "payload": {
+        "schemaId": 7,
+        "targetHash": 0,
+        "expiration": 20,
+        "actions": [
+          {
+            "type": "addItem",
+            "payloadHex": "0x40eea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37"
+          }
+        ]
+      }
+    },
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xeaa194e6f0074d777633522370fc0f74b200d933e1f1219bc8379ace1fb42759463e7b71d796abf839f2c1f78ecd0af4872010300afac4fbdb44d584c4686e041b"
+      },
+      "endpoint": {
+        "pallet": "handles",
+        "extrinsic": "claimHandle"
+      },
+      "type": "claimHandle",
+      "payload": {
+        "baseHandle": "ExampleHandle",
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": []
+}
+</code></pre>
 <h3 id="new-applicationdelegation-response"><a class="header" href="#new-applicationdelegation-response">New Application/Delegation Response</a></h3>
+<h4 id="sr25519-4"><a class="header" href="#sr25519-4">Sr25519</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -410,7 +544,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xbac399831b9e3ad464a16e62ad1252cc8344a2c52f80252b2aa450a06ae2362f6f4afcaca791a81f28eaa99080e2654bdbf1071a276213242fc153cca43cfa8e"
+        "encodedValue": "0xc8a82c74f3bd2b3cd5aa2aa28a9098ff99de90d88e19e2399f949a18ff126619c099562d125c706ea2067585beabd697e2ebdf19f11e35c41a8bc26ca55fbe81"
       },
       "endpoint": {
         "pallet": "msa",
@@ -494,7 +628,44 @@
   ]
 }
 </code></pre>
+<h4 id="secp256k1-4"><a class="header" href="#secp256k1-4">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "grantDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": []
+}
+</code></pre>
 <h3 id="login-only-response"><a class="header" href="#login-only-response">Login Only Response</a></h3>
+<h4 id="sr25519-5"><a class="header" href="#sr25519-5">Sr25519</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -577,6 +748,30 @@
       }
     }
   ]
+}
+</code></pre>
+<h4 id="secp256k1-5"><a class="header" href="#secp256k1-5">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xe8a1f5ef2c4afc8296adf84f92971bf270d68e89ffc512d13d6f5b99c3b2cd9108d5868e8a3a46d1c406137947d73a054888e195390a1fc4f69c4b16df4119d41b"
+      },
+      "type": "login",
+      "payload": {
+        "message": "your-app.com wants you to sign in with your Frequency account:\n0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac\n\n\n\nURI: https://your-app.com/signin/callback\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-10-29T19:17:27.077Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
+      }
+    }
+  ],
+  "credentials": []
 }
 </code></pre>
 <h2 id="verified-user-data"><a class="header" href="#verified-user-data">Verified User Data</a></h2>

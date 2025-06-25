@@ -237,9 +237,10 @@ Each credential would be matched based on the <code>type</code> field.</p>
 <li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://w3c-ccg.github.io/did-key-spec/#format"><code>did:key</code> Method from the W3C</a></li>
 </ol>
 <ul>
-<li>Example: <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code> is the <a href="https://docs.substrate.io/reference/address-formats/">SS58</a> version with prefix <code>90</code> of the hex address <code>0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code>. <code>0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code> is multicodec <code>sr25519-pub</code> hex which is multiformat <code>base58-btc</code> <code>z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ</code></li>
+<li>Sr25519 key Example: <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code> is the <a href="https://docs.substrate.io/reference/address-formats/">SS58</a> version with prefix <code>90</code> of the hex address <code>0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code>. <code>0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code> is multicodec <code>sr25519-pub</code> hex which is multiformat <code>base58-btc</code> <code>z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ</code></li>
+<li>Secp256k1 ket example:  <code>f6bgm3jyDVNxMf9zdYgHZmAQ8DqLVFDzvHQQc2BBpa5SK2bDw</code> is the <a href="https://docs.substrate.io/reference/address-formats/">SS58</a> version with prefix <code>90</code> of the hex address <code>0xb7c13f4176ca799975d9cce4bafe4814a9d824faeeeeeeeeeeeeeeeeeeeeeeee</code>. <code>0xe701b7c13f4176ca799975d9cce4bafe4814a9d824faeeeeeeeeeeeeeeeeeeeeeeee</code> is multicodec <code>secp256k1-pub</code> (this will not work since we only have the 32 byte account id not the 33 byte public key) (?)</li>
 </ul>
-<ol start="2">
+<ol start="3">
 <li>Fetch the issuer DID Document following the <a href="https://w3c-ccg.github.io/did-method-web/"><code>did:web</code> Method from the W3C</a></li>
 </ol>
 <ul>
@@ -316,7 +317,7 @@ Issued At: {{issued-at}}
 <p>Inside the message, <code>{{domain}}</code> is the domain of the application requesting the sign in. <code>{{domain}}</code> should match the domain contained in the <code>URI</code> field.</p>
 <h4 id="validation-steps"><a class="header" href="#validation-steps">Validation Steps</a></h4>
 <ol>
-<li>Perform an Sr25519 signature verification using:
+<li>Perform an Sr25519/Secp256k1 signature verification using:
 <ul>
 <li><code>userPublicKey</code>: The signing key</li>
 <li><code>payload.message</code>: The signed message parsing <code>\n</code> into <code>LF</code> line breaks</li>
@@ -373,6 +374,7 @@ These actions <em>must</em> be submitted to the chain for the correct functionin
 SIWF services do not manage user sessions.</p>
 <h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
 <h2 id="new-frequency-user-response"><a class="header" href="#new-frequency-user-response">New Frequency User Response</a></h2>
+<h3 id="sr25519"><a class="header" href="#sr25519">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -385,7 +387,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x1a27cb6d79b508e1ffc8d6ae70af78d5b3561cdc426124a06f230d7ce70e757e1947dd1bac8f9e817c30676a5fa6b06510bae1201b698b044ff0660c60f18c8a"
+        "encodedValue": "0xcaf7f6eceb68ab0c61b3f704be546400080152f51fa5581fdd103416e9b37435362e27bfe47f4d0b9d477fb60be1c775309a3367916e1a2ad284d1cae82a3c89"
       },
       "endpoint": {
         "pallet": "msa",
@@ -408,7 +410,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x9eb338773b386ded2e3731ba68ba734c80408b3ad24f92ed3c60342d374a32293851fa8e41d722c72a5a4e765a9e401c68570a8c666ab678e4e5d94aa6825d85"
+        "encodedValue": "0x0ebc5e7cf0233d4f99d11191b3df98f605398500fc4cfe698d2868d2dc6aba2983e413d969690dd9c954ab4c9bb0400006af2e359c6068a4342d0f5bf1b4c580"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -431,7 +433,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xb004140fd8ba3395cf5fcef49df8765d90023c293fde4eaf2e932cc24f74fc51b006c0bebcf31d85565648b4881fa22115e0051a3bdb95ab5bf7f37ac66f798f"
+        "encodedValue": "0x5e2c5b899db347c1c8ad1ff898ce8f853d7860f70418c172c0b795da6eee272a3eec5927d180174ad609aaa64ed903f5a2bfdaab16a694f07e7eb1717c222182"
       },
       "endpoint": {
         "pallet": "handles",
@@ -508,7 +510,83 @@ SIWF services do not manage user sessions.</p>
   ]
 }
 </code></pre>
+<h3 id="secp256k1"><a class="header" href="#secp256k1">Secp256k1</a></h3>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "createSponsoredAccountWithDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    },
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xfd1d273752f6494cf64bc7091b37fce35f1bdd861b676c7f5ee392675453764f2e322797b6a5f676e6716738c5ba8fabe82de83dbe5bf9d9e771ef717ff036241c"
+      },
+      "endpoint": {
+        "pallet": "statefulStorage",
+        "extrinsic": "applyItemActionsWithSignatureV2"
+      },
+      "type": "itemActions",
+      "payload": {
+        "schemaId": 7,
+        "targetHash": 0,
+        "expiration": 20,
+        "actions": [
+          {
+            "type": "addItem",
+            "payloadHex": "0x40eea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37"
+          }
+        ]
+      }
+    },
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xeaa194e6f0074d777633522370fc0f74b200d933e1f1219bc8379ace1fb42759463e7b71d796abf839f2c1f78ecd0af4872010300afac4fbdb44d584c4686e041b"
+      },
+      "endpoint": {
+        "pallet": "handles",
+        "extrinsic": "claimHandle"
+      },
+      "type": "claimHandle",
+      "payload": {
+        "baseHandle": "ExampleHandle",
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": []
+}
+</code></pre>
 <h2 id="new-applicationdelegation-response"><a class="header" href="#new-applicationdelegation-response">New Application/Delegation Response</a></h2>
+<h3 id="sr25519-1"><a class="header" href="#sr25519-1">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -521,7 +599,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xbac399831b9e3ad464a16e62ad1252cc8344a2c52f80252b2aa450a06ae2362f6f4afcaca791a81f28eaa99080e2654bdbf1071a276213242fc153cca43cfa8e"
+        "encodedValue": "0xc8a82c74f3bd2b3cd5aa2aa28a9098ff99de90d88e19e2399f949a18ff126619c099562d125c706ea2067585beabd697e2ebdf19f11e35c41a8bc26ca55fbe81"
       },
       "endpoint": {
         "pallet": "msa",
@@ -605,7 +683,44 @@ SIWF services do not manage user sessions.</p>
   ]
 }
 </code></pre>
+<h3 id="secp256k1-1"><a class="header" href="#secp256k1-1">Secp256k1</a></h3>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "grantDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": []
+}
+</code></pre>
 <h2 id="login-only-response"><a class="header" href="#login-only-response">Login Only Response</a></h2>
+<h3 id="sr25519-2"><a class="header" href="#sr25519-2">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -688,6 +803,30 @@ SIWF services do not manage user sessions.</p>
       }
     }
   ]
+}
+</code></pre>
+<h3 id="secp256k1-2"><a class="header" href="#secp256k1-2">Secp256k1</a></h3>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xe8a1f5ef2c4afc8296adf84f92971bf270d68e89ffc512d13d6f5b99c3b2cd9108d5868e8a3a46d1c406137947d73a054888e195390a1fc4f69c4b16df4119d41b"
+      },
+      "type": "login",
+      "payload": {
+        "message": "your-app.com wants you to sign in with your Frequency account:\n0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac\n\n\n\nURI: https://your-app.com/signin/callback\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-10-29T19:17:27.077Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
+      }
+    }
+  ],
+  "credentials": []
 }
 </code></pre>
 

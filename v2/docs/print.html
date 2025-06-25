@@ -248,6 +248,7 @@
 <li>Production-Mainnet: The production environment</li>
 <li>MSA: The Frequency blockchain account for a user</li>
 <li>SR25519: Schnorr signatures using <code>ed25519</code> over ECDSA</li>
+<li>Secp256k1: Elliptic curve used in Ethereum for digital signatures and keys.</li>
 <li>Delegation: The user permission for an application to act on their behalf</li>
 <li>Credential: Verified data about the user provided with permission of the user</li>
 </ul>
@@ -418,14 +419,25 @@ The callback URL will be built with:</p>
 <p>The callback URL <em>will maintain</em> all non-reserved URL parameters.
 For example, if you wish to correlate the original unauthorized session with the authorized session, you can generate a dynamic parameter with a random UUIDv4 identifier on each request.</p>
 <h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
+<h4 id="sr25519"><a class="header" href="#sr25519">Sr25519</a></h4>
 <p>Parameters</p>
 <pre><code class="language-json">{
-  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDk2MGYxOTVkYzFmOTFiZjcxYzBiMzUyMzE1MGFlMzc0NzFiZWRlMDdhMDAzOTA5NjQ3Y2NmMDQwYWNkNWNkMDRlYTQ4NzBiZDEyNGNhZmEyZGViNTliMGUzNzhjYjE5ZmJjNmFmNjAxYjc1NTU5ZmFhYjdiNzY4ZGU4MWEwOTgzIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0",
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDA4ZTNjYzg5NTk0MDZlMjNmZTJiOWUwNzU3NmU0ZGZlNTY1YWIxNjZhNWQ2ZmU1YjBmN2EwMDQ0MTUyZjY4M2VkZWQ1NTQ3MzI0OTk2ODdhZGEwMDBhYmNjMjQxMWUzMjdjNTUyZjM0ZjdjMzYyOWU4ZDY1NTY4NDI1ZmUzNThmIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0",
   "mode": "dark"
 }
 </code></pre>
 <p>Testnet Authentication URL</p>
-<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDk2MGYxOTVkYzFmOTFiZjcxYzBiMzUyMzE1MGFlMzc0NzFiZWRlMDdhMDAzOTA5NjQ3Y2NmMDQwYWNkNWNkMDRlYTQ4NzBiZDEyNGNhZmEyZGViNTliMGUzNzhjYjE5ZmJjNmFmNjAxYjc1NTU5ZmFhYjdiNzY4ZGU4MWEwOTgzIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0&amp;mode=dark"
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDA4ZTNjYzg5NTk0MDZlMjNmZTJiOWUwNzU3NmU0ZGZlNTY1YWIxNjZhNWQ2ZmU1YjBmN2EwMDQ0MTUyZjY4M2VkZWQ1NTQ3MzI0OTk2ODdhZGEwMDBhYmNjMjQxMWUzMjdjNTUyZjM0ZjdjMzYyOWU4ZDY1NTY4NDI1ZmUzNThmIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0&amp;mode=dark"
+</code></pre>
+<h4 id="secp256k1"><a class="header" href="#secp256k1">Secp256k1</a></h4>
+<p>Parameters</p>
+<pre><code class="language-json">{
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNGZmM2E5Y2YwNGM3MWRiYzk0ZDBiNTY2ZjdhMjdiOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV19",
+  "mode": "dark"
+}
+</code></pre>
+<p>Testnet Authentication URL</p>
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNGZmM2E5Y2YwNGM3MWRiYzk0ZDBiNTY2ZjdhMjdiOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV19&amp;mode=dark"
 </code></pre>
 <h2 id="step-4-redirect-the-user"><a class="header" href="#step-4-redirect-the-user">Step 4: Redirect the User</a></h2>
 <ul>
@@ -481,9 +493,10 @@ Each credential would be matched based on the <code>type</code> field.</p>
 <li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://w3c-ccg.github.io/did-key-spec/#format"><code>did:key</code> Method from the W3C</a></li>
 </ol>
 <ul>
-<li>Example: <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code> is the <a href="https://docs.substrate.io/reference/address-formats/">SS58</a> version with prefix <code>90</code> of the hex address <code>0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code>. <code>0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code> is multicodec <code>sr25519-pub</code> hex which is multiformat <code>base58-btc</code> <code>z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ</code></li>
+<li>Sr25519 key Example: <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code> is the <a href="https://docs.substrate.io/reference/address-formats/">SS58</a> version with prefix <code>90</code> of the hex address <code>0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code>. <code>0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code> is multicodec <code>sr25519-pub</code> hex which is multiformat <code>base58-btc</code> <code>z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ</code></li>
+<li>Secp256k1 ket example:  <code>f6bgm3jyDVNxMf9zdYgHZmAQ8DqLVFDzvHQQc2BBpa5SK2bDw</code> is the <a href="https://docs.substrate.io/reference/address-formats/">SS58</a> version with prefix <code>90</code> of the hex address <code>0xb7c13f4176ca799975d9cce4bafe4814a9d824faeeeeeeeeeeeeeeeeeeeeeeee</code>. <code>0xe701b7c13f4176ca799975d9cce4bafe4814a9d824faeeeeeeeeeeeeeeeeeeeeeeee</code> is multicodec <code>secp256k1-pub</code> (this will not work since we only have the 32 byte account id not the 33 byte public key) (?)</li>
 </ul>
-<ol start="2">
+<ol start="3">
 <li>Fetch the issuer DID Document following the <a href="https://w3c-ccg.github.io/did-method-web/"><code>did:web</code> Method from the W3C</a></li>
 </ol>
 <ul>
@@ -560,7 +573,7 @@ Issued At: {{issued-at}}
 <p>Inside the message, <code>{{domain}}</code> is the domain of the application requesting the sign in. <code>{{domain}}</code> should match the domain contained in the <code>URI</code> field.</p>
 <h4 id="validation-steps"><a class="header" href="#validation-steps">Validation Steps</a></h4>
 <ol>
-<li>Perform an Sr25519 signature verification using:
+<li>Perform an Sr25519/Secp256k1 signature verification using:
 <ul>
 <li><code>userPublicKey</code>: The signing key</li>
 <li><code>payload.message</code>: The signed message parsing <code>\n</code> into <code>LF</code> line breaks</li>
@@ -617,6 +630,7 @@ These actions <em>must</em> be submitted to the chain for the correct functionin
 SIWF services do not manage user sessions.</p>
 <h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
 <h2 id="new-frequency-user-response"><a class="header" href="#new-frequency-user-response">New Frequency User Response</a></h2>
+<h3 id="sr25519-1"><a class="header" href="#sr25519-1">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -629,7 +643,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x1a27cb6d79b508e1ffc8d6ae70af78d5b3561cdc426124a06f230d7ce70e757e1947dd1bac8f9e817c30676a5fa6b06510bae1201b698b044ff0660c60f18c8a"
+        "encodedValue": "0xcaf7f6eceb68ab0c61b3f704be546400080152f51fa5581fdd103416e9b37435362e27bfe47f4d0b9d477fb60be1c775309a3367916e1a2ad284d1cae82a3c89"
       },
       "endpoint": {
         "pallet": "msa",
@@ -652,7 +666,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x9eb338773b386ded2e3731ba68ba734c80408b3ad24f92ed3c60342d374a32293851fa8e41d722c72a5a4e765a9e401c68570a8c666ab678e4e5d94aa6825d85"
+        "encodedValue": "0x0ebc5e7cf0233d4f99d11191b3df98f605398500fc4cfe698d2868d2dc6aba2983e413d969690dd9c954ab4c9bb0400006af2e359c6068a4342d0f5bf1b4c580"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -675,7 +689,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xb004140fd8ba3395cf5fcef49df8765d90023c293fde4eaf2e932cc24f74fc51b006c0bebcf31d85565648b4881fa22115e0051a3bdb95ab5bf7f37ac66f798f"
+        "encodedValue": "0x5e2c5b899db347c1c8ad1ff898ce8f853d7860f70418c172c0b795da6eee272a3eec5927d180174ad609aaa64ed903f5a2bfdaab16a694f07e7eb1717c222182"
       },
       "endpoint": {
         "pallet": "handles",
@@ -752,7 +766,83 @@ SIWF services do not manage user sessions.</p>
   ]
 }
 </code></pre>
+<h3 id="secp256k1-1"><a class="header" href="#secp256k1-1">Secp256k1</a></h3>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "createSponsoredAccountWithDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    },
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xfd1d273752f6494cf64bc7091b37fce35f1bdd861b676c7f5ee392675453764f2e322797b6a5f676e6716738c5ba8fabe82de83dbe5bf9d9e771ef717ff036241c"
+      },
+      "endpoint": {
+        "pallet": "statefulStorage",
+        "extrinsic": "applyItemActionsWithSignatureV2"
+      },
+      "type": "itemActions",
+      "payload": {
+        "schemaId": 7,
+        "targetHash": 0,
+        "expiration": 20,
+        "actions": [
+          {
+            "type": "addItem",
+            "payloadHex": "0x40eea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37"
+          }
+        ]
+      }
+    },
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xeaa194e6f0074d777633522370fc0f74b200d933e1f1219bc8379ace1fb42759463e7b71d796abf839f2c1f78ecd0af4872010300afac4fbdb44d584c4686e041b"
+      },
+      "endpoint": {
+        "pallet": "handles",
+        "extrinsic": "claimHandle"
+      },
+      "type": "claimHandle",
+      "payload": {
+        "baseHandle": "ExampleHandle",
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": []
+}
+</code></pre>
 <h2 id="new-applicationdelegation-response"><a class="header" href="#new-applicationdelegation-response">New Application/Delegation Response</a></h2>
+<h3 id="sr25519-2"><a class="header" href="#sr25519-2">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -765,7 +855,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xbac399831b9e3ad464a16e62ad1252cc8344a2c52f80252b2aa450a06ae2362f6f4afcaca791a81f28eaa99080e2654bdbf1071a276213242fc153cca43cfa8e"
+        "encodedValue": "0xc8a82c74f3bd2b3cd5aa2aa28a9098ff99de90d88e19e2399f949a18ff126619c099562d125c706ea2067585beabd697e2ebdf19f11e35c41a8bc26ca55fbe81"
       },
       "endpoint": {
         "pallet": "msa",
@@ -849,7 +939,44 @@ SIWF services do not manage user sessions.</p>
   ]
 }
 </code></pre>
+<h3 id="secp256k1-2"><a class="header" href="#secp256k1-2">Secp256k1</a></h3>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "grantDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": []
+}
+</code></pre>
 <h2 id="login-only-response"><a class="header" href="#login-only-response">Login Only Response</a></h2>
+<h3 id="sr25519-3"><a class="header" href="#sr25519-3">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -934,6 +1061,30 @@ SIWF services do not manage user sessions.</p>
   ]
 }
 </code></pre>
+<h3 id="secp256k1-3"><a class="header" href="#secp256k1-3">Secp256k1</a></h3>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xe8a1f5ef2c4afc8296adf84f92971bf270d68e89ffc512d13d6f5b99c3b2cd9108d5868e8a3a46d1c406137947d73a054888e195390a1fc4f69c4b16df4119d41b"
+      },
+      "type": "login",
+      "payload": {
+        "message": "your-app.com wants you to sign in with your Frequency account:\n0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac\n\n\n\nURI: https://your-app.com/signin/callback\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-10-29T19:17:27.077Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
+      }
+    }
+  ],
+  "credentials": []
+}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="reference"><a class="header" href="#reference">Reference</a></h1>
 <ul>
 <li><a href="./Generate.html">Signed Request Generator Tool</a></li>
@@ -947,30 +1098,30 @@ SIWF services do not manage user sessions.</p>
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.tn0RQdqM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.CpeorHy4.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/Cbgb5qQp.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CgqYYNKe.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/BwsSu_VZ.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.DonfCnB5.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/-AvFmrNB.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/D7z_nF4p.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CL5X56dl.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.9NHzt5Sy.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/Boo8G1f3.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.Dxg1spkg.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/DDPItZwv.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/nb5uAOaO.js"> <!--[--><!--[--><!----><div><!----><!----><div class="mb-4"><form><div class="mb-4"><label for="callbackUri">Callback URI *</label> <input type="url" id="callbackUri" value="" required placeholder="https://localhost:3000/login"/></div> <div class="mb-4"><fieldset><legend>Permissions</legend> <div class="checkboxes"><!--[--><label><input type="checkbox" value="8,10,9,7"/> <!---->Bundle: Public & Private Graph <span title="dsnp.public-follows@v1, dsnp.private-connections@v1, dsnp.private-follows@v1, dsnp.public-key-key-agreement@v1">ⓘ</span><!----></label><label><input type="checkbox" value="17,18,16,4,19"/> <!---->Bundle: DSNP v1.3 Content <span title="dsnp.broadcast@v2, dsnp.reply@v2, dsnp.tombstone@v2, dsnp.reaction@v1, dsnp.update@v2">ⓘ</span><!----></label><label><input type="checkbox" value="2,3,1,4,5"/> <!---->(Deprecated) Bundle: DSNP v1.0 Content <span title="dsnp.broadcast@v1, dsnp.reply@v1, dsnp.tombstone@v1, dsnp.reaction@v1, dsnp.update@v1">ⓘ</span><!----></label><label><input type="checkbox" value="2"/> <!---->(Deprecated) dsnp.broadcast: Create new public content (v1)<!----></label><label><input type="checkbox" value="6"/> <!---->(Deprecated) dsnp.profile: Update profile information (v1)<!----></label><label><input type="checkbox" value="3"/> <!---->(Deprecated) dsnp.reply: Public reply to content (v1)<!----></label><label><input type="checkbox" value="1"/> <!---->(Deprecated) dsnp.tombstone: Mark content for deletion (v1)<!----></label><label><input type="checkbox" value="5"/> <!---->(Deprecated) dsnp.update: Update an existing post or reply (v1)<!----></label><label><input type="checkbox" value="17"/> <!---->dsnp.broadcast: Create new public content (v2)<!----></label><label><input type="checkbox" value="12"/> <!---->dsnp.dsnp-content-attribute: Create an authenticated attribute set for DSNP content (v1)<!----></label><label><input type="checkbox" value="13"/> <!---->dsnp.ext-content-attribute: Create an authenticated attribute set for content external to DSNP (v1)<!----></label><label><input type="checkbox" value="10"/> <!---->dsnp.private-connections: Update private friendship connections (v1)<!----></label><label><input type="checkbox" value="9"/> <!---->dsnp.private-follows: Update private follow list (v1)<!----></label><label><input type="checkbox" value="15"/> <!---->dsnp.profile-resources: Update user profile information (v1)<!----></label><label><input type="checkbox" value="8"/> <!---->dsnp.public-follows: Update public follow list (v1)<!----></label><label><input type="checkbox" value="4"/> <!---->dsnp.reaction: Public reaction to content (v1)<!----></label><label><input type="checkbox" value="18"/> <!---->dsnp.reply: Public reply to content (v2)<!----></label><label><input type="checkbox" value="16"/> <!---->dsnp.tombstone: Mark content for deletion (v2)<!----></label><label><input type="checkbox" value="19"/> <!---->dsnp.update: Update an existing post or reply (v2)<!----></label><label><input type="checkbox" value="20"/> <!---->dsnp.user-attribute-set: Create an authenticated attribute set for a DSNP User (v2)<!----></label><!--]--> <div><label for="additionalPermissions">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""/></div> <div class="my-2 text-sm"><label for="schemaIds">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""/></div></div></fieldset><!----></div> <div class="mb-4"><fieldset><legend>Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox"/> Graph Key (Required for reading private graph)</label> <label><input type="checkbox"/> Verified Email Address</label> <label><input type="checkbox"/> Verified SMS/Phone Number</label></div></fieldset><!----></div> <div class="mb-4"><label for="applicationContext">Application Context URL</label> <input type="url" id="applicationContext" value="" placeholder="https://example.org/my-app-context.json"/></div> <!--[!--><!--]--></form><!----></div> <!--[!--><h2 id="result"><a class="header" href="#result">Result</a></h2> <dl><dt>Login Request Payload and Signature ( <code>signedRequest</code> parameter )</dt> <dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea></dd> <dt>Mainnet/Production URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Testnet/Staging URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Signed Request (JSON)</dt> <dd><details><summary style="cursor: pointer;">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl><!--]--><!----><!----></div><!----><!--]--> <!--[!--><!--]--><!--]-->
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.B9n3ptsw.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/BmkY1n9z.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CmVTB3L7.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/yX_Q9x5G.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.DFYFQaNV.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/Dj0m1ee2.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/Clt7NT2h.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/DJnCd7WQ.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.Bk0Wn9si.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/o2IUx8ba.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.CNWXHnYe.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/zIUC7KAj.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/C0n6fg7A.js"> <!--[--><!--[--><!----><div><!----><!----><div class="mb-4"><form><div class="mb-4"><label for="callbackUri">Callback URI *</label> <input type="url" id="callbackUri" value="" required placeholder="https://localhost:3000/login"/></div> <div class="mb-4"><fieldset><legend>Permissions</legend> <div class="checkboxes"><!--[--><label><input type="checkbox" value="8,10,9,7"/> <!---->Bundle: Public & Private Graph <span title="dsnp.public-follows@v1, dsnp.private-connections@v1, dsnp.private-follows@v1, dsnp.public-key-key-agreement@v1">ⓘ</span><!----></label><label><input type="checkbox" value="17,18,16,4,19"/> <!---->Bundle: DSNP v1.3 Content <span title="dsnp.broadcast@v2, dsnp.reply@v2, dsnp.tombstone@v2, dsnp.reaction@v1, dsnp.update@v2">ⓘ</span><!----></label><label><input type="checkbox" value="2,3,1,4,5"/> <!---->(Deprecated) Bundle: DSNP v1.0 Content <span title="dsnp.broadcast@v1, dsnp.reply@v1, dsnp.tombstone@v1, dsnp.reaction@v1, dsnp.update@v1">ⓘ</span><!----></label><label><input type="checkbox" value="2"/> <!---->(Deprecated) dsnp.broadcast: Create new public content (v1)<!----></label><label><input type="checkbox" value="6"/> <!---->(Deprecated) dsnp.profile: Update profile information (v1)<!----></label><label><input type="checkbox" value="3"/> <!---->(Deprecated) dsnp.reply: Public reply to content (v1)<!----></label><label><input type="checkbox" value="1"/> <!---->(Deprecated) dsnp.tombstone: Mark content for deletion (v1)<!----></label><label><input type="checkbox" value="5"/> <!---->(Deprecated) dsnp.update: Update an existing post or reply (v1)<!----></label><label><input type="checkbox" value="17"/> <!---->dsnp.broadcast: Create new public content (v2)<!----></label><label><input type="checkbox" value="12"/> <!---->dsnp.dsnp-content-attribute: Create an authenticated attribute set for DSNP content (v1)<!----></label><label><input type="checkbox" value="13"/> <!---->dsnp.ext-content-attribute: Create an authenticated attribute set for content external to DSNP (v1)<!----></label><label><input type="checkbox" value="10"/> <!---->dsnp.private-connections: Update private friendship connections (v1)<!----></label><label><input type="checkbox" value="9"/> <!---->dsnp.private-follows: Update private follow list (v1)<!----></label><label><input type="checkbox" value="15"/> <!---->dsnp.profile-resources: Update user profile information (v1)<!----></label><label><input type="checkbox" value="8"/> <!---->dsnp.public-follows: Update public follow list (v1)<!----></label><label><input type="checkbox" value="4"/> <!---->dsnp.reaction: Public reaction to content (v1)<!----></label><label><input type="checkbox" value="18"/> <!---->dsnp.reply: Public reply to content (v2)<!----></label><label><input type="checkbox" value="16"/> <!---->dsnp.tombstone: Mark content for deletion (v2)<!----></label><label><input type="checkbox" value="19"/> <!---->dsnp.update: Update an existing post or reply (v2)<!----></label><label><input type="checkbox" value="20"/> <!---->dsnp.user-attribute-set: Create an authenticated attribute set for a DSNP User (v2)<!----></label><!--]--> <div><label for="additionalPermissions">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""/></div> <div class="my-2 text-sm"><label for="schemaIds">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""/></div></div></fieldset><!----></div> <div class="mb-4"><fieldset><legend>Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox"/> Graph Key (Required for reading private graph)</label> <label><input type="checkbox"/> Verified Email Address</label> <label><input type="checkbox"/> Verified SMS/Phone Number</label></div></fieldset><!----></div> <div class="mb-4"><label for="applicationContext">Application Context URL</label> <input type="url" id="applicationContext" value="" placeholder="https://example.org/my-app-context.json"/></div> <!--[!--><!--]--></form><!----></div> <!--[!--><h2 id="result"><a class="header" href="#result">Result</a></h2> <dl><dt>Login Request Payload and Signature ( <code>signedRequest</code> parameter )</dt> <dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea></dd> <dt>Mainnet/Production URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Testnet/Staging URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Signed Request (JSON)</dt> <dd><details><summary style="cursor: pointer;">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl><!--]--><!----><!----></div><!----><!--]--> <!--[!--><!--]--><!--]-->
 <script>
 {
-__sveltekit_k0atpa = {
+__sveltekit_1fzemv3 = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
 const element = document.currentScript.parentElement;
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.CpeorHy4.js"),
-import("./Generator/_app/immutable/entry/app.DonfCnB5.js")
+import("./Generator/_app/immutable/entry/start.B9n3ptsw.js"),
+import("./Generator/_app/immutable/entry/app.DFYFQaNV.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
@@ -1017,6 +1168,7 @@ The signature MUST be from one of the <a href="https://docs.frequency.xyz/Identi
 <h3 id="2c-sign-the-wrapped-payload-bytes"><a class="header" href="#2c-sign-the-wrapped-payload-bytes">2c: Sign the Wrapped Payload Bytes</a></h3>
 <p>Sign the serialized payload using Schnorr signatures over ECDSA.</p>
 <h3 id="2d-example"><a class="header" href="#2d-example">2d: Example</a></h3>
+<h4 id="sr25519-4"><a class="header" href="#sr25519-4">Sr25519</a></h4>
 <p>Remember that SR25519 signatures are non-deterministic, so the payload and encoding will match, but the signature will be different.
 This example uses the <code>//Alice</code> seed phrase to generate the signature.</p>
 <ul>
@@ -1025,6 +1177,13 @@ This example uses the <code>//Alice</code> seed phrase to generate the signature
 <li>Wrapped Payload (Hex): <code>0x3c42797465733e5c68747470733a2f2f6c6f63616c686f73743a34343138311405000700080009000a00003c2f42797465733e</code></li>
 <li>Signing Public Key (SS58 Prefix 90): <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code></li>
 <li>Signature (Hex): <code>0x9abd3c54e7164e8385627dc692724b9467386acd7b02a13d6187e2c58fd91440d9134781c0410a45812f5532b71f4a34b4a5443ef8d68b5a1956f7f0f81d4286</code></li>
+</ul>
+<h4 id="secp256k1-4"><a class="header" href="#secp256k1-4">Secp256k1</a></h4>
+<p>This example uses the <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code> private key.</p>
+<ul>
+<li>Payload: <code>{ "callback": "http://localhost:3000", "permissions": [5, 7, 8, 9, 10] }</code></li>
+<li>Signing Ethereum Address: <code>0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</code></li>
+<li>Signature (Hex): <code>0x8248785b609da7f257667c55ac6cbf78f2b5d42aa63334950fbaa33cf6c719d6010b23d179819461287a67edc3d420b048fb69d0cb06247382adb5b412ebed1b1c</code></li>
 </ul>
 <h2 id="step-3-optional-request-credentials-graph-key-email-phone"><a class="header" href="#step-3-optional-request-credentials-graph-key-email-phone">Step 3 (Optional): Request Credentials (Graph Key, Email, Phone)</a></h2>
 <p>Frequency Access users can provide verified email or phone/SMS to your application when requested and approved by the user.
@@ -1119,6 +1278,7 @@ const options = { endpoint: "production" };
 const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new URLSearchParams({ id: getSessionId() }));
 </code></pre>
 <h3 id="full-example-request"><a class="header" href="#full-example-request">Full Example Request</a></h3>
+<h4 id="sr25519-5"><a class="header" href="#sr25519-5">Sr25519</a></h4>
 <pre><code class="language-json">{
   "requestedSignatures": {
     "publicKey": {
@@ -1130,7 +1290,7 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
     "signature": {
       "algo": "SR25519",
       "encoding": "base16",
-      "encodedValue": "0x0407ce814b77861df94d16b3fcb317d37a07abc2a7f9cd7c02cc22529ee7b32d56795f88bd6b4ad106b72b91b6246a783671bcd24cb01aaf0e9316db5e0cd085"
+      "encodedValue": "0x08e3cc8959406e23fe2b9e07576e4dfe565ab166a5d6fe5b0f7a0044152f683eded554732499687ada000abcc2411e327c552f34f7c3629e8d65568425fe358f"
     },
     "payload": {
       "callback": "http://localhost:3000",
@@ -1166,13 +1326,58 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
         }
       ]
     }
-  ],
-  "applicationContext": {
-    "url": "https://example.org/myapp/siwf-manifest.json",
-    "hash": [
-      "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
-    ]
-  }
+  ]
+}
+</code></pre>
+<h4 id="secp256k1-5"><a class="header" href="#secp256k1-5">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "requestedSignatures": {
+    "publicKey": {
+      "encodedValue": "0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac",
+      "encoding": "base16",
+      "format": "eip-55",
+      "type": "Secp256k1"
+    },
+    "signature": {
+      "algo": "SECP256K1",
+      "encoding": "base16",
+      "encodedValue": "0xaaeb3512bf3345e98a890f140954b00d1600203406e9ed85e732ad389f5a60e264bfc9808ade80e6b9cc9c6182b52e2a57052eff091e50e40f75af386eaea6551b"
+    },
+    "payload": {
+      "callback": "http://localhost:3000",
+      "permissions": [
+        5,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  "requestedCredentials": [
+    {
+      "type": "VerifiedGraphKeyCredential",
+      "hash": [
+        "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+      ]
+    },
+    {
+      "anyOf": [
+        {
+          "type": "VerifiedEmailAddressCredential",
+          "hash": [
+            "bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi"
+          ]
+        },
+        {
+          "type": "VerifiedPhoneNumberCredential",
+          "hash": [
+            "bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq"
+          ]
+        }
+      ]
+    }
+  ]
 }
 </code></pre>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
@@ -1271,6 +1476,7 @@ npx tsx tools/signed-request-generator/generate-available-delegations.ts
 <p>The signature is generated by signing the UTF-8 bytes of <code>payload.message</code> using <code>SR25519</code>.</p>
 <p>See <a href="./Actions/Response.html#login">Response Payloads: Login</a> for more details.</p>
 <h3 id="example-2"><a class="header" href="#example-2">Example</a></h3>
+<h4 id="sr25519-6"><a class="header" href="#sr25519-6">Sr25519</a></h4>
 <p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
 <pre><code class="language-json">{
   "signature": {
@@ -1284,12 +1490,27 @@ npx tsx tools/signed-request-generator/generate-available-delegations.ts
   }
 }
 </code></pre>
+<h4 id="secp256k1-6"><a class="header" href="#secp256k1-6">Secp256k1</a></h4>
+<p>Example is signed using <code>0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</code> which is the Ethereum Address for the secret key <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code>.</p>
+<pre><code class="language-json">{
+  "signature": {
+    "algo": "SECP256K1",
+    "encoding": "base16",
+    "encodedValue": "0xcab76cd70bcd911681fd37b060285514a6ca101981d997ff07358acfaeb3030b333a4f50b554a97a0e497ff63303766599508a74f063b4360ad9a8855c0b2c521c"
+  },
+  "type": "login",
+  "payload": {
+    "message": "localhost wants you to sign in with your Frequency account:\nf6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ\n\n\n\nURI: https://testnet.frequencyaccess.com/signin/confirm\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-03-05T23:18:03.041Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
+  }
+}
+</code></pre>
 <h2 id="add-provider"><a class="header" href="#add-provider">Add Provider</a></h2>
 <p>This payload follows the <a href="https://frequency-chain.github.io/frequency/pallet_msa/types/struct.AddProvider.html"><code>AddProvider</code></a> type from Frequency.
 It has the same payload for two different endpoint extrinsics: <code>createSponsoredAccountWithDelegation</code> used for creating a new MSA on chain and <code>grantDelegation</code> which is used to grant a new provider permissions on an existing MSA.</p>
-<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.</p>
 <h3 id="example-3"><a class="header" href="#example-3">Example</a></h3>
-<p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
+<h4 id="sr25519-7"><a class="header" href="#sr25519-7">Sr25519</a></h4>
+<p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.
+The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.</p>
 <pre><code class="language-json">{
   "signature": {
     "algo": "SR25519",
@@ -1314,18 +1535,45 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
   }
 }
 </code></pre>
-<h3 id="scale-payload-type"><a class="header" href="#scale-payload-type">SCALE Payload Type</a></h3>
+<h5 id="scale-payload-type"><a class="header" href="#scale-payload-type">SCALE Payload Type</a></h5>
 <pre><code class="language-json">{
   authorizedMsaId: 'u64',
   schemaIds: 'Vec&lt;u16&gt;',
   expiration: 'u32',
 }
 </code></pre>
+<h4 id="secp256k1-7"><a class="header" href="#secp256k1-7">Secp256k1</a></h4>
+<p>Example is signed using <code>0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</code> which is the Ethereum Address for the secret key <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code>.</p>
+<pre><code class="language-json">{
+  "signature": {
+    "algo": "SECP256K1",
+    "encoding": "base16",
+    "encodedValue": "0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c"
+  },
+  "endpoint": {
+    "pallet": "msa",
+    "extrinsic": "grantDelegation"
+  },
+  "type": "addProvider",
+  "payload": {
+    "authorizedMsaId": 1,
+    "schemaIds": [
+      5,
+      7,
+      8,
+      9,
+      10
+    ],
+    "expiration": 24
+  }
+}
+</code></pre>
 <h2 id="claim-handle"><a class="header" href="#claim-handle">Claim Handle</a></h2>
 <p>This payload follows the <a href="https://frequency-chain.github.io/frequency/common_primitives/handles/struct.ClaimHandlePayload.html"><code>ClaimHandlePayload</code></a> type from Frequency.</p>
-<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.</p>
 <h3 id="example-4"><a class="header" href="#example-4">Example</a></h3>
-<p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
+<h4 id="sr25519-8"><a class="header" href="#sr25519-8">Sr25519</a></h4>
+<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.
+Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
 <pre><code class="language-json">{
   "signature": {
     "algo": "SR25519",
@@ -1349,11 +1597,31 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
   expiration: 'u32',
 }
 </code></pre>
+<h4 id="secp256k1-8"><a class="header" href="#secp256k1-8">Secp256k1</a></h4>
+<p>Example is signed using <code>0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</code> which is the Ethereum Address for the secret key <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code>.</p>
+<pre><code class="language-json">{
+  "signature": {
+    "algo": "SECP256K1",
+    "encoding": "base16",
+    "encodedValue": "0xeaa194e6f0074d777633522370fc0f74b200d933e1f1219bc8379ace1fb42759463e7b71d796abf839f2c1f78ecd0af4872010300afac4fbdb44d584c4686e041b"
+  },
+  "endpoint": {
+    "pallet": "handles",
+    "extrinsic": "claimHandle"
+  },
+  "type": "claimHandle",
+  "payload": {
+    "baseHandle": "ExampleHandle",
+    "expiration": 24
+  }
+}
+</code></pre>
 <h2 id="user-item-actions"><a class="header" href="#user-item-actions">User Item Actions</a></h2>
 <p>This payload follows the <a href="https://frequency-chain.github.io/frequency/pallet_stateful_storage/types/struct.ItemizedSignaturePayloadV2.html"><code>ItemizedSignaturePayloadV2</code></a> type from Frequency.</p>
-<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.</p>
 <h3 id="example-5"><a class="header" href="#example-5">Example</a></h3>
-<p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
+<h4 id="sr25519-9"><a class="header" href="#sr25519-9">Sr25519</a></h4>
+<p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.
+Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
 <pre><code class="language-json">{
   "signature": {
     "algo": "SR25519",
@@ -1400,19 +1668,57 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
   },
 }
 </code></pre>
+<h4 id="secp256k1-9"><a class="header" href="#secp256k1-9">Secp256k1</a></h4>
+<p>Example is signed using <code>0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</code> which is the Ethereum Address for the secret key <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code>.</p>
+<pre><code class="language-json">{
+  "signature": {
+    "algo": "SECP256K1",
+    "encoding": "base16",
+    "encodedValue": "0xfd1d273752f6494cf64bc7091b37fce35f1bdd861b676c7f5ee392675453764f2e322797b6a5f676e6716738c5ba8fabe82de83dbe5bf9d9e771ef717ff036241c"
+  },
+  "endpoint": {
+    "pallet": "statefulStorage",
+    "extrinsic": "applyItemActionsWithSignatureV2"
+  },
+  "type": "itemActions",
+  "payload": {
+    "schemaId": 7,
+    "targetHash": 0,
+    "expiration": 20,
+    "actions": [
+      {
+        "type": "addItem",
+        "payloadHex": "0x40eea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37"
+      }
+    ]
+  }
+}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="data-structure-reference"><a class="header" href="#data-structure-reference">Data Structure Reference</a></h1>
 <h2 id="request--response-from-siwf"><a class="header" href="#request--response-from-siwf">Request / Response from SIWF</a></h2>
 <h3 id="request"><a class="header" href="#request">Request</a></h3>
+<h4 id="sr25519-10"><a class="header" href="#sr25519-10">Sr25519</a></h4>
 <pre><code class="language-json">{
-  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDk2MGYxOTVkYzFmOTFiZjcxYzBiMzUyMzE1MGFlMzc0NzFiZWRlMDdhMDAzOTA5NjQ3Y2NmMDQwYWNkNWNkMDRlYTQ4NzBiZDEyNGNhZmEyZGViNTliMGUzNzhjYjE5ZmJjNmFmNjAxYjc1NTU5ZmFhYjdiNzY4ZGU4MWEwOTgzIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0",
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDA4ZTNjYzg5NTk0MDZlMjNmZTJiOWUwNzU3NmU0ZGZlNTY1YWIxNjZhNWQ2ZmU1YjBmN2EwMDQ0MTUyZjY4M2VkZWQ1NTQ3MzI0OTk2ODdhZGEwMDBhYmNjMjQxMWUzMjdjNTUyZjM0ZjdjMzYyOWU4ZDY1NTY4NDI1ZmUzNThmIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0",
+  "mode": "dark"
+}
+</code></pre>
+<h4 id="secp256k1-10"><a class="header" href="#secp256k1-10">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNGZmM2E5Y2YwNGM3MWRiYzk0ZDBiNTY2ZjdhMjdiOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV19",
   "mode": "dark"
 }
 </code></pre>
 <h3 id="request-url"><a class="header" href="#request-url">Request URL</a></h3>
-<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDk2MGYxOTVkYzFmOTFiZjcxYzBiMzUyMzE1MGFlMzc0NzFiZWRlMDdhMDAzOTA5NjQ3Y2NmMDQwYWNkNWNkMDRlYTQ4NzBiZDEyNGNhZmEyZGViNTliMGUzNzhjYjE5ZmJjNmFmNjAxYjc1NTU5ZmFhYjdiNzY4ZGU4MWEwOTgzIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0&amp;mode=dark"
+<h4 id="sr25519-11"><a class="header" href="#sr25519-11">Sr25519</a></h4>
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDA4ZTNjYzg5NTk0MDZlMjNmZTJiOWUwNzU3NmU0ZGZlNTY1YWIxNjZhNWQ2ZmU1YjBmN2EwMDQ0MTUyZjY4M2VkZWQ1NTQ3MzI0OTk2ODdhZGEwMDBhYmNjMjQxMWUzMjdjNTUyZjM0ZjdjMzYyOWU4ZDY1NTY4NDI1ZmUzNThmIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XX0&amp;mode=dark"
+</code></pre>
+<h4 id="secp256k1-11"><a class="header" href="#secp256k1-11">Secp256k1</a></h4>
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNGZmM2E5Y2YwNGM3MWRiYzk0ZDBiNTY2ZjdhMjdiOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV19&amp;mode=dark"
 </code></pre>
 <h3 id="signed-request"><a class="header" href="#signed-request">Signed Request</a></h3>
 <p>This is JSON stringified and then <a href="https://datatracker.ietf.org/doc/html/rfc4648#section-5"><code>base64url</code></a> encoded for the Request <code>signedRequest</code> value.</p>
+<h4 id="sr25519-12"><a class="header" href="#sr25519-12">Sr25519</a></h4>
 <pre><code class="language-json">{
   "requestedSignatures": {
     "publicKey": {
@@ -1424,7 +1730,7 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
     "signature": {
       "algo": "SR25519",
       "encoding": "base16",
-      "encodedValue": "0x0407ce814b77861df94d16b3fcb317d37a07abc2a7f9cd7c02cc22529ee7b32d56795f88bd6b4ad106b72b91b6246a783671bcd24cb01aaf0e9316db5e0cd085"
+      "encodedValue": "0x08e3cc8959406e23fe2b9e07576e4dfe565ab166a5d6fe5b0f7a0044152f683eded554732499687ada000abcc2411e327c552f34f7c3629e8d65568425fe358f"
     },
     "payload": {
       "callback": "http://localhost:3000",
@@ -1460,16 +1766,62 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
         }
       ]
     }
-  ],
-  "applicationContext": {
-    "url": "https://example.org/myapp/siwf-manifest.json",
-    "hash": [
-      "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
-    ]
-  }
+  ]
+}
+</code></pre>
+<h4 id="secp256k1-12"><a class="header" href="#secp256k1-12">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "requestedSignatures": {
+    "publicKey": {
+      "encodedValue": "0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac",
+      "encoding": "base16",
+      "format": "eip-55",
+      "type": "Secp256k1"
+    },
+    "signature": {
+      "algo": "SECP256K1",
+      "encoding": "base16",
+      "encodedValue": "0xaaeb3512bf3345e98a890f140954b00d1600203406e9ed85e732ad389f5a60e264bfc9808ade80e6b9cc9c6182b52e2a57052eff091e50e40f75af386eaea6551b"
+    },
+    "payload": {
+      "callback": "http://localhost:3000",
+      "permissions": [
+        5,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  "requestedCredentials": [
+    {
+      "type": "VerifiedGraphKeyCredential",
+      "hash": [
+        "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+      ]
+    },
+    {
+      "anyOf": [
+        {
+          "type": "VerifiedEmailAddressCredential",
+          "hash": [
+            "bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi"
+          ]
+        },
+        {
+          "type": "VerifiedPhoneNumberCredential",
+          "hash": [
+            "bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq"
+          ]
+        }
+      ]
+    }
+  ]
 }
 </code></pre>
 <h3 id="new-frequency-user-response-1"><a class="header" href="#new-frequency-user-response-1">New Frequency User Response</a></h3>
+<h4 id="sr25519-13"><a class="header" href="#sr25519-13">Sr25519</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -1482,7 +1834,7 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x1a27cb6d79b508e1ffc8d6ae70af78d5b3561cdc426124a06f230d7ce70e757e1947dd1bac8f9e817c30676a5fa6b06510bae1201b698b044ff0660c60f18c8a"
+        "encodedValue": "0xcaf7f6eceb68ab0c61b3f704be546400080152f51fa5581fdd103416e9b37435362e27bfe47f4d0b9d477fb60be1c775309a3367916e1a2ad284d1cae82a3c89"
       },
       "endpoint": {
         "pallet": "msa",
@@ -1505,7 +1857,7 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x9eb338773b386ded2e3731ba68ba734c80408b3ad24f92ed3c60342d374a32293851fa8e41d722c72a5a4e765a9e401c68570a8c666ab678e4e5d94aa6825d85"
+        "encodedValue": "0x0ebc5e7cf0233d4f99d11191b3df98f605398500fc4cfe698d2868d2dc6aba2983e413d969690dd9c954ab4c9bb0400006af2e359c6068a4342d0f5bf1b4c580"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -1528,7 +1880,7 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xb004140fd8ba3395cf5fcef49df8765d90023c293fde4eaf2e932cc24f74fc51b006c0bebcf31d85565648b4881fa22115e0051a3bdb95ab5bf7f37ac66f798f"
+        "encodedValue": "0x5e2c5b899db347c1c8ad1ff898ce8f853d7860f70418c172c0b795da6eee272a3eec5927d180174ad609aaa64ed903f5a2bfdaab16a694f07e7eb1717c222182"
       },
       "endpoint": {
         "pallet": "handles",
@@ -1605,7 +1957,83 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
   ]
 }
 </code></pre>
+<h4 id="secp256k1-13"><a class="header" href="#secp256k1-13">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "createSponsoredAccountWithDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    },
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xfd1d273752f6494cf64bc7091b37fce35f1bdd861b676c7f5ee392675453764f2e322797b6a5f676e6716738c5ba8fabe82de83dbe5bf9d9e771ef717ff036241c"
+      },
+      "endpoint": {
+        "pallet": "statefulStorage",
+        "extrinsic": "applyItemActionsWithSignatureV2"
+      },
+      "type": "itemActions",
+      "payload": {
+        "schemaId": 7,
+        "targetHash": 0,
+        "expiration": 20,
+        "actions": [
+          {
+            "type": "addItem",
+            "payloadHex": "0x40eea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37"
+          }
+        ]
+      }
+    },
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xeaa194e6f0074d777633522370fc0f74b200d933e1f1219bc8379ace1fb42759463e7b71d796abf839f2c1f78ecd0af4872010300afac4fbdb44d584c4686e041b"
+      },
+      "endpoint": {
+        "pallet": "handles",
+        "extrinsic": "claimHandle"
+      },
+      "type": "claimHandle",
+      "payload": {
+        "baseHandle": "ExampleHandle",
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": []
+}
+</code></pre>
 <h3 id="new-applicationdelegation-response-1"><a class="header" href="#new-applicationdelegation-response-1">New Application/Delegation Response</a></h3>
+<h4 id="sr25519-14"><a class="header" href="#sr25519-14">Sr25519</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -1618,7 +2046,7 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xbac399831b9e3ad464a16e62ad1252cc8344a2c52f80252b2aa450a06ae2362f6f4afcaca791a81f28eaa99080e2654bdbf1071a276213242fc153cca43cfa8e"
+        "encodedValue": "0xc8a82c74f3bd2b3cd5aa2aa28a9098ff99de90d88e19e2399f949a18ff126619c099562d125c706ea2067585beabd697e2ebdf19f11e35c41a8bc26ca55fbe81"
       },
       "endpoint": {
         "pallet": "msa",
@@ -1702,7 +2130,44 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
   ]
 }
 </code></pre>
+<h4 id="secp256k1-14"><a class="header" href="#secp256k1-14">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "grantDelegation"
+      },
+      "type": "addProvider",
+      "payload": {
+        "authorizedMsaId": 1,
+        "schemaIds": [
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "expiration": 24
+      }
+    }
+  ],
+  "credentials": []
+}
+</code></pre>
 <h3 id="login-only-response-1"><a class="header" href="#login-only-response-1">Login Only Response</a></h3>
+<h4 id="sr25519-15"><a class="header" href="#sr25519-15">Sr25519</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -1785,6 +2250,30 @@ It has the same payload for two different endpoint extrinsics: <code>createSpons
       }
     }
   ]
+}
+</code></pre>
+<h4 id="secp256k1-15"><a class="header" href="#secp256k1-15">Secp256k1</a></h4>
+<pre><code class="language-json">{
+  "userPublicKey": {
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
+  },
+  "payloads": [
+    {
+      "signature": {
+        "algo": "SECP256K1",
+        "encoding": "base16",
+        "encodedValue": "0xe8a1f5ef2c4afc8296adf84f92971bf270d68e89ffc512d13d6f5b99c3b2cd9108d5868e8a3a46d1c406137947d73a054888e195390a1fc4f69c4b16df4119d41b"
+      },
+      "type": "login",
+      "payload": {
+        "message": "your-app.com wants you to sign in with your Frequency account:\n0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac\n\n\n\nURI: https://your-app.com/signin/callback\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-10-29T19:17:27.077Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
+      }
+    }
+  ],
+  "credentials": []
 }
 </code></pre>
 <h2 id="verified-user-data"><a class="header" href="#verified-user-data">Verified User Data</a></h2>
