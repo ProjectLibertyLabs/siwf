@@ -49,8 +49,9 @@ These credentials follow the [DSNP Verifiable Credentials Specification](https:/
 _Trust Model Note_: You may choose to just trust credentials issued by Frequency Access (or other SIWF-compatible services) given that the credential is fetched directly. These will have issuer `did:web:testnet.frequencyaccess.com` or `did:web:frequencyaccess.com`.
 
 1. Check that the `credentialSubject.id` matches the `userPublicKey` following the [`did:key` Method from the W3C](https://w3c-ccg.github.io/did-key-spec/#format)
-  - Example: `f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH` is the [SS58](https://docs.substrate.io/reference/address-formats/) version with prefix `90` of the hex address `0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d`. `0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d` is multicodec `sr25519-pub` hex which is multiformat `base58-btc` `z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ`
-2. Fetch the issuer DID Document following the [`did:web` Method from the W3C](https://w3c-ccg.github.io/did-method-web/)
+  - Sr25519 key Example: `f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH` is the [SS58](https://docs.substrate.io/reference/address-formats/) version with prefix `90` of the hex address `0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d`. `0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d` is multicodec `sr25519-pub` hex which is multiformat `base58-btc` `z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ`
+  - Secp256k1 ket example:  `f6bgm3jyDVNxMf9zdYgHZmAQ8DqLVFDzvHQQc2BBpa5SK2bDw` is the [SS58](https://docs.substrate.io/reference/address-formats/) version with prefix `90` of the hex address `0xb7c13f4176ca799975d9cce4bafe4814a9d824faeeeeeeeeeeeeeeeeeeeeeeee`. `0xe701b7c13f4176ca799975d9cce4bafe4814a9d824faeeeeeeeeeeeeeeeeeeeeeeee` is multicodec `secp256k1-pub` (this will not work since we only have the 32 byte account id not the 33 byte public key) (?)
+3. Fetch the issuer DID Document following the [`did:web` Method from the W3C](https://w3c-ccg.github.io/did-method-web/)
   - Production-Mainnet should always be `did:web:frequencyaccess.com` which resolves to `https://frequencyaccess.com/.well-known/did.json`
   - Staging-Testnet should always be `did:web:testnet.frequencyaccess.com` which resolves to `https://testnet.frequencyaccess.com/.well-known/did.json`
 3. Check that the key in the `proof.verificationMethod` is in the DID Document to verify that the key is still valid
@@ -112,7 +113,7 @@ Inside the message, `{{domain}}` is the domain of the application requesting the
 
 #### Validation Steps
 
-1. Perform an Sr25519 signature verification using:
+1. Perform an Sr25519/Secp256k1 signature verification using:
     - `userPublicKey`: The signing key
     - `payload.message`: The signed message parsing `\n` into `LF` line breaks
     - `signature.encodedValue`: The signature
@@ -175,12 +176,24 @@ SIWF services do not manage user sessions.
 
 ## New Frequency User Response
 
-{{#include ../DataStructures/Response-NewUser.md 0}}
+### Sr25519
+{{#include ../DataStructures/Sr25519/Response-NewUser.md 0}}
+
+### Secp256k1
+{{#include ../DataStructures/Secp256k1/Response-NewUser.md 0}}
 
 ## New Application/Delegation Response
 
-{{#include ../DataStructures/Response-NewProvider.md 0}}
+### Sr25519
+{{#include ../DataStructures/Sr25519/Response-NewProvider.md 0}}
+
+### Secp256k1
+{{#include ../DataStructures/Secp256k1/Response-NewProvider.md 0}}
 
 ## Login Only Response
 
-{{#include ../DataStructures/Response-LoginOnly.md 0}}
+### Sr25519
+{{#include ../DataStructures/Sr25519/Response-LoginOnly.md 0}}
+
+### Secp256k1
+{{#include ../DataStructures/Secp256k1/Response-LoginOnly.md 0}}

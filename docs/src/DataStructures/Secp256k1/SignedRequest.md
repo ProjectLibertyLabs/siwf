@@ -2,15 +2,15 @@
 {
   "requestedSignatures": {
     "publicKey": {
-      "encodedValue": "f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH",
-      "encoding": "base58",
-      "format": "ss58",
-      "type": "Sr25519"
+      "encodedValue": "0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac",
+      "encoding": "base16",
+      "format": "eip-55",
+      "type": "Secp256k1"
     },
     "signature": {
-      "algo": "SR25519",
+      "algo": "SECP256K1",
       "encoding": "base16",
-      "encodedValue": "0x0407ce814b77861df94d16b3fcb317d37a07abc2a7f9cd7c02cc22529ee7b32d56795f88bd6b4ad106b72b91b6246a783671bcd24cb01aaf0e9316db5e0cd085"
+      "encodedValue": "0xaaeb3512bf3345e98a890f140954b00d1600203406e9ed85e732ad389f5a60e264bfc9808ade80e6b9cc9c6182b52e2a57052eff091e50e40f75af386eaea6551b"
     },
     "payload": {
       "callback": "http://localhost:3000",
@@ -46,12 +46,6 @@
         }
       ]
     }
-  ],
-  "applicationContext": {
-    "url": "https://example.org/myapp/siwf-manifest.json",
-    "hash": [
-      "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
-    ]
-  }
+  ]
 }
 ```

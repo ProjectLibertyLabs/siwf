@@ -8,6 +8,15 @@ import {
   SiwfResponsePayloadClaimHandle,
   SiwfResponsePayloadItemActions,
 } from './types/payload.js';
+import { AlgorithmType, CurveType, SignedPayload } from './types';
+import {
+  ChainType,
+  createAddProvider,
+  createClaimHandlePayload,
+  createItemizedAddAction,
+  createItemizedSignaturePayloadV2,
+  HexString,
+} from '@frequency-chain/ethereum-utils';
 const registry = new TypeRegistry();
 
 const frequencyTypes: RegistryTypes = {
@@ -59,33 +68,76 @@ export function serializeLoginPayloadHex(payload: SiwfSignedRequest['requestedSi
   return u8aToHex(u8aWrapBytes(requestPayloadBytes(payload)));
 }
 
-export function serializeAddProviderPayloadHex(payload: SiwfResponsePayloadAddProvider['payload']): string {
-  return u8aToHex(u8aWrapBytes(registry.createType('PalletMsaAddProvider', payload).toU8a()));
+export function serializeAddProviderPayloadHex(
+  curveType: CurveType,
+  payload: SiwfResponsePayloadAddProvider['payload']
+): SignedPayload {
+  switch (curveType) {
+    case 'Sr25519':
+      return u8aWrapBytes(registry.createType('PalletMsaAddProvider', payload).toU8a());
+
+    case 'Secp256k1':
+      return createAddProvider(payload.authorizedMsaId.toString(), payload.schemaIds, payload.expiration);
+
+    default:
+      throw new Error(`${curveType} is not supported!`);
+  }
 }
 
-export function serializeItemActionsPayloadHex(payload: SiwfResponsePayloadItemActions['payload']): string {
-  return u8aToHex(
-    u8aWrapBytes(
-      registry
-        .createType('PalletStatefulStorageItemizedSignaturePayloadV2', {
-          schemaId: payload.schemaId,
-          targetHash: payload.targetHash,
-          expiration: payload.expiration,
-          actions: payload.actions.map((action) => {
-            switch (action.type) {
-              case 'addItem':
-                return { Add: action.payloadHex };
-            }
-            throw new Error(`Unable to parse payload action for ItemActions: ${JSON.stringify(action)}`);
-          }),
+export function serializeItemActionsPayloadHex(
+  curveType: CurveType,
+  payload: SiwfResponsePayloadItemActions['payload']
+): SignedPayload {
+  switch (curveType) {
+    case 'Sr25519':
+      return u8aWrapBytes(
+        registry
+          .createType('PalletStatefulStorageItemizedSignaturePayloadV2', {
+            schemaId: payload.schemaId,
+            targetHash: payload.targetHash,
+            expiration: payload.expiration,
+            actions: payload.actions.map((action) => {
+              switch (action.type) {
+                case 'addItem':
+                  return { Add: action.payloadHex };
+              }
+              throw new Error(`Unable to parse payload action for ItemActions: ${JSON.stringify(action)}`);
+            }),
+          })
+          .toU8a()
+      );
+
+    case 'Secp256k1':
+      return createItemizedSignaturePayloadV2(
+        payload.schemaId,
+        payload.targetHash,
+        payload.expiration,
+        payload.actions.map((action) => {
+          switch (action.type) {
+            case 'addItem':
+              return createItemizedAddAction(action.payloadHex as HexString);
+          }
+          throw new Error(`Unable to parse payload action for ItemActions: ${JSON.stringify(action)}`);
         })
-        .toU8a()
-    )
-  );
+      );
+
+    default:
+      throw new Error(`${curveType} is not supported!`);
+  }
 }
 
-export function serializeClaimHandlePayloadHex(payload: SiwfResponsePayloadClaimHandle['payload']): string {
-  return u8aToHex(u8aWrapBytes(registry.createType('CommonPrimitivesHandlesClaimHandlePayload', payload).toU8a()));
+export function serializeClaimHandlePayloadHex(
+  curveType: CurveType,
+  payload: SiwfResponsePayloadClaimHandle['payload']
+): SignedPayload {
+  switch (curveType) {
+    case 'Sr25519':
+      return u8aWrapBytes(registry.createType('CommonPrimitivesHandlesClaimHandlePayload', payload).toU8a());
+    case 'Secp256k1':
+      return createClaimHandlePayload(payload.baseHandle, payload.expiration);
+    default:
+      throw new Error(`${curveType} is not supported!`);
+  }
 }
 
 export function parseEndpoint(input = 'mainnet', path: '/start' | '/api/payload') {
@@ -100,4 +152,24 @@ export function parseEndpoint(input = 'mainnet', path: '/start' | '/api/payload'
     default:
       return input.replace(/\/$/, '') + path;
   }
+}
+
+export function getAlgorithmForCurveType(keyType: CurveType): AlgorithmType {
+  switch (keyType) {
+    case 'Sr25519':
+      return 'SR25519';
+    case 'Secp256k1':
+      return 'SECP256K1';
+    default:
+      throw new Error(`${keyType} is not supported!`);
+  }
+}
+
+export function getChainTypeFromEndpoint(endpoint: string): ChainType {
+  if (endpoint.toLowerCase() === 'production') {
+    return 'Mainnet-Frequency';
+  } else if (endpoint.toLowerCase() === 'staging') {
+    return 'Paseo-Testnet-Frequency';
+  }
+  return 'Dev';
 }

@@ -6,8 +6,6 @@ import { parseEndpoint } from './util.js';
 import { validateCredentials } from './credentials.js';
 import { validatePayloads } from './payloads.js';
 
-type MakePropertyRequired<T, K extends keyof T> = Partial<T> & Pick<Required<T>, K>;
-
 /**
  * Checks to see if there are any chain submissions in the result
  *
@@ -28,7 +26,7 @@ export function hasChainSubmissions(result: SiwfResponse): boolean {
  *
  * @returns {Promise<SiwfResponse>} The validated response
  */
-export async function validateSiwfResponse(response: unknown, loginMsgUri: string | string[]): Promise<SiwfResponse> {
+export async function validateSiwfResponse(response: unknown, options: SiwfOptions): Promise<SiwfResponse> {
   await cryptoWaitReady();
 
   let body = response;
@@ -46,7 +44,7 @@ export async function validateSiwfResponse(response: unknown, loginMsgUri: strin
   }
 
   // Validate Payloads
-  await validatePayloads(body, loginMsgUri);
+  await validatePayloads(body, options);
 
   // Validate Credentials (if any), but trust DIDs from frequencyAccess
   await validateCredentials(body.credentials, ['did:web:frequencyaccess.com', 'did:web:testnet.frequencyaccess.com']);
@@ -64,10 +62,7 @@ export async function validateSiwfResponse(response: unknown, loginMsgUri: strin
  *
  * @returns {Promise<SiwfResponse>} The parsed and validated response
  */
-export async function getLoginResult(
-  authorizationCode: string,
-  options: MakePropertyRequired<SiwfOptions, 'loginMsgUri'>
-): Promise<SiwfResponse> {
+export async function getLoginResult(authorizationCode: string, options: SiwfOptions): Promise<SiwfResponse> {
   const endpoint = new URL(
     `${parseEndpoint(options?.endpoint, '/api/payload')}?authorizationCode=${authorizationCode}`
   );
@@ -79,5 +74,5 @@ export async function getLoginResult(
 
   const body = await response.json();
 
-  return validateSiwfResponse(body, options.loginMsgUri);
+  return validateSiwfResponse(body, options);
 }

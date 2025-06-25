@@ -74,13 +74,23 @@ For example, if you wish to correlate the original unauthorized session with the
 
 ### Example
 
+#### Sr25519
 Parameters
 
-{{#include ../DataStructures/Request.md 0}}
+{{#include ../DataStructures/Sr25519/Request.md 0}}
 
 Testnet Authentication URL
 
-{{#include ../DataStructures/RequestUrl.md 0}}
+{{#include ../DataStructures/Sr25519/RequestUrl.md 0}}
+
+#### Secp256k1
+Parameters
+
+{{#include ../DataStructures/Secp256k1/Request.md 0}}
+
+Testnet Authentication URL
+
+{{#include ../DataStructures/Secp256k1/RequestUrl.md 0}}
 
 ## Step 4: Redirect the User
 

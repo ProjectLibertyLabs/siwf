@@ -3,16 +3,24 @@ import Keyring from '@polkadot/keyring';
 import { u8aToHex } from '@polkadot/util';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import { ExampleEmailCredential, ExamplePhoneCredential, ExampleUserGraphCredential } from './credentials.js';
-import { ExampleLogin, ExampleNewProvider, ExampleNewUser } from './index.js';
+import {
+  ExampleLoginSr25519,
+  ExampleNewProviderSr25519,
+  ExampleNewUserSr25519,
+  ExampleLoginSecp256k1,
+  ExampleNewProviderSecp256k1,
+  ExampleNewUserSecp256k1,
+} from './index.js';
 import { serializeLoginPayloadHex } from '../util.js';
 import { encodeSignedRequest } from '../request.js';
 import { SiwfSignedRequest } from '../types/request.js';
+import { createSiwfSignedRequestPayload, sign } from '@frequency-chain/ethereum-utils';
 
 function output(obj: unknown, file: string) {
   writeFileSync(file, '```json\n' + JSON.stringify(obj, null, 2) + '\n```\n');
 }
 
-function exampleSignedRequest(): SiwfSignedRequest {
+function exampleSignedRequestSr25519(): SiwfSignedRequest {
   const keyring = new Keyring({ type: 'sr25519' });
   const payload = {
     callback: 'http://localhost:3000',
@@ -59,6 +67,51 @@ function exampleSignedRequest(): SiwfSignedRequest {
   };
 }
 
+async function exampleSignedRequestSecp256k1(): Promise<SiwfSignedRequest> {
+  const privateKey = '0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133';
+  const payload = {
+    callback: 'http://localhost:3000',
+    permissions: [5, 7, 8, 9, 10],
+  };
+  const requestPayload = createSiwfSignedRequestPayload(payload.callback, payload.permissions);
+  const signature = await sign(privateKey, requestPayload);
+
+  return {
+    requestedSignatures: {
+      publicKey: {
+        encodedValue: '0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac',
+        encoding: 'base16',
+        format: 'eip-55',
+        type: 'Secp256k1',
+      },
+      signature: {
+        algo: 'SECP256K1',
+        encoding: 'base16',
+        encodedValue: signature.Ecdsa,
+      },
+      payload,
+    },
+    requestedCredentials: [
+      {
+        type: 'VerifiedGraphKeyCredential',
+        hash: ['bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y'],
+      },
+      {
+        anyOf: [
+          {
+            type: 'VerifiedEmailAddressCredential',
+            hash: ['bciqe4qoczhftici4dzfvfbel7fo4h4sr5grco3oovwyk6y4ynf44tsi'],
+          },
+          {
+            type: 'VerifiedPhoneNumberCredential',
+            hash: ['bciqjspnbwpc3wjx4fewcek5daysdjpbf5xjimz5wnu5uj7e3vu2uwnq'],
+          },
+        ],
+      },
+    ],
+  };
+}
+
 function exampleRequest(incomingSignedRequest: SiwfSignedRequest) {
   const signedRequest = encodeSignedRequest(incomingSignedRequest);
   return {
@@ -72,22 +125,37 @@ async function main() {
   await cryptoWaitReady();
   console.log('Starting work generating Data Structures for the Markdown...');
 
-  const signedRequest = exampleSignedRequest();
-  const requestParams = exampleRequest(signedRequest);
-  const requestUrl = new URL(`https://testnet.frequencyaccess.com/siwa/start?${new URLSearchParams(requestParams)}`);
+  // ------- Sr25519 -------//
+  const signedRequestSr25519 = exampleSignedRequestSr25519();
+  const requestParamsSr25519 = exampleRequest(signedRequestSr25519);
+  const requestUrlSr25519 = new URL(
+    `https://testnet.frequencyaccess.com/siwa/start?${new URLSearchParams(requestParamsSr25519)}`
+  );
 
-  output(signedRequest, '../../docs/src/DataStructures/SignedRequest.md');
-
-  output(requestParams, '../../docs/src/DataStructures/Request.md');
-  output(requestUrl, '../../docs/src/DataStructures/RequestUrl.md');
-
-  output(await ExampleLogin(), '../../docs/src/DataStructures/Response-LoginOnly.md');
-  output(await ExampleNewUser(), '../../docs/src/DataStructures/Response-NewUser.md');
-  output(await ExampleNewProvider(), '../../docs/src/DataStructures/Response-NewProvider.md');
+  output(signedRequestSr25519, '../../docs/src/DataStructures/Sr25519/SignedRequest.md');
+  output(requestParamsSr25519, '../../docs/src/DataStructures/Sr25519/Request.md');
+  output(requestUrlSr25519, '../../docs/src/DataStructures/Sr25519/RequestUrl.md');
+  output(await ExampleLoginSr25519(), '../../docs/src/DataStructures/Sr25519/Response-LoginOnly.md');
+  output(await ExampleNewUserSr25519(), '../../docs/src/DataStructures/Sr25519/Response-NewUser.md');
+  output(await ExampleNewProviderSr25519(), '../../docs/src/DataStructures/Sr25519/Response-NewProvider.md');
 
   output(await ExampleEmailCredential(), '../../docs/src/DataStructures/VerifiedEmail.md');
   output(await ExamplePhoneCredential(), '../../docs/src/DataStructures/VerifiedPhone.md');
   output(await ExampleUserGraphCredential(), '../../docs/src/DataStructures/VerifiedGraphKeyPair.md');
+
+  // ------- Secp256k1 -------//
+  const signedRequestSecp256k1 = await exampleSignedRequestSecp256k1();
+  const requestParamsSecp256k1 = exampleRequest(signedRequestSecp256k1);
+  const requestUrlSecp256k1 = new URL(
+    `https://testnet.frequencyaccess.com/siwa/start?${new URLSearchParams(requestParamsSecp256k1)}`
+  );
+
+  output(signedRequestSecp256k1, '../../docs/src/DataStructures/Secp256k1/SignedRequest.md');
+  output(requestParamsSecp256k1, '../../docs/src/DataStructures/Secp256k1/Request.md');
+  output(requestUrlSecp256k1, '../../docs/src/DataStructures/Secp256k1/RequestUrl.md');
+  output(await ExampleLoginSecp256k1(), '../../docs/src/DataStructures/Secp256k1/Response-LoginOnly.md');
+  output(await ExampleNewUserSecp256k1(), '../../docs/src/DataStructures/Secp256k1/Response-NewUser.md');
+  output(await ExampleNewProviderSecp256k1(), '../../docs/src/DataStructures/Secp256k1/Response-NewProvider.md');
 }
 
 main().catch(console.error).finally(process.exit);

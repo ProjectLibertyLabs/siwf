@@ -7,7 +7,7 @@ import {
   SiwfResponseCredentialGraph,
   SiwfResponseCredentialPhone,
 } from '../types/credential.js';
-import { ExampleProviderKey, ExampleUserKey, multibaseEd25519, multibaseSr25519 } from './keys.js';
+import { ExampleProviderKeySr25519, ExampleUserKeySr25519, multibaseEd25519, multibaseSr25519 } from './keys.js';
 import { documentLoaderGenerator } from '../documents/loader.js';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { VerifiedEmailAddress, VerifiedGraphKey, VerifiedPhoneNumber } from '../constants.js';
@@ -16,7 +16,7 @@ export async function signCredential<T>(keypair: KeyringPair, credential: Omit<T
   const multicodec = multibaseEd25519(keypair.publicKey);
   // Use the did:web version if it is a "provider key" coming through
   const signerId =
-    ExampleProviderKey.keyPairEd().address === keypair.address
+    ExampleProviderKeySr25519.keyPairEd().address === keypair.address
       ? `did:web:frequencyaccess.com#${multicodec}`
       : `did:key:${multicodec}`;
 
@@ -56,17 +56,17 @@ const exampleX25519 = {
 };
 
 export const ExampleUserGraphCredential = (): Promise<SiwfResponseCredentialGraph> =>
-  signCredential(ExampleUserKey.keyPairEd(), {
+  signCredential(ExampleUserKeySr25519.keyPairEd(), {
     '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/undefined-terms/v2'],
     type: ['VerifiedGraphKeyCredential', 'VerifiableCredential'],
-    issuer: 'did:key:' + multibaseSr25519(ExampleUserKey.keyPair().publicKey),
+    issuer: 'did:key:' + multibaseSr25519(ExampleUserKeySr25519.keyPair().publicKey),
     validFrom: '2024-08-21T21:28:08.289+0000',
     credentialSchema: {
       type: 'JsonSchema',
       id: VerifiedGraphKey.id,
     },
     credentialSubject: {
-      id: 'did:key:' + multibaseSr25519(ExampleUserKey.keyPair().publicKey),
+      id: 'did:key:' + multibaseSr25519(ExampleUserKeySr25519.keyPair().publicKey),
       encodedPublicKeyValue: exampleX25519.publicKey,
       encodedPrivateKeyValue: exampleX25519.secretKey,
       encoding: 'base16',
@@ -77,7 +77,7 @@ export const ExampleUserGraphCredential = (): Promise<SiwfResponseCredentialGrap
   });
 
 export const ExampleEmailCredential = (): Promise<SiwfResponseCredentialEmail> =>
-  signCredential(ExampleProviderKey.keyPairEd(), {
+  signCredential(ExampleProviderKeySr25519.keyPairEd(), {
     '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/undefined-terms/v2'],
     type: ['VerifiedEmailAddressCredential', 'VerifiableCredential'],
     issuer: 'did:web:frequencyaccess.com',
@@ -87,14 +87,14 @@ export const ExampleEmailCredential = (): Promise<SiwfResponseCredentialEmail> =
       id: VerifiedEmailAddress.id,
     },
     credentialSubject: {
-      id: 'did:key:' + multibaseSr25519(ExampleUserKey.keyPair().publicKey),
+      id: 'did:key:' + multibaseSr25519(ExampleUserKeySr25519.keyPair().publicKey),
       emailAddress: 'john.doe@example.com',
       lastVerified: '2024-08-21T21:27:59.309+0000',
     },
   });
 
 export const ExamplePhoneCredential = (): Promise<SiwfResponseCredentialPhone> =>
-  signCredential(ExampleProviderKey.keyPairEd(), {
+  signCredential(ExampleProviderKeySr25519.keyPairEd(), {
     '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/undefined-terms/v2'],
     type: ['VerifiedPhoneNumberCredential', 'VerifiableCredential'],
     issuer: 'did:web:frequencyaccess.com',
@@ -104,7 +104,7 @@ export const ExamplePhoneCredential = (): Promise<SiwfResponseCredentialPhone> =
       id: VerifiedPhoneNumber.id,
     },
     credentialSubject: {
-      id: 'did:key:' + multibaseSr25519(ExampleUserKey.keyPair().publicKey),
+      id: 'did:key:' + multibaseSr25519(ExampleUserKeySr25519.keyPair().publicKey),
       phoneNumber: '+01-234-867-5309',
       lastVerified: '2024-08-21T21:27:59.309+0000',
     },

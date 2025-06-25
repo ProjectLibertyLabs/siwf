@@ -57,3 +57,6 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 .idea
+*.iml
+*.ipr
+*.iws

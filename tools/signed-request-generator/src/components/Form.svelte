@@ -45,6 +45,9 @@
 				throw new Error('Waiting on signature.');
 			}
 			const signedRequest = buildSignedRequest(
+				'base58',
+				'ss58',
+				'Secp256k1',
 				signature,
 				signerPublicKey,
 				callbackUri,
