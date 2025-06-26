@@ -7,7 +7,7 @@ import {
   isPayloadLogin,
   SiwfResponsePayloadLogin,
 } from './types/payload.js';
-import { MakePropertyRequired, SiwfResponse } from './types/response.js';
+import { SiwfResponse } from './types/response.js';
 import {
   serializeAddProviderPayloadHex,
   serializeClaimHandlePayloadHex,

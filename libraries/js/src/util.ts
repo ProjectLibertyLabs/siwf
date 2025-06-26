@@ -10,7 +10,6 @@ import {
 } from './types/payload.js';
 import { AlgorithmType, CurveType, SignedPayload } from './types';
 import {
-  ChainType,
   createAddProvider,
   createClaimHandlePayload,
   createItemizedAddAction,
