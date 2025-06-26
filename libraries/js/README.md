@@ -35,6 +35,16 @@ See [Markdown/GitHub Docs](../../docs/src/QuickStart.md) or
 | `VerifiedPhoneNumberCredential`  | Request for a verified SMS/Phone Number        |
 | `VerifiedGraphKeyCredential`     | Request for a the private graph encryption key |
 
+### SIWF Options
+
+| Parameter     | Description                                                                        |
+|---------------|------------------------------------------------------------------------------------|
+| `endpoint`    | The SIWF service URL endpoint                                                      |
+| `chainType`   | Used to make sure the signatures are generated and validated for the correct chain |
+| `loginMsgUri` | The URI(s) used to validate the CAIP-122 Login Messages                            |
+
+
+
 ### JS API Types
 
 Types are included with the exports for the package
