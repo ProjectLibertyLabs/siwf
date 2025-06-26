@@ -1,8 +1,27 @@
 import { validateAddress } from '@polkadot/util-crypto/address/validate';
-import { SupportedPayload } from '@frequency-chain/ethereum-utils';
+import { ChainType, SupportedPayload } from '@frequency-chain/ethereum-utils';
 
 export interface SiwfOptions {
-  endpoint: string;
+  /**
+   * The SIWF service URL endpoint
+   * - `mainnet` Will default to Frequency Access Mainnet  (Default)
+   * - `testnet` Will default to Frequency Access Testnet
+   * - `<custom>` Will use the custom url
+   */
+  endpoint?: string;
+  /**
+   * Chain Type
+   * Used to make sure the signatures are generated and validated for the correct chain.
+   * EIP-712 ChainId is different for different chains
+   * Supported Chain Types:
+   * - `Mainnet-Frequency` (Default)
+   * - `Paseo-Testnet-Frequency`
+   * - `Dev`
+   */
+  chainType?: ChainType;
+  /**
+   * The URI(s) used to validate the CAIP-122 Login Messages
+   */
   loginMsgUri?: string | string[];
 }
 
