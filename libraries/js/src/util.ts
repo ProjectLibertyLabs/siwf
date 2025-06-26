@@ -164,12 +164,3 @@ export function getAlgorithmForCurveType(keyType: CurveType): AlgorithmType {
       throw new Error(`${keyType} is not supported!`);
   }
 }
-
-export function getChainTypeFromEndpoint(endpoint: string): ChainType {
-  if (endpoint.toLowerCase() === 'production') {
-    return 'Mainnet-Frequency';
-  } else if (endpoint.toLowerCase() === 'staging') {
-    return 'Paseo-Testnet-Frequency';
-  }
-  return 'Dev';
-}

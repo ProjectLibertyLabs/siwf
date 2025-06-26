@@ -9,7 +9,6 @@ import {
 } from './types/payload.js';
 import { MakePropertyRequired, SiwfResponse } from './types/response.js';
 import {
-  getChainTypeFromEndpoint,
   serializeAddProviderPayloadHex,
   serializeClaimHandlePayloadHex,
   serializeItemActionsPayloadHex,
@@ -119,7 +118,7 @@ function verifySignatureMaybeWrapped(
   publicKey: string,
   signature: string,
   message: SignedPayload,
-  options: MakePropertyRequired<SiwfOptions, 'endpoint'>
+  options: SiwfOptions
 ): boolean {
   if (curveType === 'Sr25519' && isSignedPayloadUint8Array(message)) {
     const unwrappedVerifyResult = signatureVerify(message, signature, publicKey);
@@ -133,12 +132,7 @@ function verifySignatureMaybeWrapped(
 
     return wrappedVerifyResult.isValid || verifySignatureHashMaybeWrapped(publicKey, signature, message);
   } else if (curveType === 'Secp256k1' && isSignedPayloadSupportedPayload(message)) {
-    return verifySignature(
-      publicKey as HexString,
-      signature as HexString,
-      message,
-      getChainTypeFromEndpoint(options.endpoint)
-    );
+    return verifySignature(publicKey as HexString, signature as HexString, message, options.chainType);
   } else {
     throw new Error(`${curveType} is not supported!`);
   }
@@ -253,7 +247,7 @@ function validateLoginPayload(
         userPublicKey.encodedValue as HexString,
         payload.signature.encodedValue as HexString,
         createSiwfLoginRequestPayload(payload.payload.message),
-        getChainTypeFromEndpoint(options.endpoint)
+        options.chainType
       ),
       'Login message signature failed'
     );
