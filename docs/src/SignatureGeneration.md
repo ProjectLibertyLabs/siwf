@@ -159,12 +159,27 @@ const callbackUri: string = getWebOrApplicationCallbackUri();
 // The Encoded Signed Request can remain static if
 // It is the same as is generated with the Signed Payload Generation Tool
 const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
+  'base58',
+  'ss58',
+  'Sr25519',
   providerKeyUri,
   callbackUri,
   permissions,
   credentials,
   applicationContext,
 );
+
+// Secp256k1 alternative
+// const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
+//   'base16',
+//   'eip-55',
+//   'Secp256k1',
+//   secp256k1SecretKey,
+//   callbackUri,
+//   permissions,
+//   credentials,
+//   applicationContext,
+// );
 
 // Options with endpoint selection
 // Endpoint may be tagged or specified in full

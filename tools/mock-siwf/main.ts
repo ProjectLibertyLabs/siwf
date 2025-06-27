@@ -1,38 +1,58 @@
 import express, { Request, Response } from "express";
-import login from "./login.json";
-import newUser from "./new-user.json";
-import newProvider from "./new-provider.json";
+import loginSr25519 from "./login_Sr25519.json";
+import newUserSr25519 from "./new-user_Sr25519.json";
+import newProviderSr25519 from "./new-provider_Sr25519.json";
+import loginSecp256k1 from "./login_Secp256k1.json";
+import newUserSecp256k1 from "./new-user_Secp256k1.json";
+import newProviderSecp256k1 from "./new-provider_Secp256k1.json";
 
 const app = express();
 app.use(express.json());
 
 // Mock authorization codes for different scenarios
 const authCodes = {
-  login: "loginAuthCode123",
-  newProvider: "newProviderAuthCode456",
-  newUser: "newUserAuthCode789",
+  loginSr25519: "loginAuthCode123_Sr25519",
+  newProviderSr25519: "newProviderAuthCode456_Sr25519",
+  newUserSr25519: "newUserAuthCode789_Sr25519",
+  loginSecp256k1: "loginAuthCode123_Secp256k1",
+  newProviderSecp256k1: "newProviderAuthCode456_Secp256k1",
+  newUserSecp256k1: "newUserAuthCode789_Secp256k1",
 };
 
 // Mock payloads based on the authorization codes
-const payloads = {
-  login: login,
-  newProvider: newProvider,
-  newUser: newUser,
+const payloadsSr25519 = {
+  login: loginSr25519,
+  newProvider: newProviderSr25519,
+  newUser: newUserSr25519,
+};
+const payloadsSecp256k1 = {
+  login: loginSecp256k1,
+  newProvider: newProviderSecp256k1,
+  newUser: newUserSecp256k1,
 };
 
 // GET /api/payload: Return mock payload data
 app.get("/api/payload", (req: Request, res: Response) => {
   const { authorizationCode } = req.query;
 
-  if (authorizationCode === authCodes.login) {
+  if (authorizationCode === authCodes.loginSr25519) {
     console.log("Responding with Login payload");
-    res.json(payloads.login);
-  } else if (authorizationCode === authCodes.newProvider) {
+    res.json(payloadsSr25519.login);
+  } else if (authorizationCode === authCodes.newProviderSr25519) {
     console.log("Responding with New Provider payload");
-    res.json(payloads.newProvider);
-  } else if (authorizationCode === authCodes.newUser) {
+    res.json(payloadsSr25519.newProvider);
+  } else if (authorizationCode === authCodes.newUserSr25519) {
     console.log("Responding with New User payload");
-    res.json(payloads.newUser);
+    res.json(payloadsSr25519.newUser);
+  } else if (authorizationCode === authCodes.loginSecp256k1) {
+    console.log("Responding with Login payload");
+    res.json(payloadsSecp256k1.login);
+  } else if (authorizationCode === authCodes.newProviderSecp256k1) {
+    console.log("Responding with New Provider payload");
+    res.json(payloadsSecp256k1.newProvider);
+  } else if (authorizationCode === authCodes.newUserSecp256k1) {
+    console.log("Responding with New User payload");
+    res.json(payloadsSecp256k1.newUser);
   } else {
     console.log("Invalid authorization code:", authorizationCode);
     res.status(400).json({ error: "Invalid authorization code" });
