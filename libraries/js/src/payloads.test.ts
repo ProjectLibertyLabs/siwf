@@ -70,7 +70,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         validatePayloads(
           {
             userPublicKey: {
-              encodedValue: '0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac',
+              encodedValue: '0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac',
               encoding: 'base16',
               format: 'eip-55',
               type: 'Secp256k1',
@@ -81,12 +81,12 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
                   algo: 'SECP256K1',
                   encoding: 'base16',
                   encodedValue:
-                    '0xf9f19414eeda82385d3acb4cda73b1dedb18fba7550ead8f46726c0068440b565dd322202870a4287c74e5bbc62039ffec6fbc691df9b1bfe1f0390f050555221b',
+                    '0x58859d81f9d767da0b29c6453a3eeeaea6db3feef691849d51d69cd614c514354860c9c013cbf5ec1709ff5326a829e5d40ee118c5607765cd66a44bdc39eb9e1b',
                 },
                 type: 'login',
                 payload: {
                   message: `localhost wants you to sign in with your Frequency account:
-frequency:dev:0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac
+frequency:dev:0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac
 
 URI: http://localhost:3030/login/callback
 Version: 1

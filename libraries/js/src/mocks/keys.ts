@@ -16,12 +16,6 @@ export function multibaseEd25519(publicKey: string | Uint8Array): string {
   return 'z' + bs58.encode(Buffer.concat([Buffer.from('ed01', 'hex'), keyBuf]));
 }
 
-export function multibaseSecp265k1(publicKey: string | Uint8Array): string {
-  const keyBuf =
-    typeof publicKey === 'string' ? Buffer.from(publicKey.replace('0x', ''), 'hex') : Buffer.from(publicKey);
-  return 'z' + bs58.encode(Buffer.concat([Buffer.from('e701', 'hex'), keyBuf]));
-}
-
 // Provider/Application. All derived from //Alice
 export const ExampleProviderKeySr25519 = {
   uri: '//Alice',

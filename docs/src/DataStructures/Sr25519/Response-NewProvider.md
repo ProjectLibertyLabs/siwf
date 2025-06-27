@@ -11,7 +11,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xc8a82c74f3bd2b3cd5aa2aa28a9098ff99de90d88e19e2399f949a18ff126619c099562d125c706ea2067585beabd697e2ebdf19f11e35c41a8bc26ca55fbe81"
+        "encodedValue": "0x5ad56d8e86cea7163e5ed49786962d838291535ded40bfcfdcfcf8a81c1fc0700ef95b08fd9b17dc49ed6e9c64d956194072940cb98813e785846af953083a81"
       },
       "endpoint": {
         "pallet": "msa",

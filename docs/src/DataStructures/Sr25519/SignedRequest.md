@@ -10,7 +10,7 @@
     "signature": {
       "algo": "SR25519",
       "encoding": "base16",
-      "encodedValue": "0x08e3cc8959406e23fe2b9e07576e4dfe565ab166a5d6fe5b0f7a0044152f683eded554732499687ada000abcc2411e327c552f34f7c3629e8d65568425fe358f"
+      "encodedValue": "0xd2fcbaa758fa2c14b8f58b83391d62656b6394d0cb05b84436906a523ca11908f7c2782f9a586a9fdcb77425f6564ecdceff9152c357c389e2dbd521c3c7b689"
     },
     "payload": {
       "callback": "http://localhost:3000",
@@ -46,6 +46,9 @@
         }
       ]
     }
-  ]
+  ],
+  "applicationContext": {
+    "url": "https://example.org/myapp/siwf-manifest.json"
+  }
 }
 ```

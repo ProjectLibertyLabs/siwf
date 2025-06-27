@@ -98,7 +98,8 @@ describe('request', () => {
         signature: {
           algo: 'SECP256K1',
           encoding: 'base16',
-          encodedValue: expect.stringMatching(/^0x[a-f0-9]+$/),
+          encodedValue:
+            '0x96dc28341377c7d50383d532567955cf0fc1dea986a5cfd4c2b04889538a42e14fae61375ab8e1a48df8a3dd97329054018726dde0c30d4032b697dec3fd88081c',
         },
         payload: {
           callback: 'http://localhost:3000',

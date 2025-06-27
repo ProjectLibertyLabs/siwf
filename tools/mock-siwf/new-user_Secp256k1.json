@@ -1,17 +1,16 @@
-```json
 {
   "userPublicKey": {
-    "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
-    "encoding": "base58",
-    "format": "ss58",
-    "type": "Sr25519"
+    "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "encoding": "base16",
+    "format": "eip-55",
+    "type": "Secp256k1"
   },
   "payloads": [
     {
       "signature": {
-        "algo": "SR25519",
+        "algo": "SECP256K1",
         "encoding": "base16",
-        "encodedValue": "0xcc35866c7f76c857f7223dde3215e5474cd1eeb6db38865b399b2207f8f7c314a0c015ea0097e1e15ccf2cf550f3cb8aa51822ae76e85be4e81d0abc2a21f28e"
+        "encodedValue": "0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c"
       },
       "endpoint": {
         "pallet": "msa",
@@ -20,21 +19,15 @@
       "type": "addProvider",
       "payload": {
         "authorizedMsaId": 1,
-        "schemaIds": [
-          5,
-          7,
-          8,
-          9,
-          10
-        ],
+        "schemaIds": [5, 7, 8, 9, 10],
         "expiration": 24
       }
     },
     {
       "signature": {
-        "algo": "SR25519",
+        "algo": "SECP256K1",
         "encoding": "base16",
-        "encodedValue": "0xb8e47e2237d5a3405832a88d2965c8cadb8b81b041b59d22a0d491d9d72a9749ef8673d99a395ae1c22e579a2e74ad4fc432e22df257c405377f0f0924af688c"
+        "encodedValue": "0xfd1d273752f6494cf64bc7091b37fce35f1bdd861b676c7f5ee392675453764f2e322797b6a5f676e6716738c5ba8fabe82de83dbe5bf9d9e771ef717ff036241c"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -55,9 +48,9 @@
     },
     {
       "signature": {
-        "algo": "SR25519",
+        "algo": "SECP256K1",
         "encoding": "base16",
-        "encodedValue": "0x20db76f55f7189163c1534451f536bbe6b23e99495afe3b1ca3d719fec6f0b7ba61360fa0990c860f88fba7fb5bb3051e8f4fd1c63b8d7baa6d3228872d7c185"
+        "encodedValue": "0xeaa194e6f0074d777633522370fc0f74b200d933e1f1219bc8379ace1fb42759463e7b71d796abf839f2c1f78ecd0af4872010300afac4fbdb44d584c4686e041b"
       },
       "endpoint": {
         "pallet": "handles",
@@ -76,10 +69,7 @@
         "https://www.w3.org/ns/credentials/v2",
         "https://www.w3.org/ns/credentials/undefined-terms/v2"
       ],
-      "type": [
-        "VerifiedEmailAddressCredential",
-        "VerifiableCredential"
-      ],
+      "type": ["VerifiedEmailAddressCredential", "VerifiableCredential"],
       "issuer": "did:web:frequencyaccess.com",
       "validFrom": "2024-08-21T21:28:08.289+0000",
       "credentialSchema": {
@@ -104,10 +94,7 @@
         "https://www.w3.org/ns/credentials/v2",
         "https://www.w3.org/ns/credentials/undefined-terms/v2"
       ],
-      "type": [
-        "VerifiedGraphKeyCredential",
-        "VerifiableCredential"
-      ],
+      "type": ["VerifiedGraphKeyCredential", "VerifiableCredential"],
       "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
       "validFrom": "2024-08-21T21:28:08.289+0000",
       "credentialSchema": {
@@ -133,4 +120,3 @@
     }
   ]
 }
-```
