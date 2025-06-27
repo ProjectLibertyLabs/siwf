@@ -22,7 +22,7 @@ Note: The following instruction examples are based on Frequency Access.
 
 Response Sections
 
-- `userPublicKey`: The key for the user signing this request
+- `userPublicKey`: The key for the user signing this request. This can be a Sr25519 public key or an Ethereum address.
 - `payloads`: Signed payloads from the user
 - `credentials`: User-approved, verified credentials from Frequency Access (or other SIWF-compatible services) such as email, phone, user keys, etc...
 
@@ -99,7 +99,7 @@ The message signed follows [CAIP-122: Sign in With X](https://chainagnostic.org/
 
 ```text
 {{domain}} wants you to sign in with your Frequency account:
-frequency:{{chainReference}}:{{ss58Address}}
+frequency:{{chainReference}}:{{ss58Address or eip-55Address}}
 
 URI: {{uri}}
 Version: {{version}}
@@ -113,7 +113,7 @@ Inside the message, `{{domain}}` is the domain of the application requesting the
 #### Validation Steps
 
 1. Perform an Sr25519/Secp256k1 signature verification using:
-    - `userPublicKey`: The signing key
+    - `userPublicKey`: The signing key or address
     - `payload.message`: The signed message parsing `\n` into `LF` line breaks
     - `signature.encodedValue`: The signature
 2. Verify that the `userPublicKey` matches the second line of the message for the correct chain identifier
