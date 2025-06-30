@@ -30,7 +30,7 @@ describe('validateCredential', () => {
 
   it('Can fail email with trusted issuers and bad expiration date', async () => {
     const cred = await ExampleEmailCredential();
-    cred.proof.expirationDate = new Date('2000-01-01').toISOString();
+    cred.proof!.expirationDate = new Date('2000-01-01').toISOString();
     await expect(validateCredentials([cred], ['did:web:frequencyaccess.com'])).rejects.toThrowError(
       'Credential Expired: 2000-01-01T00:00:00.000Z'
     );
@@ -38,7 +38,7 @@ describe('validateCredential', () => {
 
   it('Can fail email with trusted issuers and bad valid until date', async () => {
     const cred = await ExampleEmailCredential();
-    cred.proof.validUntil = new Date('2000-01-01').toISOString();
+    cred.proof!.validUntil = new Date('2000-01-01').toISOString();
     await expect(validateCredentials([cred], ['did:web:frequencyaccess.com'])).rejects.toThrowError(
       'Credential Expired: 2000-01-01T00:00:00.000Z'
     );
@@ -52,7 +52,7 @@ describe('validateCredential', () => {
 
   it('Can fail phone with trusted issuers but bad proof', async () => {
     const cred = await ExamplePhoneCredential();
-    cred.proof.proofValue += 'F';
+    cred.proof!.proofValue += 'F';
     await expect(validateCredentials([cred], ['did:web:frequencyaccess.com'])).rejects.toThrowError(
       'Unable to validate credential (VerifiedPhoneNumberCredential, VerifiableCredential). VerificationError:Error: Invalid signature.'
     );

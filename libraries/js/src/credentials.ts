@@ -29,6 +29,9 @@ export async function validateGeneralCredential(
   trustedIssuers: string[]
 ): Promise<void> {
   // Make sure we can validate
+  if (credential.proof == undefined) {
+    throw new Error(`Proof is not provided!`);
+  }
   // I don't think we need this? Likely happens inside vc.verifyCredential
   if (
     credential.proof.proofPurpose !== 'assertionMethod' ||
