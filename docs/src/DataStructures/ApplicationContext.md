@@ -54,13 +54,6 @@ This application context credential describes a hypothetical app called "My Soci
         }
       }
     }
-  },
-  "proof": {
-    "type": "DataIntegrityProof",
-    "verificationMethod": "did:key:z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
-    "cryptosuite": "eddsa-rdfc-2022",
-    "proofPurpose": "assertionMethod",
-    "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
   }
 }
 ```

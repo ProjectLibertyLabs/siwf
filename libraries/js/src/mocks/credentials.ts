@@ -36,6 +36,10 @@ export async function signCredential<T>(keypair: KeyringPair, credential: Omit<T
       documentLoader: documentLoaderGenerator(),
     })) as T;
 
+    // we don't need the proof since it adds unnecessary complexity
+    // @ts-ignore
+    delete signedCredential.proof;
+
     return signedCredential;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {

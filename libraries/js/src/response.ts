@@ -47,7 +47,7 @@ export async function validateSiwfResponse(response: unknown, options: SiwfOptio
   await validatePayloads(body, options);
 
   // Validate Credentials (if any), but trust DIDs from frequencyAccess
-  await validateCredentials(body.credentials, ['did:web:frequencyaccess.com', 'did:web:testnet.frequencyaccess.com']);
+  await validateCredentials(body.credentials);
 
   return body;
 }

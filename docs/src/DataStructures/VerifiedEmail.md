@@ -18,13 +18,6 @@
     "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
     "emailAddress": "john.doe@example.com",
     "lastVerified": "2024-08-21T21:27:59.309+0000"
-  },
-  "proof": {
-    "type": "DataIntegrityProof",
-    "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
-    "cryptosuite": "eddsa-rdfc-2022",
-    "proofPurpose": "assertionMethod",
-    "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
   }
 }
 ```

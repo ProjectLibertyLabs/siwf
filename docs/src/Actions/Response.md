@@ -53,9 +53,6 @@ _Trust Model Note_: You may choose to just trust credentials issued by Frequency
 2. Fetch the issuer DID Document following the [`did:web` Method from the W3C](https://w3c-ccg.github.io/did-method-web/)
   - Production-Mainnet should always be `did:web:frequencyaccess.com` which resolves to `https://frequencyaccess.com/.well-known/did.json`
   - Staging-Testnet should always be `did:web:testnet.frequencyaccess.com` which resolves to `https://testnet.frequencyaccess.com/.well-known/did.json`
-3. Check that the key in the `proof.verificationMethod` is in the DID Document to verify that the key is still valid
-4. Test that the `proof` validates according the to [W3C Verifiable Credentials Specification](https://www.w3.org/TR/vc-data-model-1.1/#verification)
-
 
 ## Graph Encryption Key Credential
 

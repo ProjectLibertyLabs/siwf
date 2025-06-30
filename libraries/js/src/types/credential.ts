@@ -11,16 +11,6 @@ interface SiwfResponseCredentialBase {
     id: string;
   };
   credentialSubject: Record<string, unknown>;
-  proof: {
-    type: 'DataIntegrityProof';
-    created?: string;
-    verificationMethod: string;
-    cryptosuite: 'eddsa-rdfc-2022';
-    proofPurpose: 'assertionMethod';
-    proofValue: string;
-    expirationDate?: string;
-    validUntil?: string;
-  };
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isCredentialSchema(obj: any): obj is SiwfResponseCredentialBase['credentialSchema'] {
@@ -33,18 +23,6 @@ function isCredentialSubject(obj: any): obj is SiwfResponseCredentialBase['crede
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isCredentialProof(obj: any): obj is SiwfResponseCredentialBase['proof'] {
-  return (
-    isObj(obj) &&
-    obj.type === 'DataIntegrityProof' &&
-    obj.cryptosuite === 'eddsa-rdfc-2022' &&
-    obj.proofPurpose === 'assertionMethod' &&
-    isStr(obj.verificationMethod) &&
-    isStr(obj.proofValue)
-  );
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isCredentialBase(obj: any): obj is SiwfResponseCredentialBase {
   return (
     isObj(obj) &&
@@ -52,8 +30,7 @@ function isCredentialBase(obj: any): obj is SiwfResponseCredentialBase {
     isArrayOf(obj.type, isStr) &&
     isStr(obj.issuer) &&
     isCredentialSchema(obj.credentialSchema) &&
-    isCredentialSubject(obj.credentialSubject) &&
-    isCredentialProof(obj.proof)
+    isCredentialSubject(obj.credentialSubject)
   );
 }
 

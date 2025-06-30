@@ -11,7 +11,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x5ad56d8e86cea7163e5ed49786962d838291535ded40bfcfdcfcf8a81c1fc0700ef95b08fd9b17dc49ed6e9c64d956194072940cb98813e785846af953083a81"
+        "encodedValue": "0x7248c3212b6fe0f4aede170b0624f048904bc836b5711917b860ead215733d5cc311df1bdf074704ed19b97ee4066d9b062eeca2b4ee98c8a629f25a68723087"
       },
       "endpoint": {
         "pallet": "msa",
@@ -51,13 +51,6 @@
         "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
         "emailAddress": "john.doe@example.com",
         "lastVerified": "2024-08-21T21:27:59.309+0000"
-      },
-      "proof": {
-        "type": "DataIntegrityProof",
-        "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
-        "cryptosuite": "eddsa-rdfc-2022",
-        "proofPurpose": "assertionMethod",
-        "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
       }
     },
     {
@@ -83,13 +76,6 @@
         "format": "bare",
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
-      },
-      "proof": {
-        "type": "DataIntegrityProof",
-        "verificationMethod": "did:key:z6MktZ15TNtrJCW2gDLFjtjmxEdhCadNCaDizWABYfneMqhA",
-        "cryptosuite": "eddsa-rdfc-2022",
-        "proofPurpose": "assertionMethod",
-        "proofValue": "z2HHWwtWggZfvGqNUk4S5AAbDGqZRFXjpMYAsXXmEksGxTk4DnnkN3upCiL1mhgwHNLkxY3s8YqNyYnmpuvUke7jF"
       }
     }
   ]

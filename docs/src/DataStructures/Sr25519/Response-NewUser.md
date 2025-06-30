@@ -11,7 +11,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xcc35866c7f76c857f7223dde3215e5474cd1eeb6db38865b399b2207f8f7c314a0c015ea0097e1e15ccf2cf550f3cb8aa51822ae76e85be4e81d0abc2a21f28e"
+        "encodedValue": "0x66537654ad14aa500927185db8823b4a04fb5c4972cc884d2130c4f9d3d78305c28b2e45d13a81eaa48a8e805dc4e73f0db75ccf365c87c8fcf176b91b80b286"
       },
       "endpoint": {
         "pallet": "msa",
@@ -34,7 +34,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xb8e47e2237d5a3405832a88d2965c8cadb8b81b041b59d22a0d491d9d72a9749ef8673d99a395ae1c22e579a2e74ad4fc432e22df257c405377f0f0924af688c"
+        "encodedValue": "0x68e0446729a2241ad6effb9cdad021bb969193dd31319513150130d14dd52324b52b6f086157d7562c898a63cba62749be0bb4c025d281f260185a0b28b2b284"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -57,7 +57,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x20db76f55f7189163c1534451f536bbe6b23e99495afe3b1ca3d719fec6f0b7ba61360fa0990c860f88fba7fb5bb3051e8f4fd1c63b8d7baa6d3228872d7c185"
+        "encodedValue": "0x6608211186a40f86882dfeb04454f0b767acb92cb76e97c3c9a9a76edd6710537e980a6656118dd485a7235f8a6e5516a0cf09e69061f9890258f878b5828d89"
       },
       "endpoint": {
         "pallet": "handles",
@@ -90,13 +90,6 @@
         "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
         "emailAddress": "john.doe@example.com",
         "lastVerified": "2024-08-21T21:27:59.309+0000"
-      },
-      "proof": {
-        "type": "DataIntegrityProof",
-        "verificationMethod": "did:web:frequencyaccess.com#z6MkofWExWkUvTZeXb9TmLta5mBT6Qtj58es5Fqg1L5BCWQD",
-        "cryptosuite": "eddsa-rdfc-2022",
-        "proofPurpose": "assertionMethod",
-        "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
       }
     },
     {
@@ -122,13 +115,6 @@
         "format": "bare",
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
-      },
-      "proof": {
-        "type": "DataIntegrityProof",
-        "verificationMethod": "did:key:z6MktZ15TNtrJCW2gDLFjtjmxEdhCadNCaDizWABYfneMqhA",
-        "cryptosuite": "eddsa-rdfc-2022",
-        "proofPurpose": "assertionMethod",
-        "proofValue": "z2HHWwtWggZfvGqNUk4S5AAbDGqZRFXjpMYAsXXmEksGxTk4DnnkN3upCiL1mhgwHNLkxY3s8YqNyYnmpuvUke7jF"
       }
     }
   ]
