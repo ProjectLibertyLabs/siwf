@@ -214,7 +214,7 @@
 <h2 id="step-2-parsing-the-response"><a class="header" href="#step-2-parsing-the-response">Step 2: Parsing the Response</a></h2>
 <p>Response Sections</p>
 <ul>
-<li><code>userPublicKey</code>: The key for the user signing this request</li>
+<li><code>userPublicKey</code>: The key for the user signing this request. This can be a Sr25519 public key or an Ethereum address.</li>
 <li><code>payloads</code>: Signed payloads from the user</li>
 <li><code>credentials</code>: User-approved, verified credentials from Frequency Access (or other SIWF-compatible services) such as email, phone, user keys, etc...</li>
 </ul>
@@ -237,10 +237,9 @@ Each credential would be matched based on the <code>type</code> field.</p>
 <li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://w3c-ccg.github.io/did-key-spec/#format"><code>did:key</code> Method from the W3C</a></li>
 </ol>
 <ul>
-<li>Sr25519 key Example: <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code> is the <a href="https://docs.substrate.io/reference/address-formats/">SS58</a> version with prefix <code>90</code> of the hex address <code>0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code>. <code>0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code> is multicodec <code>sr25519-pub</code> hex which is multiformat <code>base58-btc</code> <code>z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ</code></li>
-<li>Secp256k1 ket example:  <code>f6bgm3jyDVNxMf9zdYgHZmAQ8DqLVFDzvHQQc2BBpa5SK2bDw</code> is the <a href="https://docs.substrate.io/reference/address-formats/">SS58</a> version with prefix <code>90</code> of the hex address <code>0xb7c13f4176ca799975d9cce4bafe4814a9d824faeeeeeeeeeeeeeeeeeeeeeeee</code>. <code>0xe701b7c13f4176ca799975d9cce4bafe4814a9d824faeeeeeeeeeeeeeeeeeeeeeeee</code> is multicodec <code>secp256k1-pub</code> (this will not work since we only have the 32 byte account id not the 33 byte public key) (?)</li>
+<li>Example: <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code> is the <a href="https://docs.substrate.io/reference/address-formats/">SS58</a> version with prefix <code>90</code> of the hex address <code>0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code>. <code>0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d</code> is multicodec <code>sr25519-pub</code> hex which is multiformat <code>base58-btc</code> <code>z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ</code></li>
 </ul>
-<ol start="3">
+<ol start="2">
 <li>Fetch the issuer DID Document following the <a href="https://w3c-ccg.github.io/did-method-web/"><code>did:web</code> Method from the W3C</a></li>
 </ol>
 <ul>
@@ -306,7 +305,7 @@ No submission to the chain is required, but the application <em>must</em> valida
 <p>The message signed follows <a href="https://chainagnostic.org/CAIPs/caip-122">CAIP-122: Sign in With X</a> specification which is derived from <a href="https://eips.ethereum.org/EIPS/eip-4361">EIP-4361: Sign-In with Ethereum</a>.</p>
 <h4 id="example-message-with-placeholders"><a class="header" href="#example-message-with-placeholders">Example Message with Placeholders</a></h4>
 <pre><code class="language-text">{{domain}} wants you to sign in with your Frequency account:
-frequency:{{chainReference}}:{{ss58Address}}
+frequency:{{chainReference}}:{{ss58Address or eip-55Address}}
 
 URI: {{uri}}
 Version: {{version}}
@@ -319,7 +318,7 @@ Issued At: {{issued-at}}
 <ol>
 <li>Perform an Sr25519/Secp256k1 signature verification using:
 <ul>
-<li><code>userPublicKey</code>: The signing key</li>
+<li><code>userPublicKey</code>: The signing key or address</li>
 <li><code>payload.message</code>: The signed message parsing <code>\n</code> into <code>LF</code> line breaks</li>
 <li><code>signature.encodedValue</code>: The signature</li>
 </ul>
@@ -387,7 +386,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xcaf7f6eceb68ab0c61b3f704be546400080152f51fa5581fdd103416e9b37435362e27bfe47f4d0b9d477fb60be1c775309a3367916e1a2ad284d1cae82a3c89"
+        "encodedValue": "0xcc35866c7f76c857f7223dde3215e5474cd1eeb6db38865b399b2207f8f7c314a0c015ea0097e1e15ccf2cf550f3cb8aa51822ae76e85be4e81d0abc2a21f28e"
       },
       "endpoint": {
         "pallet": "msa",
@@ -410,7 +409,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x0ebc5e7cf0233d4f99d11191b3df98f605398500fc4cfe698d2868d2dc6aba2983e413d969690dd9c954ab4c9bb0400006af2e359c6068a4342d0f5bf1b4c580"
+        "encodedValue": "0xb8e47e2237d5a3405832a88d2965c8cadb8b81b041b59d22a0d491d9d72a9749ef8673d99a395ae1c22e579a2e74ad4fc432e22df257c405377f0f0924af688c"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -433,7 +432,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x5e2c5b899db347c1c8ad1ff898ce8f853d7860f70418c172c0b795da6eee272a3eec5927d180174ad609aaa64ed903f5a2bfdaab16a694f07e7eb1717c222182"
+        "encodedValue": "0x20db76f55f7189163c1534451f536bbe6b23e99495afe3b1ca3d719fec6f0b7ba61360fa0990c860f88fba7fb5bb3051e8f4fd1c63b8d7baa6d3228872d7c185"
       },
       "endpoint": {
         "pallet": "handles",
@@ -599,7 +598,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xc8a82c74f3bd2b3cd5aa2aa28a9098ff99de90d88e19e2399f949a18ff126619c099562d125c706ea2067585beabd697e2ebdf19f11e35c41a8bc26ca55fbe81"
+        "encodedValue": "0x5ad56d8e86cea7163e5ed49786962d838291535ded40bfcfdcfcf8a81c1fc0700ef95b08fd9b17dc49ed6e9c64d956194072940cb98813e785846af953083a81"
       },
       "endpoint": {
         "pallet": "msa",
@@ -818,11 +817,11 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SECP256K1",
         "encoding": "base16",
-        "encodedValue": "0xe8a1f5ef2c4afc8296adf84f92971bf270d68e89ffc512d13d6f5b99c3b2cd9108d5868e8a3a46d1c406137947d73a054888e195390a1fc4f69c4b16df4119d41b"
+        "encodedValue": "0x986f4c0e365fce4a2f5a05f9fb306d79ac918fc07745399f517eb29b8cde5d097cdab7501b8ab1f0f5912f86682ba67365b0b97478995dbec08986d0fbe5f4f71b"
       },
       "type": "login",
       "payload": {
-        "message": "your-app.com wants you to sign in with your Frequency account:\n0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac\n\n\n\nURI: https://your-app.com/signin/callback\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-10-29T19:17:27.077Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
+        "message": "your-app.com wants you to sign in with your Frequency account:\n0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac\n\n\n\nURI: https://your-app.com/signin/callback\nNonce: N6rLwqyz34oUxJEXJ\nIssued At: 2024-10-29T19:17:27.077Z\nExpiration Time: 2060-03-05T23:23:03.041Z"
       }
     }
   ],

@@ -213,7 +213,7 @@ For example, if you wish to correlate the original unauthorized session with the
 <h2 id="step-2-signing-the-request"><a class="header" href="#step-2-signing-the-request">Step 2: Signing the Request</a></h2>
 <p>To ensure that the correct application is requesting the authentication and that the response is only sent to the authorized party, the request is signed.
 The signature MUST be from one of the <a href="https://docs.frequency.xyz/Identity/ControlKeys.html">Control Keys</a> of the Frequency Provider.</p>
-<h3 id="2a-serialize-the-payload-using-the-scale-codec"><a class="header" href="#2a-serialize-the-payload-using-the-scale-codec">2a: Serialize the payload using the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE Codec</a></a></h3>
+<h3 id="21a-serialize-the-payload-using-the-scale-codec"><a class="header" href="#21a-serialize-the-payload-using-the-scale-codec">2.1.a: Serialize the payload using the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE Codec</a></a></h3>
 <p>SCALE Type (Note: Order matters!)</p>
 <pre><code class="language-json">{
   "callback": "String",
@@ -221,13 +221,12 @@ The signature MUST be from one of the <a href="https://docs.frequency.xyz/Identi
   "userIdentifierAdminUrl": "Option&lt;String&gt;",
 }
 </code></pre>
-<h3 id="2b-wrap-the-payload"><a class="header" href="#2b-wrap-the-payload">2b: Wrap the Payload</a></h3>
+<h3 id="21b-wrap-the-payload"><a class="header" href="#21b-wrap-the-payload">2.1.b: Wrap the Payload</a></h3>
 <p>So that no payloads can be accidentally used on a chain, the payload is wrapped with a <code>&lt;Bytes&gt;</code> tag.</p>
 <p>Byte Arrays Concatenated: <code>[ 60, 66, 121, 116, 101, 115, 62 ] + scale_encoded_payload_bytes + [ 60, 47, 66, 121, 116, 101, 115, 62 ]</code></p>
-<h3 id="2c-sign-the-wrapped-payload-bytes"><a class="header" href="#2c-sign-the-wrapped-payload-bytes">2c: Sign the Wrapped Payload Bytes</a></h3>
+<h3 id="21c-sign-the-wrapped-payload-bytes"><a class="header" href="#21c-sign-the-wrapped-payload-bytes">2.1.c: Sign the Wrapped Payload Bytes</a></h3>
 <p>Sign the serialized payload using Schnorr signatures over ECDSA.</p>
-<h3 id="2d-example"><a class="header" href="#2d-example">2d: Example</a></h3>
-<h4 id="sr25519"><a class="header" href="#sr25519">Sr25519</a></h4>
+<h3 id="21d-example"><a class="header" href="#21d-example">2.1.d: Example</a></h3>
 <p>Remember that SR25519 signatures are non-deterministic, so the payload and encoding will match, but the signature will be different.
 This example uses the <code>//Alice</code> seed phrase to generate the signature.</p>
 <ul>
@@ -237,7 +236,26 @@ This example uses the <code>//Alice</code> seed phrase to generate the signature
 <li>Signing Public Key (SS58 Prefix 90): <code>f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH</code></li>
 <li>Signature (Hex): <code>0x9abd3c54e7164e8385627dc692724b9467386acd7b02a13d6187e2c58fd91440d9134781c0410a45812f5532b71f4a34b4a5443ef8d68b5a1956f7f0f81d4286</code></li>
 </ul>
-<h4 id="secp256k1"><a class="header" href="#secp256k1">Secp256k1</a></h4>
+<h3 id="22a-define-the-payload-using-eip-712-standard"><a class="header" href="#22a-define-the-payload-using-eip-712-standard">2.2.a: Define the payload using EIP-712 standard</a></h3>
+<p>We are using EIP-712 standard to sign any payload using <code>Secp256k1</code> keys. You can find the domain details and more examples <a href="https://github.com/frequency-chain/frequency/blob/main/js/ethereum-utils/src/signature.definitions.ts#L3-L38">here</a>.</p>
+<pre><code class="language-json">  "SiwfSignedRequestPayload": [
+    {
+      "name": "callback",
+      "type": "string",
+    },
+    {
+      "name": "permissions",
+      "type": "uint16[]",
+    },
+    {
+      "name": "userIdentifierAdminUrl",
+      "type": "string",
+    },
+  ],
+</code></pre>
+<h3 id="22b-sign-the-eip-712-payload"><a class="header" href="#22b-sign-the-eip-712-payload">2.2.b: Sign the EIP-712 Payload</a></h3>
+<p>Sign the EIP-712 compatible serialized payload using <code>Secp256k1</code> key.</p>
+<h3 id="22c-example"><a class="header" href="#22c-example">2.2.c: Example</a></h3>
 <p>This example uses the <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code> private key.</p>
 <ul>
 <li>Payload: <code>{ "callback": "http://localhost:3000", "permissions": [5, 7, 8, 9, 10] }</code></li>
@@ -321,12 +339,27 @@ const callbackUri: string = getWebOrApplicationCallbackUri();
 // The Encoded Signed Request can remain static if
 // It is the same as is generated with the Signed Payload Generation Tool
 const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
+  'base58',
+  'ss58',
+  'Sr25519',
   providerKeyUri,
   callbackUri,
   permissions,
   credentials,
   applicationContext,
 );
+
+// Secp256k1 alternative
+// const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
+//   'base16',
+//   'eip-55',
+//   'Secp256k1',
+//   secp256k1SecretKey,
+//   callbackUri,
+//   permissions,
+//   credentials,
+//   applicationContext,
+// );
 
 // Options with endpoint selection
 // Endpoint may be tagged or specified in full
@@ -337,7 +370,7 @@ const options = { endpoint: "production" };
 const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new URLSearchParams({ id: getSessionId() }));
 </code></pre>
 <h3 id="full-example-request"><a class="header" href="#full-example-request">Full Example Request</a></h3>
-<h4 id="sr25519-1"><a class="header" href="#sr25519-1">Sr25519</a></h4>
+<h4 id="sr25519"><a class="header" href="#sr25519">Sr25519</a></h4>
 <pre><code class="language-json">{
   "requestedSignatures": {
     "publicKey": {
@@ -349,7 +382,7 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
     "signature": {
       "algo": "SR25519",
       "encoding": "base16",
-      "encodedValue": "0x08e3cc8959406e23fe2b9e07576e4dfe565ab166a5d6fe5b0f7a0044152f683eded554732499687ada000abcc2411e327c552f34f7c3629e8d65568425fe358f"
+      "encodedValue": "0xd2fcbaa758fa2c14b8f58b83391d62656b6394d0cb05b84436906a523ca11908f7c2782f9a586a9fdcb77425f6564ecdceff9152c357c389e2dbd521c3c7b689"
     },
     "payload": {
       "callback": "http://localhost:3000",
@@ -385,14 +418,17 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
         }
       ]
     }
-  ]
+  ],
+  "applicationContext": {
+    "url": "https://example.org/myapp/siwf-manifest.json"
+  }
 }
 </code></pre>
-<h4 id="secp256k1-1"><a class="header" href="#secp256k1-1">Secp256k1</a></h4>
+<h4 id="secp256k1"><a class="header" href="#secp256k1">Secp256k1</a></h4>
 <pre><code class="language-json">{
   "requestedSignatures": {
     "publicKey": {
-      "encodedValue": "0xf24ff3a9cf04c71dbc94d0b566f7a27b94566cac",
+      "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
       "encoding": "base16",
       "format": "eip-55",
       "type": "Secp256k1"
@@ -436,7 +472,10 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
         }
       ]
     }
-  ]
+  ],
+  "applicationContext": {
+    "url": "https://example.org/myapp/siwf-manifest.json"
+  }
 }
 </code></pre>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
