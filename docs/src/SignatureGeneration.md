@@ -65,6 +65,8 @@ This example uses the `//Alice` seed phrase to generate the signature.
 
 ### 2.2.a: Define the payload using EIP-712 standard
 
+We are using EIP-712 standard to sign any payload using `Secp256k1` keys. You can find the domain details and more examples [here](https://github.com/frequency-chain/frequency/blob/main/js/ethereum-utils/src/signature.definitions.ts#L3-L38).
+
 ```json
   "SiwfSignedRequestPayload": [
     {
