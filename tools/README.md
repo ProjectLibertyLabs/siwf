@@ -7,10 +7,15 @@ It has both endpoints, but always returns the same thing.
 
 ### Authentication Codes for Different Responses
 
-- `loginAuthCode123`: Login Response from `//Bob`
-- `newProviderAuthCode456`: New Provider Response from `//Bob`
-- `newUserAuthCode789`: New User Response from `//Bob`
+#### Sr25519
+- `loginAuthCode123_Sr25519`: Login Response from `//Bob`
+- `newProviderAuthCode456_Sr25519`: New Provider Response from `//Bob`
+- `newUserAuthCode789_Sr25519`: New User Response from `//Bob`
 
+#### Secp256k1
+- `loginAuthCode123_Secp256k1`: Login Response from private key `0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133`
+- `newProviderAuthCode456_Secp256k1`: New Provider Response from private key `0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133`
+- `newUserAuthCode789_Secp256k1`: New User Response from private key `0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133`
 
 ## JS-Example
 

@@ -30,7 +30,7 @@ Only used for custom integration situations.
 To ensure that the correct application is requesting the authentication and that the response is only sent to the authorized party, the request is signed.
 The signature MUST be from one of the [Control Keys](https://docs.frequency.xyz/Identity/ControlKeys.html) of the Frequency Provider.
 
-### 2a: Serialize the payload using the [SCALE Codec](https://docs.substrate.io/reference/scale-codec/)
+### 2.1.a: Serialize the payload using the [SCALE Codec](https://docs.substrate.io/reference/scale-codec/)
 
 SCALE Type (Note: Order matters!)
 
@@ -42,19 +42,18 @@ SCALE Type (Note: Order matters!)
 }
 ```
 
-### 2b: Wrap the Payload
+### 2.1.b: Wrap the Payload
 
 So that no payloads can be accidentally used on a chain, the payload is wrapped with a `<Bytes>` tag.
 
 Byte Arrays Concatenated: `[ 60, 66, 121, 116, 101, 115, 62 ] + scale_encoded_payload_bytes + [ 60, 47, 66, 121, 116, 101, 115, 62 ]`
 
-### 2c: Sign the Wrapped Payload Bytes
+### 2.1.c: Sign the Wrapped Payload Bytes
 
 Sign the serialized payload using Schnorr signatures over ECDSA.
 
-### 2d: Example
+### 2.1.d: Example
 
-#### Sr25519
 Remember that SR25519 signatures are non-deterministic, so the payload and encoding will match, but the signature will be different.
 This example uses the `//Alice` seed phrase to generate the signature.
 
@@ -64,7 +63,33 @@ This example uses the `//Alice` seed phrase to generate the signature.
 - Signing Public Key (SS58 Prefix 90): `f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH`
 - Signature (Hex): `0x9abd3c54e7164e8385627dc692724b9467386acd7b02a13d6187e2c58fd91440d9134781c0410a45812f5532b71f4a34b4a5443ef8d68b5a1956f7f0f81d4286`
 
-#### Secp256k1
+### 2.2.a: Define the payload using EIP-712 standard
+
+We are using EIP-712 standard to sign any payload using `Secp256k1` keys. You can find the domain details and more examples [here](https://github.com/frequency-chain/frequency/blob/main/js/ethereum-utils/src/signature.definitions.ts#L3-L38).
+
+```json
+  "SiwfSignedRequestPayload": [
+    {
+      "name": "callback",
+      "type": "string",
+    },
+    {
+      "name": "permissions",
+      "type": "uint16[]",
+    },
+    {
+      "name": "userIdentifierAdminUrl",
+      "type": "string",
+    },
+  ],
+```
+
+### 2.2.b: Sign the EIP-712 Payload
+
+Sign the EIP-712 compatible serialized payload using `Secp256k1` key.
+
+### 2.2.c: Example
+
 This example uses the `0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133` private key.
 
 - Payload: `{ "callback": "http://localhost:3000", "permissions": [5, 7, 8, 9, 10] }`
@@ -159,12 +184,27 @@ const callbackUri: string = getWebOrApplicationCallbackUri();
 // The Encoded Signed Request can remain static if
 // It is the same as is generated with the Signed Payload Generation Tool
 const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
+  'base58',
+  'ss58',
+  'Sr25519',
   providerKeyUri,
   callbackUri,
   permissions,
   credentials,
   applicationContext,
 );
+
+// Secp256k1 alternative
+// const encodedSignedRequest = await siwf.generateEncodedSignedRequest(
+//   'base16',
+//   'eip-55',
+//   'Secp256k1',
+//   secp256k1SecretKey,
+//   callbackUri,
+//   permissions,
+//   credentials,
+//   applicationContext,
+// );
 
 // Options with endpoint selection
 // Endpoint may be tagged or specified in full
