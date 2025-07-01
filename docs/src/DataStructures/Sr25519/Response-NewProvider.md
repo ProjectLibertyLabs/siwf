@@ -11,7 +11,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x5ad56d8e86cea7163e5ed49786962d838291535ded40bfcfdcfcf8a81c1fc0700ef95b08fd9b17dc49ed6e9c64d956194072940cb98813e785846af953083a81"
+        "encodedValue": "0x7a756bf5399c66ab39dc16d07782a68a56d6ff73e2ded96239a9ed302f354e04f2d9648ab2966903f14eb762ebfcc0affbcf933711dbe312eeeee7d0d727a18f"
       },
       "endpoint": {
         "pallet": "msa",
@@ -83,13 +83,6 @@
         "format": "bare",
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
-      },
-      "proof": {
-        "type": "DataIntegrityProof",
-        "verificationMethod": "did:key:z6MktZ15TNtrJCW2gDLFjtjmxEdhCadNCaDizWABYfneMqhA",
-        "cryptosuite": "eddsa-rdfc-2022",
-        "proofPurpose": "assertionMethod",
-        "proofValue": "z2HHWwtWggZfvGqNUk4S5AAbDGqZRFXjpMYAsXXmEksGxTk4DnnkN3upCiL1mhgwHNLkxY3s8YqNyYnmpuvUke7jF"
       }
     }
   ]

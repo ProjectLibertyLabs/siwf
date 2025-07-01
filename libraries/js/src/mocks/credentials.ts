@@ -55,8 +55,8 @@ const exampleX25519 = {
   secretKey: '0xd0910c853563723253c4ed105c08614fc8aaaf1b0871375520d72251496e8d87',
 };
 
-export const ExampleUserGraphCredential = (): Promise<SiwfResponseCredentialGraph> =>
-  signCredential(ExampleUserKeySr25519.keyPairEd(), {
+export const ExampleUserGraphCredential = async (): Promise<SiwfResponseCredentialGraph> => {
+  const response: SiwfResponseCredentialGraph = await signCredential(ExampleUserKeySr25519.keyPairEd(), {
     '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/undefined-terms/v2'],
     type: ['VerifiedGraphKeyCredential', 'VerifiableCredential'],
     issuer: 'did:key:' + multibaseSr25519(ExampleUserKeySr25519.keyPair().publicKey),
@@ -75,6 +75,10 @@ export const ExampleUserGraphCredential = (): Promise<SiwfResponseCredentialGrap
       keyType: 'dsnp.public-key-key-agreement',
     },
   });
+  // we don't need the proof for graph
+  delete response.proof;
+  return response;
+};
 
 export const ExampleEmailCredential = (): Promise<SiwfResponseCredentialEmail> =>
   signCredential(ExampleProviderKeySr25519.keyPairEd(), {

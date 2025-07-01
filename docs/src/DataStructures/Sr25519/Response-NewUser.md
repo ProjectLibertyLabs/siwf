@@ -11,7 +11,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xcc35866c7f76c857f7223dde3215e5474cd1eeb6db38865b399b2207f8f7c314a0c015ea0097e1e15ccf2cf550f3cb8aa51822ae76e85be4e81d0abc2a21f28e"
+        "encodedValue": "0x2a072762e8c7e07db77a5de5a52f5bcf75ae7a162f5833950e14335942910b576174ac56d3da5d02a5b0c59da382ca9f3709d18ebaecd463cb49041272ecee81"
       },
       "endpoint": {
         "pallet": "msa",
@@ -34,7 +34,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xb8e47e2237d5a3405832a88d2965c8cadb8b81b041b59d22a0d491d9d72a9749ef8673d99a395ae1c22e579a2e74ad4fc432e22df257c405377f0f0924af688c"
+        "encodedValue": "0x8233e7e622f36b27ace86321200404f7e1ac97f48d06650374b511709b7c6b10fd08fcb1000260053d7ad7a76c7aaab891fea57b98852b6c9e952b73d955c88f"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -57,7 +57,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x20db76f55f7189163c1534451f536bbe6b23e99495afe3b1ca3d719fec6f0b7ba61360fa0990c860f88fba7fb5bb3051e8f4fd1c63b8d7baa6d3228872d7c185"
+        "encodedValue": "0xae42f32186055680a01fbba12795691705abc17b9b369a4e542fcf5808322918c3a3b19e35a46be668c2a072ad8902699c7056070db0e1cb7aca90ddaff00086"
       },
       "endpoint": {
         "pallet": "handles",
@@ -122,13 +122,6 @@
         "format": "bare",
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
-      },
-      "proof": {
-        "type": "DataIntegrityProof",
-        "verificationMethod": "did:key:z6MktZ15TNtrJCW2gDLFjtjmxEdhCadNCaDizWABYfneMqhA",
-        "cryptosuite": "eddsa-rdfc-2022",
-        "proofPurpose": "assertionMethod",
-        "proofValue": "z2HHWwtWggZfvGqNUk4S5AAbDGqZRFXjpMYAsXXmEksGxTk4DnnkN3upCiL1mhgwHNLkxY3s8YqNyYnmpuvUke7jF"
       }
     }
   ]

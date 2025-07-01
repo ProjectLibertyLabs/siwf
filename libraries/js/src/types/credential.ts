@@ -11,7 +11,7 @@ interface SiwfResponseCredentialBase {
     id: string;
   };
   credentialSubject: Record<string, unknown>;
-  proof: {
+  proof?: {
     type: 'DataIntegrityProof';
     created?: string;
     verificationMethod: string;
@@ -52,8 +52,7 @@ function isCredentialBase(obj: any): obj is SiwfResponseCredentialBase {
     isArrayOf(obj.type, isStr) &&
     isStr(obj.issuer) &&
     isCredentialSchema(obj.credentialSchema) &&
-    isCredentialSubject(obj.credentialSubject) &&
-    isCredentialProof(obj.proof)
+    isCredentialSubject(obj.credentialSubject)
   );
 }
 
@@ -70,6 +69,7 @@ export interface SiwfResponseCredentialEmail extends SiwfResponseCredentialBase 
 export function isCredentialEmail(obj: any): obj is SiwfResponseCredentialEmail {
   return (
     isCredentialBase(obj) &&
+    isCredentialProof(obj.proof) &&
     obj.type.includes(VerifiedEmailAddress.credential.type) &&
     obj.credentialSchema.id === VerifiedEmailAddress.id &&
     isStr(obj.credentialSubject.id) &&
@@ -91,6 +91,7 @@ export interface SiwfResponseCredentialPhone extends SiwfResponseCredentialBase 
 export function isCredentialPhone(obj: any): obj is SiwfResponseCredentialPhone {
   return (
     isCredentialBase(obj) &&
+    isCredentialProof(obj.proof) &&
     obj.type.includes(VerifiedPhoneNumber.credential.type) &&
     obj.credentialSchema.id === VerifiedPhoneNumber.id &&
     isStr(obj.credentialSubject.id) &&
