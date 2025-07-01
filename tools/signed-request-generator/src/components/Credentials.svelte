@@ -6,7 +6,7 @@
 		VerifiedGraphKeyCredential: false,
 		VerifiedEmailAddressCredential: false,
 		VerifiedPhoneNumberCredential: false,
-		VerifiedRecoverySecretCredential: false,
+		VerifiedRecoverySecretCredential: false
 	};
 
 	// Build the request based on selected credentials
