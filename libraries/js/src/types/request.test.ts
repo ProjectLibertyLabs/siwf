@@ -4,6 +4,7 @@ import {
   VerifiedEmailAddressCredential,
   VerifiedGraphKeyCredential,
   VerifiedPhoneNumberCredential,
+  VerifiedRecoverySecretCredential,
 } from '../request.js';
 
 describe('isSiwfCredentialsRequest', () => {
@@ -12,13 +13,20 @@ describe('isSiwfCredentialsRequest', () => {
   });
 
   it('is successful with array of requests', async () => {
-    expect(isSiwfCredentialsRequest([VerifiedGraphKeyCredential, VerifiedPhoneNumberCredential])).toBe(true);
+    expect(
+      isSiwfCredentialsRequest([
+        VerifiedGraphKeyCredential,
+        VerifiedPhoneNumberCredential,
+        VerifiedRecoverySecretCredential,
+      ])
+    ).toBe(true);
   });
 
   it('is success with an AnyOf', async () => {
     expect(
       isSiwfCredentialsRequest([
         VerifiedGraphKeyCredential,
+        VerifiedRecoverySecretCredential,
         {
           anyOf: [VerifiedPhoneNumberCredential, VerifiedEmailAddressCredential],
         },
@@ -30,6 +38,7 @@ describe('isSiwfCredentialsRequest', () => {
     expect(
       isSiwfCredentialsRequest([
         VerifiedGraphKeyCredential,
+        VerifiedRecoverySecretCredential,
         {
           allOf: [VerifiedPhoneNumberCredential, VerifiedEmailAddressCredential],
         },
@@ -41,6 +50,7 @@ describe('isSiwfCredentialsRequest', () => {
     expect(
       isSiwfCredentialsRequest([
         VerifiedGraphKeyCredential,
+        VerifiedRecoverySecretCredential,
         {
           oneOf: [VerifiedPhoneNumberCredential, VerifiedEmailAddressCredential],
         },
@@ -52,6 +62,7 @@ describe('isSiwfCredentialsRequest', () => {
     expect(
       isSiwfCredentialsRequest([
         VerifiedGraphKeyCredential,
+        VerifiedRecoverySecretCredential,
         {
           oneOf: [
             VerifiedPhoneNumberCredential,
@@ -73,6 +84,7 @@ describe('isSiwfCredentialsRequest', () => {
     expect(
       isSiwfCredentialsRequest([
         VerifiedGraphKeyCredential,
+        VerifiedRecoverySecretCredential,
         {
           oneOf: [{ foo: 'bar' }],
         },

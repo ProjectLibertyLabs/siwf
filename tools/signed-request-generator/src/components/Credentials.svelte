@@ -5,7 +5,8 @@
 	let selectedCredentials = {
 		VerifiedGraphKeyCredential: false,
 		VerifiedEmailAddressCredential: false,
-		VerifiedPhoneNumberCredential: false
+		VerifiedPhoneNumberCredential: false,
+		VerifiedRecoverySecretCredential: false,
 	};
 
 	// Build the request based on selected credentials
@@ -13,6 +14,11 @@
 
 	function buildCredentialsRequest(selected: typeof selectedCredentials) {
 		const request: siwf.SiwfCredentialRequest[] = [];
+
+		// Add VerifiedRecoverySecretCredential if selected
+		if (selected.VerifiedRecoverySecretCredential) {
+			request.push(siwf.VerifiedRecoverySecretCredential);
+		}
 
 		// Add VerifiedGraphKeyCredential if selected
 		if (selected.VerifiedGraphKeyCredential) {
@@ -44,6 +50,11 @@
 		<label>
 			<input type="checkbox" bind:checked={selectedCredentials.VerifiedGraphKeyCredential} />
 			Graph Key (Required for reading private graph)
+		</label>
+
+		<label>
+			<input type="checkbox" bind:checked={selectedCredentials.VerifiedRecoverySecretCredential} />
+			Recovery Secret for account
 		</label>
 
 		<label>

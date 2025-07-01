@@ -6,11 +6,12 @@ import {
   SiwfResponseCredentialEmail,
   SiwfResponseCredentialGraph,
   SiwfResponseCredentialPhone,
+  SiwfResponseCredentialRecoverySecret,
 } from '../types/credential.js';
 import { ExampleProviderKeySr25519, ExampleUserKeySr25519, multibaseEd25519, multibaseSr25519 } from './keys.js';
 import { documentLoaderGenerator } from '../documents/loader.js';
 import { KeyringPair } from '@polkadot/keyring/types';
-import { VerifiedEmailAddress, VerifiedGraphKey, VerifiedPhoneNumber } from '../constants.js';
+import { VerifiedEmailAddress, VerifiedGraphKey, VerifiedPhoneNumber, VerifiedRecoverySecret } from '../constants.js';
 
 export async function signCredential<T>(keypair: KeyringPair, credential: Omit<T, 'proof'>): Promise<T> {
   const multicodec = multibaseEd25519(keypair.publicKey);
@@ -76,6 +77,26 @@ export const ExampleUserGraphCredential = async (): Promise<SiwfResponseCredenti
     },
   });
   // we don't need the proof for graph
+  delete response.proof;
+  return response;
+};
+
+export const ExampleUserRecoverySecretCredential = async (): Promise<SiwfResponseCredentialRecoverySecret> => {
+  const response: SiwfResponseCredentialRecoverySecret = await signCredential(ExampleUserKeySr25519.keyPairEd(), {
+    '@context': ['https://www.w3.org/ns/credentials/v2', 'https://www.w3.org/ns/credentials/undefined-terms/v2'],
+    type: ['VerifiedRecoverySecretCredential', 'VerifiableCredential'],
+    issuer: 'did:key:' + multibaseSr25519(ExampleUserKeySr25519.keyPair().publicKey),
+    validFrom: '2024-08-21T21:28:08.289+0000',
+    credentialSchema: {
+      type: 'JsonSchema',
+      id: VerifiedRecoverySecret.id,
+    },
+    credentialSubject: {
+      id: 'did:key:' + multibaseSr25519(ExampleUserKeySr25519.keyPair().publicKey),
+      recoverySecret: '69EC-2382-E1E6-76F3-341F-3414-9DD5-CFA5-6932-E418-9385-0358-31DF-AFEA-9828-D3B7',
+    },
+  });
+  // we don't need the proof for recovery secret
   delete response.proof;
   return response;
 };

@@ -58,6 +58,10 @@ This is JSON stringified and then [`base64url`](https://datatracker.ietf.org/doc
 
 {{#include VerifiedGraphKeyPair.md}}
 
+### Recovery Secret
+
+{{#include VerifiedRecoverySecret.md}}
+
 ## Verified Contact Credentials
 
 ### Email

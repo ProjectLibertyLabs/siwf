@@ -2,7 +2,12 @@ import { writeFileSync } from 'node:fs';
 import Keyring from '@polkadot/keyring';
 import { u8aToHex } from '@polkadot/util';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
-import { ExampleEmailCredential, ExamplePhoneCredential, ExampleUserGraphCredential } from './credentials.js';
+import {
+  ExampleEmailCredential,
+  ExamplePhoneCredential,
+  ExampleUserGraphCredential,
+  ExampleUserRecoverySecretCredential,
+} from './credentials.js';
 import {
   ExampleLoginSr25519,
   ExampleNewProviderSr25519,
@@ -50,6 +55,10 @@ function exampleSignedRequestSr25519(): SiwfSignedRequest {
       {
         type: 'VerifiedGraphKeyCredential',
         hash: ['bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y'],
+      },
+      {
+        type: 'VerifiedRecoverySecretCredential',
+        hash: ['bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq'],
       },
       {
         anyOf: [
@@ -100,6 +109,10 @@ async function exampleSignedRequestSecp256k1(): Promise<SiwfSignedRequest> {
         hash: ['bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y'],
       },
       {
+        type: 'VerifiedRecoverySecretCredential',
+        hash: ['bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq'],
+      },
+      {
         anyOf: [
           {
             type: 'VerifiedEmailAddressCredential',
@@ -148,6 +161,7 @@ async function main() {
   output(await ExampleEmailCredential(), '../../docs/src/DataStructures/VerifiedEmail.md');
   output(await ExamplePhoneCredential(), '../../docs/src/DataStructures/VerifiedPhone.md');
   output(await ExampleUserGraphCredential(), '../../docs/src/DataStructures/VerifiedGraphKeyPair.md');
+  output(await ExampleUserRecoverySecretCredential(), '../../docs/src/DataStructures/VerifiedRecoverySecret.md');
 
   // ------- Secp256k1 -------//
   const signedRequestSecp256k1 = await exampleSignedRequestSecp256k1();

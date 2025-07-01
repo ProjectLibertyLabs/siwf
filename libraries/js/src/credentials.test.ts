@@ -1,7 +1,12 @@
 import { describe, it, vi, expect, beforeAll } from 'vitest';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 import { validateCredentials } from './credentials.js';
-import { ExampleEmailCredential, ExamplePhoneCredential, ExampleUserGraphCredential } from './mocks/credentials.js';
+import {
+  ExampleEmailCredential,
+  ExamplePhoneCredential,
+  ExampleUserGraphCredential,
+  ExampleUserRecoverySecretCredential,
+} from './mocks/credentials.js';
 import { ExampleFrequencyAccessDidDocument } from './mocks/index.js';
 
 global.fetch = vi.fn();
@@ -62,16 +67,33 @@ describe('validateCredential', () => {
     await expect(validateCredentials([await ExampleUserGraphCredential()])).resolves.toBeUndefined();
   });
 
+  it('Can verify recovery secret', async () => {
+    await expect(validateCredentials([await ExampleUserRecoverySecretCredential()])).resolves.toBeUndefined();
+  });
+
   it('Can fail graph with a bad key', async () => {
     const cred = await ExampleUserGraphCredential();
     cred.credentialSubject.encodedPublicKeyValue += '01';
     await expect(validateCredentials([cred])).rejects.toThrowError('VerifiedGraphKeyCredential: Invalid KeyPair');
   });
 
+  it('Can fail recovery secret with a bad secret', async () => {
+    const cred = await ExampleUserRecoverySecretCredential();
+    cred.credentialSubject.recoverySecret += '01';
+    await expect(validateCredentials([cred])).rejects.toThrowError(
+      'SiwfResponseCredentialRecoverySecret: Invalid recoverySecret'
+    );
+  });
+
   it('Can verify all at once', async () => {
     await expect(
       validateCredentials(
-        [await ExampleEmailCredential(), await ExamplePhoneCredential(), await ExampleUserGraphCredential()],
+        [
+          await ExampleEmailCredential(),
+          await ExamplePhoneCredential(),
+          await ExampleUserGraphCredential(),
+          await ExampleUserRecoverySecretCredential(),
+        ],
         ['did:web:frequencyaccess.com']
       )
     ).resolves.toBeUndefined();

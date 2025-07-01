@@ -2,8 +2,6 @@ import { isObj, SiwfPublicKey, isPublicKey } from './general.js';
 import { isCredentials, SiwfResponseCredential } from './credential.js';
 import { isPayloads, SiwfResponsePayload } from './payload.js';
 
-export type MakePropertyRequired<T, K extends keyof T> = Partial<T> & Pick<Required<T>, K>;
-
 export interface SiwfResponse {
   userPublicKey: SiwfPublicKey;
   payloads: SiwfResponsePayload[];

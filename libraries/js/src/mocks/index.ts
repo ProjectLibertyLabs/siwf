@@ -11,7 +11,11 @@ import {
   ExamplePayloadPublicGraphKeySecp256k1,
   ExamplePayloadPublicGraphKeySr25519,
 } from './payloads.js';
-import { ExampleEmailCredential, ExampleUserGraphCredential } from './credentials.js';
+import {
+  ExampleEmailCredential,
+  ExampleUserGraphCredential,
+  ExampleUserRecoverySecretCredential,
+} from './credentials.js';
 import { ExampleProviderKeySr25519, ExampleUserKeySr25519, multibaseEd25519 } from './keys.js';
 import { SiwfPublicKey } from '../types/general.js';
 
@@ -47,7 +51,11 @@ export const ExampleFrequencyAccessDidDocument = () => ({
 export const ExampleLoginSr25519 = async (): Promise<SiwfResponse> => ({
   userPublicKey: ExampleUserPublicKeySr25519,
   payloads: [ExamplePayloadLoginStaticSr25519],
-  credentials: [await ExampleEmailCredential(), await ExampleUserGraphCredential()],
+  credentials: [
+    await ExampleEmailCredential(),
+    await ExampleUserGraphCredential(),
+    await ExampleUserRecoverySecretCredential(),
+  ],
 });
 
 export const ExampleNewUserSr25519 = async (): Promise<SiwfResponse> => ({
@@ -57,13 +65,21 @@ export const ExampleNewUserSr25519 = async (): Promise<SiwfResponse> => ({
     ExamplePayloadPublicGraphKeySr25519(),
     ExamplePayloadClaimHandleSr25519(),
   ],
-  credentials: [await ExampleEmailCredential(), await ExampleUserGraphCredential()],
+  credentials: [
+    await ExampleEmailCredential(),
+    await ExampleUserGraphCredential(),
+    await ExampleUserRecoverySecretCredential(),
+  ],
 });
 
 export const ExampleNewProviderSr25519 = async (): Promise<SiwfResponse> => ({
   userPublicKey: ExampleUserPublicKeySr25519,
   payloads: [ExamplePayloadGrantDelegationSr25519()],
-  credentials: [await ExampleEmailCredential(), await ExampleUserGraphCredential()],
+  credentials: [
+    await ExampleEmailCredential(),
+    await ExampleUserGraphCredential(),
+    await ExampleUserRecoverySecretCredential(),
+  ],
 });
 
 export const ExampleLoginSecp256k1 = async (): Promise<SiwfResponse> => ({

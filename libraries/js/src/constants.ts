@@ -5,6 +5,7 @@ export const KnownCredentialTypes = new Set([
   'VerifiedPhoneNumberCredential',
   'VerifiedEmailAddressCredential',
   'VerifiedGraphKeyCredential',
+  'VerifiedRecoverySecretCredential',
 ]);
 
 /**
@@ -38,4 +39,15 @@ export const VerifiedGraphKey = {
     hash: ['bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y'],
   },
   id: 'https://schemas.frequencyaccess.com/VerifiedGraphKeyCredential/bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y.json',
+};
+
+/**
+ * Request for a human-readable the Recovery Secret
+ */
+export const VerifiedRecoverySecret = {
+  credential: {
+    type: 'VerifiedRecoverySecretCredential',
+    hash: ['bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq'],
+  },
+  id: 'https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json',
 };

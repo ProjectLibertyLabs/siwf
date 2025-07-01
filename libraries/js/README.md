@@ -29,11 +29,12 @@ See [Markdown/GitHub Docs](../../docs/src/QuickStart.md) or
 
 ### JS API Constants
 
-| Constants                        | Description                                    |
-| -------------------------------- | ---------------------------------------------- |
-| `VerifiedEmailAddressCredential` | Request for a verified email address           |
-| `VerifiedPhoneNumberCredential`  | Request for a verified SMS/Phone Number        |
-| `VerifiedGraphKeyCredential`     | Request for a the private graph encryption key |
+| Constants                          | Description                                    |
+|------------------------------------|------------------------------------------------|
+| `VerifiedEmailAddressCredential`   | Request for a verified email address           |
+| `VerifiedPhoneNumberCredential`    | Request for a verified SMS/Phone Number        |
+| `VerifiedGraphKeyCredential`       | Request for a the private graph encryption key |
+| `VerifiedRecoverySecretCredential` | Request for an account recovery secret         |
 
 ### SIWF Options
 

@@ -150,7 +150,7 @@ Example is signed using `f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ` whic
 }
 ```
 
-### SCALE Payload Type
+##### SCALE Payload Type
 ```json
 {
   baseHandle: 'Bytes',
@@ -219,7 +219,7 @@ Example is signed using `f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ` whic
 }
 ```
 
-### SCALE Payload Types
+##### SCALE Payload Types
 ```json
 {
   PalletStatefulStorageItemActionEnumAdd: {
