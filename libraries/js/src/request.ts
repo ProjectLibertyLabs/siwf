@@ -38,7 +38,7 @@ export const VerifiedPhoneNumberCredential = VerifiedPhoneNumber.credential;
 export const VerifiedGraphKeyCredential = VerifiedGraphKey.credential;
 
 /**
- * Request for a human-readable the Recovery Secret
+ * Request for a human-readable version of the Recovery Secret
  */
 export const VerifiedRecoverySecretCredential = VerifiedRecoverySecret.credential;
 
@@ -72,11 +72,11 @@ export function generateRequestSigningData(
  * @param {FormatType} formatType - The format type
  * @param {CurveType} keyType - The key type
  * @param {string} providerKeyUriOrPrivateKey - The URI of a key, usually a seed phrase, but may also include test accounts such as `//Alice` or `//Bob`. * @param {string} callbackUri - The URI that the user should return to after authenticating. Or the private key in hex format for Ethereum keys.
- * @param callbackUri
+ * @param callbackUri - The URI that the user should return to after authenticating.
  * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
- * @param applicationContext
+ * @param applicationContext - To help users understand which application is asking them to sign in, a url can be provided as application context
  * @returns {Promise<SiwfSignedRequest>} The generated signed request that can be used for authentication.
  */
 export async function generateSignedRequest(
@@ -138,7 +138,7 @@ export async function generateSignedRequest(
  * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
- * @param applicationContext
+ * @param applicationContext - To help users understand which application is asking them to sign in, a url can be provided as application context
  * @returns {SiwfSignedRequest} The generated signed request that can be used for authentication.
  */
 export function buildSignedRequest(
@@ -198,11 +198,11 @@ export function buildSignedRequest(
  * @param {FormatType} formatType - The format type
  * @param {CurveType} keyType - The key type
  * @param providerKeyUriOrPrivateKey - The URI of a key, usually a seed phrase, but may also include test accounts such as `//Alice` or `//Bob`. * @param {string} callbackUri - The URI that the user should return to after authenticating. Or the private key in hex format for Ethereum keys. * @param {string} callbackUri - The URI that the user should return to after authenticating.
- * @param callbackUri
+ * @param callbackUri - The URI that the user should return to after authenticating.
  * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
- * @param applicationContext
+ * @param applicationContext - To help users understand which application is asking them to sign in, a url can be provided as application context
  * @returns {Promise<string>} The generated base64url encoded signed payload that can be that can be used for authentication.
  */
 export async function generateEncodedSignedRequest(

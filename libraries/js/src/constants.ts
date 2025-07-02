@@ -42,7 +42,7 @@ export const VerifiedGraphKey = {
 };
 
 /**
- * Request for a human-readable the Recovery Secret
+ * Request for a human-readable version of the Recovery Secret
  */
 export const VerifiedRecoverySecret = {
   credential: {
