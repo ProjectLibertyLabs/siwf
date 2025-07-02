@@ -17,6 +17,7 @@ import {
   sign,
   getKeyringPairFromSecp256k1PrivateKey,
   getUnifiedAddress,
+  ChainType,
 } from '@frequency-chain/ethereum-utils';
 import { CurveType, EncodingType, FormatType } from './types';
 
@@ -83,6 +84,7 @@ export async function generateSignedRequest(
   encodingType: EncodingType,
   formatType: FormatType,
   keyType: CurveType,
+  chainType: ChainType,
   providerKeyUriOrPrivateKey: string,
   callbackUri: string,
   permissions: number[],
@@ -104,7 +106,11 @@ export async function generateSignedRequest(
 
     case 'Secp256k1':
       signature = (
-        await sign(providerKeyUriOrPrivateKey as HexString, createSiwfSignedRequestPayload(callbackUri, permissions))
+        await sign(
+          providerKeyUriOrPrivateKey as HexString,
+          createSiwfSignedRequestPayload(callbackUri, permissions),
+          chainType
+        )
       ).Ecdsa;
       publicKey = getKeyringPairFromSecp256k1PrivateKey(hexToU8a(providerKeyUriOrPrivateKey)).address;
       break;
@@ -209,6 +215,7 @@ export async function generateEncodedSignedRequest(
   encodingType: EncodingType,
   formatType: FormatType,
   keyType: CurveType,
+  chainType: ChainType,
   providerKeyUriOrPrivateKey: string,
   callbackUri: string,
   permissions: number[],
@@ -219,6 +226,7 @@ export async function generateEncodedSignedRequest(
     encodingType,
     formatType,
     keyType,
+    chainType,
     providerKeyUriOrPrivateKey,
     callbackUri,
     permissions,

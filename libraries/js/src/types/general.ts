@@ -14,11 +14,11 @@ export interface SiwfOptions {
    * Used to make sure the signatures are generated and validated for the correct chain.
    * EIP-712 ChainId is different for different chains
    * Supported Chain Types:
-   * - `Mainnet-Frequency` (Default)
+   * - `Mainnet-Frequency`
    * - `Paseo-Testnet-Frequency`
    * - `Dev`
    */
-  chainType?: ChainType;
+  chainType: ChainType;
   /**
    * The URI(s) used to validate the CAIP-122 Login Messages
    */

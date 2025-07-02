@@ -86,7 +86,7 @@ async function exampleSignedRequestSecp256k1(): Promise<SiwfSignedRequest> {
     permissions: [5, 7, 8, 9, 10],
   };
   const requestPayload = createSiwfSignedRequestPayload(payload.callback, payload.permissions);
-  const signature = await sign(privateKey, requestPayload);
+  const signature = await sign(privateKey, requestPayload, 'Dev');
 
   return {
     requestedSignatures: {

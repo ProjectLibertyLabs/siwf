@@ -27,7 +27,11 @@ describe('getLoginResult', () => {
     } as any);
 
     await expect(
-      getLoginResult('fakeAuthCode', { loginMsgUri: 'your-app.com', endpoint: 'mainnet' })
+      getLoginResult('fakeAuthCode', {
+        loginMsgUri: 'your-app.com',
+        endpoint: 'mainnet',
+        chainType: 'Dev',
+      })
     ).to.resolves.toMatchObject(example);
   });
 
@@ -40,7 +44,11 @@ describe('getLoginResult', () => {
     } as any);
 
     await expect(
-      getLoginResult('fakeAuthCode', { loginMsgUri: 'your-app.com', endpoint: 'mainnet' })
+      getLoginResult('fakeAuthCode', {
+        loginMsgUri: 'your-app.com',
+        endpoint: 'mainnet',
+        chainType: 'Dev',
+      })
     ).to.resolves.toMatchObject(example);
   });
 
@@ -53,7 +61,7 @@ describe('getLoginResult', () => {
     } as any);
 
     await expect(
-      getLoginResult('fakeAuthCode', { loginMsgUri: 'localhost', endpoint: 'mainnet' })
+      getLoginResult('fakeAuthCode', { loginMsgUri: 'localhost', endpoint: 'mainnet', chainType: 'Dev' })
     ).to.resolves.toMatchObject(example);
   });
 
@@ -66,7 +74,7 @@ describe('getLoginResult', () => {
     } as any);
 
     await expect(
-      getLoginResult('fakeAuthCode', { loginMsgUri: 'localhost', endpoint: 'mainnet' })
+      getLoginResult('fakeAuthCode', { loginMsgUri: 'localhost', endpoint: 'mainnet', chainType: 'Dev' })
     ).to.resolves.toMatchObject(example);
   });
 
@@ -79,7 +87,7 @@ describe('getLoginResult', () => {
     } as any);
 
     await expect(
-      getLoginResult('fakeAuthCode', { loginMsgUri: 'localhost', endpoint: 'mainnet' })
+      getLoginResult('fakeAuthCode', { loginMsgUri: 'localhost', endpoint: 'mainnet', chainType: 'Dev' })
     ).to.resolves.toMatchObject(example);
   });
 
@@ -92,7 +100,7 @@ describe('getLoginResult', () => {
     } as any);
 
     await expect(
-      getLoginResult('fakeAuthCode', { loginMsgUri: 'localhost', endpoint: 'mainnet' })
+      getLoginResult('fakeAuthCode', { loginMsgUri: 'localhost', endpoint: 'mainnet', chainType: 'Dev' })
     ).to.resolves.toMatchObject(example);
   });
 });
@@ -127,62 +135,82 @@ describe('validateSiwfResponse', () => {
   it('can handle a JSON strigified base64url encoded value Sr25519', async () => {
     const example = await ExampleLoginSr25519();
     await expect(
-      validateSiwfResponse(base64url(JSON.stringify(example)), { loginMsgUri: 'your-app.com', endpoint: '' })
+      validateSiwfResponse(base64url(JSON.stringify(example)), {
+        loginMsgUri: 'your-app.com',
+        endpoint: '',
+        chainType: 'Dev',
+      })
     ).to.resolves.toMatchObject(example);
   });
 
   it('can handle a JSON strigified base64url encoded value Secp256k1', async () => {
     const example = await ExampleLoginSecp256k1();
     await expect(
-      validateSiwfResponse(base64url(JSON.stringify(example)), { loginMsgUri: 'your-app.com', endpoint: '' })
+      validateSiwfResponse(base64url(JSON.stringify(example)), {
+        loginMsgUri: 'your-app.com',
+        endpoint: '',
+        chainType: 'Dev',
+      })
     ).to.resolves.toMatchObject(example);
   });
 
   it('can handle an object value Sr25519', async () => {
     const example = await ExampleLoginSr25519();
     await expect(
-      validateSiwfResponse(example, { loginMsgUri: 'your-app.com', endpoint: '' })
+      validateSiwfResponse(example, { loginMsgUri: 'your-app.com', endpoint: '', chainType: 'Dev' })
     ).to.resolves.toMatchObject(example);
   });
 
   it('can handle an object value Secp256k1', async () => {
     const example = await ExampleLoginSecp256k1();
     await expect(
-      validateSiwfResponse(example, { loginMsgUri: 'your-app.com', endpoint: '' })
+      validateSiwfResponse(example, { loginMsgUri: 'your-app.com', endpoint: '', chainType: 'Dev' })
     ).to.resolves.toMatchObject(example);
   });
 
   it('throws on a null value', async () => {
-    await expect(validateSiwfResponse(null, { loginMsgUri: 'localhost', endpoint: '' })).to.rejects.toThrowError(
-      'Response failed to correctly parse or invalid content: null'
-    );
+    await expect(
+      validateSiwfResponse(null, { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' })
+    ).to.rejects.toThrowError('Response failed to correctly parse or invalid content: null');
   });
 
   it('throws on a bad string value', async () => {
     const value = base64url(JSON.stringify({ foo: 'bad' }));
-    await expect(validateSiwfResponse(value, { loginMsgUri: 'localhost', endpoint: '' })).to.rejects.toThrowError(
-      'Response failed to correctly parse or invalid content: {"foo":"bad"}'
-    );
+    await expect(
+      validateSiwfResponse(value, { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' })
+    ).to.rejects.toThrowError('Response failed to correctly parse or invalid content: {"foo":"bad"}');
   });
 
   it('throws on a bad domain Sr25519', async () => {
     const example = await ExampleLoginSr25519();
     await expect(
-      validateSiwfResponse(base64url(JSON.stringify(example)), { loginMsgUri: 'bad.example.xyz', endpoint: '' })
+      validateSiwfResponse(base64url(JSON.stringify(example)), {
+        loginMsgUri: 'bad.example.xyz',
+        endpoint: '',
+        chainType: 'Dev',
+      })
     ).to.rejects.toThrowError('Message does not match expected domain. Domain: your-app.com Expected: bad.example.xyz');
   });
 
   it('throws on a bad domain Secp256k1', async () => {
     const example = await ExampleLoginSecp256k1();
     await expect(
-      validateSiwfResponse(base64url(JSON.stringify(example)), { loginMsgUri: 'bad.example.xyz', endpoint: '' })
+      validateSiwfResponse(base64url(JSON.stringify(example)), {
+        loginMsgUri: 'bad.example.xyz',
+        endpoint: '',
+        chainType: 'Dev',
+      })
     ).to.rejects.toThrowError('Message does not match expected domain. Domain: your-app.com Expected: bad.example.xyz');
   });
 
   it('throws on a bad scheme in domain Sr25519', async () => {
     const example = await ExampleLoginSr25519();
     await expect(
-      validateSiwfResponse(base64url(JSON.stringify(example)), { loginMsgUri: 'example://login', endpoint: '' })
+      validateSiwfResponse(base64url(JSON.stringify(example)), {
+        loginMsgUri: 'example://login',
+        endpoint: '',
+        chainType: 'Dev',
+      })
     ).to.rejects.toThrowError(
       'Message does not match expected domain. Domain scheme mismatch. Scheme: https Expected: example'
     );
@@ -191,7 +219,11 @@ describe('validateSiwfResponse', () => {
   it('throws on a bad scheme in domain Secp256k1', async () => {
     const example = await ExampleLoginSecp256k1();
     await expect(
-      validateSiwfResponse(base64url(JSON.stringify(example)), { loginMsgUri: 'example://login', endpoint: '' })
+      validateSiwfResponse(base64url(JSON.stringify(example)), {
+        loginMsgUri: 'example://login',
+        endpoint: '',
+        chainType: 'Dev',
+      })
     ).to.rejects.toThrowError(
       'Message does not match expected domain. Domain scheme mismatch. Scheme: https Expected: example'
     );
@@ -200,7 +232,11 @@ describe('validateSiwfResponse', () => {
   it('throws on a bad path in domain Sr25519', async () => {
     const example = await ExampleLoginSr25519();
     await expect(
-      validateSiwfResponse(base64url(JSON.stringify(example)), { loginMsgUri: 'your-app.com/login', endpoint: '' })
+      validateSiwfResponse(base64url(JSON.stringify(example)), {
+        loginMsgUri: 'your-app.com/login',
+        endpoint: '',
+        chainType: 'Dev',
+      })
     ).to.rejects.toThrowError(
       'Message does not match expected domain. Domain path mismatch. Path: signin Expected: login'
     );
@@ -209,7 +245,11 @@ describe('validateSiwfResponse', () => {
   it('throws on a bad path in domain Secp256k1', async () => {
     const example = await ExampleLoginSecp256k1();
     await expect(
-      validateSiwfResponse(base64url(JSON.stringify(example)), { loginMsgUri: 'your-app.com/login', endpoint: '' })
+      validateSiwfResponse(base64url(JSON.stringify(example)), {
+        loginMsgUri: 'your-app.com/login',
+        endpoint: '',
+        chainType: 'Dev',
+      })
     ).to.rejects.toThrowError(
       'Message does not match expected domain. Domain path mismatch. Path: signin Expected: login'
     );
@@ -218,7 +258,11 @@ describe('validateSiwfResponse', () => {
   it('throws on a bad protocol in domain Sr25519', async () => {
     const example = await ExampleLoginSr25519();
     await expect(
-      validateSiwfResponse(base64url(JSON.stringify(example)), { loginMsgUri: 'http://your-app.com', endpoint: '' })
+      validateSiwfResponse(base64url(JSON.stringify(example)), {
+        loginMsgUri: 'http://your-app.com',
+        endpoint: '',
+        chainType: 'Dev',
+      })
     ).to.rejects.toThrowError(
       'Message does not match expected domain. Domain scheme mismatch. Scheme: https Expected: http'
     );
@@ -227,7 +271,11 @@ describe('validateSiwfResponse', () => {
   it('throws on a bad protocol in domain Secp256k1', async () => {
     const example = await ExampleLoginSecp256k1();
     await expect(
-      validateSiwfResponse(base64url(JSON.stringify(example)), { loginMsgUri: 'http://your-app.com', endpoint: '' })
+      validateSiwfResponse(base64url(JSON.stringify(example)), {
+        loginMsgUri: 'http://your-app.com',
+        endpoint: '',
+        chainType: 'Dev',
+      })
     ).to.rejects.toThrowError(
       'Message does not match expected domain. Domain scheme mismatch. Scheme: https Expected: http'
     );

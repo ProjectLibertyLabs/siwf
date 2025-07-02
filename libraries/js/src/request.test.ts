@@ -30,6 +30,7 @@ describe('request', () => {
       'base58',
       'ss58',
       'Sr25519',
+      'Dev',
       '//Alice',
       'http://localhost:3000',
       [1, 2, 100],
@@ -86,6 +87,7 @@ describe('request', () => {
       'base16',
       'eip-55',
       'Secp256k1',
+      'Dev',
       '0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133',
       'http://localhost:3000',
       [1, 2, 100],
@@ -143,6 +145,7 @@ describe('request', () => {
       'base58',
       'ss58',
       'Sr25519',
+      'Dev',
       '//Alice',
       'http://localhost:3000',
       [5, 7, 8, 9, 10],
@@ -168,6 +171,7 @@ describe('request', () => {
       'base16',
       'eip-55',
       'Secp256k1',
+      'Dev',
       '0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133',
       'http://localhost:3000',
       [5, 7, 8, 9, 10],
@@ -179,7 +183,8 @@ describe('request', () => {
     const verified = verifySignature(
       '0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac',
       signature as HexString,
-      createSiwfSignedRequestPayload('http://localhost:3000', [5, 7, 8, 9, 10])
+      createSiwfSignedRequestPayload('http://localhost:3000', [5, 7, 8, 9, 10]),
+      'Dev'
     );
 
     expect(verified).toBeTruthy();
@@ -190,6 +195,7 @@ describe('request', () => {
       'base58',
       'ss58',
       'Sr25519',
+      'Dev',
       '//Alice',
       'http://localhost:3000',
       [5, 7, 8, 9, 10],
@@ -213,6 +219,7 @@ describe('request', () => {
       'base16',
       'eip-55',
       'Secp256k1',
+      'Dev',
       '0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133',
       'http://localhost:3000',
       [5, 7, 8, 9, 10],
