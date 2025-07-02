@@ -212,7 +212,12 @@ For example, if you wish to correlate the original unauthorized session with the
 <p>Only used for custom integration situations.</p>
 <h2 id="step-2-signing-the-request"><a class="header" href="#step-2-signing-the-request">Step 2: Signing the Request</a></h2>
 <p>To ensure that the correct application is requesting the authentication and that the response is only sent to the authorized party, the request is signed.
-The signature MUST be from one of the <a href="https://docs.frequency.xyz/Identity/ControlKeys.html">Control Keys</a> of the Frequency Provider.</p>
+The signature MUST be from one of the <a href="https://docs.frequency.xyz/Identity/ControlKeys.html">Control Keys</a> of the Frequency Provider.
+We accept two different types of signatures based on the signing key being used.</p>
+<ol>
+<li>Sr25519 signature on a SCALE encoded payload</li>
+<li>Secp256k1 signature on a EIP-712 defined payload.</li>
+</ol>
 <h3 id="21a-serialize-the-payload-using-the-scale-codec"><a class="header" href="#21a-serialize-the-payload-using-the-scale-codec">2.1.a: Serialize the payload using the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE Codec</a></a></h3>
 <p>SCALE Type (Note: Order matters!)</p>
 <pre><code class="language-json">{
@@ -382,7 +387,7 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
     "signature": {
       "algo": "SR25519",
       "encoding": "base16",
-      "encodedValue": "0x22bde36dd0b0a8a3a48aef8133ce67ad2770aac6ea9c61fc7898c90687317a4debb85b008cbc2f1feafa7c9785b6c352fc3d840f3e428c64cefd34f5f3494785"
+      "encodedValue": "0x6e401e71ec94d917e9e5af191f7b879da1de581256981c98c33fd959256afe1727dc8c9d5d7bb47379fadbde4425c5997fa71cabf689bfe8ab026de1251b1381"
     },
     "payload": {
       "callback": "http://localhost:3000",
@@ -400,6 +405,12 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
       "type": "VerifiedGraphKeyCredential",
       "hash": [
         "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+      ]
+    },
+    {
+      "type": "VerifiedRecoverySecretCredential",
+      "hash": [
+        "bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq"
       ]
     },
     {
@@ -454,6 +465,12 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
       "type": "VerifiedGraphKeyCredential",
       "hash": [
         "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+      ]
+    },
+    {
+      "type": "VerifiedRecoverySecretCredential",
+      "hash": [
+        "bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq"
       ]
     },
     {

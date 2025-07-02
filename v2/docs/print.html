@@ -422,22 +422,22 @@ For example, if you wish to correlate the original unauthorized session with the
 <h4 id="sr25519"><a class="header" href="#sr25519">Sr25519</a></h4>
 <p>Parameters</p>
 <pre><code class="language-json">{
-  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDIyYmRlMzZkZDBiMGE4YTNhNDhhZWY4MTMzY2U2N2FkMjc3MGFhYzZlYTljNjFmYzc4OThjOTA2ODczMTdhNGRlYmI4NWIwMDhjYmMyZjFmZWFmYTdjOTc4NWI2YzM1MmZjM2Q4NDBmM2U0MjhjNjRjZWZkMzRmNWYzNDk0Nzg1In0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XSwiYXBwbGljYXRpb25Db250ZXh0Ijp7InVybCI6Imh0dHBzOi8vZXhhbXBsZS5vcmcvbXlhcHAvc2l3Zi1tYW5pZmVzdC5qc29uIn19",
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDZlNDAxZTcxZWM5NGQ5MTdlOWU1YWYxOTFmN2I4NzlkYTFkZTU4MTI1Njk4MWM5OGMzM2ZkOTU5MjU2YWZlMTcyN2RjOGM5ZDVkN2JiNDczNzlmYWRiZGU0NDI1YzU5OTdmYTcxY2FiZjY4OWJmZThhYjAyNmRlMTI1MWIxMzgxIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsidHlwZSI6IlZlcmlmaWVkUmVjb3ZlcnlTZWNyZXRDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxcGc2cW00cm51Mmo0djZnaHhxcWd3a2dnb2t3dnhzM3QyYmV4YmQzb2JreXBraXJ5eWx4cSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV0sImFwcGxpY2F0aW9uQ29udGV4dCI6eyJ1cmwiOiJodHRwczovL2V4YW1wbGUub3JnL215YXBwL3Npd2YtbWFuaWZlc3QuanNvbiJ9fQ",
   "mode": "dark"
 }
 </code></pre>
 <p>Testnet Authentication URL</p>
-<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDIyYmRlMzZkZDBiMGE4YTNhNDhhZWY4MTMzY2U2N2FkMjc3MGFhYzZlYTljNjFmYzc4OThjOTA2ODczMTdhNGRlYmI4NWIwMDhjYmMyZjFmZWFmYTdjOTc4NWI2YzM1MmZjM2Q4NDBmM2U0MjhjNjRjZWZkMzRmNWYzNDk0Nzg1In0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XSwiYXBwbGljYXRpb25Db250ZXh0Ijp7InVybCI6Imh0dHBzOi8vZXhhbXBsZS5vcmcvbXlhcHAvc2l3Zi1tYW5pZmVzdC5qc29uIn19&amp;mode=dark"
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDZlNDAxZTcxZWM5NGQ5MTdlOWU1YWYxOTFmN2I4NzlkYTFkZTU4MTI1Njk4MWM5OGMzM2ZkOTU5MjU2YWZlMTcyN2RjOGM5ZDVkN2JiNDczNzlmYWRiZGU0NDI1YzU5OTdmYTcxY2FiZjY4OWJmZThhYjAyNmRlMTI1MWIxMzgxIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsidHlwZSI6IlZlcmlmaWVkUmVjb3ZlcnlTZWNyZXRDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxcGc2cW00cm51Mmo0djZnaHhxcWd3a2dnb2t3dnhzM3QyYmV4YmQzb2JreXBraXJ5eWx4cSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV0sImFwcGxpY2F0aW9uQ29udGV4dCI6eyJ1cmwiOiJodHRwczovL2V4YW1wbGUub3JnL215YXBwL3Npd2YtbWFuaWZlc3QuanNvbiJ9fQ&amp;mode=dark"
 </code></pre>
 <h4 id="secp256k1"><a class="header" href="#secp256k1">Secp256k1</a></h4>
 <p>Parameters</p>
 <pre><code class="language-json">{
-  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNEZGM2E5Q0YwNGM3MURiYzk0RDBiNTY2ZjdBMjdCOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV0sImFwcGxpY2F0aW9uQ29udGV4dCI6eyJ1cmwiOiJodHRwczovL2V4YW1wbGUub3JnL215YXBwL3Npd2YtbWFuaWZlc3QuanNvbiJ9fQ",
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNEZGM2E5Q0YwNGM3MURiYzk0RDBiNTY2ZjdBMjdCOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7InR5cGUiOiJWZXJpZmllZFJlY292ZXJ5U2VjcmV0Q3JlZGVudGlhbCIsImhhc2giOlsiYmNpcXBnNnFtNHJudTJqNHY2Z2h4cXFnd2tnZ29rd3Z4czN0MmJleGJkM29ia3lwa2lyeXlseHEiXX0seyJhbnlPZiI6W3sidHlwZSI6IlZlcmlmaWVkRW1haWxBZGRyZXNzQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWU0cW9jemhmdGljaTRkemZ2ZmJlbDdmbzRoNHNyNWdyY28zb292d3lrNnk0eW5mNDR0c2kiXX0seyJ0eXBlIjoiVmVyaWZpZWRQaG9uZU51bWJlckNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFqc3BuYndwYzN3ang0ZmV3Y2VrNWRheXNkanBiZjV4amltejV3bnU1dWo3ZTN2dTJ1d25xIl19XX1dLCJhcHBsaWNhdGlvbkNvbnRleHQiOnsidXJsIjoiaHR0cHM6Ly9leGFtcGxlLm9yZy9teWFwcC9zaXdmLW1hbmlmZXN0Lmpzb24ifX0",
   "mode": "dark"
 }
 </code></pre>
 <p>Testnet Authentication URL</p>
-<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNEZGM2E5Q0YwNGM3MURiYzk0RDBiNTY2ZjdBMjdCOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV0sImFwcGxpY2F0aW9uQ29udGV4dCI6eyJ1cmwiOiJodHRwczovL2V4YW1wbGUub3JnL215YXBwL3Npd2YtbWFuaWZlc3QuanNvbiJ9fQ&amp;mode=dark"
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNEZGM2E5Q0YwNGM3MURiYzk0RDBiNTY2ZjdBMjdCOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7InR5cGUiOiJWZXJpZmllZFJlY292ZXJ5U2VjcmV0Q3JlZGVudGlhbCIsImhhc2giOlsiYmNpcXBnNnFtNHJudTJqNHY2Z2h4cXFnd2tnZ29rd3Z4czN0MmJleGJkM29ia3lwa2lyeXlseHEiXX0seyJhbnlPZiI6W3sidHlwZSI6IlZlcmlmaWVkRW1haWxBZGRyZXNzQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWU0cW9jemhmdGljaTRkemZ2ZmJlbDdmbzRoNHNyNWdyY28zb292d3lrNnk0eW5mNDR0c2kiXX0seyJ0eXBlIjoiVmVyaWZpZWRQaG9uZU51bWJlckNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFqc3BuYndwYzN3ang0ZmV3Y2VrNWRheXNkanBiZjV4amltejV3bnU1dWo3ZTN2dTJ1d25xIl19XX1dLCJhcHBsaWNhdGlvbkNvbnRleHQiOnsidXJsIjoiaHR0cHM6Ly9leGFtcGxlLm9yZy9teWFwcC9zaXdmLW1hbmlmZXN0Lmpzb24ifX0&amp;mode=dark"
 </code></pre>
 <h2 id="step-4-redirect-the-user"><a class="header" href="#step-4-redirect-the-user">Step 4: Redirect the User</a></h2>
 <ul>
@@ -489,7 +489,7 @@ Each credential would be matched based on the <code>type</code> field.</p>
 </ul>
 <h3 id="verify-the-credential"><a class="header" href="#verify-the-credential">Verify the Credential</a></h3>
 <p><em>Trust Model Note</em>: You may choose to just trust credentials issued by Frequency Access (or other SIWF-compatible services) given that the credential is fetched directly. These will have issuer <code>did:web:testnet.frequencyaccess.com</code> or <code>did:web:frequencyaccess.com</code>.
-Note that some credentials such as <code>VerifiedGraphKeyCredential</code> do not need a proof.</p>
+Note that some credentials such as <code>VerifiedGraphKeyCredential</code> or <code>VerifiedRecoverySecretCredential</code> do not need a proof.</p>
 <ol>
 <li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://w3c-ccg.github.io/did-key-spec/#format"><code>did:key</code> Method from the W3C</a></li>
 </ol>
@@ -512,6 +512,11 @@ Note that some credentials such as <code>VerifiedGraphKeyCredential</code> do no
 This is an <code>x25519</code> key pair for use with the <code>curve25519xsalsa20poly1305</code> encryption algorithm from the <a href="http://nacl.cr.yp.to">NaCl Library</a>.
 For more information on how the Graph data is structured after decryption, see the <a href="https://spec.dsnp.org/DSNP/UserData.html">DSNP Specification</a>.</p>
 <p>This key pair is PII and should be stored with care, but must be stored to read the user's private graph.
+This credential does not need a proof.</p>
+<h4 id="recovery-secret-credential"><a class="header" href="#recovery-secret-credential">Recovery Secret Credential</a></h4>
+<p>If the user wanted to set a recovery secret on-chain to recover their account in case of losing access, they can use this
+verified credential.
+For more information about the Recovery secret and how it is generated, see the <a href="https://github.com/frequency-chain/frequency/blob/main/designdocs/recovery_system.md">design doc</a>.
 This credential does not need a proof.</p>
 <h3 id="example-credential"><a class="header" href="#example-credential">Example Credential</a></h3>
 <pre><code class="language-json">{
@@ -644,7 +649,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x2a072762e8c7e07db77a5de5a52f5bcf75ae7a162f5833950e14335942910b576174ac56d3da5d02a5b0c59da382ca9f3709d18ebaecd463cb49041272ecee81"
+        "encodedValue": "0xe8bb297f22a5d2ef81e87bb94504a5d459cc301fc738c9e25151a608d621607a3196ea41e91ee5695e56ae496f74e082de5c91de2fe3371116c8022fd7a2eb87"
       },
       "endpoint": {
         "pallet": "msa",
@@ -667,7 +672,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x8233e7e622f36b27ace86321200404f7e1ac97f48d06650374b511709b7c6b10fd08fcb1000260053d7ad7a76c7aaab891fea57b98852b6c9e952b73d955c88f"
+        "encodedValue": "0xc4c0d8d55ee0d475155f8b1629cbf052f2a4d674cdff837c51bf397e0f988f548633b85ed9183b7b20adae86ec9bbc00ac6a474bce5666f9de3176ffada52e85"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -690,7 +695,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xae42f32186055680a01fbba12795691705abc17b9b369a4e542fcf5808322918c3a3b19e35a46be668c2a072ad8902699c7056070db0e1cb7aca90ddaff00086"
+        "encodedValue": "0x92371b335c67695f6a2f2646ff672e7052342416ae2e2d2588bb97fb29ded11c8e422d61187dffb311aad0ca2a83c5db93e1de047578f51efa4f24071344d383"
       },
       "endpoint": {
         "pallet": "handles",
@@ -755,6 +760,26 @@ SIWF services do not manage user sessions.</p>
         "format": "bare",
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedRecoverySecretCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "recoverySecret": "69EC-2382-E1E6-76F3-341F-3414-9DD5-CFA5-6932-E418-9385-0358-31DF-AFEA-9828-D3B7"
       }
     }
   ]
@@ -849,7 +874,7 @@ SIWF services do not manage user sessions.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x7a756bf5399c66ab39dc16d07782a68a56d6ff73e2ded96239a9ed302f354e04f2d9648ab2966903f14eb762ebfcc0affbcf933711dbe312eeeee7d0d727a18f"
+        "encodedValue": "0x52994f48667a23389bdc4f98a56bc849b0fc01f94f39ee8ffb22e8216d898554673ff169b9ea4364a108ebab7a4879a81a8c3d84f7f63c344eaebf2c8bfd8688"
       },
       "endpoint": {
         "pallet": "msa",
@@ -921,6 +946,26 @@ SIWF services do not manage user sessions.</p>
         "format": "bare",
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedRecoverySecretCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "recoverySecret": "69EC-2382-E1E6-76F3-341F-3414-9DD5-CFA5-6932-E418-9385-0358-31DF-AFEA-9828-D3B7"
       }
     }
   ]
@@ -1037,6 +1082,26 @@ SIWF services do not manage user sessions.</p>
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
       }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedRecoverySecretCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "recoverySecret": "69EC-2382-E1E6-76F3-341F-3414-9DD5-CFA5-6932-E418-9385-0358-31DF-AFEA-9828-D3B7"
+      }
     }
   ]
 }
@@ -1078,30 +1143,30 @@ SIWF services do not manage user sessions.</p>
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.tn0RQdqM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.8fZr9Rap.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/DR22ZWrz.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.CewxWRhx.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/BvhqWTS0.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/CmVTB3L7.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/yX_Q9x5G.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.C2upanh8.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.BQu6UPeR.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/Dj0m1ee2.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/Clt7NT2h.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/DJnCd7WQ.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.Bk0Wn9si.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/o2IUx8ba.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.CNWXHnYe.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/zIUC7KAj.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/C0n6fg7A.js"> <!--[--><!--[--><!----><div><!----><!----><div class="mb-4"><form><div class="mb-4"><label for="callbackUri">Callback URI *</label> <input type="url" id="callbackUri" value="" required placeholder="https://localhost:3000/login"/></div> <div class="mb-4"><fieldset><legend>Permissions</legend> <div class="checkboxes"><!--[--><label><input type="checkbox" value="8,10,9,7"/> <!---->Bundle: Public & Private Graph <span title="dsnp.public-follows@v1, dsnp.private-connections@v1, dsnp.private-follows@v1, dsnp.public-key-key-agreement@v1">ⓘ</span><!----></label><label><input type="checkbox" value="17,18,16,4,19"/> <!---->Bundle: DSNP v1.3 Content <span title="dsnp.broadcast@v2, dsnp.reply@v2, dsnp.tombstone@v2, dsnp.reaction@v1, dsnp.update@v2">ⓘ</span><!----></label><label><input type="checkbox" value="2,3,1,4,5"/> <!---->(Deprecated) Bundle: DSNP v1.0 Content <span title="dsnp.broadcast@v1, dsnp.reply@v1, dsnp.tombstone@v1, dsnp.reaction@v1, dsnp.update@v1">ⓘ</span><!----></label><label><input type="checkbox" value="2"/> <!---->(Deprecated) dsnp.broadcast: Create new public content (v1)<!----></label><label><input type="checkbox" value="6"/> <!---->(Deprecated) dsnp.profile: Update profile information (v1)<!----></label><label><input type="checkbox" value="3"/> <!---->(Deprecated) dsnp.reply: Public reply to content (v1)<!----></label><label><input type="checkbox" value="1"/> <!---->(Deprecated) dsnp.tombstone: Mark content for deletion (v1)<!----></label><label><input type="checkbox" value="5"/> <!---->(Deprecated) dsnp.update: Update an existing post or reply (v1)<!----></label><label><input type="checkbox" value="17"/> <!---->dsnp.broadcast: Create new public content (v2)<!----></label><label><input type="checkbox" value="12"/> <!---->dsnp.dsnp-content-attribute: Create an authenticated attribute set for DSNP content (v1)<!----></label><label><input type="checkbox" value="13"/> <!---->dsnp.ext-content-attribute: Create an authenticated attribute set for content external to DSNP (v1)<!----></label><label><input type="checkbox" value="10"/> <!---->dsnp.private-connections: Update private friendship connections (v1)<!----></label><label><input type="checkbox" value="9"/> <!---->dsnp.private-follows: Update private follow list (v1)<!----></label><label><input type="checkbox" value="15"/> <!---->dsnp.profile-resources: Update user profile information (v1)<!----></label><label><input type="checkbox" value="8"/> <!---->dsnp.public-follows: Update public follow list (v1)<!----></label><label><input type="checkbox" value="4"/> <!---->dsnp.reaction: Public reaction to content (v1)<!----></label><label><input type="checkbox" value="18"/> <!---->dsnp.reply: Public reply to content (v2)<!----></label><label><input type="checkbox" value="16"/> <!---->dsnp.tombstone: Mark content for deletion (v2)<!----></label><label><input type="checkbox" value="19"/> <!---->dsnp.update: Update an existing post or reply (v2)<!----></label><label><input type="checkbox" value="20"/> <!---->dsnp.user-attribute-set: Create an authenticated attribute set for a DSNP User (v2)<!----></label><!--]--> <div><label for="additionalPermissions">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""/></div> <div class="my-2 text-sm"><label for="schemaIds">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""/></div></div></fieldset><!----></div> <div class="mb-4"><fieldset><legend>Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox"/> Graph Key (Required for reading private graph)</label> <label><input type="checkbox"/> Verified Email Address</label> <label><input type="checkbox"/> Verified SMS/Phone Number</label></div></fieldset><!----></div> <div class="mb-4"><label for="applicationContext">Application Context URL</label> <input type="url" id="applicationContext" value="" placeholder="https://example.org/my-app-context.json"/></div> <!--[!--><!--]--></form><!----></div> <!--[!--><h2 id="result"><a class="header" href="#result">Result</a></h2> <dl><dt>Login Request Payload and Signature ( <code>signedRequest</code> parameter )</dt> <dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea></dd> <dt>Mainnet/Production URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Testnet/Staging URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Signed Request (JSON)</dt> <dd><details><summary style="cursor: pointer;">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl><!--]--><!----><!----></div><!----><!--]--> <!--[!--><!--]--><!--]-->
+<link rel="modulepreload" href="./Generator/_app/immutable/nodes/2.D6U_LHaH.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/BYBFVDiR.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/C0n6fg7A.js"> <!--[--><!--[--><!----><div><!----><!----><div class="mb-4"><form><div class="mb-4"><label for="callbackUri">Callback URI *</label> <input type="url" id="callbackUri" value="" required placeholder="https://localhost:3000/login"/></div> <div class="mb-4"><fieldset><legend>Permissions</legend> <div class="checkboxes"><!--[--><label><input type="checkbox" value="8,10,9,7"/> <!---->Bundle: Public & Private Graph <span title="dsnp.public-follows@v1, dsnp.private-connections@v1, dsnp.private-follows@v1, dsnp.public-key-key-agreement@v1">ⓘ</span><!----></label><label><input type="checkbox" value="17,18,16,4,19"/> <!---->Bundle: DSNP v1.3 Content <span title="dsnp.broadcast@v2, dsnp.reply@v2, dsnp.tombstone@v2, dsnp.reaction@v1, dsnp.update@v2">ⓘ</span><!----></label><label><input type="checkbox" value="2,3,1,4,5"/> <!---->(Deprecated) Bundle: DSNP v1.0 Content <span title="dsnp.broadcast@v1, dsnp.reply@v1, dsnp.tombstone@v1, dsnp.reaction@v1, dsnp.update@v1">ⓘ</span><!----></label><label><input type="checkbox" value="2"/> <!---->(Deprecated) dsnp.broadcast: Create new public content (v1)<!----></label><label><input type="checkbox" value="6"/> <!---->(Deprecated) dsnp.profile: Update profile information (v1)<!----></label><label><input type="checkbox" value="3"/> <!---->(Deprecated) dsnp.reply: Public reply to content (v1)<!----></label><label><input type="checkbox" value="1"/> <!---->(Deprecated) dsnp.tombstone: Mark content for deletion (v1)<!----></label><label><input type="checkbox" value="5"/> <!---->(Deprecated) dsnp.update: Update an existing post or reply (v1)<!----></label><label><input type="checkbox" value="17"/> <!---->dsnp.broadcast: Create new public content (v2)<!----></label><label><input type="checkbox" value="12"/> <!---->dsnp.dsnp-content-attribute: Create an authenticated attribute set for DSNP content (v1)<!----></label><label><input type="checkbox" value="13"/> <!---->dsnp.ext-content-attribute: Create an authenticated attribute set for content external to DSNP (v1)<!----></label><label><input type="checkbox" value="10"/> <!---->dsnp.private-connections: Update private friendship connections (v1)<!----></label><label><input type="checkbox" value="9"/> <!---->dsnp.private-follows: Update private follow list (v1)<!----></label><label><input type="checkbox" value="15"/> <!---->dsnp.profile-resources: Update user profile information (v1)<!----></label><label><input type="checkbox" value="8"/> <!---->dsnp.public-follows: Update public follow list (v1)<!----></label><label><input type="checkbox" value="4"/> <!---->dsnp.reaction: Public reaction to content (v1)<!----></label><label><input type="checkbox" value="18"/> <!---->dsnp.reply: Public reply to content (v2)<!----></label><label><input type="checkbox" value="16"/> <!---->dsnp.tombstone: Mark content for deletion (v2)<!----></label><label><input type="checkbox" value="19"/> <!---->dsnp.update: Update an existing post or reply (v2)<!----></label><label><input type="checkbox" value="20"/> <!---->dsnp.user-attribute-set: Create an authenticated attribute set for a DSNP User (v2)<!----></label><!--]--> <div><label for="additionalPermissions">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""/></div> <div class="my-2 text-sm"><label for="schemaIds">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""/></div></div></fieldset><!----></div> <div class="mb-4"><fieldset><legend>Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox"/> Graph Key (Required for reading private graph)</label> <label><input type="checkbox"/> Recovery Secret for account</label> <label><input type="checkbox"/> Verified Email Address</label> <label><input type="checkbox"/> Verified SMS/Phone Number</label></div></fieldset><!----></div> <div class="mb-4"><label for="applicationContext">Application Context URL</label> <input type="url" id="applicationContext" value="" placeholder="https://example.org/my-app-context.json"/></div> <!--[!--><!--]--></form><!----></div> <!--[!--><h2 id="result"><a class="header" href="#result">Result</a></h2> <dl><dt>Login Request Payload and Signature ( <code>signedRequest</code> parameter )</dt> <dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea></dd> <dt>Mainnet/Production URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Testnet/Staging URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="/></dd> <dt>Signed Request (JSON)</dt> <dd><details><summary style="cursor: pointer;">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl><!--]--><!----><!----></div><!----><!--]--> <!--[!--><!--]--><!--]-->
 <script>
 {
-__sveltekit_9x89yq = {
+__sveltekit_1qzya6v = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
 const element = document.currentScript.parentElement;
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.8fZr9Rap.js"),
-import("./Generator/_app/immutable/entry/app.C2upanh8.js")
+import("./Generator/_app/immutable/entry/start.CewxWRhx.js"),
+import("./Generator/_app/immutable/entry/app.BQu6UPeR.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
@@ -1133,7 +1198,12 @@ For example, if you wish to correlate the original unauthorized session with the
 <p>Only used for custom integration situations.</p>
 <h2 id="step-2-signing-the-request"><a class="header" href="#step-2-signing-the-request">Step 2: Signing the Request</a></h2>
 <p>To ensure that the correct application is requesting the authentication and that the response is only sent to the authorized party, the request is signed.
-The signature MUST be from one of the <a href="https://docs.frequency.xyz/Identity/ControlKeys.html">Control Keys</a> of the Frequency Provider.</p>
+The signature MUST be from one of the <a href="https://docs.frequency.xyz/Identity/ControlKeys.html">Control Keys</a> of the Frequency Provider.
+We accept two different types of signatures based on the signing key being used.</p>
+<ol>
+<li>Sr25519 signature on a SCALE encoded payload</li>
+<li>Secp256k1 signature on a EIP-712 defined payload.</li>
+</ol>
 <h3 id="21a-serialize-the-payload-using-the-scale-codec"><a class="header" href="#21a-serialize-the-payload-using-the-scale-codec">2.1.a: Serialize the payload using the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE Codec</a></a></h3>
 <p>SCALE Type (Note: Order matters!)</p>
 <pre><code class="language-json">{
@@ -1303,7 +1373,7 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
     "signature": {
       "algo": "SR25519",
       "encoding": "base16",
-      "encodedValue": "0x22bde36dd0b0a8a3a48aef8133ce67ad2770aac6ea9c61fc7898c90687317a4debb85b008cbc2f1feafa7c9785b6c352fc3d840f3e428c64cefd34f5f3494785"
+      "encodedValue": "0x6e401e71ec94d917e9e5af191f7b879da1de581256981c98c33fd959256afe1727dc8c9d5d7bb47379fadbde4425c5997fa71cabf689bfe8ab026de1251b1381"
     },
     "payload": {
       "callback": "http://localhost:3000",
@@ -1321,6 +1391,12 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
       "type": "VerifiedGraphKeyCredential",
       "hash": [
         "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+      ]
+    },
+    {
+      "type": "VerifiedRecoverySecretCredential",
+      "hash": [
+        "bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq"
       ]
     },
     {
@@ -1375,6 +1451,12 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
       "type": "VerifiedGraphKeyCredential",
       "hash": [
         "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+      ]
+    },
+    {
+      "type": "VerifiedRecoverySecretCredential",
+      "hash": [
+        "bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq"
       ]
     },
     {
@@ -1444,6 +1526,15 @@ Below are the official types and multihashes to use.</p>
 <pre><code class="language-json">{
   "type": "VerifiedGraphKeyCredential",
   "hash": ["bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"]
+}
+</code></pre>
+<h3 id="recovery-secret"><a class="header" href="#recovery-secret">Recovery Secret</a></h3>
+<ul>
+<li>URL: <a href="https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json">https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json</a></li>
+</ul>
+<pre><code class="language-json">{
+  "type": "VerifiedRecoverySecretCredential",
+  "hash": ["bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq"]
 }
 </code></pre>
 <h3 id="email"><a class="header" href="#email">Email</a></h3>
@@ -1611,7 +1702,7 @@ Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ<
   }
 }
 </code></pre>
-<h3 id="scale-payload-type-1"><a class="header" href="#scale-payload-type-1">SCALE Payload Type</a></h3>
+<h5 id="scale-payload-type-1"><a class="header" href="#scale-payload-type-1">SCALE Payload Type</a></h5>
 <pre><code class="language-json">{
   baseHandle: 'Bytes',
   expiration: 'u32',
@@ -1667,7 +1758,7 @@ Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ<
   }
 }
 </code></pre>
-<h3 id="scale-payload-types"><a class="header" href="#scale-payload-types">SCALE Payload Types</a></h3>
+<h5 id="scale-payload-types"><a class="header" href="#scale-payload-types">SCALE Payload Types</a></h5>
 <pre><code class="language-json">{
   PalletStatefulStorageItemActionEnumAdd: {
     data: 'Bytes',
@@ -1721,22 +1812,22 @@ The signature is generated using EIP-712 standard.</p>
 <h3 id="request"><a class="header" href="#request">Request</a></h3>
 <h4 id="sr25519-9"><a class="header" href="#sr25519-9">Sr25519</a></h4>
 <pre><code class="language-json">{
-  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDIyYmRlMzZkZDBiMGE4YTNhNDhhZWY4MTMzY2U2N2FkMjc3MGFhYzZlYTljNjFmYzc4OThjOTA2ODczMTdhNGRlYmI4NWIwMDhjYmMyZjFmZWFmYTdjOTc4NWI2YzM1MmZjM2Q4NDBmM2U0MjhjNjRjZWZkMzRmNWYzNDk0Nzg1In0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XSwiYXBwbGljYXRpb25Db250ZXh0Ijp7InVybCI6Imh0dHBzOi8vZXhhbXBsZS5vcmcvbXlhcHAvc2l3Zi1tYW5pZmVzdC5qc29uIn19",
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDZlNDAxZTcxZWM5NGQ5MTdlOWU1YWYxOTFmN2I4NzlkYTFkZTU4MTI1Njk4MWM5OGMzM2ZkOTU5MjU2YWZlMTcyN2RjOGM5ZDVkN2JiNDczNzlmYWRiZGU0NDI1YzU5OTdmYTcxY2FiZjY4OWJmZThhYjAyNmRlMTI1MWIxMzgxIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsidHlwZSI6IlZlcmlmaWVkUmVjb3ZlcnlTZWNyZXRDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxcGc2cW00cm51Mmo0djZnaHhxcWd3a2dnb2t3dnhzM3QyYmV4YmQzb2JreXBraXJ5eWx4cSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV0sImFwcGxpY2F0aW9uQ29udGV4dCI6eyJ1cmwiOiJodHRwczovL2V4YW1wbGUub3JnL215YXBwL3Npd2YtbWFuaWZlc3QuanNvbiJ9fQ",
   "mode": "dark"
 }
 </code></pre>
 <h4 id="secp256k1-9"><a class="header" href="#secp256k1-9">Secp256k1</a></h4>
 <pre><code class="language-json">{
-  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNEZGM2E5Q0YwNGM3MURiYzk0RDBiNTY2ZjdBMjdCOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV0sImFwcGxpY2F0aW9uQ29udGV4dCI6eyJ1cmwiOiJodHRwczovL2V4YW1wbGUub3JnL215YXBwL3Npd2YtbWFuaWZlc3QuanNvbiJ9fQ",
+  "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNEZGM2E5Q0YwNGM3MURiYzk0RDBiNTY2ZjdBMjdCOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7InR5cGUiOiJWZXJpZmllZFJlY292ZXJ5U2VjcmV0Q3JlZGVudGlhbCIsImhhc2giOlsiYmNpcXBnNnFtNHJudTJqNHY2Z2h4cXFnd2tnZ29rd3Z4czN0MmJleGJkM29ia3lwa2lyeXlseHEiXX0seyJhbnlPZiI6W3sidHlwZSI6IlZlcmlmaWVkRW1haWxBZGRyZXNzQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWU0cW9jemhmdGljaTRkemZ2ZmJlbDdmbzRoNHNyNWdyY28zb292d3lrNnk0eW5mNDR0c2kiXX0seyJ0eXBlIjoiVmVyaWZpZWRQaG9uZU51bWJlckNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFqc3BuYndwYzN3ang0ZmV3Y2VrNWRheXNkanBiZjV4amltejV3bnU1dWo3ZTN2dTJ1d25xIl19XX1dLCJhcHBsaWNhdGlvbkNvbnRleHQiOnsidXJsIjoiaHR0cHM6Ly9leGFtcGxlLm9yZy9teWFwcC9zaXdmLW1hbmlmZXN0Lmpzb24ifX0",
   "mode": "dark"
 }
 </code></pre>
 <h3 id="request-url"><a class="header" href="#request-url">Request URL</a></h3>
 <h4 id="sr25519-10"><a class="header" href="#sr25519-10">Sr25519</a></h4>
-<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDIyYmRlMzZkZDBiMGE4YTNhNDhhZWY4MTMzY2U2N2FkMjc3MGFhYzZlYTljNjFmYzc4OThjOTA2ODczMTdhNGRlYmI4NWIwMDhjYmMyZjFmZWFmYTdjOTc4NWI2YzM1MmZjM2Q4NDBmM2U0MjhjNjRjZWZkMzRmNWYzNDk0Nzg1In0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsiYW55T2YiOlt7InR5cGUiOiJWZXJpZmllZEVtYWlsQWRkcmVzc0NyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFlNHFvY3poZnRpY2k0ZHpmdmZiZWw3Zm80aDRzcjVncmNvM29vdnd5azZ5NHluZjQ0dHNpIl19LHsidHlwZSI6IlZlcmlmaWVkUGhvbmVOdW1iZXJDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxanNwbmJ3cGMzd2p4NGZld2NlazVkYXlzZGpwYmY1eGppbXo1d251NXVqN2UzdnUydXducSJdfV19XSwiYXBwbGljYXRpb25Db250ZXh0Ijp7InVybCI6Imh0dHBzOi8vZXhhbXBsZS5vcmcvbXlhcHAvc2l3Zi1tYW5pZmVzdC5qc29uIn19&amp;mode=dark"
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweDZlNDAxZTcxZWM5NGQ5MTdlOWU1YWYxOTFmN2I4NzlkYTFkZTU4MTI1Njk4MWM5OGMzM2ZkOTU5MjU2YWZlMTcyN2RjOGM5ZDVkN2JiNDczNzlmYWRiZGU0NDI1YzU5OTdmYTcxY2FiZjY4OWJmZThhYjAyNmRlMTI1MWIxMzgxIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsidHlwZSI6IlZlcmlmaWVkUmVjb3ZlcnlTZWNyZXRDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxcGc2cW00cm51Mmo0djZnaHhxcWd3a2dnb2t3dnhzM3QyYmV4YmQzb2JreXBraXJ5eWx4cSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV0sImFwcGxpY2F0aW9uQ29udGV4dCI6eyJ1cmwiOiJodHRwczovL2V4YW1wbGUub3JnL215YXBwL3Npd2YtbWFuaWZlc3QuanNvbiJ9fQ&amp;mode=dark"
 </code></pre>
 <h4 id="secp256k1-10"><a class="header" href="#secp256k1-10">Secp256k1</a></h4>
-<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNEZGM2E5Q0YwNGM3MURiYzk0RDBiNTY2ZjdBMjdCOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV0sImFwcGxpY2F0aW9uQ29udGV4dCI6eyJ1cmwiOiJodHRwczovL2V4YW1wbGUub3JnL215YXBwL3Npd2YtbWFuaWZlc3QuanNvbiJ9fQ&amp;mode=dark"
+<pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNEZGM2E5Q0YwNGM3MURiYzk0RDBiNTY2ZjdBMjdCOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7InR5cGUiOiJWZXJpZmllZFJlY292ZXJ5U2VjcmV0Q3JlZGVudGlhbCIsImhhc2giOlsiYmNpcXBnNnFtNHJudTJqNHY2Z2h4cXFnd2tnZ29rd3Z4czN0MmJleGJkM29ia3lwa2lyeXlseHEiXX0seyJhbnlPZiI6W3sidHlwZSI6IlZlcmlmaWVkRW1haWxBZGRyZXNzQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWU0cW9jemhmdGljaTRkemZ2ZmJlbDdmbzRoNHNyNWdyY28zb292d3lrNnk0eW5mNDR0c2kiXX0seyJ0eXBlIjoiVmVyaWZpZWRQaG9uZU51bWJlckNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFqc3BuYndwYzN3ang0ZmV3Y2VrNWRheXNkanBiZjV4amltejV3bnU1dWo3ZTN2dTJ1d25xIl19XX1dLCJhcHBsaWNhdGlvbkNvbnRleHQiOnsidXJsIjoiaHR0cHM6Ly9leGFtcGxlLm9yZy9teWFwcC9zaXdmLW1hbmlmZXN0Lmpzb24ifX0&amp;mode=dark"
 </code></pre>
 <h3 id="signed-request"><a class="header" href="#signed-request">Signed Request</a></h3>
 <p>This is JSON stringified and then <a href="https://datatracker.ietf.org/doc/html/rfc4648#section-5"><code>base64url</code></a> encoded for the Request <code>signedRequest</code> value.</p>
@@ -1752,7 +1843,7 @@ The signature is generated using EIP-712 standard.</p>
     "signature": {
       "algo": "SR25519",
       "encoding": "base16",
-      "encodedValue": "0x22bde36dd0b0a8a3a48aef8133ce67ad2770aac6ea9c61fc7898c90687317a4debb85b008cbc2f1feafa7c9785b6c352fc3d840f3e428c64cefd34f5f3494785"
+      "encodedValue": "0x6e401e71ec94d917e9e5af191f7b879da1de581256981c98c33fd959256afe1727dc8c9d5d7bb47379fadbde4425c5997fa71cabf689bfe8ab026de1251b1381"
     },
     "payload": {
       "callback": "http://localhost:3000",
@@ -1770,6 +1861,12 @@ The signature is generated using EIP-712 standard.</p>
       "type": "VerifiedGraphKeyCredential",
       "hash": [
         "bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y"
+      ]
+    },
+    {
+      "type": "VerifiedRecoverySecretCredential",
+      "hash": [
+        "bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq"
       ]
     },
     {
@@ -1827,6 +1924,12 @@ The signature is generated using EIP-712 standard.</p>
       ]
     },
     {
+      "type": "VerifiedRecoverySecretCredential",
+      "hash": [
+        "bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq"
+      ]
+    },
+    {
       "anyOf": [
         {
           "type": "VerifiedEmailAddressCredential",
@@ -1862,7 +1965,7 @@ The signature is generated using EIP-712 standard.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x2a072762e8c7e07db77a5de5a52f5bcf75ae7a162f5833950e14335942910b576174ac56d3da5d02a5b0c59da382ca9f3709d18ebaecd463cb49041272ecee81"
+        "encodedValue": "0xe8bb297f22a5d2ef81e87bb94504a5d459cc301fc738c9e25151a608d621607a3196ea41e91ee5695e56ae496f74e082de5c91de2fe3371116c8022fd7a2eb87"
       },
       "endpoint": {
         "pallet": "msa",
@@ -1885,7 +1988,7 @@ The signature is generated using EIP-712 standard.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x8233e7e622f36b27ace86321200404f7e1ac97f48d06650374b511709b7c6b10fd08fcb1000260053d7ad7a76c7aaab891fea57b98852b6c9e952b73d955c88f"
+        "encodedValue": "0xc4c0d8d55ee0d475155f8b1629cbf052f2a4d674cdff837c51bf397e0f988f548633b85ed9183b7b20adae86ec9bbc00ac6a474bce5666f9de3176ffada52e85"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -1908,7 +2011,7 @@ The signature is generated using EIP-712 standard.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xae42f32186055680a01fbba12795691705abc17b9b369a4e542fcf5808322918c3a3b19e35a46be668c2a072ad8902699c7056070db0e1cb7aca90ddaff00086"
+        "encodedValue": "0x92371b335c67695f6a2f2646ff672e7052342416ae2e2d2588bb97fb29ded11c8e422d61187dffb311aad0ca2a83c5db93e1de047578f51efa4f24071344d383"
       },
       "endpoint": {
         "pallet": "handles",
@@ -1973,6 +2076,26 @@ The signature is generated using EIP-712 standard.</p>
         "format": "bare",
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedRecoverySecretCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "recoverySecret": "69EC-2382-E1E6-76F3-341F-3414-9DD5-CFA5-6932-E418-9385-0358-31DF-AFEA-9828-D3B7"
       }
     }
   ]
@@ -2067,7 +2190,7 @@ The signature is generated using EIP-712 standard.</p>
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x7a756bf5399c66ab39dc16d07782a68a56d6ff73e2ded96239a9ed302f354e04f2d9648ab2966903f14eb762ebfcc0affbcf933711dbe312eeeee7d0d727a18f"
+        "encodedValue": "0x52994f48667a23389bdc4f98a56bc849b0fc01f94f39ee8ffb22e8216d898554673ff169b9ea4364a108ebab7a4879a81a8c3d84f7f63c344eaebf2c8bfd8688"
       },
       "endpoint": {
         "pallet": "msa",
@@ -2139,6 +2262,26 @@ The signature is generated using EIP-712 standard.</p>
         "format": "bare",
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedRecoverySecretCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "recoverySecret": "69EC-2382-E1E6-76F3-341F-3414-9DD5-CFA5-6932-E418-9385-0358-31DF-AFEA-9828-D3B7"
       }
     }
   ]
@@ -2255,6 +2398,26 @@ The signature is generated using EIP-712 standard.</p>
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
       }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedRecoverySecretCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "recoverySecret": "69EC-2382-E1E6-76F3-341F-3414-9DD5-CFA5-6932-E418-9385-0358-31DF-AFEA-9828-D3B7"
+      }
     }
   ]
 }
@@ -2308,6 +2471,28 @@ The signature is generated using EIP-712 standard.</p>
     "format": "bare",
     "type": "X25519",
     "keyType": "dsnp.public-key-key-agreement"
+  }
+}
+</code></pre>
+<h3 id="recovery-secret-1"><a class="header" href="#recovery-secret-1">Recovery Secret</a></h3>
+<pre><code class="language-json">{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/undefined-terms/v2"
+  ],
+  "type": [
+    "VerifiedRecoverySecretCredential",
+    "VerifiableCredential"
+  ],
+  "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+  "validFrom": "2024-08-21T21:28:08.289+0000",
+  "credentialSchema": {
+    "type": "JsonSchema",
+    "id": "https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json"
+  },
+  "credentialSubject": {
+    "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+    "recoverySecret": "69EC-2382-E1E6-76F3-341F-3414-9DD5-CFA5-6932-E418-9385-0358-31DF-AFEA-9828-D3B7"
   }
 }
 </code></pre>
