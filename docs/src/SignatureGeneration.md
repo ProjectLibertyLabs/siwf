@@ -29,6 +29,9 @@ Only used for custom integration situations.
 
 To ensure that the correct application is requesting the authentication and that the response is only sent to the authorized party, the request is signed.
 The signature MUST be from one of the [Control Keys](https://docs.frequency.xyz/Identity/ControlKeys.html) of the Frequency Provider.
+We accept two different types of signatures based on the signing key being used.
+1. Sr25519 signature on a SCALE encoded payload
+2. Secp256k1 signature on a EIP-712 defined payload.
 
 ### 2.1.a: Serialize the payload using the [SCALE Codec](https://docs.substrate.io/reference/scale-codec/)
 

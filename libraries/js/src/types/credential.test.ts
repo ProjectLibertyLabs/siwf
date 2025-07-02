@@ -1,11 +1,27 @@
-import { ExampleEmailCredential, ExamplePhoneCredential, ExampleUserGraphCredential } from '../mocks/credentials.js';
+import {
+  ExampleEmailCredential,
+  ExamplePhoneCredential,
+  ExampleUserGraphCredential,
+  ExampleUserRecoverySecretCredential,
+} from '../mocks/credentials.js';
 import { describe, expect, it } from 'vitest';
-import { isCredentialEmail, isCredentialGraph, isCredentialPhone, isCredentials } from './credential.js';
+import {
+  isCredentialEmail,
+  isCredentialGraph,
+  isCredentialPhone,
+  isCredentialRecoverySecret,
+  isCredentials,
+} from './credential.js';
 
 describe('isCredentials Single', () => {
   it('is successful with ExampleUserGraphCredential', async () => {
     expect(isCredentialGraph(await ExampleUserGraphCredential())).toBe(true);
     expect(isCredentials([await ExampleUserGraphCredential()])).toBe(true);
+  });
+
+  it('is successful with ExampleRecoverSecretCredential', async () => {
+    expect(isCredentialRecoverySecret(await ExampleUserRecoverySecretCredential())).toBe(true);
+    expect(isCredentials([await ExampleUserRecoverySecretCredential()])).toBe(true);
   });
 
   it('is successful with ExampleEmailCredential', async () => {
@@ -26,6 +42,7 @@ describe('isCredentials Multi', () => {
         await ExampleEmailCredential(),
         await ExamplePhoneCredential(),
         await ExampleUserGraphCredential(),
+        await ExampleUserRecoverySecretCredential(),
       ])
     ).toBe(true);
   });

@@ -1,4 +1,4 @@
-import { VerifiedEmailAddress, VerifiedGraphKey, VerifiedPhoneNumber } from '../constants.js';
+import { VerifiedEmailAddress, VerifiedGraphKey, VerifiedPhoneNumber, VerifiedRecoverySecret } from '../constants.js';
 import { isArrayOf, isObj, isStr } from './general.js';
 
 interface SiwfResponseCredentialBase {
@@ -129,14 +129,34 @@ export function isCredentialGraph(obj: any): obj is SiwfResponseCredentialGraph 
   );
 }
 
+export interface SiwfResponseCredentialRecoverySecret extends SiwfResponseCredentialBase {
+  type: ['VerifiedRecoverySecretCredential', 'VerifiableCredential'];
+  credentialSubject: {
+    id: string;
+    recoverySecret: string;
+  };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isCredentialRecoverySecret(obj: any): obj is SiwfResponseCredentialRecoverySecret {
+  return (
+    isCredentialBase(obj) &&
+    obj.type.includes(VerifiedRecoverySecret.credential.type) &&
+    obj.credentialSchema.id === VerifiedRecoverySecret.id &&
+    isStr(obj.credentialSubject.id) &&
+    isStr(obj.credentialSubject.recoverySecret)
+  );
+}
+
 export type SiwfResponseCredential =
   | SiwfResponseCredentialEmail
   | SiwfResponseCredentialPhone
-  | SiwfResponseCredentialGraph;
+  | SiwfResponseCredentialGraph
+  | SiwfResponseCredentialRecoverySecret;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isCredential(obj: any): obj is SiwfResponseCredential {
-  return isCredentialEmail(obj) || isCredentialPhone(obj) || isCredentialGraph(obj);
+  return isCredentialEmail(obj) || isCredentialPhone(obj) || isCredentialGraph(obj) || isCredentialRecoverySecret(obj);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

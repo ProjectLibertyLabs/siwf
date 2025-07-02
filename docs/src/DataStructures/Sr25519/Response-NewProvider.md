@@ -11,7 +11,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x7a756bf5399c66ab39dc16d07782a68a56d6ff73e2ded96239a9ed302f354e04f2d9648ab2966903f14eb762ebfcc0affbcf933711dbe312eeeee7d0d727a18f"
+        "encodedValue": "0x52994f48667a23389bdc4f98a56bc849b0fc01f94f39ee8ffb22e8216d898554673ff169b9ea4364a108ebab7a4879a81a8c3d84f7f63c344eaebf2c8bfd8688"
       },
       "endpoint": {
         "pallet": "msa",
@@ -83,6 +83,26 @@
         "format": "bare",
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedRecoverySecretCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "recoverySecret": "69EC-2382-E1E6-76F3-341F-3414-9DD5-CFA5-6932-E418-9385-0358-31DF-AFEA-9828-D3B7"
       }
     }
   ]

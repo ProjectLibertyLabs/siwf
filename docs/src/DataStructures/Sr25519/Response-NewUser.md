@@ -11,7 +11,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x2a072762e8c7e07db77a5de5a52f5bcf75ae7a162f5833950e14335942910b576174ac56d3da5d02a5b0c59da382ca9f3709d18ebaecd463cb49041272ecee81"
+        "encodedValue": "0xe8bb297f22a5d2ef81e87bb94504a5d459cc301fc738c9e25151a608d621607a3196ea41e91ee5695e56ae496f74e082de5c91de2fe3371116c8022fd7a2eb87"
       },
       "endpoint": {
         "pallet": "msa",
@@ -34,7 +34,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x8233e7e622f36b27ace86321200404f7e1ac97f48d06650374b511709b7c6b10fd08fcb1000260053d7ad7a76c7aaab891fea57b98852b6c9e952b73d955c88f"
+        "encodedValue": "0xc4c0d8d55ee0d475155f8b1629cbf052f2a4d674cdff837c51bf397e0f988f548633b85ed9183b7b20adae86ec9bbc00ac6a474bce5666f9de3176ffada52e85"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -57,7 +57,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xae42f32186055680a01fbba12795691705abc17b9b369a4e542fcf5808322918c3a3b19e35a46be668c2a072ad8902699c7056070db0e1cb7aca90ddaff00086"
+        "encodedValue": "0x92371b335c67695f6a2f2646ff672e7052342416ae2e2d2588bb97fb29ded11c8e422d61187dffb311aad0ca2a83c5db93e1de047578f51efa4f24071344d383"
       },
       "endpoint": {
         "pallet": "handles",
@@ -122,6 +122,26 @@
         "format": "bare",
         "type": "X25519",
         "keyType": "dsnp.public-key-key-agreement"
+      }
+    },
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://www.w3.org/ns/credentials/undefined-terms/v2"
+      ],
+      "type": [
+        "VerifiedRecoverySecretCredential",
+        "VerifiableCredential"
+      ],
+      "issuer": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+      "validFrom": "2024-08-21T21:28:08.289+0000",
+      "credentialSchema": {
+        "type": "JsonSchema",
+        "id": "https://schemas.frequencyaccess.com/VerifiedRecoverySecretCredential/bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq.json"
+      },
+      "credentialSubject": {
+        "id": "did:key:z6QNucQV4AF1XMQV4kngbmnBHwYa6mVswPEGrkFrUayhttT1",
+        "recoverySecret": "69EC-2382-E1E6-76F3-341F-3414-9DD5-CFA5-6932-E418-9385-0358-31DF-AFEA-9828-D3B7"
       }
     }
   ]

@@ -31,6 +31,12 @@
       ]
     },
     {
+      "type": "VerifiedRecoverySecretCredential",
+      "hash": [
+        "bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq"
+      ]
+    },
+    {
       "anyOf": [
         {
           "type": "VerifiedEmailAddressCredential",

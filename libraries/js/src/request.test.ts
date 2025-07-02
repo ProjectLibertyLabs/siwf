@@ -7,6 +7,7 @@ import {
   VerifiedEmailAddressCredential,
   VerifiedGraphKeyCredential,
   VerifiedPhoneNumberCredential,
+  VerifiedRecoverySecretCredential,
 } from './request.js';
 import { serializeLoginPayloadHex } from './util.js';
 import { createSiwfSignedRequestPayload, HexString, verifySignature } from '@frequency-chain/ethereum-utils';
@@ -16,6 +17,7 @@ const stockCredentials = [
     anyOf: [VerifiedEmailAddressCredential, VerifiedPhoneNumberCredential],
   },
   VerifiedGraphKeyCredential,
+  VerifiedRecoverySecretCredential,
 ];
 
 const exampleApplicationContext = {
@@ -70,6 +72,10 @@ describe('request', () => {
           type: 'VerifiedGraphKeyCredential',
           hash: ['bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y'],
         },
+        {
+          type: 'VerifiedRecoverySecretCredential',
+          hash: ['bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq'],
+        },
       ],
       applicationContext: exampleApplicationContext,
     });
@@ -122,6 +128,10 @@ describe('request', () => {
         {
           type: 'VerifiedGraphKeyCredential',
           hash: ['bciqmdvmxd54zve5kifycgsdtoahs5ecf4hal2ts3eexkgocyc5oca2y'],
+        },
+        {
+          type: 'VerifiedRecoverySecretCredential',
+          hash: ['bciqpg6qm4rnu2j4v6ghxqqgwkggokwvxs3t2bexbd3obkypkiryylxq'],
         },
       ],
       applicationContext: exampleApplicationContext,

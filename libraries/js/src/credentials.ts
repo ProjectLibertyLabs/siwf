@@ -6,11 +6,15 @@ import {
   isCredentialEmail,
   isCredentialGraph,
   isCredentialPhone,
+  isCredentialRecoverySecret,
   SiwfResponseCredential,
   SiwfResponseCredentialGraph,
+  SiwfResponseCredentialRecoverySecret,
 } from './types/credential.js';
 import { isValidX25519PrivateKey } from './x25519.js';
 import { documentLoaderGenerator } from './documents/loader.js';
+
+const RecoverySecretPattern = /^([0-9A-F]{4}-){15}[0-9A-F]{4}$/;
 
 async function validateGraph(credential: SiwfResponseCredentialGraph): Promise<void> {
   // Make sure that the key is good.
@@ -21,6 +25,13 @@ async function validateGraph(credential: SiwfResponseCredentialGraph): Promise<v
     )
   ) {
     throw new Error(`VerifiedGraphKeyCredential: Invalid KeyPair`);
+  }
+}
+
+async function validateRecoverySecret(credential: SiwfResponseCredentialRecoverySecret): Promise<void> {
+  // Make sure that recovery secret format is good
+  if (!RecoverySecretPattern.test(credential.credentialSubject.recoverySecret)) {
+    throw new Error(`SiwfResponseCredentialRecoverySecret: Invalid recoverySecret`);
   }
 }
 
@@ -79,6 +90,9 @@ export async function validateCredential(credential: SiwfResponseCredential, tru
       break;
     case isCredentialGraph(credential):
       await validateGraph(credential);
+      break;
+    case isCredentialRecoverySecret(credential):
+      await validateRecoverySecret(credential);
       break;
   }
 }
