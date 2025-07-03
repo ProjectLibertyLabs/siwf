@@ -60,7 +60,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
               },
             ],
           },
-          { loginMsgUri: 'localhost', endpoint: '' }
+          { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -97,7 +97,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
               },
             ],
           },
-          { loginMsgUri: 'localhost', endpoint: '' }
+          { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -109,7 +109,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginGoodSr25519()],
           },
-          { loginMsgUri: 'your-app.com', endpoint: '' }
+          { loginMsgUri: 'your-app.com', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -121,7 +121,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginGoodSecp256k1()],
           },
-          { loginMsgUri: 'your-app.com', endpoint: '' }
+          { loginMsgUri: 'your-app.com', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -133,7 +133,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrlSr25519('example://login')],
           },
-          { loginMsgUri: 'example://login', endpoint: '' }
+          { loginMsgUri: 'example://login', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -145,7 +145,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginUrlSecp256k1('example://login')],
           },
-          { loginMsgUri: 'example://login', endpoint: '' }
+          { loginMsgUri: 'example://login', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -157,7 +157,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrlSr25519('https://example.com/login')],
           },
-          { loginMsgUri: 'https://example.com/login', endpoint: '' }
+          { loginMsgUri: 'https://example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -169,7 +169,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginUrlSecp256k1('https://example.com/login')],
           },
-          { loginMsgUri: 'https://example.com/login', endpoint: '' }
+          { loginMsgUri: 'https://example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -181,7 +181,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrlSr25519('http://www.example.com/login')],
           },
-          { loginMsgUri: 'www.example.com/login', endpoint: '' }
+          { loginMsgUri: 'www.example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -193,7 +193,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginUrlSecp256k1('http://www.example.com/login')],
           },
-          { loginMsgUri: 'www.example.com/login', endpoint: '' }
+          { loginMsgUri: 'www.example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -205,7 +205,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrlSr25519('localhost:3030/login/path')],
           },
-          { loginMsgUri: 'localhost:3030/login/path', endpoint: '' }
+          { loginMsgUri: 'localhost:3030/login/path', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -217,7 +217,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginUrlSecp256k1('localhost:3030/login/path')],
           },
-          { loginMsgUri: 'localhost:3030/login/path', endpoint: '' }
+          { loginMsgUri: 'localhost:3030/login/path', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -229,7 +229,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [ExamplePayloadLoginUrlSr25519('http://localhost:3030/login')],
         },
-        { loginMsgUri: ['otherdomain/login/callback', 'localhost:3030/login'], endpoint: '' }
+        { loginMsgUri: ['otherdomain/login/callback', 'localhost:3030/login'], endpoint: '', chainType: 'Dev' }
       );
     });
 
@@ -240,7 +240,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySecp256k1,
           payloads: [await ExamplePayloadLoginUrlSecp256k1('http://localhost:3030/login')],
         },
-        { loginMsgUri: ['otherdomain/login/callback', 'localhost:3030/login'], endpoint: '' }
+        { loginMsgUri: ['otherdomain/login/callback', 'localhost:3030/login'], endpoint: '', chainType: 'Dev' }
       );
     });
 
@@ -251,7 +251,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrlSr25519('http://badhost')],
           },
-          { loginMsgUri: 'localhost', endpoint: '' }
+          { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError('Message does not match expected domain. Domain: badhost Expected: localhost');
 
@@ -261,7 +261,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginGoodSr25519()],
           },
-          { loginMsgUri: 'betterhost', endpoint: '' }
+          { loginMsgUri: 'betterhost', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError('Message does not match expected domain. Domain: your-app.com Expected: betterhost');
     });
@@ -273,7 +273,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginUrlSecp256k1('http://badhost')],
           },
-          { loginMsgUri: 'localhost', endpoint: '' }
+          { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError('Message does not match expected domain. Domain: badhost Expected: localhost');
 
@@ -283,7 +283,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginGoodSecp256k1()],
           },
-          { loginMsgUri: 'betterhost', endpoint: '' }
+          { loginMsgUri: 'betterhost', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError('Message does not match expected domain. Domain: your-app.com Expected: betterhost');
     });
@@ -295,7 +295,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrlSr25519('notexample://login')],
           },
-          { loginMsgUri: 'example://login', endpoint: '' }
+          { loginMsgUri: 'example://login', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain scheme mismatch. Scheme: notexample Expected: example'
@@ -309,7 +309,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginUrlSecp256k1('notexample://login')],
           },
-          { loginMsgUri: 'example://login', endpoint: '' }
+          { loginMsgUri: 'example://login', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain scheme mismatch. Scheme: notexample Expected: example'
@@ -324,7 +324,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrlSr25519('http://example.com/login')],
           },
-          { loginMsgUri: 'https://example.com/login', endpoint: '' }
+          { loginMsgUri: 'https://example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain scheme mismatch. Scheme: http Expected: https'
@@ -337,7 +337,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrlSr25519('https://www.examples.com/login')],
           },
-          { loginMsgUri: 'https://www.example.com/login', endpoint: '' }
+          { loginMsgUri: 'https://www.example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain: www.examples.com Expected: www.example.com'
@@ -350,7 +350,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrlSr25519('https://www.example.com/logins')],
           },
-          { loginMsgUri: 'https://www.example.com/login', endpoint: '' }
+          { loginMsgUri: 'https://www.example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain path mismatch. Path: logins Expected: login'
@@ -365,7 +365,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginUrlSecp256k1('http://example.com/login')],
           },
-          { loginMsgUri: 'https://example.com/login', endpoint: '' }
+          { loginMsgUri: 'https://example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain scheme mismatch. Scheme: http Expected: https'
@@ -378,7 +378,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginUrlSecp256k1('https://www.examples.com/login')],
           },
-          { loginMsgUri: 'https://www.example.com/login', endpoint: '' }
+          { loginMsgUri: 'https://www.example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain: www.examples.com Expected: www.example.com'
@@ -391,7 +391,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginUrlSecp256k1('https://www.example.com/logins')],
           },
-          { loginMsgUri: 'https://www.example.com/login', endpoint: '' }
+          { loginMsgUri: 'https://www.example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain path mismatch. Path: logins Expected: login'
@@ -405,7 +405,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrlSr25519('http://www.examples.com/login')],
           },
-          { loginMsgUri: 'www.example.com/login', endpoint: '' }
+          { loginMsgUri: 'www.example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain: www.examples.com Expected: www.example.com'
@@ -419,7 +419,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginUrlSecp256k1('http://www.examples.com/login')],
           },
-          { loginMsgUri: 'www.example.com/login', endpoint: '' }
+          { loginMsgUri: 'www.example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).rejects.toThrowError(
         'Message does not match expected domain. Domain: www.examples.com Expected: www.example.com'
@@ -433,7 +433,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginUrlSr25519('https://example.com/login?query=string')],
           },
-          { loginMsgUri: 'https://example.com/login', endpoint: '' }
+          { loginMsgUri: 'https://example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -445,7 +445,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [await ExamplePayloadLoginUrlSecp256k1('https://example.com/login?query=string')],
           },
-          { loginMsgUri: 'https://example.com/login', endpoint: '' }
+          { loginMsgUri: 'https://example.com/login', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -457,7 +457,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySr25519,
             payloads: [ExamplePayloadLoginStaticSr25519],
           },
-          { loginMsgUri: 'your-app.com', endpoint: '' }
+          { loginMsgUri: 'your-app.com', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -469,7 +469,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
             userPublicKey: ExampleUserPublicKeySecp256k1,
             payloads: [ExamplePayloadLoginStaticSecp256k1],
           },
-          { loginMsgUri: 'your-app.com', endpoint: '' }
+          { loginMsgUri: 'your-app.com', endpoint: '', chainType: 'Dev' }
         )
       ).resolves.toBeUndefined();
     });
@@ -482,7 +482,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [ExamplePayloadClaimHandleSr25519()],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).resolves.toBeUndefined();
   });
@@ -494,7 +494,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySecp256k1,
           payloads: [ExamplePayloadClaimHandleSecp256k1()],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).resolves.toBeUndefined();
   });
@@ -508,7 +508,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: upk,
           payloads: [ExamplePayloadClaimHandleSr25519()],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
@@ -522,7 +522,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: upk,
           payloads: [ExamplePayloadClaimHandleSecp256k1()],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
@@ -534,7 +534,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [ExamplePayloadCreateSponsoredAccountSr25519()],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).resolves.toBeUndefined();
   });
@@ -546,7 +546,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySecp256k1,
           payloads: [ExamplePayloadCreateSponsoredAccountSecp256k1()],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).resolves.toBeUndefined();
   });
@@ -560,7 +560,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [payload],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
@@ -575,7 +575,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySecp256k1,
           payloads: [payload],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
@@ -587,7 +587,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [ExamplePayloadGrantDelegationSr25519()],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).resolves.toBeUndefined();
   });
@@ -599,7 +599,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySecp256k1,
           payloads: [ExamplePayloadGrantDelegationSecp256k1()],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).resolves.toBeUndefined();
   });
@@ -613,7 +613,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [payload],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
@@ -627,7 +627,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySecp256k1,
           payloads: [payload],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
@@ -639,7 +639,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [ExamplePayloadPublicGraphKeySr25519()],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).resolves.toBeUndefined();
   });
@@ -651,7 +651,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySecp256k1,
           payloads: [ExamplePayloadPublicGraphKeySecp256k1()],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).resolves.toBeUndefined();
   });
@@ -665,7 +665,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [payload],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
@@ -679,7 +679,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySecp256k1,
           payloads: [payload],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).rejects.toThrowError('Payload signature failed');
   });
@@ -693,7 +693,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySr25519,
           payloads: [payload],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).rejects.toThrowError('Unknown or Bad Payload: itemActions');
   });
@@ -707,7 +707,7 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
           userPublicKey: ExampleUserPublicKeySecp256k1,
           payloads: [payload],
         },
-        { loginMsgUri: 'localhost', endpoint: '' }
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )
     ).rejects.toThrowError('Unknown or Bad Payload: itemActions');
   });

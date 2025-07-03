@@ -76,7 +76,8 @@ export const ExamplePayloadLoginUrlSecp256k1 = async (url: string): Promise<Siwf
     encodedValue: (
       await sign(
         '0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133',
-        createSiwfLoginRequestPayload(loginMessageUrlSecp256k1(url))
+        createSiwfLoginRequestPayload(loginMessageUrlSecp256k1(url)),
+        'Dev'
       )
     ).Ecdsa,
   },
@@ -105,7 +106,8 @@ export const ExamplePayloadLoginGoodSecp256k1 = async (): Promise<SiwfResponsePa
     encodedValue: (
       await sign(
         '0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133',
-        createSiwfLoginRequestPayload(loginMessageGoodSecp256k1())
+        createSiwfLoginRequestPayload(loginMessageGoodSecp256k1()),
+        'Dev'
       )
     ).Ecdsa,
   },
@@ -134,7 +136,8 @@ export const ExamplePayloadLoginExpiredSecp256k1 = async (): Promise<SiwfRespons
     encodedValue: (
       await sign(
         '0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133',
-        createSiwfLoginRequestPayload(loginMessageExpiredSecp256k1())
+        createSiwfLoginRequestPayload(loginMessageExpiredSecp256k1()),
+        'Dev'
       )
     ).Ecdsa,
   },
