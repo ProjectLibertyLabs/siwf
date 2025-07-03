@@ -1,13 +1,22 @@
 <script lang="ts">
 	import Permissions from './Permissions.svelte';
 	import ManualSign from './ManualSign.svelte';
-	import WalletSign from './WalletSign.svelte';
+	import PolkadotWalletSign from './PolkadotWalletSign.svelte';
+	import MetamaskWalletSign from './MetamaskWalletSign.svelte';
 	import Credentials from './Credentials.svelte';
 	import {
 		buildSignedRequest,
 		encodeSignedRequest,
+		isHexStr,
+		type CurveType,
 		type SiwfCredential
 	} from '@projectlibertylabs/siwf';
+
+	const SignatureMethod = {
+		POLKADOT: 'polkadot',
+		METAMASK: 'metamask',
+		MANUAL: 'manual'
+	};
 
 	export let encodedRequest = '';
 	export let requestJson = '';
@@ -17,7 +26,8 @@
 	let callbackUri = '';
 	let signerPublicKey = '';
 	let signature = '';
-	let isManualSign = false;
+	let usedCurve: CurveType = 'Sr25519';
+	let selectedSignatureMethod = SignatureMethod.POLKADOT;
 	let permissions: number[] = [];
 	let credentials: SiwfCredential[] = [];
 	let applicationContextPlaceholder = 'https://example.org/my-app-context.json';
@@ -29,11 +39,22 @@
 
 	// Toggle between manual sign and Polkadot.js
 	function toggleSignMethod(method: string) {
-		isManualSign = method === 'manual';
+		switch (method) {
+			case 'manual':
+				selectedSignatureMethod = SignatureMethod.MANUAL;
+				break;
+			case 'polkadot':
+				selectedSignatureMethod = SignatureMethod.POLKADOT;
+				break;
+			default:
+				selectedSignatureMethod = SignatureMethod.METAMASK;
+		}
 	}
 
-	$: signature = isManualSign ? manualSignature : walletSignature;
-
+	$: signature =
+		selectedSignatureMethod === SignatureMethod.MANUAL ? manualSignature : walletSignature;
+	$: usedCurve =
+		isHexStr(signerPublicKey) && signerPublicKey.length === 42 ? 'Secp256k1' : 'Sr25519';
 	$: {
 		isRequiredComplete = !!form?.checkValidity();
 		try {
@@ -45,9 +66,9 @@
 				throw new Error('Waiting on signature.');
 			}
 			const signedRequest = buildSignedRequest(
-				'base58',
-				'ss58',
-				'Secp256k1',
+				usedCurve === 'Secp256k1' ? 'base16' : 'base58',
+				usedCurve === 'Secp256k1' ? 'eip-55' : 'ss58',
+				usedCurve,
 				signature,
 				signerPublicKey,
 				callbackUri,
@@ -113,6 +134,16 @@
 						/>
 						Use Polkadot.js Extension to Sign
 					</label>
+					<label for="signMethod-metamask">
+						<input
+							id="signMethod-metamask"
+							type="radio"
+							name="signMethod"
+							value="metamask"
+							on:change={() => toggleSignMethod('metamask')}
+						/>
+						Use Metamask Extension to Sign
+					</label>
 					<label for="signMethod-manual">
 						<input
 							id="signMethod-manual"
@@ -123,15 +154,22 @@
 						/>
 						Generate Data and Input Signature Manually
 					</label>
-					{#if isManualSign}
+					{#if selectedSignatureMethod === SignatureMethod.MANUAL}
 						<ManualSign
 							{callbackUri}
 							{permissions}
 							bind:signature={manualSignature}
 							bind:signerPublicKey
 						/>
+					{:else if selectedSignatureMethod === SignatureMethod.POLKADOT}
+						<PolkadotWalletSign
+							{callbackUri}
+							{permissions}
+							bind:signature={walletSignature}
+							bind:signerPublicKey
+						/>
 					{:else}
-						<WalletSign
+						<MetamaskWalletSign
 							{callbackUri}
 							{permissions}
 							bind:signature={walletSignature}
