@@ -4,7 +4,7 @@ import * as siwf from "@projectlibertylabs/siwf";
 describe("SIWF login test", () => {
   it("should retrieve a valid login result from the Mock SIWF server Sr25519", async () => {
     const authorizationCode = "loginAuthCode123_Sr25519"; // Ensure this matches the mock server response
-    const options = { endpoint: "http://localhost:3000", loginMsgUri: "testnet.frequencyaccess.com" };
+    const options = { endpoint: "http://localhost:3000", loginMsgUri: "testnet.frequencyaccess.com", chainType: 'Dev' };
 
     try {
       const result = await siwf.getLoginResult(authorizationCode, options);
@@ -19,7 +19,7 @@ describe("SIWF login test", () => {
 
   it("should retrieve a valid login result from the Mock SIWF server Secp256k1", async () => {
     const authorizationCode = "loginAuthCode123_Secp256k1"; // Ensure this matches the mock server response
-    const options = { endpoint: "http://localhost:3000", loginMsgUri: "testnet.frequencyaccess.com" };
+    const options = { endpoint: "http://localhost:3000", loginMsgUri: "testnet.frequencyaccess.com", chainType: 'Dev' };
 
     try {
       const result = await siwf.getLoginResult(authorizationCode, options);
