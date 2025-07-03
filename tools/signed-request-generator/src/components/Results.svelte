@@ -3,8 +3,14 @@
 	export let encodedRequest = '';
 	export let requestJson = '';
 
-	$: mainnet = generateAuthenticationUrl(encodedRequest, '', { endpoint: 'production' });
-	$: testnet = generateAuthenticationUrl(encodedRequest, '', { endpoint: 'staging' });
+	$: mainnet = generateAuthenticationUrl(encodedRequest, '', {
+		endpoint: 'production',
+		chainType: 'Mainnet-Frequency'
+	});
+	$: testnet = generateAuthenticationUrl(encodedRequest, '', {
+		endpoint: 'staging',
+		chainType: 'Paseo-Testnet-Frequency'
+	});
 </script>
 
 <h2>Result</h2>
