@@ -30,7 +30,7 @@
     "pack": "cd dist && npm pack"
   },
   "devDependencies": {
-    "@polkadot/rpc-provider": "^15.8.1",
+    "@polkadot/rpc-provider": "^16.3.1",
     "@projectlibertylabs/eslint-config-siwf": "workspace:*",
     "@vitest/coverage-v8": "^2.1.9",
     "jsdom": "^25.0.1",
@@ -43,12 +43,12 @@
   },
   "dependencies": {
     "@frequency-chain/api-augment": "^1.15.4",
-    "@polkadot/api": "^15.8.1",
-    "@polkadot/extension-dapp": "^0.58.5",
-    "@polkadot/extension-inject": "^0.58.5",
-    "@polkadot/types": "^15.8.1",
-    "@polkadot/util": "^13.4.3",
-    "@polkadot/util-crypto": "^13.4.3",
+    "@polkadot/api": "^16.3.1",
+    "@polkadot/extension-dapp": "^0.61.1",
+    "@polkadot/extension-inject": "^0.61.1",
+    "@polkadot/types": "^16.3.1",
+    "@polkadot/util": "^13.5.3",
+    "@polkadot/util-crypto": "^13.5.3",
     "@talismn/siws": "^1.0.0"
   }
 }
