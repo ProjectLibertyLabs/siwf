@@ -7,6 +7,7 @@ import {
   SiwfResponsePayloadAddProvider,
   SiwfResponsePayloadClaimHandle,
   SiwfResponsePayloadItemActions,
+  SiwfResponsePayloadRecoveryCommitment,
 } from './types/payload.js';
 import { AlgorithmType, CurveType, SignedPayload } from './types';
 import {
@@ -14,6 +15,7 @@ import {
   createClaimHandlePayload,
   createItemizedAddAction,
   createItemizedSignaturePayloadV2,
+  createRecoveryCommitmentPayload,
   HexString,
 } from '@frequency-chain/ethereum-utils';
 const registry = new TypeRegistry();
@@ -24,6 +26,9 @@ const frequencyTypes: RegistryTypes = {
   },
   PalletStatefulStorageItemActionEnumDelete: {
     index: 'u16',
+  },
+  PalletMsaPayloadTypeDiscriminator: {
+    _enum: ['Unknown', 'AuthorizedKeyData', 'RecoveryCommitmentPayload'],
   },
   PalletStatefulStorageItemAction: {
     _enum: {
@@ -40,6 +45,11 @@ const frequencyTypes: RegistryTypes = {
   PalletMsaAddProvider: {
     authorizedMsaId: 'u64',
     schemaIds: 'Vec<u16>',
+    expiration: 'u32',
+  },
+  PalletMsaRecoveryCommitmentPayload: {
+    discriminant: 'PalletMsaPayloadTypeDiscriminator',
+    recoveryCommitment: '[u8;32]',
     expiration: 'u32',
   },
   CommonPrimitivesHandlesClaimHandlePayload: {
@@ -134,6 +144,28 @@ export function serializeClaimHandlePayloadHex(
       return u8aWrapBytes(registry.createType('CommonPrimitivesHandlesClaimHandlePayload', payload).toU8a());
     case 'Secp256k1':
       return createClaimHandlePayload(payload.baseHandle, payload.expiration);
+    default:
+      throw new Error(`${curveType} is not supported!`);
+  }
+}
+
+export function serializeRecoveryCommitmentPayloadHex(
+  curveType: CurveType,
+  payload: SiwfResponsePayloadRecoveryCommitment['payload']
+): SignedPayload {
+  switch (curveType) {
+    case 'Sr25519':
+      return u8aWrapBytes(
+        registry
+          .createType('PalletMsaRecoveryCommitmentPayload', {
+            discriminant: 'RecoveryCommitmentPayload',
+            recoveryCommitment: payload.recoveryCommitmentHex,
+            expiration: payload.expiration,
+          })
+          .toU8a()
+      );
+    case 'Secp256k1':
+      return createRecoveryCommitmentPayload(payload.recoveryCommitmentHex as HexString, payload.expiration);
     default:
       throw new Error(`${curveType} is not supported!`);
   }
