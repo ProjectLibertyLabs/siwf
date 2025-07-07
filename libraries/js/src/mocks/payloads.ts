@@ -4,12 +4,14 @@ import {
   SiwfResponsePayloadClaimHandle,
   SiwfResponsePayloadItemActions,
   SiwfResponsePayloadLogin,
+  SiwfResponsePayloadRecoveryCommitment,
 } from '../types/payload.js';
 import { ExampleUserKeySr25519 } from './keys.js';
 import {
   serializeAddProviderPayloadHex,
   serializeClaimHandlePayloadHex,
   serializeItemActionsPayloadHex,
+  serializeRecoveryCommitmentPayloadHex,
 } from '../util.js';
 import { ExampleUserPublicKeySecp256k1 } from './index.js';
 import { createSiwfLoginRequestPayload, sign } from '@frequency-chain/ethereum-utils';
@@ -387,5 +389,47 @@ export const ExamplePayloadClaimHandleSecp256k1 = (): SiwfResponsePayloadClaimHa
   payload: {
     baseHandle: 'ExampleHandle',
     expiration: 24,
+  },
+});
+
+export const ExamplePayloadRecoveryCommitmentSr25519 = (): SiwfResponsePayloadRecoveryCommitment => ({
+  signature: {
+    algo: 'SR25519',
+    encoding: 'base16',
+    encodedValue: u8aToHex(
+      ExampleUserKeySr25519.keyPair().sign(
+        serializeRecoveryCommitmentPayloadHex('Sr25519', {
+          recoveryCommitmentHex: '0xeea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37',
+          expiration: 20,
+        }) as Uint8Array
+      )
+    ),
+  },
+  endpoint: {
+    pallet: 'msa',
+    extrinsic: 'addRecoveryCommitment',
+  },
+  type: 'recoveryCommitment',
+  payload: {
+    recoveryCommitmentHex: '0xeea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37',
+    expiration: 20,
+  },
+});
+
+export const ExamplePayloadRecoveryCommitmentSecp256k1 = (): SiwfResponsePayloadRecoveryCommitment => ({
+  signature: {
+    algo: 'SECP256K1',
+    encoding: 'base16',
+    encodedValue:
+      '0xcd09601593bfb635fb455a6bb9eab438fa03374a0ddd5e93710ff8042d6a3a33499ce0ad1c818a338c1b59af3c705ae226460d3aa905bdd21dbbc044577bfc5d1c',
+  },
+  endpoint: {
+    pallet: 'msa',
+    extrinsic: 'addRecoveryCommitment',
+  },
+  type: 'recoveryCommitment',
+  payload: {
+    recoveryCommitmentHex: '0x5c06ce60a2a1245fabdd1c11bfbf55246836d2c6fefac2c634837e3359d0dbb3',
+    expiration: 100,
   },
 });

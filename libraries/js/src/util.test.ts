@@ -5,6 +5,7 @@ import {
   serializeAddProviderPayloadHex,
   serializeClaimHandlePayloadHex,
   serializeItemActionsPayloadHex,
+  serializeRecoveryCommitmentPayloadHex,
 } from './util.js';
 import { u8aToHex } from '@polkadot/util';
 
@@ -65,6 +66,19 @@ describe('SCALE serializations', () => {
         serializeClaimHandlePayloadHex('Sr25519', { baseHandle: 'cassandre', expiration: 4576367 }) as Uint8Array
       )
     ).toEqual('0x3c42797465733e2463617373616e6472656fd445003c2f42797465733e');
+  });
+
+  it('serializeRecoveryCommitmentPayloadHex serializes correctly', () => {
+    expect(
+      u8aToHex(
+        serializeRecoveryCommitmentPayloadHex('Sr25519', {
+          recoveryCommitmentHex: '0x5c06ce60a2a1245fabdd1c11bfbf55246836d2c6fefac2c634837e3359d0dbb3',
+          expiration: 100,
+        }) as Uint8Array
+      )
+    ).toEqual(
+      '0x3c42797465733e025c06ce60a2a1245fabdd1c11bfbf55246836d2c6fefac2c634837e3359d0dbb3640000003c2f42797465733e'
+    );
   });
 });
 

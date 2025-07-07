@@ -5,6 +5,7 @@ import {
   isPayloadClaimHandle,
   isPayloadItemActions,
   isPayloadLogin,
+  isPayloadRecoveryCommitment,
   SiwfResponsePayloadLogin,
 } from './types/payload.js';
 import { SiwfResponse } from './types/response.js';
@@ -12,6 +13,7 @@ import {
   serializeAddProviderPayloadHex,
   serializeClaimHandlePayloadHex,
   serializeItemActionsPayloadHex,
+  serializeRecoveryCommitmentPayloadHex,
 } from './util.js';
 import {
   CurveType,
@@ -322,6 +324,14 @@ export async function validatePayloads(response: SiwfResponse, options: SiwfOpti
           response.userPublicKey.encodedValue,
           payload.signature.encodedValue,
           serializeItemActionsPayloadHex(response.userPublicKey.type, payload.payload),
+          options
+        );
+      case isPayloadRecoveryCommitment(payload):
+        return validateExtrinsicPayloadSignature(
+          response.userPublicKey.type,
+          response.userPublicKey.encodedValue,
+          payload.signature.encodedValue,
+          serializeRecoveryCommitmentPayloadHex(response.userPublicKey.type, payload.payload),
           options
         );
     }
