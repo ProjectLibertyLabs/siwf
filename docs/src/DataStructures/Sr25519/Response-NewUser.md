@@ -11,7 +11,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xca9cebfe794a75978af438da45beaf40a354638003f509ce46f96efe65825409b90b67a334dd1cd93fb3b9aa1dc5316ef0b32e5b72ef544050152897f873658b"
+        "encodedValue": "0xcc469ce5304768c16164e42442dfe40769a742786bd360cabb8fdaf15a25765c9c18d71b8c88972f42ab6f938e703f4cc4035656a7c9dd193aca2626a3d7f887"
       },
       "endpoint": {
         "pallet": "msa",
@@ -34,7 +34,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0xa64e2d4eb13876e972be63c9738a2da3f92473f130253c9c52a7139ffa3c5101b549d58335d9f9a84023f9a567a1d12f0c8a2866068e54526c20a6eb84d2a788"
+        "encodedValue": "0x90583e8c2bdb46afd62caed94eb2f6c99f66308a91591da1447d2ef781002622ef12b960fc86de88121e243ad3cf5e15a615d48e7c2e20c860a7adf6199cfb88"
       },
       "endpoint": {
         "pallet": "statefulStorage",
@@ -57,7 +57,7 @@
       "signature": {
         "algo": "SR25519",
         "encoding": "base16",
-        "encodedValue": "0x70ae196ba1defc9d29d69997a4f8d37abe822bd8ee65f66e30b6c0afaaef4f2513581448073a382304e91abc755d3cfafda0bece76982451d6c7ec619f841d8a"
+        "encodedValue": "0xa291b22f6d3e21258200f127ea23b741248a584208d96783fb3599a733a87c2e67fe427491a6aa984e3982e5ccafcbb7f170a17a5db6082230a1c8e4ac2a3f8c"
       },
       "endpoint": {
         "pallet": "handles",
@@ -67,6 +67,22 @@
       "payload": {
         "baseHandle": "ExampleHandle",
         "expiration": 24
+      }
+    },
+    {
+      "signature": {
+        "algo": "SR25519",
+        "encoding": "base16",
+        "encodedValue": "0x04084ae8ced4e9e27cbc27bf25a3c34cb6faeec5fbdcb331021d98dc4a211f17256c08aa96defcb597f3867b08b3a901d61c8ce36e0f4ccda0bf79458ad39580"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "addRecoveryCommitment"
+      },
+      "type": "recoveryCommitment",
+      "payload": {
+        "recoveryCommitmentHex": "0xeea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37",
+        "expiration": 20
       }
     }
   ],

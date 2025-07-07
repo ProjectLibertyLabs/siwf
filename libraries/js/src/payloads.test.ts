@@ -16,6 +16,8 @@ import {
   ExamplePayloadLoginUrlSr25519,
   ExamplePayloadPublicGraphKeySecp256k1,
   ExamplePayloadPublicGraphKeySr25519,
+  ExamplePayloadRecoveryCommitmentSecp256k1,
+  ExamplePayloadRecoveryCommitmentSr25519,
 } from './mocks/payloads.js';
 import { ExampleUserPublicKeySecp256k1, ExampleUserPublicKeySr25519 } from './mocks/index.js';
 import { ExampleProviderKeySr25519 } from './mocks/keys.js';
@@ -499,6 +501,30 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
     ).resolves.toBeUndefined();
   });
 
+  it('Can verify a CommitmentRecovery Sr25519', async () => {
+    await expect(
+      validatePayloads(
+        {
+          userPublicKey: ExampleUserPublicKeySr25519,
+          payloads: [ExamplePayloadRecoveryCommitmentSr25519()],
+        },
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
+      )
+    ).resolves.toBeUndefined();
+  });
+
+  it('Can verify a CommitmentRecovery Secp256k1', async () => {
+    await expect(
+      validatePayloads(
+        {
+          userPublicKey: ExampleUserPublicKeySecp256k1,
+          payloads: [ExamplePayloadRecoveryCommitmentSecp256k1()],
+        },
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
+      )
+    ).resolves.toBeUndefined();
+  });
+
   it('Can fail a ClaimHandle with wrong key Sr25519', async () => {
     const upk = { ...ExampleUserPublicKeySr25519 };
     upk.encodedValue = ExampleProviderKeySr25519.public;
@@ -521,6 +547,34 @@ Issued At: 2024-10-10T18:40:37.344099626Z`,
         {
           userPublicKey: upk,
           payloads: [ExamplePayloadClaimHandleSecp256k1()],
+        },
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
+      )
+    ).rejects.toThrowError('Payload signature failed');
+  });
+
+  it('Can fail a RecoveryCommitment with wrong key Sr25519', async () => {
+    const upk = { ...ExampleUserPublicKeySr25519 };
+    upk.encodedValue = ExampleProviderKeySr25519.public;
+    await expect(
+      validatePayloads(
+        {
+          userPublicKey: upk,
+          payloads: [ExamplePayloadRecoveryCommitmentSr25519()],
+        },
+        { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
+      )
+    ).rejects.toThrowError('Payload signature failed');
+  });
+
+  it('Can fail a RecoveryCommitment with wrong key Secp256k1', async () => {
+    const upk = { ...ExampleUserPublicKeySecp256k1 };
+    upk.encodedValue = '0xB7c13f4176ca799975D9cce4bafe4814a9D824fa';
+    await expect(
+      validatePayloads(
+        {
+          userPublicKey: upk,
+          payloads: [ExamplePayloadRecoveryCommitmentSecp256k1()],
         },
         { loginMsgUri: 'localhost', endpoint: '', chainType: 'Dev' }
       )

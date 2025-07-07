@@ -10,6 +10,8 @@ import {
   ExamplePayloadLoginStaticSr25519,
   ExamplePayloadPublicGraphKeySecp256k1,
   ExamplePayloadPublicGraphKeySr25519,
+  ExamplePayloadRecoveryCommitmentSecp256k1,
+  ExamplePayloadRecoveryCommitmentSr25519,
 } from './payloads.js';
 import {
   ExampleEmailCredential,
@@ -64,6 +66,7 @@ export const ExampleNewUserSr25519 = async (): Promise<SiwfResponse> => ({
     ExamplePayloadCreateSponsoredAccountSr25519(),
     ExamplePayloadPublicGraphKeySr25519(),
     ExamplePayloadClaimHandleSr25519(),
+    ExamplePayloadRecoveryCommitmentSr25519(),
   ],
   credentials: [
     await ExampleEmailCredential(),
@@ -94,6 +97,7 @@ export const ExampleNewUserSecp256k1 = async (): Promise<SiwfResponse> => ({
     ExamplePayloadCreateSponsoredAccountSecp256k1(),
     ExamplePayloadPublicGraphKeySecp256k1(),
     ExamplePayloadClaimHandleSecp256k1(),
+    ExamplePayloadRecoveryCommitmentSecp256k1(),
   ],
   credentials: [],
 });
