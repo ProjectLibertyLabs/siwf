@@ -299,6 +299,7 @@ This credential does not need a proof.</p>
 <li><code>addProvider</code>*: When the user does not have a delegation (a new user signup) or when the delegation was needing to be changed</li>
 <li><code>itemActions</code>*: When the user has user chain data to set or update</li>
 <li><code>claimHandle</code>*: When the user needs to claim a new handle</li>
+<li><code>recoveryCommitment</code>*: When the user needs to add a recovery commitment</li>
 </ul>
 <p>* Requires submission to Frequency</p>
 <p>The payloads that require submission to Frequency should be submitted in one batch using <a href="https://docs.frequency.xyz/Tokenomics/ProviderIncentives.html#capacity-model">Capacity</a>.
@@ -373,6 +374,7 @@ These actions <em>must</em> be submitted to the chain for the correct functionin
 <li><code>addProvider</code></li>
 <li><code>itemActions</code></li>
 <li><code>claimHandle</code></li>
+<li><code>recoveryCommitment</code></li>
 </ul>
 <p>They can be submitted to the chain in one transaction using <a href="https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics"><code>pay_with_capacity_batch_all</code></a>.</p>
 <h2 id="step-6-session-starts"><a class="header" href="#step-6-session-starts">Step 6: Session Starts</a></h2>
