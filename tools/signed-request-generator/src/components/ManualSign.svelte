@@ -28,7 +28,7 @@
 </div>
 
 <div>
-	<label for="signerPublicKey">Signer Public Key</label>
+	<label for="signerPublicKey">Signer Public Key/Ethereum Address</label>
 	<input type="text" id="signerPublicKey" bind:value={signerPublicKey} />
 </div>
 
