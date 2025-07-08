@@ -21,12 +21,14 @@
 	export let encodedRequest = '';
 	export let requestJson = '';
 	export let error = '';
+	export let chainEnv = '';
 
 	let form: HTMLFormElement;
 	let callbackUri = '';
 	let signerPublicKey = '';
 	let signature = '';
 	let usedCurve: CurveType = 'Sr25519';
+	let usedChainEnv = '';
 	let selectedSignatureMethod = SignatureMethod.POLKADOT;
 	let permissions: number[] = [];
 	let credentials: SiwfCredential[] = [];
@@ -79,6 +81,7 @@
 			encodedRequest = encodeSignedRequest(signedRequest);
 			requestJson = JSON.stringify(signedRequest, null, 2);
 			error = '';
+			chainEnv = usedChainEnv;
 		} catch (e: unknown) {
 			error = (e as Error).message || 'Unknown error';
 		}
@@ -174,6 +177,7 @@
 							{permissions}
 							bind:signature={walletSignature}
 							bind:signerPublicKey
+							bind:usedChainEnv
 						/>
 					{/if}
 				</div>

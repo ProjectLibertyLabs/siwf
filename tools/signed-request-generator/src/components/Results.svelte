@@ -2,6 +2,7 @@
 	import { generateAuthenticationUrl } from '@projectlibertylabs/siwf';
 	export let encodedRequest = '';
 	export let requestJson = '';
+	export let chainEnv = '';
 
 	$: mainnet = generateAuthenticationUrl(encodedRequest, '', {
 		endpoint: 'production',
@@ -25,26 +26,30 @@
 			>{encodedRequest}</textarea
 		>
 	</dd>
-	<dt>Mainnet/Production URL</dt>
-	<dd>
-		<input
-			style="font-size: 1.5rem;"
-			type="text"
-			id="mainnet_generated_url"
-			readonly
-			value={mainnet}
-		/>
-	</dd>
-	<dt>Testnet/Staging URL</dt>
-	<dd>
-		<input
-			style="font-size: 1.5rem;"
-			type="text"
-			id="testnet_generated_url"
-			readonly
-			value={testnet}
-		/>
-	</dd>
+	{#if chainEnv === '' || chainEnv === 'mainnet'}
+		<dt>Mainnet/Production URL</dt>
+		<dd>
+			<input
+				style="font-size: 1.5rem;"
+				type="text"
+				id="mainnet_generated_url"
+				readonly
+				value={mainnet}
+			/>
+		</dd>
+	{/if}
+	{#if chainEnv === '' || chainEnv === 'testnet'}
+		<dt>Testnet/Staging URL</dt>
+		<dd>
+			<input
+				style="font-size: 1.5rem;"
+				type="text"
+				id="testnet_generated_url"
+				readonly
+				value={testnet}
+			/>
+		</dd>
+	{/if}
 	<dt>Signed Request (JSON)</dt>
 	<dd>
 		<details>

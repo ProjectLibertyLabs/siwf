@@ -15,7 +15,7 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
-		"@frequency-chain/ethereum-utils": "^1.17.0",
+		"@frequency-chain/ethereum-utils": "^1.17.1",
 		"@polkadot/extension-dapp": "^0.61.1",
 		"@polkadot/extension-inject": "^0.61.1",
 		"@projectlibertylabs/siwf": "file:../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz"

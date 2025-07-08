@@ -85,6 +85,7 @@ The payload section has several different types that can be returned:
 - `addProvider`*: When the user does not have a delegation (a new user signup) or when the delegation was needing to be changed
 - `itemActions`*: When the user has user chain data to set or update
 - `claimHandle`*: When the user needs to claim a new handle
+- `recoveryCommitment`*: When the user needs to add a recovery commitment
 
 \* Requires submission to Frequency
 
@@ -171,6 +172,7 @@ Frequency submission is required for any of the following payloads:
 - `addProvider`
 - `itemActions`
 - `claimHandle`
+- `recoveryCommitment`
 
 They can be submitted to the chain in one transaction using [`pay_with_capacity_batch_all`](https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics).
 

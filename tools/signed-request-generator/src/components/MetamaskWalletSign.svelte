@@ -3,7 +3,8 @@
 	import {
 		getEip712BrowserRequestSiwfSignedRequestPayload,
 		EIP712_DOMAIN_TESTNET,
-		EIP712_DOMAIN_MAINNET
+		EIP712_DOMAIN_MAINNET,
+		type EipDomainPayload
 	} from '@frequency-chain/ethereum-utils';
 
 	export let callbackUri = '';
@@ -11,6 +12,7 @@
 	export let signature = '';
 	export let signerPublicKey = '';
 	export let isLoading = true;
+	export let usedChainEnv = '';
 
 	let clearSignatureCheck: string = '';
 	function shouldClearSignature(uri: string, params: number[]) {
@@ -30,6 +32,16 @@
 	let selectedAccount: string;
 	let chainId: string;
 
+	function updateUsedChainEnv(currentChainId: string) {
+		usedChainEnv = currentChainId === EIP712_DOMAIN_TESTNET.chainId ? 'testnet' : 'mainnet';
+	}
+
+	function getDomain(currentChainId: string): EipDomainPayload {
+		return currentChainId === EIP712_DOMAIN_TESTNET.chainId
+			? EIP712_DOMAIN_TESTNET
+			: EIP712_DOMAIN_MAINNET;
+	}
+
 	async function connectToWallet() {
 		isLoading = true;
 
@@ -43,6 +55,7 @@
 			} else {
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				chainId = await (window as any).ethereum.request({ method: 'eth_chainId' });
+				updateUsedChainEnv(chainId);
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const accounts = await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
 				if (Array.isArray(accounts)) {
@@ -64,8 +77,8 @@
 		isLoading = true;
 		try {
 			signerPublicKey = selectedAccount;
-			const domain =
-				chainId === EIP712_DOMAIN_TESTNET.chainId ? EIP712_DOMAIN_TESTNET : EIP712_DOMAIN_MAINNET;
+			updateUsedChainEnv(chainId);
+			const domain = getDomain(chainId);
 			const signatureRequest = getEip712BrowserRequestSiwfSignedRequestPayload(
 				callbackUri,
 				permissions,
@@ -96,6 +109,7 @@
 		thisWeb3Enable = (window as any).ethereum && (window as any).ethereum.isMetaMask;
 		walletAccounts = [];
 		chainId = '';
+		usedChainEnv = '';
 		selectedAccount = '';
 		isLoading = false;
 	});
