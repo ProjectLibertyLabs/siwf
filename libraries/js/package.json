@@ -58,6 +58,7 @@
     "base-x": "^5.0.1",
     "base64url": "^3.0.1",
     "bs58": "^6.0.0",
+    "noble-hashes": "^0.3.1",
     "rdf-canonize": "^4.0.1",
     "tweetnacl": "^1.0.3"
   },
