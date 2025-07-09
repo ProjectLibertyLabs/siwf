@@ -490,6 +490,7 @@ Each credential would be matched based on the <code>type</code> field.</p>
 <h3 id="verify-the-credential"><a class="header" href="#verify-the-credential">Verify the Credential</a></h3>
 <p><em>Trust Model Note</em>: You may choose to just trust credentials issued by Frequency Access (or other SIWF-compatible services) given that the credential is fetched directly. These will have issuer <code>did:web:testnet.frequencyaccess.com</code> or <code>did:web:frequencyaccess.com</code>.
 Note that some credentials such as <code>VerifiedGraphKeyCredential</code> or <code>VerifiedRecoverySecretCredential</code> do not need a proof.</p>
+<h4 id="sr25519-1"><a class="header" href="#sr25519-1">Sr25519</a></h4>
 <ol>
 <li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://w3c-ccg.github.io/did-key-spec/#format"><code>did:key</code> Method from the W3C</a></li>
 </ol>
@@ -506,6 +507,15 @@ Note that some credentials such as <code>VerifiedGraphKeyCredential</code> or <c
 <ol start="3">
 <li>Check that the key in the <code>proof.verificationMethod</code> is in the DID Document to verify that the key is still valid</li>
 <li>Test that the <code>proof</code> validates according the to <a href="https://www.w3.org/TR/vc-data-model-1.1/#verification">W3C Verifiable Credentials Specification</a></li>
+</ol>
+<h4 id="secp256k1-1"><a class="header" href="#secp256k1-1">Secp256k1</a></h4>
+<ol>
+<li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://github.com/uport-project/ethr-did"><code>did:ethr</code> definition</a>
+<ul>
+<li>Example: <code>0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A</code> is the Ethereum address associated with used <code>Secp256k1</code> key is represented as <code>did:ethr:0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A</code></li>
+</ul>
+</li>
+<li>Currently, there is no proof associated with these keys.</li>
 </ol>
 <h4 id="graph-encryption-key-credential"><a class="header" href="#graph-encryption-key-credential">Graph Encryption Key Credential</a></h4>
 <p>If the user has permitted access to their private social graph per the request for <code>VerifiedGraphKeyPairCredential</code>, <code>credentials</code> will have a entry with <code>type</code> including <code>VerifiedGraphKeyPairCredential</code>.
@@ -638,7 +648,7 @@ These actions <em>must</em> be submitted to the chain for the correct functionin
 SIWF services do not manage user sessions.</p>
 <h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
 <h2 id="new-frequency-user-response"><a class="header" href="#new-frequency-user-response">New Frequency User Response</a></h2>
-<h3 id="sr25519-1"><a class="header" href="#sr25519-1">Sr25519</a></h3>
+<h3 id="sr25519-2"><a class="header" href="#sr25519-2">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -803,7 +813,7 @@ SIWF services do not manage user sessions.</p>
   ]
 }
 </code></pre>
-<h3 id="secp256k1-1"><a class="header" href="#secp256k1-1">Secp256k1</a></h3>
+<h3 id="secp256k1-2"><a class="header" href="#secp256k1-2">Secp256k1</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
@@ -895,7 +905,7 @@ SIWF services do not manage user sessions.</p>
 }
 </code></pre>
 <h2 id="new-applicationdelegation-response"><a class="header" href="#new-applicationdelegation-response">New Application/Delegation Response</a></h2>
-<h3 id="sr25519-2"><a class="header" href="#sr25519-2">Sr25519</a></h3>
+<h3 id="sr25519-3"><a class="header" href="#sr25519-3">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -1005,7 +1015,7 @@ SIWF services do not manage user sessions.</p>
   ]
 }
 </code></pre>
-<h3 id="secp256k1-2"><a class="header" href="#secp256k1-2">Secp256k1</a></h3>
+<h3 id="secp256k1-3"><a class="header" href="#secp256k1-3">Secp256k1</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
@@ -1042,7 +1052,7 @@ SIWF services do not manage user sessions.</p>
 }
 </code></pre>
 <h2 id="login-only-response"><a class="header" href="#login-only-response">Login Only Response</a></h2>
-<h3 id="sr25519-3"><a class="header" href="#sr25519-3">Sr25519</a></h3>
+<h3 id="sr25519-4"><a class="header" href="#sr25519-4">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -1140,7 +1150,7 @@ SIWF services do not manage user sessions.</p>
   ]
 }
 </code></pre>
-<h3 id="secp256k1-3"><a class="header" href="#secp256k1-3">Secp256k1</a></h3>
+<h3 id="secp256k1-4"><a class="header" href="#secp256k1-4">Secp256k1</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
@@ -1177,11 +1187,11 @@ SIWF services do not manage user sessions.</p>
 <p>Fill out the form and the signed request will be generated at the bottom.</p>
 <div id="generator">
 <link href="./Generator/_app/immutable/assets/0.tn0RQdqM.css" rel="stylesheet">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.DQ3rsnIz.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/chunks/D-9Ug9Wm.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/start.CMHA2bgC.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/chunks/CVw8GiTG.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/C8ByByrc.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/DPwu8exv.js">
-<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.Kq48JBvX.js">
+<link rel="modulepreload" href="./Generator/_app/immutable/entry/app.BA_v65Xy.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/CGndSC-H.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/NZTpNUN0.js">
 <link rel="modulepreload" href="./Generator/_app/immutable/nodes/0.BEYc8Buc.js">
@@ -1191,15 +1201,15 @@ SIWF services do not manage user sessions.</p>
 <link rel="modulepreload" href="./Generator/_app/immutable/chunks/BQ2Vj14W.js"> <!--[--><!--[--><!----><div><!----><!----><div class="mb-4"><form><div class="mb-4"><label for="callbackUri">Callback URI *</label> <input type="url" id="callbackUri" value="" required placeholder="https://localhost:3000/login"/></div> <div class="mb-4"><fieldset><legend>Permissions</legend> <div class="checkboxes"><!--[--><label><input type="checkbox" value="8,10,9,7"/> <!---->Bundle: Public & Private Graph <span title="dsnp.public-follows@v1, dsnp.private-connections@v1, dsnp.private-follows@v1, dsnp.public-key-key-agreement@v1">ⓘ</span><!----></label><label><input type="checkbox" value="17,18,16,4,19"/> <!---->Bundle: DSNP v1.3 Content <span title="dsnp.broadcast@v2, dsnp.reply@v2, dsnp.tombstone@v2, dsnp.reaction@v1, dsnp.update@v2">ⓘ</span><!----></label><label><input type="checkbox" value="2,3,1,4,5"/> <!---->(Deprecated) Bundle: DSNP v1.0 Content <span title="dsnp.broadcast@v1, dsnp.reply@v1, dsnp.tombstone@v1, dsnp.reaction@v1, dsnp.update@v1">ⓘ</span><!----></label><label><input type="checkbox" value="2"/> <!---->(Deprecated) dsnp.broadcast: Create new public content (v1)<!----></label><label><input type="checkbox" value="6"/> <!---->(Deprecated) dsnp.profile: Update profile information (v1)<!----></label><label><input type="checkbox" value="3"/> <!---->(Deprecated) dsnp.reply: Public reply to content (v1)<!----></label><label><input type="checkbox" value="1"/> <!---->(Deprecated) dsnp.tombstone: Mark content for deletion (v1)<!----></label><label><input type="checkbox" value="5"/> <!---->(Deprecated) dsnp.update: Update an existing post or reply (v1)<!----></label><label><input type="checkbox" value="17"/> <!---->dsnp.broadcast: Create new public content (v2)<!----></label><label><input type="checkbox" value="12"/> <!---->dsnp.dsnp-content-attribute: Create an authenticated attribute set for DSNP content (v1)<!----></label><label><input type="checkbox" value="13"/> <!---->dsnp.ext-content-attribute: Create an authenticated attribute set for content external to DSNP (v1)<!----></label><label><input type="checkbox" value="10"/> <!---->dsnp.private-connections: Update private friendship connections (v1)<!----></label><label><input type="checkbox" value="9"/> <!---->dsnp.private-follows: Update private follow list (v1)<!----></label><label><input type="checkbox" value="15"/> <!---->dsnp.profile-resources: Update user profile information (v1)<!----></label><label><input type="checkbox" value="8"/> <!---->dsnp.public-follows: Update public follow list (v1)<!----></label><label><input type="checkbox" value="4"/> <!---->dsnp.reaction: Public reaction to content (v1)<!----></label><label><input type="checkbox" value="18"/> <!---->dsnp.reply: Public reply to content (v2)<!----></label><label><input type="checkbox" value="16"/> <!---->dsnp.tombstone: Mark content for deletion (v2)<!----></label><label><input type="checkbox" value="19"/> <!---->dsnp.update: Update an existing post or reply (v2)<!----></label><label><input type="checkbox" value="20"/> <!---->dsnp.user-attribute-set: Create an authenticated attribute set for a DSNP User (v2)<!----></label><!--]--> <div><label for="additionalPermissions">Additional Permissions (comma-separated)</label> <input type="text" placeholder="1, 5, 20" id="additionalPermissions" value=""/></div> <div class="my-2 text-sm"><label for="schemaIds">Read Only: List of Schema Ids</label> <input type="text" placeholder="List of Schema Ids" id="schemaIds" value=""/></div></div></fieldset><!----></div> <div class="mb-4"><fieldset><legend>Select Credentials</legend> <div class="checkboxes"><label><input type="checkbox"/> Graph Key (Required for reading private graph)</label> <label><input type="checkbox"/> Recovery Secret for account</label> <label><input type="checkbox"/> Verified Email Address</label> <label><input type="checkbox"/> Verified SMS/Phone Number</label></div></fieldset><!----></div> <div class="mb-4"><label for="applicationContext">Application Context URL</label> <input type="url" id="applicationContext" value="" placeholder="https://example.org/my-app-context.json"/></div> <!--[!--><!--]--></form><!----></div> <!--[!--><h2 id="result"><a class="header" href="#result">Result</a></h2> <dl><dt>Login Request Payload and Signature ( <code>signedRequest</code> parameter )</dt> <dd><textarea readonly style="width: 100%; height: 6em; font-size: 1.5rem;"></textarea></dd> <!--[--><dt>Mainnet/Production URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="mainnet_generated_url" readonly value="https://www.frequencyaccess.com/siwa/start?signedRequest="/></dd><!--]--> <!--[--><dt>Testnet/Staging URL</dt> <dd><input style="font-size: 1.5rem;" type="text" id="testnet_generated_url" readonly value="https://testnet.frequencyaccess.com/siwa/start?signedRequest="/></dd><!--]--> <dt>Signed Request (JSON)</dt> <dd><details><summary style="cursor: pointer;">Expand</summary> <pre style="overflow:scroll; width: 100%; padding-bottom: 1.5rem;"></pre></details></dd></dl><!--]--><!----><!----></div><!----><!--]--> <!--[!--><!--]--><!--]-->
 <script>
 {
-__sveltekit_pishsk = {
+__sveltekit_ee91ko = {
 base: new URL(".", location).pathname.slice(0, -1)
 };
 
 const element = document.currentScript.parentElement;
 
 Promise.all([
-import("./Generator/_app/immutable/entry/start.DQ3rsnIz.js"),
-import("./Generator/_app/immutable/entry/app.Kq48JBvX.js")
+import("./Generator/_app/immutable/entry/start.CMHA2bgC.js"),
+import("./Generator/_app/immutable/entry/app.BA_v65Xy.js")
 ]).then(([kit, app]) => {
 kit.start(app, element, {
 node_ids: [0, 2],
@@ -1394,7 +1404,7 @@ const options = { endpoint: "production" };
 const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new URLSearchParams({ id: getSessionId() }));
 </code></pre>
 <h3 id="full-example-request"><a class="header" href="#full-example-request">Full Example Request</a></h3>
-<h4 id="sr25519-4"><a class="header" href="#sr25519-4">Sr25519</a></h4>
+<h4 id="sr25519-5"><a class="header" href="#sr25519-5">Sr25519</a></h4>
 <pre><code class="language-json">{
   "requestedSignatures": {
     "publicKey": {
@@ -1454,7 +1464,7 @@ const authenticationUrl: string = generateAuthenticationUrl(signedRequest, new U
   }
 }
 </code></pre>
-<h4 id="secp256k1-4"><a class="header" href="#secp256k1-4">Secp256k1</a></h4>
+<h4 id="secp256k1-5"><a class="header" href="#secp256k1-5">Secp256k1</a></h4>
 <pre><code class="language-json">{
   "requestedSignatures": {
     "publicKey": {
@@ -1619,7 +1629,7 @@ npx tsx tools/signed-request-generator/generate-available-delegations.ts
 <p>The signature is generated by signing the UTF-8 bytes of <code>payload.message</code> using <code>SR25519</code> or <code>SECP256K1</code>.</p>
 <p>See <a href="./Actions/Response.html#login">Response Payloads: Login</a> for more details.</p>
 <h3 id="example-2"><a class="header" href="#example-2">Example</a></h3>
-<h4 id="sr25519-5"><a class="header" href="#sr25519-5">Sr25519</a></h4>
+<h4 id="sr25519-6"><a class="header" href="#sr25519-6">Sr25519</a></h4>
 <p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
 <pre><code class="language-json">{
   "signature": {
@@ -1633,7 +1643,7 @@ npx tsx tools/signed-request-generator/generate-available-delegations.ts
   }
 }
 </code></pre>
-<h4 id="secp256k1-5"><a class="header" href="#secp256k1-5">Secp256k1</a></h4>
+<h4 id="secp256k1-6"><a class="header" href="#secp256k1-6">Secp256k1</a></h4>
 <p>Example is signed using <code>0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</code> which is the Ethereum Address for the secret key <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code>.</p>
 <pre><code class="language-json">{
   "signature": {
@@ -1651,7 +1661,7 @@ npx tsx tools/signed-request-generator/generate-available-delegations.ts
 <p>This payload follows the <a href="https://frequency-chain.github.io/frequency/pallet_msa/types/struct.AddProvider.html"><code>AddProvider</code></a> type from Frequency.
 It has the same payload for two different endpoint extrinsics: <code>createSponsoredAccountWithDelegation</code> used for creating a new MSA on chain and <code>grantDelegation</code> which is used to grant a new provider permissions on an existing MSA.</p>
 <h3 id="example-3"><a class="header" href="#example-3">Example</a></h3>
-<h4 id="sr25519-6"><a class="header" href="#sr25519-6">Sr25519</a></h4>
+<h4 id="sr25519-7"><a class="header" href="#sr25519-7">Sr25519</a></h4>
 <p>Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.
 The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.</p>
 <pre><code class="language-json">{
@@ -1685,7 +1695,7 @@ The signature is generated by signing the <a href="https://docs.substrate.io/ref
   expiration: 'u32',
 }
 </code></pre>
-<h4 id="secp256k1-6"><a class="header" href="#secp256k1-6">Secp256k1</a></h4>
+<h4 id="secp256k1-7"><a class="header" href="#secp256k1-7">Secp256k1</a></h4>
 <p>Example is signed using <code>0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</code> which is the Ethereum Address for the secret key <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code>.
 The signature is generated using EIP-712 standard.</p>
 <pre><code class="language-json">{
@@ -1715,7 +1725,7 @@ The signature is generated using EIP-712 standard.</p>
 <h2 id="claim-handle"><a class="header" href="#claim-handle">Claim Handle</a></h2>
 <p>This payload follows the <a href="https://frequency-chain.github.io/frequency/common_primitives/handles/struct.ClaimHandlePayload.html"><code>ClaimHandlePayload</code></a> type from Frequency.</p>
 <h3 id="example-4"><a class="header" href="#example-4">Example</a></h3>
-<h4 id="sr25519-7"><a class="header" href="#sr25519-7">Sr25519</a></h4>
+<h4 id="sr25519-8"><a class="header" href="#sr25519-8">Sr25519</a></h4>
 <p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.
 Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
 <pre><code class="language-json">{
@@ -1741,7 +1751,7 @@ Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ<
   expiration: 'u32',
 }
 </code></pre>
-<h4 id="secp256k1-7"><a class="header" href="#secp256k1-7">Secp256k1</a></h4>
+<h4 id="secp256k1-8"><a class="header" href="#secp256k1-8">Secp256k1</a></h4>
 <p>Example is signed using <code>0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</code> which is the Ethereum Address for the secret key <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code>.
 The signature is generated using EIP-712 standard.</p>
 <pre><code class="language-json">{
@@ -1764,7 +1774,7 @@ The signature is generated using EIP-712 standard.</p>
 <h2 id="user-item-actions"><a class="header" href="#user-item-actions">User Item Actions</a></h2>
 <p>This payload follows the <a href="https://frequency-chain.github.io/frequency/pallet_stateful_storage/types/struct.ItemizedSignaturePayloadV2.html"><code>ItemizedSignaturePayloadV2</code></a> type from Frequency.</p>
 <h3 id="example-5"><a class="header" href="#example-5">Example</a></h3>
-<h4 id="sr25519-8"><a class="header" href="#sr25519-8">Sr25519</a></h4>
+<h4 id="sr25519-9"><a class="header" href="#sr25519-9">Sr25519</a></h4>
 <p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.
 Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
 <pre><code class="language-json">{
@@ -1813,7 +1823,7 @@ Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ<
   },
 }
 </code></pre>
-<h4 id="secp256k1-8"><a class="header" href="#secp256k1-8">Secp256k1</a></h4>
+<h4 id="secp256k1-9"><a class="header" href="#secp256k1-9">Secp256k1</a></h4>
 <p>Example is signed using <code>0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</code> which is the Ethereum Address for the secret key <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code>.
 The signature is generated using EIP-712 standard.</p>
 <pre><code class="language-json">{
@@ -1843,7 +1853,7 @@ The signature is generated using EIP-712 standard.</p>
 <h2 id="add-recovery-commitment"><a class="header" href="#add-recovery-commitment">Add Recovery Commitment</a></h2>
 <p>This payload follows the <a href="https://frequency-chain.github.io/frequency/pallet_msa/types/struct.RecoveryCommitmentPayload.html"><code>RecoveryCommitmentPayload</code></a> type from Frequency.</p>
 <h3 id="example-6"><a class="header" href="#example-6">Example</a></h3>
-<h4 id="sr25519-9"><a class="header" href="#sr25519-9">Sr25519</a></h4>
+<h4 id="sr25519-10"><a class="header" href="#sr25519-10">Sr25519</a></h4>
 <p>The signature is generated by signing the <a href="https://docs.substrate.io/reference/scale-codec/">SCALE-encoded payload</a> using <code>SR25519</code>.
 Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ</code> which is the SS58 (Prefix 90) public key from the seed phrase <code>//Bob</code>.</p>
 <pre><code class="language-json">    {
@@ -1875,7 +1885,7 @@ Example is signed using <code>f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ<
   }
 }
 </code></pre>
-<h4 id="secp256k1-9"><a class="header" href="#secp256k1-9">Secp256k1</a></h4>
+<h4 id="secp256k1-10"><a class="header" href="#secp256k1-10">Secp256k1</a></h4>
 <p>Example is signed using <code>0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac</code> which is the Ethereum Address for the secret key <code>0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133</code>.
 The signature is generated using EIP-712 standard.</p>
 <pre><code class="language-json">{
@@ -1898,28 +1908,28 @@ The signature is generated using EIP-712 standard.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="data-structure-reference"><a class="header" href="#data-structure-reference">Data Structure Reference</a></h1>
 <h2 id="request--response-from-siwf"><a class="header" href="#request--response-from-siwf">Request / Response from SIWF</a></h2>
 <h3 id="request"><a class="header" href="#request">Request</a></h3>
-<h4 id="sr25519-10"><a class="header" href="#sr25519-10">Sr25519</a></h4>
+<h4 id="sr25519-11"><a class="header" href="#sr25519-11">Sr25519</a></h4>
 <pre><code class="language-json">{
   "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweGYyMWQ4ODlmZTI0OWE5YTI0OTM3NDY0MTE5NGE4MzU2YzA0YmM3ZmZkYTIyODAxMjM0ZTA3M2M3NTU5ODFhNWRlOWFkMDAwMzUxYjA4YzE0ZjUzYTk1NjFiMTVmNTg3Yzg2YmUyNmY1ZDJiNzBmOWJjMDljM2JiODkxZDhjNjgyIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsidHlwZSI6IlZlcmlmaWVkUmVjb3ZlcnlTZWNyZXRDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxcGc2cW00cm51Mmo0djZnaHhxcWd3a2dnb2t3dnhzM3QyYmV4YmQzb2JreXBraXJ5eWx4cSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV0sImFwcGxpY2F0aW9uQ29udGV4dCI6eyJ1cmwiOiJodHRwczovL2V4YW1wbGUub3JnL215YXBwL3Npd2YtbWFuaWZlc3QuanNvbiJ9fQ",
   "mode": "dark"
 }
 </code></pre>
-<h4 id="secp256k1-10"><a class="header" href="#secp256k1-10">Secp256k1</a></h4>
+<h4 id="secp256k1-11"><a class="header" href="#secp256k1-11">Secp256k1</a></h4>
 <pre><code class="language-json">{
   "signedRequest": "eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNEZGM2E5Q0YwNGM3MURiYzk0RDBiNTY2ZjdBMjdCOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7InR5cGUiOiJWZXJpZmllZFJlY292ZXJ5U2VjcmV0Q3JlZGVudGlhbCIsImhhc2giOlsiYmNpcXBnNnFtNHJudTJqNHY2Z2h4cXFnd2tnZ29rd3Z4czN0MmJleGJkM29ia3lwa2lyeXlseHEiXX0seyJhbnlPZiI6W3sidHlwZSI6IlZlcmlmaWVkRW1haWxBZGRyZXNzQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWU0cW9jemhmdGljaTRkemZ2ZmJlbDdmbzRoNHNyNWdyY28zb292d3lrNnk0eW5mNDR0c2kiXX0seyJ0eXBlIjoiVmVyaWZpZWRQaG9uZU51bWJlckNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFqc3BuYndwYzN3ang0ZmV3Y2VrNWRheXNkanBiZjV4amltejV3bnU1dWo3ZTN2dTJ1d25xIl19XX1dLCJhcHBsaWNhdGlvbkNvbnRleHQiOnsidXJsIjoiaHR0cHM6Ly9leGFtcGxlLm9yZy9teWFwcC9zaXdmLW1hbmlmZXN0Lmpzb24ifX0",
   "mode": "dark"
 }
 </code></pre>
 <h3 id="request-url"><a class="header" href="#request-url">Request URL</a></h3>
-<h4 id="sr25519-11"><a class="header" href="#sr25519-11">Sr25519</a></h4>
+<h4 id="sr25519-12"><a class="header" href="#sr25519-12">Sr25519</a></h4>
 <pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiJmNmNMNHdxMUhVTngxMVRjdmRBQk5mOVVOWFhveUg0N21WVXdUNTl0elNGUlc4eURIIiwiZW5jb2RpbmciOiJiYXNlNTgiLCJmb3JtYXQiOiJzczU4IiwidHlwZSI6IlNyMjU1MTkifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTUjI1NTE5IiwiZW5jb2RpbmciOiJiYXNlMTYiLCJlbmNvZGVkVmFsdWUiOiIweGYyMWQ4ODlmZTI0OWE5YTI0OTM3NDY0MTE5NGE4MzU2YzA0YmM3ZmZkYTIyODAxMjM0ZTA3M2M3NTU5ODFhNWRlOWFkMDAwMzUxYjA4YzE0ZjUzYTk1NjFiMTVmNTg3Yzg2YmUyNmY1ZDJiNzBmOWJjMDljM2JiODkxZDhjNjgyIn0sInBheWxvYWQiOnsiY2FsbGJhY2siOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJwZXJtaXNzaW9ucyI6WzUsNyw4LDksMTBdfX0sInJlcXVlc3RlZENyZWRlbnRpYWxzIjpbeyJ0eXBlIjoiVmVyaWZpZWRHcmFwaEtleUNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFtZHZteGQ1NHp2ZTVraWZ5Y2dzZHRvYWhzNWVjZjRoYWwydHMzZWV4a2dvY3ljNW9jYTJ5Il19LHsidHlwZSI6IlZlcmlmaWVkUmVjb3ZlcnlTZWNyZXRDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxcGc2cW00cm51Mmo0djZnaHhxcWd3a2dnb2t3dnhzM3QyYmV4YmQzb2JreXBraXJ5eWx4cSJdfSx7ImFueU9mIjpbeyJ0eXBlIjoiVmVyaWZpZWRFbWFpbEFkZHJlc3NDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxZTRxb2N6aGZ0aWNpNGR6ZnZmYmVsN2ZvNGg0c3I1Z3JjbzNvb3Z3eWs2eTR5bmY0NHRzaSJdfSx7InR5cGUiOiJWZXJpZmllZFBob25lTnVtYmVyQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWpzcG5id3BjM3dqeDRmZXdjZWs1ZGF5c2RqcGJmNXhqaW16NXdudTV1ajdlM3Z1MnV3bnEiXX1dfV0sImFwcGxpY2F0aW9uQ29udGV4dCI6eyJ1cmwiOiJodHRwczovL2V4YW1wbGUub3JnL215YXBwL3Npd2YtbWFuaWZlc3QuanNvbiJ9fQ&amp;mode=dark"
 </code></pre>
-<h4 id="secp256k1-11"><a class="header" href="#secp256k1-11">Secp256k1</a></h4>
+<h4 id="secp256k1-12"><a class="header" href="#secp256k1-12">Secp256k1</a></h4>
 <pre><code class="language-json">"https://testnet.frequencyaccess.com/siwa/start?signedRequest=eyJyZXF1ZXN0ZWRTaWduYXR1cmVzIjp7InB1YmxpY0tleSI6eyJlbmNvZGVkVmFsdWUiOiIweGYyNEZGM2E5Q0YwNGM3MURiYzk0RDBiNTY2ZjdBMjdCOTQ1NjZjYWMiLCJlbmNvZGluZyI6ImJhc2UxNiIsImZvcm1hdCI6ImVpcC01NSIsInR5cGUiOiJTZWNwMjU2azEifSwic2lnbmF0dXJlIjp7ImFsZ28iOiJTRUNQMjU2SzEiLCJlbmNvZGluZyI6ImJhc2UxNiIsImVuY29kZWRWYWx1ZSI6IjB4YWFlYjM1MTJiZjMzNDVlOThhODkwZjE0MDk1NGIwMGQxNjAwMjAzNDA2ZTllZDg1ZTczMmFkMzg5ZjVhNjBlMjY0YmZjOTgwOGFkZTgwZTZiOWNjOWM2MTgyYjUyZTJhNTcwNTJlZmYwOTFlNTBlNDBmNzVhZjM4NmVhZWE2NTUxYiJ9LCJwYXlsb2FkIjp7ImNhbGxiYWNrIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwicGVybWlzc2lvbnMiOls1LDcsOCw5LDEwXX19LCJyZXF1ZXN0ZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IlZlcmlmaWVkR3JhcGhLZXlDcmVkZW50aWFsIiwiaGFzaCI6WyJiY2lxbWR2bXhkNTR6dmU1a2lmeWNnc2R0b2FoczVlY2Y0aGFsMnRzM2VleGtnb2N5YzVvY2EyeSJdfSx7InR5cGUiOiJWZXJpZmllZFJlY292ZXJ5U2VjcmV0Q3JlZGVudGlhbCIsImhhc2giOlsiYmNpcXBnNnFtNHJudTJqNHY2Z2h4cXFnd2tnZ29rd3Z4czN0MmJleGJkM29ia3lwa2lyeXlseHEiXX0seyJhbnlPZiI6W3sidHlwZSI6IlZlcmlmaWVkRW1haWxBZGRyZXNzQ3JlZGVudGlhbCIsImhhc2giOlsiYmNpcWU0cW9jemhmdGljaTRkemZ2ZmJlbDdmbzRoNHNyNWdyY28zb292d3lrNnk0eW5mNDR0c2kiXX0seyJ0eXBlIjoiVmVyaWZpZWRQaG9uZU51bWJlckNyZWRlbnRpYWwiLCJoYXNoIjpbImJjaXFqc3BuYndwYzN3ang0ZmV3Y2VrNWRheXNkanBiZjV4amltejV3bnU1dWo3ZTN2dTJ1d25xIl19XX1dLCJhcHBsaWNhdGlvbkNvbnRleHQiOnsidXJsIjoiaHR0cHM6Ly9leGFtcGxlLm9yZy9teWFwcC9zaXdmLW1hbmlmZXN0Lmpzb24ifX0&amp;mode=dark"
 </code></pre>
 <h3 id="signed-request"><a class="header" href="#signed-request">Signed Request</a></h3>
 <p>This is JSON stringified and then <a href="https://datatracker.ietf.org/doc/html/rfc4648#section-5"><code>base64url</code></a> encoded for the Request <code>signedRequest</code> value.</p>
-<h4 id="sr25519-12"><a class="header" href="#sr25519-12">Sr25519</a></h4>
+<h4 id="sr25519-13"><a class="header" href="#sr25519-13">Sr25519</a></h4>
 <pre><code class="language-json">{
   "requestedSignatures": {
     "publicKey": {
@@ -1979,7 +1989,7 @@ The signature is generated using EIP-712 standard.</p>
   }
 }
 </code></pre>
-<h4 id="secp256k1-12"><a class="header" href="#secp256k1-12">Secp256k1</a></h4>
+<h4 id="secp256k1-13"><a class="header" href="#secp256k1-13">Secp256k1</a></h4>
 <pre><code class="language-json">{
   "requestedSignatures": {
     "publicKey": {
@@ -2040,7 +2050,7 @@ The signature is generated using EIP-712 standard.</p>
 }
 </code></pre>
 <h3 id="new-frequency-user-response-1"><a class="header" href="#new-frequency-user-response-1">New Frequency User Response</a></h3>
-<h4 id="sr25519-13"><a class="header" href="#sr25519-13">Sr25519</a></h4>
+<h4 id="sr25519-14"><a class="header" href="#sr25519-14">Sr25519</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -2205,7 +2215,7 @@ The signature is generated using EIP-712 standard.</p>
   ]
 }
 </code></pre>
-<h4 id="secp256k1-13"><a class="header" href="#secp256k1-13">Secp256k1</a></h4>
+<h4 id="secp256k1-14"><a class="header" href="#secp256k1-14">Secp256k1</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
@@ -2297,7 +2307,7 @@ The signature is generated using EIP-712 standard.</p>
 }
 </code></pre>
 <h3 id="new-applicationdelegation-response-1"><a class="header" href="#new-applicationdelegation-response-1">New Application/Delegation Response</a></h3>
-<h4 id="sr25519-14"><a class="header" href="#sr25519-14">Sr25519</a></h4>
+<h4 id="sr25519-15"><a class="header" href="#sr25519-15">Sr25519</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -2407,7 +2417,7 @@ The signature is generated using EIP-712 standard.</p>
   ]
 }
 </code></pre>
-<h4 id="secp256k1-14"><a class="header" href="#secp256k1-14">Secp256k1</a></h4>
+<h4 id="secp256k1-15"><a class="header" href="#secp256k1-15">Secp256k1</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
@@ -2444,7 +2454,7 @@ The signature is generated using EIP-712 standard.</p>
 }
 </code></pre>
 <h3 id="login-only-response-1"><a class="header" href="#login-only-response-1">Login Only Response</a></h3>
-<h4 id="sr25519-15"><a class="header" href="#sr25519-15">Sr25519</a></h4>
+<h4 id="sr25519-16"><a class="header" href="#sr25519-16">Sr25519</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -2542,7 +2552,7 @@ The signature is generated using EIP-712 standard.</p>
   ]
 }
 </code></pre>
-<h4 id="secp256k1-15"><a class="header" href="#secp256k1-15">Secp256k1</a></h4>
+<h4 id="secp256k1-16"><a class="header" href="#secp256k1-16">Secp256k1</a></h4>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
@@ -2698,9 +2708,14 @@ The signature is generated using EIP-712 standard.</p>
 </li>
 </ul>
 <p>The credential SHOULD be signed by a trusted <code>issuer</code>.
-The issuer MAY be the provider's control key, expressed in <code>did:key</code> syntax.</p>
+The issuer MAY be the provider's control key, expressed as one of the following formats</p>
+<ul>
+<li><code>Sr25519</code> keys : follows <code>did:key</code> syntax.</li>
+<li><code>Secp256k1</code> keys : follows <code>did:ethr</code> syntax. There are no proofs associated with these keys.</li>
+</ul>
 <h4 id="example-7"><a class="header" href="#example-7">Example</a></h4>
 <p>This application context credential describes a hypothetical app called "My Social App".</p>
+<h5 id="sr25519-17"><a class="header" href="#sr25519-17">Sr25519</a></h5>
 <pre><code class="language-json">{
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -2736,6 +2751,38 @@ The issuer MAY be the provider's control key, expressed in <code>did:key</code> 
     "cryptosuite": "eddsa-rdfc-2022",
     "proofPurpose": "assertionMethod",
     "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
+  }
+}
+</code></pre>
+<h5 id="secp256k1-17"><a class="header" href="#secp256k1-17">Secp256k1</a></h5>
+<pre><code class="language-json">{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/undefined-terms/v2"
+  ],
+  "type": [
+    "ApplicationContextCredential",
+    "VerifiableCredential"
+  ],
+  "issuer": "did:ethr:0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A",
+  "validFrom": "2025-02-12T21:28:08.289+0000",
+  "credentialSchema": {
+    "type": "JsonSchema",
+    "id": "https://schemas.frequencyaccess.com/ApplicationContextCredential/bciqe2bsnuaqg7zy3gqjmwha2q5h2bybvr6log2jsb5kjn2hos6irrlq.json"
+  },
+  "credentialSubject": {
+    "id": "did:ethr:0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A",
+    "application": {
+      "name": {
+        "en": "My Social App",
+        "es": "Mi Aplicación Social"
+      },
+      "logo": {
+        "*": {
+          "url": "https://example.org/logos/my-social-app.png"
+        }
+      }
+    }
   }
 }
 </code></pre>

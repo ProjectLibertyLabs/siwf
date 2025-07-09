@@ -995,9 +995,14 @@
 </li>
 </ul>
 <p>The credential SHOULD be signed by a trusted <code>issuer</code>.
-The issuer MAY be the provider's control key, expressed in <code>did:key</code> syntax.</p>
+The issuer MAY be the provider's control key, expressed as one of the following formats</p>
+<ul>
+<li><code>Sr25519</code> keys : follows <code>did:key</code> syntax.</li>
+<li><code>Secp256k1</code> keys : follows <code>did:ethr</code> syntax. There are no proofs associated with these keys.</li>
+</ul>
 <h4 id="example"><a class="header" href="#example">Example</a></h4>
 <p>This application context credential describes a hypothetical app called "My Social App".</p>
+<h5 id="sr25519-6"><a class="header" href="#sr25519-6">Sr25519</a></h5>
 <pre><code class="language-json">{
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -1033,6 +1038,38 @@ The issuer MAY be the provider's control key, expressed in <code>did:key</code> 
     "cryptosuite": "eddsa-rdfc-2022",
     "proofPurpose": "assertionMethod",
     "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
+  }
+}
+</code></pre>
+<h5 id="secp256k1-6"><a class="header" href="#secp256k1-6">Secp256k1</a></h5>
+<pre><code class="language-json">{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/undefined-terms/v2"
+  ],
+  "type": [
+    "ApplicationContextCredential",
+    "VerifiableCredential"
+  ],
+  "issuer": "did:ethr:0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A",
+  "validFrom": "2025-02-12T21:28:08.289+0000",
+  "credentialSchema": {
+    "type": "JsonSchema",
+    "id": "https://schemas.frequencyaccess.com/ApplicationContextCredential/bciqe2bsnuaqg7zy3gqjmwha2q5h2bybvr6log2jsb5kjn2hos6irrlq.json"
+  },
+  "credentialSubject": {
+    "id": "did:ethr:0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A",
+    "application": {
+      "name": {
+        "en": "My Social App",
+        "es": "Mi Aplicación Social"
+      },
+      "logo": {
+        "*": {
+          "url": "https://example.org/logos/my-social-app.png"
+        }
+      }
+    }
   }
 }
 </code></pre>

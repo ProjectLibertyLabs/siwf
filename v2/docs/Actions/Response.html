@@ -234,6 +234,7 @@ Each credential would be matched based on the <code>type</code> field.</p>
 <h3 id="verify-the-credential"><a class="header" href="#verify-the-credential">Verify the Credential</a></h3>
 <p><em>Trust Model Note</em>: You may choose to just trust credentials issued by Frequency Access (or other SIWF-compatible services) given that the credential is fetched directly. These will have issuer <code>did:web:testnet.frequencyaccess.com</code> or <code>did:web:frequencyaccess.com</code>.
 Note that some credentials such as <code>VerifiedGraphKeyCredential</code> or <code>VerifiedRecoverySecretCredential</code> do not need a proof.</p>
+<h4 id="sr25519"><a class="header" href="#sr25519">Sr25519</a></h4>
 <ol>
 <li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://w3c-ccg.github.io/did-key-spec/#format"><code>did:key</code> Method from the W3C</a></li>
 </ol>
@@ -250,6 +251,15 @@ Note that some credentials such as <code>VerifiedGraphKeyCredential</code> or <c
 <ol start="3">
 <li>Check that the key in the <code>proof.verificationMethod</code> is in the DID Document to verify that the key is still valid</li>
 <li>Test that the <code>proof</code> validates according the to <a href="https://www.w3.org/TR/vc-data-model-1.1/#verification">W3C Verifiable Credentials Specification</a></li>
+</ol>
+<h4 id="secp256k1"><a class="header" href="#secp256k1">Secp256k1</a></h4>
+<ol>
+<li>Check that the <code>credentialSubject.id</code> matches the <code>userPublicKey</code> following the <a href="https://github.com/uport-project/ethr-did"><code>did:ethr</code> definition</a>
+<ul>
+<li>Example: <code>0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A</code> is the Ethereum address associated with used <code>Secp256k1</code> key is represented as <code>did:ethr:0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A</code></li>
+</ul>
+</li>
+<li>Currently, there is no proof associated with these keys.</li>
 </ol>
 <h4 id="graph-encryption-key-credential"><a class="header" href="#graph-encryption-key-credential">Graph Encryption Key Credential</a></h4>
 <p>If the user has permitted access to their private social graph per the request for <code>VerifiedGraphKeyPairCredential</code>, <code>credentials</code> will have a entry with <code>type</code> including <code>VerifiedGraphKeyPairCredential</code>.
@@ -382,7 +392,7 @@ These actions <em>must</em> be submitted to the chain for the correct functionin
 SIWF services do not manage user sessions.</p>
 <h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
 <h2 id="new-frequency-user-response"><a class="header" href="#new-frequency-user-response">New Frequency User Response</a></h2>
-<h3 id="sr25519"><a class="header" href="#sr25519">Sr25519</a></h3>
+<h3 id="sr25519-1"><a class="header" href="#sr25519-1">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -547,7 +557,7 @@ SIWF services do not manage user sessions.</p>
   ]
 }
 </code></pre>
-<h3 id="secp256k1"><a class="header" href="#secp256k1">Secp256k1</a></h3>
+<h3 id="secp256k1-1"><a class="header" href="#secp256k1-1">Secp256k1</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
@@ -639,7 +649,7 @@ SIWF services do not manage user sessions.</p>
 }
 </code></pre>
 <h2 id="new-applicationdelegation-response"><a class="header" href="#new-applicationdelegation-response">New Application/Delegation Response</a></h2>
-<h3 id="sr25519-1"><a class="header" href="#sr25519-1">Sr25519</a></h3>
+<h3 id="sr25519-2"><a class="header" href="#sr25519-2">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -749,7 +759,7 @@ SIWF services do not manage user sessions.</p>
   ]
 }
 </code></pre>
-<h3 id="secp256k1-1"><a class="header" href="#secp256k1-1">Secp256k1</a></h3>
+<h3 id="secp256k1-2"><a class="header" href="#secp256k1-2">Secp256k1</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
@@ -786,7 +796,7 @@ SIWF services do not manage user sessions.</p>
 }
 </code></pre>
 <h2 id="login-only-response"><a class="header" href="#login-only-response">Login Only Response</a></h2>
-<h3 id="sr25519-2"><a class="header" href="#sr25519-2">Sr25519</a></h3>
+<h3 id="sr25519-3"><a class="header" href="#sr25519-3">Sr25519</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "f6akufkq9Lex6rT8RCEDRuoZQRgo5pWiRzeo81nmKNGWGNJdJ",
@@ -884,7 +894,7 @@ SIWF services do not manage user sessions.</p>
   ]
 }
 </code></pre>
-<h3 id="secp256k1-2"><a class="header" href="#secp256k1-2">Secp256k1</a></h3>
+<h3 id="secp256k1-3"><a class="header" href="#secp256k1-3">Secp256k1</a></h3>
 <pre><code class="language-json">{
   "userPublicKey": {
     "encodedValue": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
