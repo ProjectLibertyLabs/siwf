@@ -50,6 +50,7 @@
     "@digitalcredentials/sha256-universal": "^1.1.1",
     "@digitalcredentials/vc": "^9.0.1",
     "@frequency-chain/ethereum-utils": "^1.17.1",
+    "@noble/hashes": "^1.8.0",
     "@polkadot/keyring": "^13.5.3",
     "@polkadot/types": "^16.3.1",
     "@polkadot/types-codec": "^16.3.1",
@@ -58,7 +59,6 @@
     "base-x": "^5.0.1",
     "base64url": "^3.0.1",
     "bs58": "^6.0.0",
-    "noble-hashes": "^0.3.1",
     "rdf-canonize": "^4.0.1",
     "tweetnacl": "^1.0.3"
   },
