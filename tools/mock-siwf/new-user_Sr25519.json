@@ -61,6 +61,22 @@
         "baseHandle": "ExampleHandle",
         "expiration": 24
       }
+    },
+    {
+      "signature": {
+        "algo": "SR25519",
+        "encoding": "base16",
+        "encodedValue": "0x04084ae8ced4e9e27cbc27bf25a3c34cb6faeec5fbdcb331021d98dc4a211f17256c08aa96defcb597f3867b08b3a901d61c8ce36e0f4ccda0bf79458ad39580"
+      },
+      "endpoint": {
+        "pallet": "msa",
+        "extrinsic": "addRecoveryCommitment"
+      },
+      "type": "recoveryCommitment",
+      "payload": {
+        "recoveryCommitmentHex": "0xeea1e39d2f154584c4b1ca8f228bb49ae5a14786ed63c90025e755f16bd58d37",
+        "expiration": 20
+      }
     }
   ],
   "credentials": [

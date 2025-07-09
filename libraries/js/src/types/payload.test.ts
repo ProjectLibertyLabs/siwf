@@ -6,9 +6,17 @@ import {
   ExamplePayloadLoginGoodSr25519,
   ExamplePayloadPublicGraphKeySecp256k1,
   ExamplePayloadPublicGraphKeySr25519,
+  ExamplePayloadRecoveryCommitmentSecp256k1,
+  ExamplePayloadRecoveryCommitmentSr25519,
 } from '../mocks/payloads.js';
 import { beforeAll, describe, expect, it } from 'vitest';
-import { isPayloadAddProvider, isPayloadItemActions, isPayloadLogin, isPayloads } from './payload.js';
+import {
+  isPayloadAddProvider,
+  isPayloadItemActions,
+  isPayloadLogin,
+  isPayloadRecoveryCommitment,
+  isPayloads,
+} from './payload.js';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 
 describe('Payload Types and Type Predicates', () => {
@@ -51,6 +59,16 @@ describe('Payload Types and Type Predicates', () => {
       expect(isPayloadItemActions(ExamplePayloadPublicGraphKeySecp256k1())).toBe(true);
       expect(isPayloads([ExamplePayloadPublicGraphKeySecp256k1()])).toBe(true);
     });
+
+    it('is successful with ExamplePayloadRecoveryCommitmentSr25519', () => {
+      expect(isPayloadRecoveryCommitment(ExamplePayloadRecoveryCommitmentSr25519())).toBe(true);
+      expect(isPayloads([ExamplePayloadRecoveryCommitmentSr25519()])).toBe(true);
+    });
+
+    it('is successful with ExamplePayloadRecoveryCommitmentSecp256k1', () => {
+      expect(isPayloadRecoveryCommitment(ExamplePayloadRecoveryCommitmentSecp256k1())).toBe(true);
+      expect(isPayloads([ExamplePayloadRecoveryCommitmentSecp256k1()])).toBe(true);
+    });
   });
 
   describe('isPayloads Multi', () => {
@@ -61,6 +79,7 @@ describe('Payload Types and Type Predicates', () => {
           ExamplePayloadCreateSponsoredAccountSr25519(),
           ExamplePayloadGrantDelegationSr25519(),
           ExamplePayloadPublicGraphKeySr25519(),
+          ExamplePayloadRecoveryCommitmentSr25519(),
         ])
       ).toBe(true);
     });
@@ -72,6 +91,7 @@ describe('Payload Types and Type Predicates', () => {
           ExamplePayloadCreateSponsoredAccountSr25519(),
           ExamplePayloadGrantDelegationSr25519(),
           ExamplePayloadPublicGraphKeySr25519(),
+          ExamplePayloadRecoveryCommitmentSr25519(),
           {},
         ])
       ).toBe(false);
@@ -83,6 +103,7 @@ describe('Payload Types and Type Predicates', () => {
           ExamplePayloadCreateSponsoredAccountSecp256k1(),
           ExamplePayloadGrantDelegationSecp256k1(),
           ExamplePayloadPublicGraphKeySecp256k1(),
+          ExamplePayloadRecoveryCommitmentSecp256k1(),
         ])
       ).toBe(true);
     });
@@ -93,6 +114,7 @@ describe('Payload Types and Type Predicates', () => {
           ExamplePayloadCreateSponsoredAccountSecp256k1(),
           ExamplePayloadGrantDelegationSecp256k1(),
           ExamplePayloadPublicGraphKeySecp256k1(),
+          ExamplePayloadRecoveryCommitmentSecp256k1(),
           {},
         ])
       ).toBe(false);

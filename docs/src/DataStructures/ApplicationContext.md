@@ -19,12 +19,15 @@ The `credentialSubject` field should contain an object with the following fields
   - `logo`: A map of one or more language tags (as above) to objects containing a `url` property. The URL should resolve to an image in the PNG format. The recommended image size is 250 x 100 pixels.
 
 The credential SHOULD be signed by a trusted `issuer`.
-The issuer MAY be the provider's control key, expressed in `did:key` syntax.
+The issuer MAY be the provider's control key, expressed as one of the following formats
+  - `Sr25519` keys : follows `did:key` syntax.
+  - `Secp256k1` keys : follows `did:ethr` syntax. There are no proofs associated with these keys.
 
 #### Example
 
 This application context credential describes a hypothetical app called "My Social App".
 
+##### Sr25519
 ```json
 {
   "@context": [
@@ -61,6 +64,40 @@ This application context credential describes a hypothetical app called "My Soci
     "cryptosuite": "eddsa-rdfc-2022",
     "proofPurpose": "assertionMethod",
     "proofValue": "z4jArnPwuwYxLnbBirLanpkcyBpmQwmyn5f3PdTYnxhpy48qpgvHHav6warjizjvtLMg6j3FK3BqbR2nuyT2UTSWC"
+  }
+}
+```
+
+##### Secp256k1
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/undefined-terms/v2"
+  ],
+  "type": [
+    "ApplicationContextCredential",
+    "VerifiableCredential"
+  ],
+  "issuer": "did:ethr:0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A",
+  "validFrom": "2025-02-12T21:28:08.289+0000",
+  "credentialSchema": {
+    "type": "JsonSchema",
+    "id": "https://schemas.frequencyaccess.com/ApplicationContextCredential/bciqe2bsnuaqg7zy3gqjmwha2q5h2bybvr6log2jsb5kjn2hos6irrlq.json"
+  },
+  "credentialSubject": {
+    "id": "did:ethr:0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A",
+    "application": {
+      "name": {
+        "en": "My Social App",
+        "es": "Mi Aplicación Social"
+      },
+      "logo": {
+        "*": {
+          "url": "https://example.org/logos/my-social-app.png"
+        }
+      }
+    }
   }
 }
 ```

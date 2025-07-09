@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2022 Digital Bazaar, Inc. All rights reserved.
  */
-import crypto from 'node:crypto';
+import { sha256 } from '@noble/hashes/sha2.js'; // ESM & Common.js
 
 /**
  * Hashes a string of data using SHA-256.
@@ -11,5 +11,5 @@ import crypto from 'node:crypto';
  * @returns {Uint8Array} The hash digest.
  */
 export async function sha256digest({ string }: { string: string }): Promise<Uint8Array> {
-  return new Uint8Array(crypto.createHash('sha256').update(string).digest());
+  return sha256(string);
 }

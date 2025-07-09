@@ -49,6 +49,7 @@ These credentials follow the [DSNP Verifiable Credentials Specification](https:/
 _Trust Model Note_: You may choose to just trust credentials issued by Frequency Access (or other SIWF-compatible services) given that the credential is fetched directly. These will have issuer `did:web:testnet.frequencyaccess.com` or `did:web:frequencyaccess.com`.
 Note that some credentials such as `VerifiedGraphKeyCredential` or `VerifiedRecoverySecretCredential` do not need a proof.
 
+#### Sr25519
 1. Check that the `credentialSubject.id` matches the `userPublicKey` following the [`did:key` Method from the W3C](https://w3c-ccg.github.io/did-key-spec/#format)
   - Example: `f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH` is the [SS58](https://docs.substrate.io/reference/address-formats/) version with prefix `90` of the hex address `0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d`. `0xef01d43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d` is multicodec `sr25519-pub` hex which is multiformat `base58-btc` `z6QNzHod3tSSJbwo4e5xGDcnsndsR9WByZzPoCGdbv3sv1jJ`
 2. Fetch the issuer DID Document following the [`did:web` Method from the W3C](https://w3c-ccg.github.io/did-method-web/)
@@ -57,6 +58,10 @@ Note that some credentials such as `VerifiedGraphKeyCredential` or `VerifiedReco
 3. Check that the key in the `proof.verificationMethod` is in the DID Document to verify that the key is still valid
 4. Test that the `proof` validates according the to [W3C Verifiable Credentials Specification](https://www.w3.org/TR/vc-data-model-1.1/#verification)
 
+#### Secp256k1
+1. Check that the `credentialSubject.id` matches the `userPublicKey` following the [`did:ethr` definition](https://github.com/uport-project/ethr-did)
+   - Example: `0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A` is the Ethereum address associated with used `Secp256k1` key is represented as `did:ethr:0x34c20Ac587999E44AFC39A239b8AB9f243e73c2A`
+2. Currently, there is no proof associated with these keys.
 
 #### Graph Encryption Key Credential
 
@@ -85,6 +90,7 @@ The payload section has several different types that can be returned:
 - `addProvider`*: When the user does not have a delegation (a new user signup) or when the delegation was needing to be changed
 - `itemActions`*: When the user has user chain data to set or update
 - `claimHandle`*: When the user needs to claim a new handle
+- `recoveryCommitment`*: When the user needs to add a recovery commitment
 
 \* Requires submission to Frequency
 
@@ -171,6 +177,7 @@ Frequency submission is required for any of the following payloads:
 - `addProvider`
 - `itemActions`
 - `claimHandle`
+- `recoveryCommitment`
 
 They can be submitted to the chain in one transaction using [`pay_with_capacity_batch_all`](https://frequency-chain.github.io/frequency/pallet_frequency_tx_payment/index.html#extrinsics).
 

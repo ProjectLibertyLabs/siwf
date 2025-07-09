@@ -1,4 +1,4 @@
-import { AlgorithmType, isArrayOf, isNum, isObj, isStr } from './general.js';
+import { AlgorithmType, isArrayOf, isHexStr, isNum, isObj, isStr } from './general.js';
 import { SiwfResponse } from './response.js';
 
 interface SiwfResponsePayloadEndpoint {
@@ -97,10 +97,28 @@ export interface SiwfResponsePayloadClaimHandle extends SiwfResponsePayloadBase 
   };
 }
 
+export interface SiwfResponsePayloadRecoveryCommitment extends SiwfResponsePayloadBase {
+  endpoint: {
+    pallet: 'msa';
+    extrinsic: 'addRecoveryCommitment';
+  };
+  type: 'recoveryCommitment';
+  payload: {
+    recoveryCommitmentHex: string;
+    expiration: number;
+  };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isPayloadRecoveryCommitmentPayload(obj: any): obj is SiwfResponsePayloadRecoveryCommitment['payload'] {
+  return isObj(obj) && isHexStr(obj.recoveryCommitmentHex) && isNum(obj.expiration);
+}
+
 export type SiwfResponsePayload =
   | SiwfResponsePayloadAddProvider
   | SiwfResponsePayloadItemActions
   | SiwfResponsePayloadClaimHandle
+  | SiwfResponsePayloadRecoveryCommitment
   | SiwfResponsePayloadBase;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -161,8 +179,26 @@ export function isPayloadAddProvider(obj: any): obj is SiwfResponsePayloadAddPro
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isPayloadRecoveryCommitment(obj: any): obj is SiwfResponsePayloadRecoveryCommitment {
+  return (
+    isPayloadBase(obj) &&
+    obj.type === 'recoveryCommitment' &&
+    isObj(obj.endpoint) &&
+    obj.endpoint.pallet === 'msa' &&
+    obj.endpoint.extrinsic === 'addRecoveryCommitment' &&
+    isPayloadRecoveryCommitmentPayload(obj.payload)
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isPayloadItem(obj: any): obj is SiwfResponsePayload {
-  return isPayloadLogin(obj) || isPayloadClaimHandle(obj) || isPayloadItemActions(obj) || isPayloadAddProvider(obj);
+  return (
+    isPayloadLogin(obj) ||
+    isPayloadClaimHandle(obj) ||
+    isPayloadItemActions(obj) ||
+    isPayloadAddProvider(obj) ||
+    isPayloadRecoveryCommitment(obj)
+  );
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
