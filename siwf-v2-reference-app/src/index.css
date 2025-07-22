@@ -1,0 +1,86 @@
+/* Import Frequency Design System */
+@import './frequency-theme.css';
+
+/* Import Inter font for better typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Override default styling with Frequency design system */
+:root {
+  font-family: var(--font-family-sans);
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: var(--frequency-primary);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--frequency-primary-dark);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--bg-secondary);
+}
+
+h1 {
+  font-size: var(--text-4xl);
+  line-height: 1.1;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+button {
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--frequency-primary);
+  color: var(--text-inverse);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+button:hover {
+  background-color: var(--frequency-primary-dark);
+  transform: translateY(-1px);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 2px solid var(--frequency-primary);
+  outline-offset: 2px;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  a:hover {
+    color: var(--frequency-primary-light);
+  }
+  
+  button {
+    background-color: var(--frequency-primary);
+  }
+  
+  button:hover {
+    background-color: var(--frequency-primary-light);
+  }
+}
