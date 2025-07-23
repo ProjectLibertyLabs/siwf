@@ -35,10 +35,11 @@ export const useWallet = () => {
     return localStorage.getItem(WALLET_DISCONNECTED_KEY) === 'true';
   };
 
-  // Clear disconnect flag and store wallet type
+    // Clear disconnect flag and store wallet type
   const setConnected = (walletType: WalletType, account: string) => {
     localStorage.removeItem(WALLET_DISCONNECTED_KEY);
     localStorage.setItem(WALLET_TYPE_KEY, walletType);
+    
     setWallet({
       isConnected: true,
       account,
@@ -52,6 +53,7 @@ export const useWallet = () => {
   const setDisconnected = () => {
     localStorage.setItem(WALLET_DISCONNECTED_KEY, 'true');
     localStorage.removeItem(WALLET_TYPE_KEY);
+    
     setWallet({
       isConnected: false,
       account: null,

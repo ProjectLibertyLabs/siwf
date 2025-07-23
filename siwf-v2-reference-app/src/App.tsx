@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import toast from 'react-hot-toast';
 import { WalletConnect } from './components/WalletConnect';
@@ -9,10 +9,6 @@ import './App.css';
 
 function App() {
   const { wallet } = useWallet();
-  const [rerenderCounter, setRerenderCounter] = useState(0);
-  
-  // Create a unique key based on wallet state to force re-rendering on wallet changes
-  const walletKey = `${wallet.walletType || 'none'}-${wallet.account || 'none'}-${wallet.isConnected}-${rerenderCounter}`;
 
   // Initialize SIWF callback handling on mount
   useEffect(() => {
@@ -27,18 +23,6 @@ function App() {
       }
     );
   }, []);
-
-  // Force re-render when wallet state changes
-  useEffect(() => {
-    console.log('🔄 App: Wallet state changed, forcing component re-render', {
-      walletType: wallet.walletType,
-      account: wallet.account?.slice(0, 8) + '...',
-      isConnected: wallet.isConnected,
-      newKey: walletKey
-    });
-    
-    setRerenderCounter(prev => prev + 1);
-  }, [wallet.account, wallet.walletType, wallet.isConnected]);
 
   return (
     <div className="app">
@@ -77,10 +61,10 @@ function App() {
                 </svg>
               </div>
               <div className="brand-text">
-                <h1 className="app-title">Sign In With Frequency(SIWF) v2</h1>
+                <h1 className="app-title">SIWF v2</h1>
                 <p className="app-subtitle">
-                  <span className="responsive-hide-phone">Demo Application • Frequency Blockchain Integration</span>
-                  <span className="responsive-show-phone">SIWF Demo</span>
+                  <span className="responsive-hide-phone">Reference App</span>
+                  <span className="responsive-show-phone">Reference App</span>
                 </p>
               </div>
             </div>
@@ -105,10 +89,10 @@ function App() {
       <main className="app-main">
         <div className="content-grid frequency-grid-2">
           <div className="grid-item">
-            <WalletConnect key={`wallet-connect-${walletKey}`} />
+            <WalletConnect />
           </div>
           <div className="grid-item">
-            <SiwfLogin key={`siwf-login-${walletKey}`} />
+            <SiwfLogin />
           </div>
         </div>
       </main>
@@ -137,16 +121,6 @@ function App() {
                 <span className="responsive-hide-phone">SIWF Documentation</span>
                 <span className="responsive-show-phone">SIWF</span>
               </a>
-            </div>
-            <div className="debug-section">
-              <small className="debug-info">
-                <span className="responsive-hide-phone">
-                  Render #{rerenderCounter} • {wallet.walletType || 'No Wallet'} • {wallet.isConnected ? '🟢' : '🔴'}
-                </span>
-                <span className="responsive-show-phone">
-                  #{rerenderCounter}
-                </span>
-              </small>
             </div>
           </div>
         </div>

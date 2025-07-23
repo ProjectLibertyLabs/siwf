@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Key, User, Mail, Loader, CheckCircle, XCircle, AlertTriangle, RefreshCw } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Key, User, Mail, Loader, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useWallet } from '../hooks/useWallet';
 import { SiwfRequestGenerator } from './SiwfRequestGenerator';
@@ -13,94 +13,19 @@ export const SiwfLogin: React.FC = () => {
     result: null,
     error: null
   });
-  const [isResetting, setIsResetting] = useState(false);
-  const [componentKey, setComponentKey] = useState(0);
   const [showMockAuth, setShowMockAuth] = useState(false);
   const [currentSignedRequest, setCurrentSignedRequest] = useState<string>('');
-  
-  // Track previous wallet state to detect changes
-  const prevWalletRef = useRef<{
-    account: string | null;
-    walletType: string | null;
-    isConnected: boolean;
-  }>({
-    account: null,
-    walletType: null,
-    isConnected: false
-  });
 
-  // Force component re-render by incrementing key
-  const forceRerender = () => {
-    setComponentKey(prev => prev + 1);
-    console.log('🔄 Forcing component re-render, new key:', componentKey + 1);
-  };
-
-  // Reset component state when wallet changes
+  // Reset SIWF state when wallet changes
   useEffect(() => {
-    const currentWallet = {
-      account: wallet.account,
-      walletType: wallet.walletType,
-      isConnected: wallet.isConnected
-    };
-
-    const previousWallet = prevWalletRef.current;
-    
-    const walletChanged = 
-      currentWallet.account !== previousWallet.account ||
-      currentWallet.walletType !== previousWallet.walletType ||
-      currentWallet.isConnected !== previousWallet.isConnected;
-
-    if (walletChanged) {
-      console.log('🔄 SiwfLogin: Wallet state CHANGED:', {
-        previous: previousWallet,
-        current: currentWallet,
-        timestamp: new Date().toISOString()
-      });
-
-      setIsResetting(true);
-      setSiwfState({
-        isLoading: false,
-        result: null,
-        error: null
-      });
-      
-      forceRerender();
-      prevWalletRef.current = currentWallet;
-    }
-  }, [wallet.account, wallet.walletType, wallet.isConnected]);
-
-  // Separate effect to handle reset animation timeout
-  useEffect(() => {
-    if (isResetting) {
-      console.log('🔄 Starting reset animation...');
-      
-      const timer = setTimeout(() => {
-        console.log('🔄 Clearing reset animation (primary)');
-        setIsResetting(false);
-      }, 800);
-      
-      const safetyTimer = setTimeout(() => {
-        console.log('🔄 SAFETY: Force clearing reset animation');
-        setIsResetting(false);
-      }, 3000);
-      
-      return () => {
-        console.log('🔄 Cleanup: clearing reset timers');
-        clearTimeout(timer);
-        clearTimeout(safetyTimer);
-      };
-    }
-  }, [isResetting]);
-
-  // Additional effect to reset on mount
-  useEffect(() => {
-    console.log('🔄 SiwfLogin: Component mounted/remounted');
     setSiwfState({
       isLoading: false,
       result: null,
       error: null
     });
-  }, []);
+    setShowMockAuth(false);
+    setCurrentSignedRequest('');
+  }, [wallet.account, wallet.walletType, wallet.isConnected]);
 
   const handleStartAuthentication = (signedRequest: string) => {
     console.log('🚀 Starting MOCK SIWF authentication with signed request', signedRequest);
@@ -154,28 +79,12 @@ export const SiwfLogin: React.FC = () => {
 
   return (
     <div className="siwf-login">
-      <div className={`frequency-card ${isResetting ? 'frequency-animate-fade-in' : ''}`}>
+      <div className="frequency-card">
         <div className="frequency-card-header">
           <h2 className="card-title">
             <Key className="icon" />
             <span className="responsive-hide-phone">Sign In With Frequency</span>
             <span className="responsive-show-phone">SIWF</span>
-            {isResetting && <RefreshCw className="icon frequency-animate-spin" style={{ color: 'var(--warning)' }} />}
-            <span 
-              className="debug-key responsive-hide-phone" 
-              title={`Component Key: ${componentKey}`}
-              style={{
-                fontSize: '10px',
-                background: 'var(--warning)',
-                color: 'white',
-                padding: '2px 6px',
-                borderRadius: '4px',
-                marginLeft: 'auto',
-                fontWeight: 'bold'
-              }}
-            >
-              #{componentKey}
-            </span>
           </h2>
           <p className="card-description">
             <span className="responsive-hide-phone">Generate and use SIWF authentication requests</span>
@@ -363,24 +272,6 @@ export const SiwfLogin: React.FC = () => {
                 walletType: wallet.walletType
               } : undefined}
             />
-          )}
-
-          {/* Emergency reset button for debugging - only show on larger screens */}
-          {isResetting && (
-            <button
-              onClick={() => {
-                console.log('🔄 Manual reset triggered');
-                setIsResetting(false);
-              }}
-              className="frequency-btn frequency-btn-secondary responsive-hide-phone"
-              style={{ 
-                marginTop: 'var(--space-2)', 
-                fontSize: 'var(--text-xs)',
-                padding: 'var(--space-1) var(--space-2)'
-              }}
-            >
-              Force Reset (Debug)
-            </button>
           )}
         </div>
       </div>
