@@ -1,14 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Toaster } from 'react-hot-toast';
 import toast from 'react-hot-toast';
+import { HelpCircle, RotateCcw } from 'lucide-react';
 import { WalletConnect } from './components/WalletConnect';
 import { SiwfLogin } from './components/SiwfLogin';
+import { Tooltip } from './components/Tooltip';
 import { useWallet } from './hooks/useWallet';
+import { useTooltipTour } from './hooks/useTooltipTour';
 import { initializeSiwfCallback } from './utils/siwf';
 import './App.css';
 
 function App() {
   const { wallet } = useWallet();
+  const { 
+    isVisible: tooltipVisible, 
+    hasCompletedTour, 
+    startTour, 
+    resetTour,
+    getCurrentTooltipProps 
+  } = useTooltipTour();
+
+  const appRef = useRef<HTMLDivElement>(null);
 
   // Initialize SIWF callback handling on mount
   useEffect(() => {
@@ -24,8 +36,26 @@ function App() {
     );
   }, []);
 
+  // Auto-start tour for new users
+  useEffect(() => {
+    if (!hasCompletedTour) {
+      // Small delay to ensure components are mounted
+      const timer = setTimeout(() => {
+        startTour();
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [hasCompletedTour, startTour]);
+
+  const tooltipProps = getCurrentTooltipProps();
+
+  const getTargetElement = (selector?: string) => {
+    if (!selector) return null;
+    return document.querySelector(selector) as HTMLElement;
+  };
+
   return (
-    <div className="app">
+    <div className="app" ref={appRef}>
       <Toaster 
         position="top-right"
         toastOptions={{
@@ -80,6 +110,47 @@ function App() {
                   </span>
                 </span>
               </div>
+              
+              {/* Tour Control Buttons */}
+              <div style={{ 
+                display: 'flex', 
+                gap: 'var(--space-2)', 
+                marginLeft: 'var(--space-3)' 
+              }}>
+                {hasCompletedTour ? (
+                  <button
+                    onClick={resetTour}
+                    className="frequency-btn frequency-btn-secondary"
+                    style={{ 
+                      padding: 'var(--space-2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 'var(--space-1)',
+                      fontSize: 'var(--text-xs)'
+                    }}
+                    title="Restart Tutorial"
+                  >
+                    <RotateCcw size={14} />
+                    <span className="responsive-hide-phone">Restart Tour</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={startTour}
+                    className="frequency-btn frequency-btn-primary"
+                    style={{ 
+                      padding: 'var(--space-2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 'var(--space-1)',
+                      fontSize: 'var(--text-xs)'
+                    }}
+                    title="Start Tutorial"
+                  >
+                    <HelpCircle size={14} />
+                    <span className="responsive-hide-phone">Start Tour</span>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -125,6 +196,15 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Educational Tooltip */}
+      {tooltipProps && (
+        <Tooltip
+          isVisible={tooltipVisible}
+          {...tooltipProps}
+          targetElement={getTargetElement(tooltipProps.targetSelector)}
+        />
+      )}
     </div>
   );
 }

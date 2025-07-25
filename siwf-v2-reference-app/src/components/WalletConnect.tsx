@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Wallet, WalletCards, Loader, AlertCircle, CheckCircle } from 'lucide-react';
 import { useWallet } from '../hooks/useWallet';
+import { useTooltipTour } from '../hooks/useTooltipTour';
 
 export const WalletConnect: React.FC = () => {
   const { 
@@ -12,6 +13,7 @@ export const WalletConnect: React.FC = () => {
     disconnectWallet 
   } = useWallet();
 
+  const { currentStage, goToStage } = useTooltipTour();
   const [justConnected, setJustConnected] = useState(false);
 
   // Show "just connected" feedback briefly
@@ -22,6 +24,22 @@ export const WalletConnect: React.FC = () => {
       return () => clearTimeout(timer);
     }
   }, [wallet.account, wallet.walletType]);
+
+  // Advance tooltip tour when connection button is about to be shown
+  useEffect(() => {
+    if (currentStage === 'welcome' && !wallet.isConnected) {
+      // Show wallet-needed tooltip when on welcome stage and no wallet connected
+      setTimeout(() => goToStage('wallet-needed'), 500);
+    }
+  }, [currentStage, wallet.isConnected, goToStage]);
+
+  const handleConnectMetaMask = async () => {
+    await connectMetaMask();
+  };
+
+  const handleConnectPolkadot = async () => {
+    await connectPolkadot();
+  };
 
   const getWalletTypeDisplay = (walletType: string | null) => {
     switch (walletType) {
@@ -118,7 +136,7 @@ export const WalletConnect: React.FC = () => {
                 {/* MetaMask Option */}
                 <div className="wallet-option">
                   <button 
-                    onClick={connectMetaMask} 
+                    onClick={handleConnectMetaMask} 
                     disabled={wallet.isConnecting || !isMetaMaskAvailable}
                     className={`frequency-btn frequency-btn-lg ${
                       isMetaMaskAvailable ? 'frequency-btn-primary' : 'btn-disabled'
@@ -154,7 +172,7 @@ export const WalletConnect: React.FC = () => {
                 {/* Polkadot.js Option */}
                 <div className="wallet-option">
                   <button 
-                    onClick={connectPolkadot} 
+                    onClick={handleConnectPolkadot} 
                     disabled={wallet.isConnecting || !isPolkadotAvailable}
                     className={`frequency-btn frequency-btn-lg ${
                       isPolkadotAvailable ? 'frequency-btn-primary' : 'btn-disabled'

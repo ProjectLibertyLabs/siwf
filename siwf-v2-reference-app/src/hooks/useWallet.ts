@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import { web3Enable, web3Accounts, web3FromAddress } from '@polkadot/extension-dapp';
 import { stringToHex } from '@polkadot/util';
 import toast from 'react-hot-toast';
-import type { WalletState, WalletType, PolkadotAccount } from '../types';
+import type { WalletState, WalletType } from '../types';
 
 // Extend window to include injected wallets
 declare global {

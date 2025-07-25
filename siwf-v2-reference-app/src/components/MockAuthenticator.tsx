@@ -6,6 +6,7 @@ interface MockAuthenticatorProps {
   signedRequest: string;
   onSuccess: (result: any) => void;
   onCancel: () => void;
+  onStart?: () => void;
 }
 
 interface AuthCredentials {
@@ -17,7 +18,8 @@ interface AuthCredentials {
 export const MockAuthenticator: React.FC<MockAuthenticatorProps> = ({
   signedRequest,
   onSuccess,
-  onCancel
+  onCancel,
+  onStart
 }) => {
   const [authMode, setAuthMode] = useState<'choose' | 'login' | 'signup'>('choose');
   const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +28,12 @@ export const MockAuthenticator: React.FC<MockAuthenticatorProps> = ({
     password: '',
     handle: ''
   });
+
+  // Call onStart when user begins authentication process
+  const handleModeSelect = (mode: 'login' | 'signup') => {
+    setAuthMode(mode);
+    onStart?.(); // Notify parent component that auth has started
+  };
 
   const generateMockAuthData = (userEmail: string, userHandle?: string) => {
     // Generate mock authorizationCode and authorizationPayload as requested
@@ -184,7 +192,7 @@ export const MockAuthenticator: React.FC<MockAuthenticatorProps> = ({
       
       <div className="auth-buttons">
         <button
-          onClick={() => setAuthMode('login')}
+          onClick={() => handleModeSelect('login')}
           className="frequency-btn frequency-btn-primary frequency-btn-large"
         >
           <User className="icon" />
@@ -192,7 +200,7 @@ export const MockAuthenticator: React.FC<MockAuthenticatorProps> = ({
         </button>
         
         <button
-          onClick={() => setAuthMode('signup')}
+          onClick={() => handleModeSelect('signup')}
           className="frequency-btn frequency-btn-secondary frequency-btn-large"
         >
           <Key className="icon" />

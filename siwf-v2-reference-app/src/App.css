@@ -689,7 +689,7 @@ html, body {
 
 /* Wallet Connection Responsive Breakpoints */
 
-Phone (up to 768px)
+/* Phone (up to 768px) */
 @media (max-width: 768px) {
   .connected {
     flex-direction: column;
@@ -736,5 +736,116 @@ Phone (up to 768px)
   .app-header {
     background: rgba(17, 24, 39, 0.95);
   }
+}
+
+/* Educational Tooltip Styles */
+.educational-tooltip {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: tooltipFadeIn 0.3s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.tooltip-backdrop {
+  animation: backdropFadeIn 0.3s ease-out;
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Tooltip highlight effect for targeted elements */
+.tooltip-highlight {
+  position: relative;
+  z-index: 9997;
+}
+
+.tooltip-highlight::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background: linear-gradient(135deg, var(--frequency-primary), var(--frequency-secondary));
+  border-radius: calc(var(--radius-lg) + 4px);
+  opacity: 0.2;
+  animation: highlightPulse 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes highlightPulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.02);
+  }
+}
+
+/* Tour button styles */
+.tour-control-button {
+  transition: all 0.2s ease;
+}
+
+.tour-control-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive tooltip adjustments */
+@media (max-width: 768px) {
+  .educational-tooltip {
+    max-width: calc(100vw - 32px);
+    min-width: calc(100vw - 32px);
+    left: 16px !important;
+    right: 16px !important;
+  }
+  
+  .tooltip-backdrop {
+    backdrop-filter: blur(1px);
+  }
+}
+
+/* Enhanced card animations for tooltip interaction */
+.frequency-card {
+  transition: all 0.3s ease;
+}
+
+.frequency-card.tooltip-target {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(91, 69, 255, 0.15);
+}
+
+/* Progress indicator for tooltip tour */
+.tooltip-progress {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 1px;
+  overflow: hidden;
+  margin-top: var(--space-2);
+}
+
+.tooltip-progress-bar {
+  height: 100%;
+  background: white;
+  border-radius: 1px;
+  transition: width 0.3s ease;
 }
 

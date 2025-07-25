@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Key, User, Mail, Loader, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useWallet } from '../hooks/useWallet';
+import { useTooltipTour } from '../hooks/useTooltipTour';
 import { SiwfRequestGenerator } from './SiwfRequestGenerator';
 import { MockAuthenticator } from './MockAuthenticator';
 import type { SiwfResult, SiwfState } from '../types';
 
 export const SiwfLogin: React.FC = () => {
   const { wallet } = useWallet();
+  const { goToStage, currentStage } = useTooltipTour();
   const [siwfState, setSiwfState] = useState<SiwfState>({
     isLoading: false,
     result: null,
@@ -27,10 +29,24 @@ export const SiwfLogin: React.FC = () => {
     setCurrentSignedRequest('');
   }, [wallet.account, wallet.walletType, wallet.isConnected]);
 
+  // Advance tooltip tour based on wallet connection state
+  useEffect(() => {
+    if (currentStage === 'wallet-needed' && wallet.isConnected) {
+      // Wallet just connected, show next stage
+      setTimeout(() => goToStage('wallet-connected'), 500);
+    }
+  }, [wallet.isConnected, currentStage, goToStage]);
+
   const handleStartAuthentication = (signedRequest: string) => {
     console.log('🚀 Starting MOCK SIWF authentication with signed request', signedRequest);
     setCurrentSignedRequest(signedRequest);
     setShowMockAuth(true);
+    
+    // Advance tooltip tour when request is generated
+    if (currentStage === 'wallet-connected') {
+      setTimeout(() => goToStage('request-generated'), 500);
+    }
+    
     toast.success('Opening mock authentication interface...');
   };
 
@@ -42,6 +58,12 @@ export const SiwfLogin: React.FC = () => {
       error: null
     });
     setShowMockAuth(false);
+    
+    // Advance tooltip tour when authentication completes
+    if (currentStage === 'auth-choice') {
+      setTimeout(() => goToStage('authenticated'), 500);
+    }
+    
     toast.success('Authentication successful!');
   };
 
@@ -54,6 +76,13 @@ export const SiwfLogin: React.FC = () => {
       error: null
     });
     toast('Authentication cancelled');
+  };
+
+  const handleMockAuthStart = () => {
+    // Advance tooltip tour when user starts choosing auth method
+    if (currentStage === 'request-generated') {
+      setTimeout(() => goToStage('auth-choice'), 200);
+    }
   };
 
   const getWalletDisplayName = () => {
@@ -208,19 +237,25 @@ export const SiwfLogin: React.FC = () => {
           )}
 
           {showMockAuth ? (
-            <MockAuthenticator
-              signedRequest={currentSignedRequest}
-              onSuccess={handleMockAuthSuccess}
-              onCancel={handleMockAuthCancel}
-            />
+            <div className="mock-authenticator">
+              <MockAuthenticator
+                signedRequest={currentSignedRequest}
+                onSuccess={handleMockAuthSuccess}
+                onCancel={handleMockAuthCancel}
+                onStart={handleMockAuthStart}
+              />
+            </div>
           ) : siwfState.result ? (
-            <div style={{
-              padding: 'var(--space-4)',
-              backgroundColor: 'var(--bg-success)',
-              border: '1px solid var(--border-success)',
-              borderRadius: 'var(--radius-md)',
-              marginBottom: 'var(--space-4)'
-            }}>
+            <div 
+              className="authentication-result"
+              style={{
+                padding: 'var(--space-4)',
+                backgroundColor: 'var(--bg-success)',
+                border: '1px solid var(--border-success)',
+                borderRadius: 'var(--radius-md)',
+                marginBottom: 'var(--space-4)'
+              }}
+            >
               <h3 style={{ 
                 margin: '0 0 var(--space-3) 0',
                 fontSize: 'var(--text-lg)',
@@ -257,7 +292,13 @@ export const SiwfLogin: React.FC = () => {
                 )}
               </div>
               <button
-                onClick={() => setSiwfState({ isLoading: false, result: null, error: null })}
+                onClick={() => {
+                  setSiwfState({ isLoading: false, result: null, error: null });
+                  // Advance tooltip to completion when user starts over
+                  if (currentStage === 'authenticated') {
+                    setTimeout(() => goToStage('completed'), 200);
+                  }
+                }}
                 className="frequency-btn frequency-btn-secondary"
                 style={{ marginTop: 'var(--space-3)' }}
               >
@@ -265,13 +306,15 @@ export const SiwfLogin: React.FC = () => {
               </button>
             </div>
           ) : (
-            <SiwfRequestGenerator 
-              onStartAuthentication={handleStartAuthentication}
-              walletInfo={wallet.isConnected && wallet.account && wallet.walletType ? {
-                account: wallet.account,
-                walletType: wallet.walletType
-              } : undefined}
-            />
+            <div className="siwf-request-generator">
+              <SiwfRequestGenerator 
+                onStartAuthentication={handleStartAuthentication}
+                walletInfo={wallet.isConnected && wallet.account && wallet.walletType ? {
+                  account: wallet.account,
+                  walletType: wallet.walletType
+                } : undefined}
+              />
+            </div>
           )}
         </div>
       </div>
