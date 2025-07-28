@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { ethers } from 'ethers';
+import { useAccount, useConnect, useDisconnect, useSignMessage, useSignTypedData, useConnectors } from 'wagmi';
 import { web3Enable, web3Accounts, web3FromAddress } from '@polkadot/extension-dapp';
 import { stringToHex } from '@polkadot/util';
 import toast from 'react-hot-toast';
@@ -18,13 +18,24 @@ const WALLET_DISCONNECTED_KEY = 'siwf_wallet_disconnected';
 const WALLET_TYPE_KEY = 'siwf_wallet_type';
 
 export const useWallet = () => {
-  const [wallet, setWallet] = useState<WalletState>({
+  const [polkadotWallet, setPolkadotWallet] = useState<{
+    isConnected: boolean;
+    account: string | null;
+    isConnecting: boolean;
+    error: string | null;
+  }>({
     isConnected: false,
     account: null,
-    walletType: null,
     isConnecting: false,
     error: null,
   });
+
+  // Wagmi hooks for MetaMask
+  const { address: wagmiAddress, isConnected: wagmiIsConnected } = useAccount();
+  const { connect, connectors, isPending: isConnectingWagmi } = useConnect();
+  const { disconnect: wagmiDisconnect } = useDisconnect();
+  const { signMessage: wagmiSignMessage } = useSignMessage();
+  const { signTypedData: wagmiSignTypedData } = useSignTypedData();
 
   // Check if wallets are available
   const isMetaMaskAvailable = () => typeof window.ethereum !== 'undefined';
@@ -35,32 +46,54 @@ export const useWallet = () => {
     return localStorage.getItem(WALLET_DISCONNECTED_KEY) === 'true';
   };
 
-    // Clear disconnect flag and store wallet type
-  const setConnected = (walletType: WalletType, account: string) => {
+  // Get the current wallet state
+  const getCurrentWalletState = (): WalletState => {
+    const lastWalletType = localStorage.getItem(WALLET_TYPE_KEY) as WalletType;
+    
+    // Check MetaMask (wagmi)
+    if (wagmiIsConnected && wagmiAddress) {
+      return {
+        isConnected: true,
+        account: wagmiAddress,
+        walletType: 'metamask',
+        isConnecting: isConnectingWagmi,
+        error: null,
+      };
+    }
+    
+    // Check Polkadot
+    if (polkadotWallet.isConnected && polkadotWallet.account) {
+      return {
+        isConnected: true,
+        account: polkadotWallet.account,
+        walletType: 'polkadot',
+        isConnecting: polkadotWallet.isConnecting,
+        error: polkadotWallet.error,
+      };
+    }
+    
+    // Return disconnected state
+    return {
+      isConnected: false,
+      account: null,
+      walletType: null,
+      isConnecting: isConnectingWagmi || polkadotWallet.isConnecting,
+      error: polkadotWallet.error,
+    };
+  };
+
+  const wallet = getCurrentWalletState();
+
+  // Clear disconnect flag and store wallet type
+  const setConnected = (walletType: WalletType) => {
     localStorage.removeItem(WALLET_DISCONNECTED_KEY);
     localStorage.setItem(WALLET_TYPE_KEY, walletType);
-    
-    setWallet({
-      isConnected: true,
-      account,
-      walletType,
-      isConnecting: false,
-      error: null,
-    });
   };
 
   // Set disconnect flag and clear wallet type
   const setDisconnected = () => {
     localStorage.setItem(WALLET_DISCONNECTED_KEY, 'true');
     localStorage.removeItem(WALLET_TYPE_KEY);
-    
-    setWallet({
-      isConnected: false,
-      account: null,
-      walletType: null,
-      isConnecting: false,
-      error: null,
-    });
   };
 
   // Check existing connections on load
@@ -78,29 +111,21 @@ export const useWallet = () => {
     // Get the last used wallet type
     const lastWalletType = localStorage.getItem(WALLET_TYPE_KEY) as WalletType;
     
-    // Check MetaMask first if it was the last used wallet or if no preference
-    if ((!lastWalletType || lastWalletType === 'metamask') && isMetaMaskAvailable()) {
-      try {
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const accounts = await provider.listAccounts();
-        
-        if (accounts.length > 0) {
-          setConnected('metamask', accounts[0].address);
-          return;
-        }
-      } catch (error) {
-        console.error('Error checking MetaMask connection:', error);
-      }
-    }
-
-    // Check Polkadot.js if MetaMask wasn't connected or if it was the last used wallet
+    // MetaMask auto-connection is handled by wagmi
+    // We only need to check Polkadot.js manually
     if (lastWalletType === 'polkadot' || !lastWalletType) {
       try {
         const extensions = await web3Enable('SIWF Frontend');
         if (extensions.length > 0) {
           const accounts = await web3Accounts();
           if (accounts.length > 0) {
-            setConnected('polkadot', accounts[0].address);
+            setPolkadotWallet({
+              isConnected: true,
+              account: accounts[0].address,
+              isConnecting: false,
+              error: null,
+            });
+            setConnected('polkadot');
           }
         }
       } catch (error) {
@@ -112,32 +137,34 @@ export const useWallet = () => {
   const connectMetaMask = useCallback(async () => {
     if (!isMetaMaskAvailable()) {
       const error = 'Please install MetaMask wallet extension';
-      setWallet(prev => ({ ...prev, error }));
       toast.error(error);
       return;
     }
 
-    setWallet(prev => ({ ...prev, isConnecting: true, error: null }));
-    
     try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      // Find MetaMask connector - it might have different IDs depending on wagmi version
+      const metaMaskConnector = connectors.find(connector => 
+        connector.id === 'metaMask' || 
+        connector.id === 'io.metamask' || 
+        connector.name?.toLowerCase().includes('metamask')
+      );
       
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const address = await signer.getAddress();
-
-      setConnected('metamask', address);
-      toast.success(`Connected to MetaMask: ${address.slice(0, 6)}...${address.slice(-4)}`);
+      if (metaMaskConnector) {
+        console.log('Found MetaMask connector:', metaMaskConnector.id, metaMaskConnector.name);
+        connect({ connector: metaMaskConnector });
+        setConnected('metamask');
+      } else {
+        console.log('Available connectors:', connectors.map(c => ({ id: c.id, name: c.name })));
+        throw new Error('MetaMask connector not found');
+      }
     } catch (error: any) {
       console.error('Error connecting MetaMask:', error);
-      const errorMessage = 'Failed to connect MetaMask: ' + error.message;
-      setWallet(prev => ({ ...prev, isConnecting: false, error: errorMessage }));
-      toast.error(errorMessage);
+      toast.error('Failed to connect MetaMask: ' + error.message);
     }
-  }, []);
+  }, [connect, connectors]);
 
   const connectPolkadot = useCallback(async () => {
-    setWallet(prev => ({ ...prev, isConnecting: true, error: null }));
+    setPolkadotWallet(prev => ({ ...prev, isConnecting: true, error: null }));
     
     try {
       // Enable the extension
@@ -157,20 +184,40 @@ export const useWallet = () => {
       // Use the first account for now
       const account = accounts[0];
 
-      setConnected('polkadot', account.address);
+      setPolkadotWallet({
+        isConnected: true,
+        account: account.address,
+        isConnecting: false,
+        error: null,
+      });
+      setConnected('polkadot');
       toast.success(`Connected to Polkadot.js: ${account.address.slice(0, 6)}...${account.address.slice(-4)}`);
     } catch (error: any) {
       console.error('Error connecting Polkadot.js:', error);
       const errorMessage = 'Failed to connect Polkadot.js: ' + error.message;
-      setWallet(prev => ({ ...prev, isConnecting: false, error: errorMessage }));
+      setPolkadotWallet(prev => ({ 
+        ...prev, 
+        isConnecting: false, 
+        error: errorMessage 
+      }));
       toast.error(errorMessage);
     }
   }, []);
 
   const disconnectWallet = useCallback(() => {
+    if (wallet.walletType === 'metamask') {
+      wagmiDisconnect();
+    } else if (wallet.walletType === 'polkadot') {
+      setPolkadotWallet({
+        isConnected: false,
+        account: null,
+        isConnecting: false,
+        error: null,
+      });
+    }
     setDisconnected();
     toast.success('Wallet disconnected');
-  }, []);
+  }, [wagmiDisconnect, wallet.walletType]);
 
   // Sign typed data (EIP-712) - MetaMask only
   const signTypedData = useCallback(async (typedData: any) => {
@@ -183,20 +230,25 @@ export const useWallet = () => {
     }
 
     try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      
-      const signature = await signer.signTypedData(
-        typedData.domain,
-        typedData.types,
-        typedData.message
-      );
-      return signature;
+      return new Promise<string>((resolve, reject) => {
+        wagmiSignTypedData(
+          {
+            domain: typedData.domain,
+            types: typedData.types,
+            primaryType: typedData.primaryType,
+            message: typedData.message,
+          },
+          {
+            onSuccess: (signature) => resolve(signature),
+            onError: (error) => reject(error),
+          }
+        );
+      });
     } catch (error) {
       console.error('Error signing typed data:', error);
       throw error;
     }
-  }, [wallet]);
+  }, [wallet, wagmiSignTypedData]);
 
   // Sign message - works with both wallets
   const signMessage = useCallback(async (message: string) => {
@@ -206,9 +258,15 @@ export const useWallet = () => {
 
     try {
       if (wallet.walletType === 'metamask') {
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-        return await signer.signMessage(message);
+        return new Promise<string>((resolve, reject) => {
+          wagmiSignMessage(
+            { message },
+            {
+              onSuccess: (signature) => resolve(signature),
+              onError: (error) => reject(error),
+            }
+          );
+        });
       } else if (wallet.walletType === 'polkadot') {
         const injector = await web3FromAddress(wallet.account);
         const signRaw = injector?.signer?.signRaw;
@@ -231,30 +289,25 @@ export const useWallet = () => {
       console.error('Error signing message:', error);
       throw error;
     }
-  }, [wallet]);
+  }, [wallet, wagmiSignMessage]);
 
-  // Listen for account changes in MetaMask
+  // Handle wagmi connection success
   useEffect(() => {
-    if (window.ethereum && wallet.walletType === 'metamask') {
-      const handleAccountsChanged = (accounts: string[]) => {
-        if (accounts.length === 0) {
-          // User disconnected from MetaMask
-          setDisconnected();
-          toast('MetaMask account disconnected');
-        } else if (accounts[0] !== wallet.account) {
-          // User switched accounts
-          setConnected('metamask', accounts[0]);
-          toast(`Switched to account: ${accounts[0].slice(0, 6)}...${accounts[0].slice(-4)}`);
-        }
-      };
-
-      window.ethereum.on('accountsChanged', handleAccountsChanged);
-      
-      return () => {
-        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-      };
+    if (wagmiIsConnected && wagmiAddress) {
+      setConnected('metamask');
+      toast.success(`Connected to MetaMask: ${wagmiAddress.slice(0, 6)}...${wagmiAddress.slice(-4)}`);
     }
-  }, [wallet.walletType, wallet.account]);
+  }, [wagmiIsConnected, wagmiAddress]);
+
+  // Handle wagmi disconnection
+  useEffect(() => {
+    if (!wagmiIsConnected && localStorage.getItem(WALLET_TYPE_KEY) === 'metamask') {
+      // Only set disconnected if we were previously connected to MetaMask
+      if (!wasManuallyDisconnected()) {
+        toast('MetaMask account disconnected');
+      }
+    }
+  }, [wagmiIsConnected]);
 
   return {
     wallet,

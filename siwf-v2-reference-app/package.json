@@ -14,12 +14,13 @@
     "@polkadot/keyring": "^13.5.3",
     "@polkadot/util": "^13.5.3",
     "@polkadot/util-crypto": "^13.5.3",
-
-    "ethers": "^6.8.0",
+    "@tanstack/react-query": "^5.61.5",
     "lucide-react": "^0.468.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-hot-toast": "^2.4.1"
+    "react-hot-toast": "^2.4.1",
+    "viem": "^2.21.47",
+    "wagmi": "^2.14.14"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
