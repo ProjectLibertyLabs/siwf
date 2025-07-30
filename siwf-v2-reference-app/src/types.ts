@@ -7,6 +7,7 @@ export interface WalletState {
   walletType: WalletType | null;
   isConnecting: boolean;
   error: string | null;
+  chainId?: number;
 }
 
 export interface PolkadotAccount {
