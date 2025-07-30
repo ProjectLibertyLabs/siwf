@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { HelpCircle, RotateCcw } from 'lucide-react';
 import { WalletConnect } from './components/WalletConnect';
 import { SiwfLogin } from './components/SiwfLogin';
+import { SiwfSdkAuth } from './components/SiwfSdkAuth';
 import { Tooltip } from './components/Tooltip';
 import { useWallet } from './hooks/useWallet';
 import { useTooltipTour } from './hooks/useTooltipTour';
@@ -22,19 +23,24 @@ function App() {
 
   const appRef = useRef<HTMLDivElement>(null);
 
-  // Initialize SIWF callback handling on mount
+  // Feature flag to switch between old SIWF and new SDK implementation
+  const useEmbeddedSdk = import.meta.env.REACT_APP_BYPASS_FREQUENCY_ACCESS === 'true' || true; // Default to true for demo
+
+  // Initialize SIWF callback handling on mount (only for legacy mode)
   useEffect(() => {
-    initializeSiwfCallback(
-      (result) => {
-        console.log('✅ SIWF authentication successful:', result);
-        toast.success('SIWF authentication completed!');
-      },
-      (error) => {
-        console.error('❌ SIWF authentication failed:', error);
-        toast.error('SIWF authentication failed: ' + error.message);
-      }
-    );
-  }, []);
+    if (!useEmbeddedSdk) {
+      initializeSiwfCallback(
+        (result) => {
+          console.log('✅ SIWF authentication successful:', result);
+          toast.success('SIWF authentication completed!');
+        },
+        (error) => {
+          console.error('❌ SIWF authentication failed:', error);
+          toast.error('SIWF authentication failed: ' + error.message);
+        }
+      );
+    }
+  }, [useEmbeddedSdk]);
 
   // Auto-start tour for new users
   useEffect(() => {
@@ -163,7 +169,11 @@ function App() {
             <WalletConnect />
           </div>
           <div className="grid-item">
-            <SiwfLogin />
+            {useEmbeddedSdk ? (
+              <SiwfSdkAuth />
+            ) : (
+              <SiwfLogin />
+            )}
           </div>
         </div>
       </main>
