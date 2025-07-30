@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useAccount, useConnect, useDisconnect, useSignMessage, useSignTypedData, useConnectors } from 'wagmi';
+import { useAccount, useConnect, useDisconnect, useSignMessage, useSignTypedData } from 'wagmi';
 import { web3Enable, web3Accounts, web3FromAddress } from '@polkadot/extension-dapp';
 import { stringToHex } from '@polkadot/util';
 import toast from 'react-hot-toast';
@@ -31,7 +31,7 @@ export const useWallet = () => {
   });
 
   // Wagmi hooks for MetaMask
-  const { address: wagmiAddress, isConnected: wagmiIsConnected } = useAccount();
+  const { address: wagmiAddress, isConnected: wagmiIsConnected, chainId: wagmiChainId } = useAccount();
   const { connect, connectors, isPending: isConnectingWagmi } = useConnect();
   const { disconnect: wagmiDisconnect } = useDisconnect();
   const { signMessage: wagmiSignMessage } = useSignMessage();
@@ -58,6 +58,7 @@ export const useWallet = () => {
         walletType: 'metamask',
         isConnecting: isConnectingWagmi,
         error: null,
+        chainId: wagmiChainId,
       };
     }
     
@@ -69,6 +70,7 @@ export const useWallet = () => {
         walletType: 'polkadot',
         isConnecting: polkadotWallet.isConnecting,
         error: polkadotWallet.error,
+        chainId: undefined, // Polkadot doesn't use Ethereum chainId
       };
     }
     
@@ -79,6 +81,7 @@ export const useWallet = () => {
       walletType: null,
       isConnecting: isConnectingWagmi || polkadotWallet.isConnecting,
       error: polkadotWallet.error,
+      chainId: undefined,
     };
   };
 
