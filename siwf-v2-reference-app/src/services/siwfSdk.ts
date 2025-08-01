@@ -56,7 +56,6 @@ export type MsaCreationCallbackFn = (account: AccountResponse) => void;
 
 export interface SiwfSdkConfig {
   gatewayBaseUrl: string;
-  authHeaders: Record<string, string>;
 }
 
 export interface SiwfAuthOptions {
@@ -126,7 +125,6 @@ export function createGatewayFetchFn(config: SiwfSdkConfig): GatewayFetchFn {
       method,
       headers: {
         'Content-Type': 'application/json',
-        ...config.authHeaders,
       },
     };
 

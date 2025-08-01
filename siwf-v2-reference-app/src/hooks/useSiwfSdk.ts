@@ -16,7 +16,6 @@ import { useWallet } from './useWallet';
 export interface UseSiwfSdkOptions {
   useTestMode?: boolean;
   gatewayBaseUrl?: string;
-  authToken?: string;
 }
 
 export const useSiwfSdk = (options: UseSiwfSdkOptions = {}) => {
@@ -33,12 +32,8 @@ export const useSiwfSdk = (options: UseSiwfSdkOptions = {}) => {
   const sdkConfig: SiwfSdkConfig = useMemo(() => ({
     gatewayBaseUrl: options.gatewayBaseUrl || 
       import.meta.env.REACT_APP_GATEWAY_URL || 
-      'http://localhost:3001',
-    authHeaders: {
-      'Authorization': `Bearer ${options.authToken || import.meta.env.REACT_APP_GATEWAY_TOKEN || 'demo-token'}`,
-      'X-API-Key': import.meta.env.REACT_APP_GATEWAY_API_KEY || '',
-    }
-  }), [options.gatewayBaseUrl, options.authToken]);
+      'http://localhost:3013'
+  }), [options.gatewayBaseUrl]);
 
   // Create gateway fetch function based on test mode
   const gatewayFetchFn = useMemo(() => {
