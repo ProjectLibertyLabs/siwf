@@ -1,5 +1,7 @@
 # SIWF v2 Reference Application
 
+![SIWF Demo](https://imgur.com/psWItJP.png)
+
 A comprehensive React + TypeScript reference implementation demonstrating **Sign In With Frequency (SIWF) v2** integration using the embedded wallet SDK approach. This application showcases cross-wallet compatibility with both MetaMask and Polkadot.js wallets, implementing real cryptographic signatures and complete authentication flows.
 
 ## 🎯 Project Overview
