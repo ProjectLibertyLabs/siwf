@@ -33,6 +33,31 @@ rootPackage['exports'] = {
     import: './esm/index.js',
     default: './esm/index.js',
   },
+  './request': {
+    types: './request.d.ts',
+    import: './esm/request.js',
+    require: './cjs/index.js',
+  },
+  './response': {
+    types: './response.d.ts',
+    import: './esm/response.js',
+    require: './cjs/index.js',
+  },
+  './start': {
+    types: './start.d.ts',
+    import: './esm/start.js',
+    require: './cjs/index.js',
+  },
+  './constants': {
+    types: './constants.d.ts',
+    import: './esm/constants.js',
+    require: './cjs/index.js',
+  },
+  './types': {
+    types: './types.d.ts',
+    import: './esm/types/index.js',
+    require: './cjs/index.js',
+  },
 };
 // Write it out
 fs.writeFileSync(`${path.join(__dirname, '../dist', 'package.json')}`, JSON.stringify(rootPackage, null, 2), (err) => {
