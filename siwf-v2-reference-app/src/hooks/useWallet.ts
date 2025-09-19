@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAccount, useConnect, useDisconnect, useSignMessage, useSignTypedData } from 'wagmi';
 import { web3Enable, web3Accounts, web3FromAddress } from '@polkadot/extension-dapp';
-import { stringToHex } from '@polkadot/util';
+import { stringToHex, stringToU8a, u8aToHex } from '@polkadot/util';
 import toast from 'react-hot-toast';
 import type { WalletState, WalletType } from '../types';
 
@@ -39,7 +39,15 @@ export const useWallet = () => {
 
   // Check if wallets are available
   const isMetaMaskAvailable = () => typeof window.ethereum !== 'undefined';
-  const isPolkadotAvailable = () => typeof window.injectedWeb3 !== 'undefined';
+  const isPolkadotAvailable = () => {
+    const available = typeof window.injectedWeb3 !== 'undefined';
+    if (!available) {
+      console.log('🔍 Polkadot.js extension not detected. Make sure the extension is installed and enabled.');
+    } else {
+      console.log('🔍 Polkadot.js extension detected:', Object.keys(window.injectedWeb3 || {}));
+    }
+    return available;
+  };
 
   // Check if user previously disconnected
   const wasManuallyDisconnected = () => {
@@ -167,11 +175,19 @@ export const useWallet = () => {
   }, [connect, connectors]);
 
   const connectPolkadot = useCallback(async () => {
+    if (!isPolkadotAvailable()) {
+      toast.error('Polkadot.js extension not found. Please install it first.');
+      return;
+    }
+
     setPolkadotWallet(prev => ({ ...prev, isConnecting: true, error: null }));
     
     try {
+      console.log('🔌 Attempting to connect to Polkadot.js extension...');
+      
       // Enable the extension
       const extensions = await web3Enable('SIWF Frontend');
+      console.log('🔌 Available extensions:', extensions.map(ext => ({ name: ext.name, version: ext.version })));
       
       if (extensions.length === 0) {
         throw new Error('Please install Polkadot.js extension');
@@ -179,13 +195,17 @@ export const useWallet = () => {
 
       // Get accounts
       const accounts = await web3Accounts();
+      console.log('🔌 Available accounts:', accounts.map(acc => ({ address: acc.address, name: acc.meta.name })));
       
       if (accounts.length === 0) {
-        throw new Error('No accounts found in Polkadot.js extension');
+        const errorMsg = 'No accounts found in Polkadot.js extension. Please create an account in the extension first.';
+        console.error('❌', errorMsg);
+        throw new Error(errorMsg);
       }
 
       // Use the first account for now
       const account = accounts[0];
+      console.log('✅ Selected account:', { address: account.address, name: account.meta.name });
 
       setPolkadotWallet({
         isConnected: true,
@@ -196,7 +216,7 @@ export const useWallet = () => {
       setConnected('polkadot');
       toast.success(`Connected to Polkadot.js: ${account.address.slice(0, 6)}...${account.address.slice(-4)}`);
     } catch (error: any) {
-      console.error('Error connecting Polkadot.js:', error);
+      console.error('❌ Error connecting Polkadot.js:', error);
       const errorMessage = 'Failed to connect Polkadot.js: ' + error.message;
       setPolkadotWallet(prev => ({ 
         ...prev, 
@@ -294,6 +314,67 @@ export const useWallet = () => {
     }
   }, [wallet, wagmiSignMessage]);
 
+  // Sign SIWF request payload with sr25519 for Polkadot wallets
+  const signSiwfRequest = useCallback(async (payload: string) => {
+    if (!wallet.isConnected || !wallet.account) {
+      throw new Error('Wallet not connected');
+    }
+
+    if (wallet.walletType !== 'polkadot') {
+      throw new Error('SIWF request signing is only supported for Polkadot wallets');
+    }
+
+    try {
+      console.log('🔐 Signing SIWF request payload with sr25519');
+      console.log('🔐 Payload to sign:', payload);
+
+      const injector = await web3FromAddress(wallet.account);
+      const signRaw = injector?.signer?.signRaw;
+      
+      if (!signRaw) {
+        throw new Error('Polkadot.js signer not available');
+      }
+
+      // Convert payload to bytes for signing
+      const payloadBytes = stringToU8a(payload);
+      
+      const { signature } = await signRaw({
+        address: wallet.account,
+        data: u8aToHex(payloadBytes),
+        type: 'bytes'
+      });
+
+      console.log('✅ SIWF request signed successfully');
+      return signature;
+    } catch (error) {
+      console.error('❌ Error signing SIWF request:', error);
+      throw error;
+    }
+  }, [wallet]);
+
+  // Get public key for Polkadot wallet (for SIWF requests)
+  const getPolkadotPublicKey = useCallback(async () => {
+    if (!wallet.isConnected || !wallet.account || wallet.walletType !== 'polkadot') {
+      throw new Error('Polkadot wallet not connected');
+    }
+
+    try {
+      // Get account info from Polkadot extension
+      const accounts = await web3Accounts();
+      const account = accounts.find(acc => acc.address === wallet.account);
+      
+      if (!account) {
+        throw new Error('Account not found in Polkadot extension');
+      }
+
+      // The public key is available in the account object
+      return account.address; // For now, we'll use the address as the public key identifier
+    } catch (error) {
+      console.error('❌ Error getting Polkadot public key:', error);
+      throw error;
+    }
+  }, [wallet]);
+
   // Handle wagmi connection success
   useEffect(() => {
     if (wagmiIsConnected && wagmiAddress) {
@@ -321,5 +402,7 @@ export const useWallet = () => {
     disconnectWallet,
     signTypedData,
     signMessage,
+    signSiwfRequest,
+    getPolkadotPublicKey,
   };
 }; 

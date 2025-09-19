@@ -16,10 +16,23 @@ import { useWallet } from './useWallet';
 export interface UseSiwfSdkOptions {
   useTestMode?: boolean;
   gatewayBaseUrl?: string;
+  wallet?: {
+    isConnected: boolean;
+    account: string | null;
+    walletType: 'metamask' | 'polkadot' | null;
+    chainId?: number;
+  };
+  signMessage?: (message: string) => Promise<string>;
+  signTypedData?: (typedData: any) => Promise<string>;
 }
 
 export const useSiwfSdk = (options: UseSiwfSdkOptions = {}) => {
-  const { wallet, signMessage, signTypedData } = useWallet();
+  const internalWallet = useWallet();
+  
+  // Use passed wallet state if available, otherwise use internal wallet
+  const wallet = options.wallet || internalWallet.wallet;
+  const signMessage = options.signMessage || internalWallet.signMessage;
+  const signTypedData = options.signTypedData || internalWallet.signTypedData;
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<GatewaySiwfResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -135,8 +148,14 @@ export const useSiwfSdk = (options: UseSiwfSdkOptions = {}) => {
     signedRequest: string,
     signupData?: { handle: string; email: string }
   ) => {
-    if (!wallet.account) {
-      throw new Error('No wallet account available');
+    console.log('🔐 authenticateAuto called with wallet state:', {
+      isConnected: wallet.isConnected,
+      account: wallet.account,
+      walletType: wallet.walletType
+    });
+    
+    if (!wallet.isConnected || !wallet.account) {
+      throw new Error('No wallet account available. Please connect a wallet first.');
     }
 
     // Check if user exists
