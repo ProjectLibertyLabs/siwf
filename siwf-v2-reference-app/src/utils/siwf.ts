@@ -4,9 +4,7 @@
 import type { 
   SiwfOptions,
   SiwfResult,
-  WalletType,
-  GatewayResponse,
-  MsaResponse
+  WalletType
 } from '../types';
 
 // SIWF Permission definitions from documentation
@@ -106,10 +104,12 @@ export interface SiwfGeneratedRequest {
  * Generate SIWF v2 Signed Request
  * Based on: https://projectlibertylabs.github.io/siwf/v2/docs/SignatureGeneration.html
  */
-export function generateSiwfSignedRequest(
+export async function generateSiwfSignedRequest(
   options: SiwfRequestOptions, 
-  walletInfo?: { account: string; walletType: WalletType }
-): SiwfGeneratedRequest {
+  walletInfo?: { account: string; walletType: WalletType },
+  signSiwfRequest?: (payload: string) => Promise<string>,
+  getPolkadotPublicKey?: () => Promise<string>
+): Promise<SiwfGeneratedRequest> {
   console.log("🔐 Generating SIWF signed request with options:", options);
   console.log("🔐 Using wallet info:", walletInfo);
   
@@ -143,25 +143,42 @@ export function generateSiwfSignedRequest(
       }
     }
     
-    // For demo purposes, we use consistent mock data for both public key and signature
-    // In a real implementation, you would:
-    // 1. Use the actual wallet's public key
-    // 2. Sign the payload with the actual wallet's private key
-    // 3. The signature would cryptographically match the public key
+    // Use real wallet signing for Polkadot wallets
+    let publicKeyInfo;
+    let signature;
     
-    const publicKeyInfo = {
-      encodedValue: "f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH", // Mock public key
-      encoding: "base58",
-      format: "ss58",
-      type: "Sr25519"
-    };
-    
-    // Log the connected wallet info for debugging (but use mock data for the actual request)
-    if (walletInfo?.account) {
-      console.log(`🔐 Connected wallet: ${walletInfo.walletType} (${walletInfo.account})`);
-      console.log("⚠️ Note: Using mock keys for demo - in production, would use actual wallet signing");
+    if (walletInfo?.walletType === 'polkadot' && signSiwfRequest && getPolkadotPublicKey) {
+      console.log(`🔐 Using real sr25519 signing for Polkadot wallet: ${walletInfo.account}`);
+      
+      // Get the actual public key from the wallet
+      const publicKey = await getPolkadotPublicKey();
+      publicKeyInfo = {
+        encodedValue: publicKey,
+        encoding: "base58",
+        format: "ss58", 
+        type: "Sr25519"
+      };
+      
+      // Create the payload to sign
+      const payload = JSON.stringify({
+        callback: options.callbackUri,
+        permissions: options.permissions
+      });
+      
+      // Sign the payload with the wallet
+      signature = await signSiwfRequest(payload);
+      console.log("✅ Real sr25519 signature generated");
     } else {
-      console.log("⚠️ No wallet connected, using mock public key");
+      // Fallback to mock data for demo purposes or when wallet functions are not available
+      console.log("⚠️ Using mock signature - wallet signing functions not available or not a Polkadot wallet");
+      console.log("⚠️ This is for demonstration purposes only. In production, use real wallet signing.");
+      publicKeyInfo = {
+        encodedValue: "f6cL4wq1HUNx11TcvdABNf9UNXXoyH47mVUwT59tzSFRW8yDH", // Mock public key for demo
+        encoding: "base58",
+        format: "ss58",
+        type: "Sr25519"
+      };
+      signature = "0x" + "a".repeat(128); // Mock signature for demo
     }
     
     // Build the complete signed request
@@ -171,7 +188,7 @@ export function generateSiwfSignedRequest(
         signature: {
           algo: "SR25519",
           encoding: "base16",
-          encodedValue: "0x" + "a".repeat(128) // Mock signature for demo - matches mock public key
+          encodedValue: signature
         },
         payload: {
           callback: options.callbackUri,
@@ -382,5 +399,6 @@ export async function siwfLogin(
   walletType: WalletType
 ): Promise<SiwfResult> {
   console.log("🚀 SIWF Login - use the SIWF Request Generator instead");
+  console.log("⚠️ Legacy function - please use generateSiwfSignedRequest with real wallet signing");
   throw new Error("Please use the SIWF Request Generator to start authentication");
 } 
