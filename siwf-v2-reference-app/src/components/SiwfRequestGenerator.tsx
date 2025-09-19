@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Settings, Copy, ExternalLink, ChevronDown, ChevronUp, Key } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { generateSiwfSignedRequest, type SiwfRequestOptions } from '../utils/siwf';
+import { generateSiwfSignedRequest, type SiwfRequestOptions, type SiwfGeneratedRequest } from '../utils/siwf';
 import type { WalletType } from '../types';
 
 // SIWF Permission definitions
@@ -44,11 +44,15 @@ interface SiwfRequestGeneratorProps {
     account: string;
     walletType: WalletType;
   };
+  signSiwfRequest?: (payload: string) => Promise<string>;
+  getPolkadotPublicKey?: () => Promise<string>;
 }
 
 export const SiwfRequestGenerator: React.FC<SiwfRequestGeneratorProps> = ({ 
   onStartAuthentication,
-  walletInfo
+  walletInfo,
+  signSiwfRequest,
+  getPolkadotPublicKey
 }) => {
   // Form state
   const [callbackUri, setCallbackUri] = useState('http://localhost:5173/login/callback');
@@ -65,10 +69,10 @@ export const SiwfRequestGenerator: React.FC<SiwfRequestGeneratorProps> = ({
   const [applicationContextUrl, setApplicationContextUrl] = useState('');
 
   // Result state
-  const [generatedRequest, setGeneratedRequest] = useState<any>(null);
+  const [generatedRequest, setGeneratedRequest] = useState<SiwfGeneratedRequest | null>(null);
   const [showJson, setShowJson] = useState(false);
 
-  const generateSignedRequest = () => {
+  const generateSignedRequest = async () => {
     try {
       // Get permissions from bundle or custom selection
       let permissions: number[] = [];
@@ -94,8 +98,8 @@ export const SiwfRequestGenerator: React.FC<SiwfRequestGeneratorProps> = ({
         applicationContextUrl: applicationContextUrl || undefined
       };
 
-      // Generate the signed request
-      const result = generateSiwfSignedRequest(options, walletInfo);
+      // Generate the signed request with real signing functions
+      const result = await generateSiwfSignedRequest(options, walletInfo, signSiwfRequest, getPolkadotPublicKey);
       setGeneratedRequest(result);
 
       toast.success('Signed request generated successfully!');

@@ -203,6 +203,44 @@ export const WalletConnect: React.FC = () => {
                       </span>
                     </p>
                   )}
+                  
+                  {/* Troubleshooting section for Polkadot connection issues */}
+                  {isPolkadotAvailable && (
+                    <div className="troubleshooting-section" style={{ 
+                      marginTop: 'var(--space-3)', 
+                      padding: 'var(--space-3)', 
+                      background: 'var(--background-secondary)', 
+                      borderRadius: 'var(--radius-md)',
+                      fontSize: 'var(--text-sm)'
+                    }}>
+                      <details>
+                        <summary style={{ 
+                          cursor: 'pointer', 
+                          fontWeight: '500',
+                          color: 'var(--text-primary)',
+                          marginBottom: 'var(--space-2)'
+                        }}>
+                          🔧 Having trouble connecting?
+                        </summary>
+                        <div style={{ marginTop: 'var(--space-2)' }}>
+                          <p style={{ marginBottom: 'var(--space-2)', color: 'var(--text-secondary)' }}>
+                            If you're getting "No accounts found" error:
+                          </p>
+                          <ol style={{ 
+                            paddingLeft: 'var(--space-4)', 
+                            color: 'var(--text-secondary)',
+                            lineHeight: '1.5'
+                          }}>
+                            <li>Open the Polkadot.js extension</li>
+                            <li>Create an account if you don't have one</li>
+                            <li>Make sure the extension is unlocked</li>
+                            <li>Allow the extension to run on this site</li>
+                            <li>Refresh this page and try again</li>
+                          </ol>
+                        </div>
+                      </details>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

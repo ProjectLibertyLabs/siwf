@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Key, User, Mail, Loader, CheckCircle, XCircle, AlertTriangle, Settings } from 'lucide-react';
+import { Key, User, Loader, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useWallet } from '../hooks/useWallet';
 import { useSiwfSdk } from '../hooks/useSiwfSdk';
@@ -13,7 +13,7 @@ interface SignupFormData {
 }
 
 export const SiwfSdkAuth: React.FC = () => {
-  const { wallet } = useWallet();
+  const { wallet, signMessage, signTypedData, signSiwfRequest, getPolkadotPublicKey } = useWallet();
   const { goToStage, currentStage } = useTooltipTour();
   const { 
     isLoading, 
@@ -27,7 +27,12 @@ export const SiwfSdkAuth: React.FC = () => {
     getUserStatus,
     reset,
     clearError
-  } = useSiwfSdk({ useTestMode: true }); // Use test mode by default
+  } = useSiwfSdk({ 
+    useTestMode: true, // Use test mode by default
+    wallet: wallet,
+    signMessage: signMessage,
+    signTypedData: signTypedData
+  });
 
   const [currentSignedRequest, setCurrentSignedRequest] = useState<string>('');
   const [userStatus, setUserStatus] = useState<{
@@ -97,6 +102,12 @@ export const SiwfSdkAuth: React.FC = () => {
   };
 
   const handleAuthenticate = async (signedRequest?: string) => {
+    console.log('🔐 handleAuthenticate called with wallet state:', {
+      isConnected: wallet.isConnected,
+      account: wallet.account,
+      walletType: wallet.walletType
+    });
+    
     const requestToUse = signedRequest || currentSignedRequest;
     if (!requestToUse) {
       toast.error('No signed request available');
@@ -109,6 +120,7 @@ export const SiwfSdkAuth: React.FC = () => {
         email: signupData.email
       } : undefined;
 
+      console.log('🔐 Calling authenticateAuto with:', { requestToUse, signupDataToUse });
       const result = await authenticateAuto(requestToUse, signupDataToUse);
       
       toast.success(
@@ -549,6 +561,8 @@ export const SiwfSdkAuth: React.FC = () => {
                   account: wallet.account,
                   walletType: wallet.walletType
                 } : undefined}
+                signSiwfRequest={signSiwfRequest}
+                getPolkadotPublicKey={getPolkadotPublicKey}
               />
             </div>
           )}
