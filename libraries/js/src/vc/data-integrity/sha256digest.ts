@@ -11,5 +11,8 @@ import { sha256 } from '@noble/hashes/sha2.js'; // ESM & Common.js
  * @returns {Uint8Array} The hash digest.
  */
 export async function sha256digest({ string }: { string: string }): Promise<Uint8Array> {
-  return sha256(string);
+  // Convert string to Uint8Array for @noble/hashes
+  const encoder = new TextEncoder();
+  const data = encoder.encode(string);
+  return sha256(data);
 }
