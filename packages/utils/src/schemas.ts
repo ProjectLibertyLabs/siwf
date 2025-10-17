@@ -1,5 +1,6 @@
 // @todo Generate from the chain at startup?
 // This has already applied the transformation from the v1.13.0 migration
+
 export const SCHEMA_NAME_TO_ID = new Map<string, number>([
   ['dsnp.broadcast@v1', 2],
   ['dsnp.broadcast@v2', 17],
@@ -26,9 +27,15 @@ export const SCHEMA_NAME_TO_ID = new Map<string, number>([
 
 const SCHEMA_NAME_TO_ID_OBJECT = Object.fromEntries(SCHEMA_NAME_TO_ID);
 
+const SCHEMA_NAME_BYTES_MAX= 32  // value in production as of 2025-10-17
+
 export type SchemaName = keyof typeof SCHEMA_NAME_TO_ID_OBJECT;
 
 export const parseName = (full: string): { namespace: string; name: string; version?: number } | null => {
+    // bounds the amount of time that can be spent in Regex.match, easiest way
+  if (full.length > SCHEMA_NAME_BYTES_MAX) {
+      throw new Error("Schema name is too long.")
+  }
   const match = full.match(/(\w+)\.([^@]+)@v(\d+)/);
   if (match && match[1] && match[2]) {
     return {
