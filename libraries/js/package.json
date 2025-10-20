@@ -53,7 +53,7 @@
     "@noble/hashes": "2.0.1",
     "@polkadot/keyring": "13.5.7",
     "@polkadot/types": "16.4.8",
-    "@polkadot/types-codec": "16.4.8",
+    "@polkadot/types-codec": "16.4.9",
     "@polkadot/util": "13.5.7",
     "@polkadot/util-crypto": "13.5.7",
     "base-x": "^5.0.1",
