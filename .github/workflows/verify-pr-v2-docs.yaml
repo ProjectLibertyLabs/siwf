@@ -19,7 +19,7 @@ jobs:
           token: ${{secrets.GITHUB_TOKEN}}
 
       - name: Generator Tool - Install Node.js 22.x
-        uses: ./.github/workflows/common/setup-node-and-npm.yml
+        uses: ./.github/workflows/common/setup-node-and-npm
         with:
           cache-dependency-path: |
             libraries/js/package-lock.json
