@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node and npm
-        uses: ./.github/workflows/common/setup-node-and-npm
+        uses: ./.github/workflows/common/setup-node-and-npm.yml
         with:
           cache-dependency-path: libraries/js/package-lock.json
 
