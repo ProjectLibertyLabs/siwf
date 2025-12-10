@@ -13,10 +13,6 @@ inputs:
   cache-dependency-path:
     description: 'Used to specify the path to a dependency file: package-lock.json, yarn.lock, etc. Supports wildcards or a list of file names for caching multiple dependencies.'
     required: true
-  registry-url:
-    description: 'Optional registry to set up for auth. Will set the registry in a project level .npmrc and .yarnrc file, and set up auth to read in from env.NODE_AUTH_TOKEN.'
-    required: false
-    default: ''
 
 runs:
   using: "composite"
@@ -27,7 +23,6 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
         cache: ${{ inputs.cache }}
-        registry-url: ${{ inputs.registry-url }}
         cache-dependency-path: ${{ inputs.cache-dependency-path }}
 
     - name: Update npm to at least 11.5.1
