@@ -17,20 +17,7 @@
 
 # 📖 Sign In With Frequency V2<a name="about-project"></a>
 
-Sign In With Frequency (SIWF) is the developer documentation and toolset to integrate with [Frequency Access](https://frequencyaccess.com), an easy to use custodial social wallet for users on Frequency.
-
-Looking for SIWF v1 resources? [Go to the `v1` branch](https://github.com/ProjectLibertyLabs/siwf/tree/v1).
-
-## 🚀 Quick Resources<a name="-quick"></a>
-
-- [Frequency Access Home Page](https://frequencyaccess.com)
-- [Frequency Access Swagger/Open API Docs](https://testnet.frequencyaccess.com/webjars/swagger-ui/index.html)
-- [Frequency Documentation](https://docs.frequency.xyz)
-- [Frequency on GitHub](https://github.com/frequency-chain/frequency)
-- [Frequency Provider Dashboard](https://provider.frequency.xyz)
-- [Sign In With Frequency UI V2](https://github.com/ProjectLibertyLabs/siwf) (Onboarding tool that supports both Frequency Access and other wallets)
-
-<p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
+Sign In With Frequency (SIWF) is the developer documentation and toolset to integrate with [Frequency Access](https://frequencyaccess.com), an easy-to-use custodial wallet for users on Frequency.
 
 ## 💻 Prerequisites<a name="-prerequisites"></a>
 
@@ -94,6 +81,17 @@ Releases are made via GitHub Releases with tags in the style: `vX.Y.Z`.
 #### Mobile App Development
 
 To learn more about using SIWF in your mobile app, see: [`docs/SDK/Overview.md`](./docs/SDK/Overview.md)
+
+## 🚀 Quick Resources<a name="-quick"></a>
+
+- [Frequency Access Home Page](https://frequencyaccess.com)
+- [Frequency Access Swagger/Open API Docs](https://testnet.frequencyaccess.com/webjars/swagger-ui/index.html)
+- [Frequency Documentation](https://docs.frequency.xyz)
+- [Frequency on GitHub](https://github.com/frequency-chain/frequency)
+- [Frequency Provider Dashboard](https://provider.frequency.xyz)
+- [Sign In With Frequency UI V2](https://github.com/ProjectLibertyLabs/siwf) (Onboarding tool that supports both Frequency Access and other wallets)
+
+<p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 

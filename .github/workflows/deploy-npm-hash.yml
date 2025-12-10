@@ -9,18 +9,13 @@ jobs:
   publish-npm-rc:
     name: Publish NPM Hash
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - name: Setup Node and npm
+        uses: ./.github/workflows/common/setup-node-and-npm
         with:
-          node-version: ${{ matrix.node-version }}
           cache-dependency-path: libraries/js/package-lock.json
 
       - name: Install dependencies

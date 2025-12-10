@@ -21,10 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - name: Setup Node and npm
+        uses: ./.github/workflows/common/setup-node-and-npm
         with:
-          node-version: ${{ matrix.node-version }}
           cache: "npm" # Enabling npm caching
           cache-dependency-path: |
             libraries/js/package-lock.json

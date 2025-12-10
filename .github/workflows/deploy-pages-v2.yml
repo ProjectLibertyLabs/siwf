@@ -14,9 +14,6 @@ jobs:
   build-mdbook:
     concurrency: v2-docs-${{ github.ref }}
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,9 +24,8 @@ jobs:
           token: ${{secrets.GITHUB_TOKEN}}
 
       - name: Generator Tool - Install Node.js 22.x
-        uses: actions/setup-node@v4
+        uses: ./.github/workflows/common/setup-node-and-npm
         with:
-          node-version: "22.x"
           cache: "npm" # Enabling npm caching
           cache-dependency-path: |
             libraries/js/package-lock.json
