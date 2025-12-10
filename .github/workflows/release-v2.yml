@@ -38,6 +38,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache-dependency-path: libraries/js/package-lock.json
 
+      - name: Install npm version that supports OIDC auth
+        run: npm install -g npm@11.5.1 # Use 'latest' or a specific version number
+
       - name: Install dependencies
         working-directory: libraries/js
         run: npm ci
