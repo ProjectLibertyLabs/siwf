@@ -8,7 +8,17 @@ export default defineConfig({
   format: 'cjs',
   platform: 'node',
   outDir: 'dist/cjs',
-  noExternal: [/digitalbazaar/, /base64url/, /base58/, /base-x/, 'bs58'],
+  noExternal: [
+      '@digitalcredentials/vc',
+      '@digitalcredentials/jsonld',
+      '@digitalcredentials/jsonld-signatures',
+      '@noble/hashes',
+      /digitalbazaar/,
+      /base64url/,
+      /base58/,
+      /base-x/,
+      'bs58'
+  ],
   outExtension() {
     return {
       js: `.js`,
