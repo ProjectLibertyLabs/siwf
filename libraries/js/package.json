@@ -55,7 +55,7 @@
     "@polkadot/types": "16.4.8",
     "@polkadot/types-codec": "16.4.8",
     "@polkadot/util": "13.5.7",
-    "@polkadot/util-crypto": "13.5.7",
+    "@polkadot/util-crypto": "14.0.1",
     "base-x": "5.0.1",
     "base64url": "3.0.1",
     "bs58": "6.0.0",
