@@ -24,6 +24,7 @@ jobs:
       - name: Setup Node and npm
         uses: ./.github/workflows/common/setup-node-and-npm
         with:
+          node-version: ${{ matrix.node-version }}
           cache-dependency-path: |
             libraries/js/package-lock.json
             tools/signed-request-generator/package-lock.json
@@ -42,7 +43,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: tools/signed-request-generator
-        run: npm i ../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz
+        run: npm ci
 
       - name: Lint
         working-directory: tools/signed-request-generator

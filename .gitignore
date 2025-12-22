@@ -3,9 +3,6 @@
 # Generated Docs
 docs/src/Generator
 
-# PNPM lock files (we use package-lock.json)
-**/pnpm-lock.yaml
-
 .DS_Store
 
 

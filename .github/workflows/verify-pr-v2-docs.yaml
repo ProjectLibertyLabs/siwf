@@ -18,7 +18,7 @@ jobs:
         with:
           token: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Generator Tool - Install Node.js 22.x
+      - name: Generator Tool - Install Node.js
         uses: ./.github/workflows/common/setup-node-and-npm
         with:
           cache-dependency-path: |
@@ -39,7 +39,7 @@ jobs:
 
       - name: Generator Tool - Install dependencies
         working-directory: tools/signed-request-generator
-        run: npm i ../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz
+        run: npm ci
 
       - name: Generator Tool - Build
         working-directory: tools/signed-request-generator
@@ -50,4 +50,4 @@ jobs:
 
       - name: Build mdBook 📚
         working-directory: docs
-        run: npm i && mdbook build && ls book
+        run: npm ci && mdbook build && ls book
