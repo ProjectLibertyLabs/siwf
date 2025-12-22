@@ -18,7 +18,7 @@
 		"@frequency-chain/ethereum-utils": "2.0.0-rc1",
 		"@polkadot/extension-dapp": "0.61.1",
 		"@polkadot/extension-inject": "0.61.1",
-		"@projectlibertylabs/siwf": "file:../../libraries/js/dist"
+		"@projectlibertylabs/siwf": "file:../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz"
 	},
 	"devDependencies": {
 		"@frequency-chain/style-guide": "0.3.0",
