@@ -17,7 +17,7 @@ For example, if you wish to correlate the original unauthorized session with the
 
 ### Parameter: `permissions`
 
-The list of Frequency Schema Ids permissions your application is requesting from the user.
+The list of Frequency Intent Ids permissions your application is requesting from the user.
 
 - See a full list of [Available Delegations](./Delegations.md)
 

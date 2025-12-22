@@ -35,7 +35,7 @@ describe('SCALE serializations', () => {
       u8aToHex(
         serializeAddProviderPayloadHex('Sr25519', {
           authorizedMsaId: 1,
-          schemaIds: [5, 7, 8, 9, 10],
+          intentIds: [5, 7, 8, 9, 10],
           expiration: 24,
         }) as Uint8Array
       )

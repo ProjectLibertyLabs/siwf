@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { SCHEMA_INFOS } from '../lib/schemas.js';
+	import { INTENT_INFOS } from '$lib/intents';
 	export let permissions: number[] = [];
 
 	const genBundle = (name: string, fullNames: string[]): [string, number[]] => {
 		const bundleName = `${name} <span title="${fullNames.join(', ')}">ⓘ</span>`;
 
-		return [bundleName, fullNames.map((n) => SCHEMA_INFOS.get(n)!.id)];
+		return [bundleName, fullNames.map((n) => INTENT_INFOS.get(n)!.id)];
 	};
 
-	const individualSchemas: [string, number[]][] = [...SCHEMA_INFOS.entries()]
+	const individualSchemas: [string, number[]][] = [...INTENT_INFOS.entries()]
 		// Don't show things that are signature required
 		.filter(([_n, v]) => !v.signatureRequired)
 		.map(([_n, v]): [string, number[]] => [
