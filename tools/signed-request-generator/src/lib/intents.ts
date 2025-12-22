@@ -10,8 +10,7 @@ export interface IntentInfo {
 	specUrl: string;
 }
 
-const intentFullName = (info: IntentInfo): string =>
-	`${info.protocolName}.${info.name}`;
+const intentFullName = (info: IntentInfo): string => `${info.protocolName}.${info.name}`;
 
 export const INTENT_INFOS: Map<string, IntentInfo> = new Map(
 	[
