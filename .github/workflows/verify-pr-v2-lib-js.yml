@@ -62,7 +62,7 @@ jobs:
       # Run the example tests
       - name: JS-Example install
         working-directory: tools/js-example
-        run: npm ci
+        run: npm i ../../libraries/js/dist/projectlibertylabs-siwf-0.0.0.tgz
 
       - name: Run the example tests
         working-directory: tools/js-example
