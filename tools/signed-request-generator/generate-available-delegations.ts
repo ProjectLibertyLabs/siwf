@@ -7,6 +7,6 @@ const printIntentRow = ([name, info]: [string, IntentInfo]) =>
 
 [...INTENT_INFOS.entries()]
 	// Don't show things that are signature required
-	.filter(([_n, v]) => !v.signatureRequired)
-	.toSorted((a, b) => a[0].localeCompare(b[0]))
-	.map((x) => console.log(printIntentRow(x)));
+	.filter(([_n, v]: [string, IntentInfo]) => !v.signatureRequired)
+	.toSorted(([aName, _a]: [string, IntentInfo], [bName, _b]: [string, IntentInfo]) => aName.localeCompare(bName))
+	.map((x: [string, IntentInfo]) => console.log(printIntentRow(x)));

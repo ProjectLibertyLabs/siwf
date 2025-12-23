@@ -12,7 +12,7 @@ export interface IntentInfo {
 
 const intentFullName = (info: IntentInfo): string => `${info.protocolName}.${info.name}`;
 
-export const INTENT_INFOS: Map<string, IntentInfo> = new Map(
+export const INTENT_INFOS = new Map<string, IntentInfo>(
 	[
 		{
 			description: 'Create new public content',

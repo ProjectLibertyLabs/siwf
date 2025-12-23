@@ -1,8 +1,15 @@
+// noinspection ES6PreferShortImport
+
 import { Keyring } from '@polkadot/keyring';
 import { encodeAddress } from '@polkadot/keyring';
 import { hexToU8a, u8aToHex } from '@polkadot/util';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
-import { SiwfCredentialRequest, SiwfSignedRequest, isSiwfCredentialsRequest, isSiwfSignedRequest } from './types';
+import {
+  SiwfCredentialRequest,
+  SiwfSignedRequest,
+  isSiwfCredentialsRequest,
+  isSiwfSignedRequest,
+} from './types/request.js';
 import { getAlgorithmForCurveType, requestPayloadBytes, serializeLoginPayloadHex } from './util.js';
 import { VerifiedEmailAddress, VerifiedGraphKey, VerifiedPhoneNumber, VerifiedRecoverySecret } from './constants.js';
 import { stringFromBase64URL, stringToBase64URL } from './base64url.js';

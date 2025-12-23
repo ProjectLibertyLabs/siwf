@@ -45,12 +45,18 @@ jobs:
         working-directory: libraries/js/dist
         run: npm version --new-version "${{env.NEW_RELEASE_TAG}}" --no-git-tag-version
 
+        # Until we upgrade to Node 24.x across the board, we need npm >= 11.5 to publish using GitHub OAuth
+      - name: Install npm 11.x
+        working-directory: libraries/js/dist
+        shell: bash
+        run: npm i -D npm@11.7
+
       - name: Release on NPM @latest
         if: env.NPM_LATEST == 'true'
         working-directory: libraries/js/dist
-        run: npm publish --tag latest --access public
+        run: npx npm@11 publish --tag latest --access public
 
       - name: Release on NPM without @latest
         if: env.NPM_LATEST != 'true'
         working-directory: libraries/js/dist
-        run: npm publish --tag next --access public
+        run: npx npm@11 publish --tag next --access public

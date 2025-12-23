@@ -33,10 +33,12 @@ jobs:
         shell: bash
         run: npm version --new-version "v0.0.0-${FULL_SHA:0:6}" --no-git-tag-version
 
-        # Required for Granular Access Tokens
-      - name: NPM Access Config
-        run: npm config set //registry.npmjs.org/:_authToken ${{secrets.NPM_AUTH_TOKEN}}
+        # Until we upgrade to Node 24.x across the board, we need npm >= 11.5 to publish using GitHub OAuth
+      - name: Install npm 11.x
+        working-directory: libraries/js/dist
+        shell: bash
+        run: npm i -D npm@11.7
 
       - name: Publish 0.0.0-<SHA:6> on NPM
         working-directory: libraries/js/dist
-        run: npm publish --tag next --verbose --access public
+        run: npx npm@11.7 publish --tag next --verbose --access public

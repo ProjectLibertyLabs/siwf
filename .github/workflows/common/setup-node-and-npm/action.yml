@@ -24,9 +24,3 @@ runs:
         node-version: ${{ inputs.node-version }}
         cache: ${{ inputs.cache }}
         cache-dependency-path: ${{ inputs.cache-dependency-path }}
-
-    - name: Update npm to at least 11.5.1
-      shell: bash
-      run: |
-        npm install -g npm@11
-        echo "npm version: $(npm --version)"
