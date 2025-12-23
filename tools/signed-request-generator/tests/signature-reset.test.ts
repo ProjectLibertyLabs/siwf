@@ -11,7 +11,7 @@ test('can see the signature removed when edit signature permission data', async 
 	await page.locator('#signature').fill('0xabcd');
 
 	// Change that makes the signature bad
-	await page.getByText('dsnp.broadcast: Create new public content (v2)').check();
+	await page.getByText('dsnp.broadcast: Create new public content').check();
 	await expect(page.locator('#signature')).toHaveValue('');
 });
 
