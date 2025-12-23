@@ -8,37 +8,37 @@
 		return [bundleName, fullNames.map((n) => INTENT_INFOS.get(n)!.id)];
 	};
 
-	const individualSchemas: [string, number[]][] = [...INTENT_INFOS.entries()]
+	const individualIntents: [string, number[]][] = [...INTENT_INFOS.entries()]
 		// Don't show things that are signature required
 		.filter(([_n, v]) => !v.signatureRequired)
 		.map(([_n, v]): [string, number[]] => [
-			`${v.deprecated ? '(Deprecated) ' : ''}${v.namespace}.${v.name}: ${v.description} (v${v.version})`,
+			`${v.protocolName}.${v.name}: ${v.description}`,
 			[v.id]
 		])
 		.toSorted((a, b) => a[0].localeCompare(b[0]));
 
 	const knownPermissions = Object.fromEntries([
 		genBundle('Bundle: Public & Private Graph', [
-			'dsnp.public-follows@v1',
-			'dsnp.private-connections@v1',
-			'dsnp.private-follows@v1',
-			'dsnp.public-key-key-agreement@v1'
+			'dsnp.public-follows',
+			'dsnp.private-connections',
+			'dsnp.private-follows',
+			'dsnp.public-key-key-agreement'
 		]),
 		genBundle('Bundle: DSNP v1.3 Content', [
-			'dsnp.broadcast@v2',
-			'dsnp.reply@v2',
-			'dsnp.tombstone@v2',
-			'dsnp.reaction@v1',
-			'dsnp.update@v2'
+			'dsnp.broadcast',
+			'dsnp.reply',
+			'dsnp.tombstone',
+			'dsnp.reaction',
+			'dsnp.update'
 		]),
 		genBundle('(Deprecated) Bundle: DSNP v1.0 Content', [
-			'dsnp.broadcast@v1',
-			'dsnp.reply@v1',
-			'dsnp.tombstone@v1',
-			'dsnp.reaction@v1',
-			'dsnp.update@v1'
+			'dsnp.broadcast',
+			'dsnp.reply',
+			'dsnp.tombstone',
+			'dsnp.reaction',
+			'dsnp.update'
 		]),
-		...individualSchemas
+		...individualIntents
 	]);
 
 	let selectedGroups: number[][] = [];
@@ -79,10 +79,10 @@
 		</div>
 
 		<div class="my-2 text-sm">
-			<label for="schemaIds">Read Only: List of Schema Ids</label>
+			<label for="schemaIds">Read Only: List of Intent Ids</label>
 			<input
 				type="text"
-				placeholder="List of Schema Ids"
+				placeholder="List of Intent Ids"
 				id="schemaIds"
 				value={permissions.join(', ')}
 			/>
