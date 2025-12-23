@@ -11,10 +11,7 @@
 	const individualIntents: [string, number[]][] = [...INTENT_INFOS.entries()]
 		// Don't show things that are signature required
 		.filter(([_n, v]) => !v.signatureRequired)
-		.map(([_n, v]): [string, number[]] => [
-			`${v.protocolName}.${v.name}: ${v.description}`,
-			[v.id]
-		])
+		.map(([_n, v]): [string, number[]] => [`${v.protocolName}.${v.name}: ${v.description}`, [v.id]])
 		.toSorted((a, b) => a[0].localeCompare(b[0]));
 
 	const knownPermissions = Object.fromEntries([
