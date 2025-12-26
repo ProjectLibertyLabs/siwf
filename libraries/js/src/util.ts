@@ -44,7 +44,7 @@ const frequencyTypes: RegistryTypes = {
   },
   PalletMsaAddProvider: {
     authorizedMsaId: 'u64',
-    schemaIds: 'Vec<u16>',
+    intentIds: 'Vec<u16>',
     expiration: 'u32',
   },
   PalletMsaRecoveryCommitmentPayload: {
@@ -86,7 +86,7 @@ export function serializeAddProviderPayloadHex(
       return u8aWrapBytes(registry.createType('PalletMsaAddProvider', payload).toU8a());
 
     case 'Secp256k1':
-      return createAddProvider(payload.authorizedMsaId.toString(), payload.schemaIds, payload.expiration);
+      return createAddProvider(payload.authorizedMsaId.toString(), payload.intentIds, payload.expiration);
 
     default:
       throw new Error(`${curveType} is not supported!`);
