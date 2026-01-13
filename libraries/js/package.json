@@ -49,7 +49,7 @@
     "@digitalcredentials/jsonld-signatures": "12.0.1",
     "@digitalcredentials/sha256-universal": "1.1.1",
     "@digitalcredentials/vc": "10.0.1",
-    "@frequency-chain/ethereum-utils": "2.0.0-rc1",
+    "@frequency-chain/ethereum-utils": "2.0.0-rc3",
     "@noble/hashes": "2.0.1",
     "@polkadot/keyring": "13.5.7",
     "@polkadot/types": "16.4.8",
