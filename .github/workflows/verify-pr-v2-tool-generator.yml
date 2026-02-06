@@ -24,6 +24,7 @@ jobs:
       - name: Setup Node and npm
         uses: ./.github/workflows/common/setup-node-and-npm
         with:
+          node-version: ${{ matrix.node-version }}
           cache-dependency-path: |
             libraries/js/package-lock.json
             tools/signed-request-generator/package-lock.json

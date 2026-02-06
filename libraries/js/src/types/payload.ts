@@ -47,7 +47,7 @@ export interface SiwfResponsePayloadAddProvider extends SiwfResponsePayloadBase 
   type: 'addProvider';
   payload: {
     authorizedMsaId: number;
-    schemaIds: number[];
+    intentIds: number[];
     expiration: number;
   };
 }
@@ -174,7 +174,7 @@ export function isPayloadAddProvider(obj: any): obj is SiwfResponsePayloadAddPro
     obj.endpoint.pallet === 'msa' &&
     ['createSponsoredAccountWithDelegation', 'grantDelegation'].includes(obj.endpoint.extrinsic) &&
     isNum(obj.payload.authorizedMsaId) &&
-    isArrayOf(obj.payload.schemaIds, isNum)
+    isArrayOf(obj.payload.intentIds, isNum)
   );
 }
 

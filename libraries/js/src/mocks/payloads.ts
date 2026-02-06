@@ -202,7 +202,7 @@ export const ExamplePayloadCreateSponsoredAccountSr25519 = (): SiwfResponsePaylo
       ExampleUserKeySr25519.keyPair().sign(
         serializeAddProviderPayloadHex('Sr25519', {
           authorizedMsaId: 1,
-          schemaIds: [5, 7, 8, 9, 10],
+          intentIds: [5, 7, 8, 9, 10],
           expiration: 24,
         }) as Uint8Array
       )
@@ -215,7 +215,7 @@ export const ExamplePayloadCreateSponsoredAccountSr25519 = (): SiwfResponsePaylo
   type: 'addProvider',
   payload: {
     authorizedMsaId: 1,
-    schemaIds: [5, 7, 8, 9, 10],
+    intentIds: [5, 7, 8, 9, 10],
     expiration: 24,
   },
 });
@@ -225,7 +225,7 @@ export const ExamplePayloadCreateSponsoredAccountSecp256k1 = (): SiwfResponsePay
     algo: 'SECP256K1',
     encoding: 'base16',
     encodedValue:
-      '0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c',
+      '0x9af767304010928659a8d17ab3dc474c8b5c4f81c2035f819fff1337d1a5cc5f10ef72474d12b508ce4951c328a6667e82bea3624d4514cab152517ce552a5821b',
   },
   endpoint: {
     pallet: 'msa',
@@ -234,7 +234,7 @@ export const ExamplePayloadCreateSponsoredAccountSecp256k1 = (): SiwfResponsePay
   type: 'addProvider',
   payload: {
     authorizedMsaId: 1,
-    schemaIds: [5, 7, 8, 9, 10],
+    intentIds: [5, 7, 8, 9, 10],
     expiration: 24,
   },
 });
@@ -248,7 +248,7 @@ export const ExamplePayloadGrantDelegationSr25519 = (): SiwfResponsePayloadAddPr
       ExampleUserKeySr25519.keyPair().sign(
         serializeAddProviderPayloadHex('Sr25519', {
           authorizedMsaId: 1,
-          schemaIds: [5, 7, 8, 9, 10],
+          intentIds: [5, 7, 8, 9, 10],
           expiration: 24,
         }) as Uint8Array
       )
@@ -261,7 +261,7 @@ export const ExamplePayloadGrantDelegationSr25519 = (): SiwfResponsePayloadAddPr
   type: 'addProvider',
   payload: {
     authorizedMsaId: 1,
-    schemaIds: [5, 7, 8, 9, 10],
+    intentIds: [5, 7, 8, 9, 10],
     expiration: 24,
   },
 });
@@ -271,7 +271,7 @@ export const ExamplePayloadGrantDelegationSecp256k1 = (): SiwfResponsePayloadAdd
     algo: 'SECP256K1',
     encoding: 'base16',
     encodedValue:
-      '0xb3e41e53373649d089455965791c47f695f519eb21bd322febf04bd05f2b50b72c395c4490ac6cd0d108d0a77f625aea8b1f0096befc359936669d620f5aad7e1c',
+      '0x9af767304010928659a8d17ab3dc474c8b5c4f81c2035f819fff1337d1a5cc5f10ef72474d12b508ce4951c328a6667e82bea3624d4514cab152517ce552a5821b',
   },
   endpoint: {
     pallet: 'msa',
@@ -280,7 +280,7 @@ export const ExamplePayloadGrantDelegationSecp256k1 = (): SiwfResponsePayloadAdd
   type: 'addProvider',
   payload: {
     authorizedMsaId: 1,
-    schemaIds: [5, 7, 8, 9, 10],
+    intentIds: [5, 7, 8, 9, 10],
     expiration: 24,
   },
 });

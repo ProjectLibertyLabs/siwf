@@ -1,3 +1,5 @@
+// noinspection ES6PreferShortImport
+
 import { Keyring } from '@polkadot/keyring';
 import { encodeAddress } from '@polkadot/keyring';
 import { hexToU8a, u8aToHex } from '@polkadot/util';
@@ -34,7 +36,7 @@ export const VerifiedEmailAddressCredential = VerifiedEmailAddress.credential;
 export const VerifiedPhoneNumberCredential = VerifiedPhoneNumber.credential;
 
 /**
- * Request for a the private graph encryption key
+ * Request for the private graph encryption key
  */
 export const VerifiedGraphKeyCredential = VerifiedGraphKey.credential;
 
@@ -47,7 +49,7 @@ export const VerifiedRecoverySecretCredential = VerifiedRecoverySecret.credentia
  * Generates the hex of the payload for signing. Only for Sr25519
  *
  * @param {string} callbackUri - The URI that the user should return to after authenticating.
- * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
+ * @param {number[]} permissions - The list of Frequency Intent IDs that you are requesting the user to delegate. For more details, see [Frequency Intent Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {boolean} isBytesWrapped - Generate it with (default) or without the `<Bytes>` wrapping.
  *
  * @returns {string} The generated Authentication URL that can be used for authentication.
@@ -67,14 +69,15 @@ export function generateRequestSigningData(
 }
 
 /**
- * Generates the signed request for the authentication flow start.
+ * Generates the signed request that starts the authentication flow.
  *
  * @param {EncodingType} encodingType - The encoding type
  * @param {FormatType} formatType - The format type
  * @param {CurveType} keyType - The key type
+ * @param {ChainType} chainType - Mainnet, Testnet, or local dev chain
  * @param {string} providerKeyUriOrPrivateKey - The URI of a key, usually a seed phrase, but may also include test accounts such as `//Alice` or `//Bob`. * @param {string} callbackUri - The URI that the user should return to after authenticating. Or the private key in hex format for Ethereum keys.
  * @param callbackUri - The URI that the user should return to after authenticating.
- * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
+ * @param {number[]} permissions - The list of Frequency Intent IDs that you are requesting the user to delegate. For more details, see [Frequency Intent Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
  * @param applicationContext - To help users understand which application is asking them to sign in, a url can be provided as application context
@@ -141,7 +144,7 @@ export async function generateSignedRequest(
  * @param {string} signature - The hex string of the signed data.
  * @param {string} signerPublicKey - The hex or SS58 public key of the signer.
  * @param {string} callbackUri - The URI that the user should return to after authenticating.
- * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
+ * @param {number[]} permissions - The list of Frequency Intent IDs that you are requesting the user to delegate. For more details, see [Frequency Intent Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
  * @param applicationContext - To help users understand which application is asking them to sign in, a url can be provided as application context
@@ -203,9 +206,10 @@ export function buildSignedRequest(
  * @param {EncodingType} encodingType - The encoding type
  * @param {FormatType} formatType - The format type
  * @param {CurveType} keyType - The key type
+ * @param {ChainType} chainType - Mainnet, Testnet, or local dev chain
  * @param providerKeyUriOrPrivateKey - The URI of a key, usually a seed phrase, but may also include test accounts such as `//Alice` or `//Bob`. * @param {string} callbackUri - The URI that the user should return to after authenticating. Or the private key in hex format for Ethereum keys. * @param {string} callbackUri - The URI that the user should return to after authenticating.
  * @param callbackUri - The URI that the user should return to after authenticating.
- * @param {number[]} permissions - The list of Frequency Schemas IDs that you are requesting the user to delegate. For more details, see [Frequency Schemas Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
+ * @param {number[]} permissions - The list of Frequency Intent IDs that you are requesting the user to delegate. For more details, see [Frequency Intent Delegations](https://projectlibertylabs.github.io/siwf/v2/docs/Delegations.html).
  * @param {SiwfCredentialRequest[]} credentials - (Optional) List of credentials, either via their full structure. For more details, see [Credentials Reference](https://projectlibertylabs.github.io/siwf/v2/docs/Credentials.html).
  *
  * @param applicationContext - To help users understand which application is asking them to sign in, a url can be provided as application context

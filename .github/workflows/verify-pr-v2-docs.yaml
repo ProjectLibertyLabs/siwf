@@ -18,7 +18,7 @@ jobs:
         with:
           token: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Generator Tool - Install Node.js 22.x
+      - name: Generator Tool - Install Node.js
         uses: ./.github/workflows/common/setup-node-and-npm
         with:
           cache-dependency-path: |
@@ -50,4 +50,4 @@ jobs:
 
       - name: Build mdBook 📚
         working-directory: docs
-        run: npm i && mdbook build && ls book
+        run: npm ci && mdbook build && ls book
