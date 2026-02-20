@@ -6,24 +6,35 @@
     --font-sans: 'Poppins', sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-gray-200: oklch(92.8% 0.006 264.531);
-    --color-black: #242527;
-    --color-white: #ffffff;
+    --color-black: var(--black);
+    --color-white: var(--white);
     --spacing: 0.25rem;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
-    --color-primary: #790e70;
-    --color-purple50: #bc86b7;
-    --color-purple75: #ddc3db;
-    --color-darkPurple: #331e49;
-    --color-secondary: #ff9a02;
-    --color-warning: #f99a2a;
-    --color-gray1: #717171;
-    --color-gray2: #8b8b8b;
-    --color-gray3: #dbdbdb;
-    --color-cream: #fcf3e4;
+    --primary: #790e70;
+    --purple50: #bc86b7;
+    --purple75: #ddc3db;
+    --darkPurple: #331e49;
+    --secondary: #ff9a02;
+    --warning: #f99a2a;
+    --black: #242527;
+    --gray1: #717171;
+    --gray2: #8b8b8b;
+    --gray3: #dbdbdb;
+    --white: #ffffff;
+    --cream: #fcf3e4;
+    --color-primary: var(--primary);
+    --color-purple50: var(--purple50);
+    --color-purple75: var(--purple75);
+    --color-darkPurple: var(--darkPurple);
+    --color-secondary: var(--secondary);
+    --color-warning: var(--warning);
+    --color-gray1: var(--gray1);
+    --color-gray2: var(--gray2);
+    --color-gray3: var(--gray3);
+    --color-cream: var(--cream);
     --text-h0: 70px;
     --text-h1: 56px;
     --text-h2: 48px;
@@ -31,12 +42,12 @@
     --text-h4: 32px;
     --text-h5: 24px;
     --text-h6: 20px;
-    --spacing-h0: 70px;
+    --spacing-h0: 91px;
     --spacing-h1: 61px;
     --spacing-h2: 52px;
     --spacing-h3: 44px;
     --spacing-h4: 35px;
-    --spacing-h5: 26px;
+    --spacing-h5: 30px;
     --spacing-h6: 22px;
   }
 }
@@ -293,6 +304,9 @@
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
+  .running {
+    animation-play-state: running;
+  }
   .md\:w-auto {
     @media (width >= 744px) {
       width: auto;
@@ -301,7 +315,7 @@
 }
 @layer base {
   *, ::after, ::before, ::backdrop, ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--color-gray2, currentcolor);
   }
 }
 @layer base {
@@ -339,6 +353,19 @@
     font-size: var(--text-h6);
     --tw-leading: var(--spacing-h6);
     line-height: var(--spacing-h6);
+  }
+}
+@layer base {
+  * {
+    border-color: var(--gray3);
+    outline-color: color-mix(in srgb, #790e70 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      outline-color: color-mix(in oklab, var(--primary) 50%, transparent);
+    }
+  }
+  body {
+    background-color: var(--clear);
+    color: var(--clear);
   }
 }
 .header-shadow {
@@ -429,6 +456,18 @@
   margin-bottom: 1em;
   margin-left: 0;
   margin-right: 0;
+}
+@keyframes enter {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0) scale3d(var(--tw-enter-scale, 1), var(--tw-enter-scale, 1), var(--tw-enter-scale, 1)) rotate(var(--tw-enter-rotate, 0));
+  }
+}
+@keyframes exit {
+  to {
+    opacity: var(--tw-exit-opacity, 1);
+    transform: translate3d(var(--tw-exit-translate-x, 0), var(--tw-exit-translate-y, 0), 0) scale3d(var(--tw-exit-scale, 1), var(--tw-exit-scale, 1), var(--tw-exit-scale, 1)) rotate(var(--tw-exit-rotate, 0));
+  }
 }
 @property --tw-rotate-x {
   syntax: "*";
